@@ -1,0 +1,25 @@
+{
+  "artworks": [
+    {
+      "id": "consciousness-portal",
+      "title": "Consciousness Portal",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "200 x 150 cm",
+      "price": 15000,
+      "category": "paintings",
+      "subjects": ["consciousness", "landscape", "mystical"],
+      "exhibitions": ["The Fertile Ascent"],
+      "available": true,
+      "featured": true,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/consciousness-portal.jpg",
+        "medium": "images/artworks/medium/consciousness-portal.jpg",
+        "large": "images/artworks/large/consciousness-portal.jpg"
+      },
+      "description": "A journey through consciousness rendered in vibrant oils, exploring the liminal spaces between waking and dreaming.",
+      "dateAdded": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
