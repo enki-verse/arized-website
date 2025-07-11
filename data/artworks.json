@@ -8,8 +8,14 @@
       "dimensions": "200 x 150 cm",
       "price": 15000,
       "category": "paintings",
-      "subjects": ["consciousness", "landscape", "mystical"],
-      "exhibitions": ["The Fertile Ascent"],
+      "subjects": [
+        "consciousness",
+        "landscape",
+        "mystical"
+      ],
+      "exhibitions": [
+        "The Fertile Ascent"
+      ],
       "available": true,
       "featured": true,
       "forSale": true,
@@ -20,6 +26,29 @@
       },
       "description": "A journey through consciousness rendered in vibrant oils, exploring the liminal spaces between waking and dreaming.",
       "dateAdded": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": "the-fairy-raid-230cm-140cm",
+      "title": "The Fairy Raid 230cm 140cm",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "230 x 140 cm",
+      "price": 5700,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": true,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-fairy-raid-230cm-140cm.jpg",
+        "medium": "images/artworks/medium/the-fairy-raid-230cm-140cm.jpg",
+        "large": "images/artworks/large/the-fairy-raid-230cm-140cm.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-11T03:17:54.606Z"
     }
   ]
 }
