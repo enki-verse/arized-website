@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Ari Zed - Visionary Artist</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
-
   <style>
     :root{--accent-gold:#DAA520}
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Inter',sans-serif;background:#000;color:#fff;overflow-x:hidden}
     .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-    #parallaxContainer{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
-    #parallaxCanvas{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* depth canvas container */
+    #depthContainer{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+    #depthCanvas{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* text & menu */
     .hero-content{position:relative;z-index:2;text-align:center}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:300;letter-spacing:.1em;margin-bottom:20px}
     .tagline{font-size:clamp(1rem,2vw,1.5rem);color:var(--accent-gold)}
@@ -36,7 +39,7 @@
   </ul>
 
   <div class="hero">
-    <div id="parallaxContainer"></div>
+    <div id="depthContainer"></div>
 
     <div class="menu-toggle" id="menuToggle">
       <span></span><span></span><span></span>
@@ -50,54 +53,83 @@
     <p class="coming-soon">Full website coming soon</p>
   </div>
 
-  <!-- Pixi v7 Assets API -->
-  <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+  <!-- Pixi v4.5 (the version you know works) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
   <script>
-    const FG_URL   = "https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png";
-    const DEPTH_URL= "https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png";
+    const FG_URL   = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png';
+    const DEPTH_URL= 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png';
 
-    const container = document.getElementById('parallaxContainer');
-    const app = new PIXI.Application({ width:innerWidth, height:innerHeight, view:document.createElement('canvas'), autoDensity:true, resolution:window.devicePixelRatio||1 });
-    container.appendChild(app.view);
-    app.view.id='parallaxCanvas';
+    const container = document.getElementById('depthContainer');
+    const renderer  = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, { transparent: true, autoResize: true });
+    container.appendChild(renderer.view);
+    renderer.view.id = 'depthCanvas';
 
-    /* load both images with Assets API */
-    PIXI.Assets.load([FG_URL, DEPTH_URL]).then(textures=>{
-      const [fgTex, depthTex] = textures;
-      const fg = new PIXI.Sprite(fgTex);
-      const depth = new PIXI.Sprite(depthTex);
-      resizeSprite(fg); resizeSprite(depth);
+    const stage = new PIXI.Container();
+    const loader = new PIXI.loaders.Loader();
+    loader
+      .add('fg', FG_URL)
+      .add('depth', DEPTH_URL)
+      .load(init);
 
-      const dispFilter = new PIXI.filters.DisplacementFilter(depth);
+    let fg, dispFilter;
+
+    function init() {
+      const texture = loader.resources.fg.texture;
+      fg = new PIXI.Sprite(texture);
+      const scale = Math.max(window.innerWidth / texture.width, window.innerHeight / texture.height);
+      fg.scale.set(scale);
+      fg.x = (window.innerWidth - fg.width) / 2;
+      fg.y = (window.innerHeight - fg.height) / 2;
+      stage.addChild(fg);
+
+      const depthSprite = new PIXI.Sprite(loader.resources.depth.texture);
+      depthSprite.scale.set(scale);
+      depthSprite.x = fg.x;
+      depthSprite.y = fg.y;
+
+      dispFilter = new PIXI.filters.DisplacementFilter(depthSprite, 0);
       fg.filters = [dispFilter];
-      app.stage.addChild(fg);
-      depth.renderable = false;
-      app.stage.addChild(depth);
 
-      window.addEventListener('resize', ()=>{
-        app.renderer.resize(innerWidth,innerHeight);
-        resizeSprite(fg); resizeSprite(depth);
-      });
-      window.addEventListener('mousemove', e=>{
-        dispFilter.scale.set((e.clientX-innerWidth/2)/60, (e.clientY-innerHeight/2)/60);
-      });
-      window.addEventListener('deviceorientation', e=>{
-        if (e.beta && e.gamma) dispFilter.scale.set(e.gamma*2, e.beta*2);
-      });
-    });
+      stage.addChild(depthSprite);
+      depthSprite.renderable = false;
 
-    function resizeSprite(s){
-      const scale = Math.max(innerWidth/s.texture.width, innerHeight/s.texture.height);
-      s.scale.set(scale);
-      s.x = (innerWidth - s.width)/2;
-      s.y = (innerHeight - s.height)/2;
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', onPointer);
+      window.addEventListener('deviceorientation', onGyro);
+
+      animate();
+    }
+
+    function resize() {
+      renderer.resize(window.innerWidth, window.innerHeight);
+      const scale = Math.max(window.innerWidth / fg.texture.width, window.innerHeight / fg.texture.height);
+      fg.scale.set(scale);
+      fg.x = (window.innerWidth - fg.width) / 2;
+      fg.y = (window.innerHeight - fg.height) / 2;
+    }
+
+    function onPointer(e) {
+      dispFilter.scale.x = (window.innerWidth / 2 - e.clientX) / 30;
+      dispFilter.scale.y = (window.innerHeight / 2 - e.clientY) / 30;
+    }
+
+    function onGyro(e) {
+      if (e.beta && e.gamma) {
+        dispFilter.scale.x = e.gamma * 3;
+        dispFilter.scale.y = e.beta  * 3;
+      }
+    }
+
+    function animate() {
+      renderer.render(stage);
+      requestAnimationFrame(animate);
     }
 
     /* nav toggle */
-    document.addEventListener('DOMContentLoaded',()=>{
+    document.addEventListener('DOMContentLoaded', () => {
       const menu = document.getElementById('menuToggle');
       const nav  = document.getElementById('navMenu');
-      menu.addEventListener('click',()=>nav.classList.toggle('active'));
+      menu.addEventListener('click', () => nav.classList.toggle('active'));
     });
   </script>
 </body>
