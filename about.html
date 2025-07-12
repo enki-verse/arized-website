@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Ari Zed</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Page-specific styles */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: var(--white);
+            padding: 6rem 0 4rem 0;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--accent-gold);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section {
+            margin-bottom: 3rem;
+        }
+
+        .about-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: var(--primary-brown);
+        }
+
+        .about-section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .philosophy-box {
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .philosophy-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .vision-section {
+            background: var(--background-cream);
+            padding: 3rem 2rem;
+            margin: 3rem -2rem;
+            text-align: center;
+        }
+
+        .cta-section {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+            margin: 3rem -2rem;
+            text-align: center;
+        }
+
+        .cta-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-hero .tagline {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vision-section,
+            .cta-section {
+                margin: 3rem -1rem;
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="/" class="logo">ARI ZED</a>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/artworks.html">ARTWORKS</a></li>
+                <li><a href="/about.html" class="active">ABOUT</a></li>
+                <li><a href="/contact.html">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About Ari Zed</h1>
+            <p class="tagline">Reality Creation Artist • Consciousness Explorer • Visionary</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="section">
+        <div class="container">
+            <div class="about-content">
+                
+                <!-- Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">20</span>
+                        <span class="stat-label">Years Painting</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">37</span>
+                        <span class="stat-label">Years of Life</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Possibilities</span>
+                    </div>
+                </div>
+
+                <!-- Origin Story -->
+                <div class="about-section">
+                    <h2>The Journey Begins</h2>
+                    <p>From the Victorian bush of Australia emerged a vision that would challenge the very nature of reality itself. What started as world-building through fantasy roleplaying evolved into something far more profound—a rejection of the conventional suburban path that society calls "normal" but I recognized as being "asleep at the wheel."</p>
+                    
+                    <p>Through two decades of dedicated practice, I've mastered the visionary techniques of active imagination and mystical experience, developing what I call "psychic landscape painting"—artworks that don't just depict reality, but actively seduce viewers into expanded states of consciousness.</p>
+                </div>
+
+                <!-- Philosophy Box -->
+                <div class="philosophy-box">
+                    <h3>The Magician's Castle</h3>
+                    <p>My work is grounded in the understanding that consciousness is primary—the material world is merely its extrinsic appearance. Through art, I create bridges between mind and matter, helping others construct their own "reality tunnels" that maximize personal freedom and authentic expression.</p>
+                    
+                    <p>We are not here to escape the body, but to embody mind into understanding. Each painting becomes a doorway, each brushstroke a conscious act of reality creation.</p>
+                </div>
+
+                <!-- Artistic Practice -->
+                <div class="about-section">
+                    <h2>Artistic Practice</h2>
+                    <p>My paintings explore the liminal spaces where consciousness meets form—figurative works that blend sci-fi mysticism with deep psychological insight. Themes of transformation, eroticism, apocalypse, and consciousness expansion weave through canvases that range from intimate 50cm pieces to epic 200cm+ works designed to completely transform the viewer's perceptual field.</p>
+                    
+                    <p>Working primarily in oils, I create what I call "psychic landscapes"—paintings that function as visual technologies for consciousness expansion. Each piece is designed not just to be viewed, but to be experienced as a gateway into expanded states of awareness.</p>
+                </div>
+
+                <!-- Vision Section -->
+                <div class="vision-section">
+                    <h2>The Fertile Ascent</h2>
+                    <p>My mission extends beyond individual artworks toward something revolutionary: the creation of temple-communities where consciousness evolution becomes a lived reality. This is "The Fertile Ascent"—a movement toward post-rational consciousness through the integration of art, philosophy, and community.</p>
+                    
+                    <p>Currently based in Hamilton Hill, Western Australia, I'm working toward establishing a creative sanctuary where visionaries and consciousness explorers can gather, create, and push the boundaries of what it means to be human in the 21st century.</p>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="cta-section">
+                    <h3>Join the Journey</h3>
+                    <p>Whether you're a collector seeking artworks that transform spaces and consciousness, or a fellow reality hacker ready to explore the frontiers of human potential, I invite you to connect with this expanding vision.</p>
+                    <a href="/contact.html" class="btn">Get In Touch</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ari Zed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
