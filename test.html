@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ari Zed - Visionary Artist</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-gold: #DAA520;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#000;color:#fff;overflow-x:hidden}
+        .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+
+        /* depth-parallax canvas */
+        #parallaxContainer{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+        #parallaxCanvas{display:block;width:100%;height:100%;object-fit:cover}
+
+        /* text & menu */
+        .hero-content{position:relative;z-index:2;text-align:center}
+        h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:300;letter-spacing:.1em;margin-bottom:20px}
+        .tagline{font-size:clamp(1rem,2vw,1.5rem);color:var(--accent-gold)}
+        .menu-toggle{position:fixed;top:30px;right:30px;z-index:1000;cursor:pointer;display:flex;flex-direction:column;padding:.5rem}
+        .menu-toggle span{width:30px;height:2px;background:#fff;margin:6px 0;transition:.3s}
+        .nav-menu{position:fixed;top:0;right:-100%;width:300px;height:100vh;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;align-items:center;transition:right .3s ease;z-index:999;list-style:none}
+        .nav-menu.active{right:0}
+        .nav-menu li{margin:1.5rem 0}
+        .nav-menu a{color:#fff;text-decoration:none;font-size:1.2rem;letter-spacing:.1em;text-transform:uppercase}
+        .nav-menu a:hover{color:var(--accent-gold)}
+        .coming-soon{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.7)}
+    </style>
+</head>
+<body>
+
+    <!-- Navigation overlay -->
+    <ul class="nav-menu" id="navMenu">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/artworks.html">ARTWORKS</a></li>
+        <li><a href="/about.html">ABOUT</a></li>
+        <li><a href="/contact.html">CONTACT</a></li>
+    </ul>
+
+    <div class="hero">
+        <div id="parallaxContainer"></div>
+
+        <div class="menu-toggle" id="menuToggle">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="hero-content">
+            <h1>ARI ZED</h1>
+            <p class="tagline">Visionary Artist · Reality Creator</p>
+        </div>
+
+        <p class="coming-soon">Full website coming soon</p>
+    </div>
+
+    <!-- PIXI -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+    <script>
+        /* ---------- images ---------- */
+        const FG_URL   = "https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png";
+        const DEPTH_URL= "https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png";
+
+        /* ---------- PIXI setup ---------- */
+        const container = document.getElementById('parallaxContainer');
+        const app = new PIXI.Application({ width: innerWidth, height: innerHeight, view: document.createElement('canvas'), autoDensity:true, resolution: devicePixelRatio||1 });
+        container.appendChild(app.view);
+        app.view.id = 'parallaxCanvas';
+
+        const loader = new PIXI.Loader();
+        loader.add('img', FG_URL).add('depth', DEPTH_URL).load((ldr,res)=>{
+            const fg = new PIXI.Sprite(res.img.texture);
+            const depth = new PIXI.Sprite(res.depth.texture);
+            resizeSprite(fg); resizeSprite(depth);
+            const dispFilter = new PIXI.filters.DisplacementFilter(depth);
+            fg.filters=[dispFilter];
+            app.stage.addChild(fg);
+            depth.renderable=false;
+            app.stage.addChild(depth);
+
+            window.addEventListener('resize',()=>{app.renderer.resize(innerWidth,innerHeight);resizeSprite(fg);resizeSprite(depth)});
+            window.addEventListener('mousemove',e=>dispFilter.scale.set((e.clientX-innerWidth/2)/60,(e.clientY-innerHeight/2)/60));
+            window.addEventListener('deviceorientation',e=>{
+                if(e.beta&&e.gamma) dispFilter.scale.set(e.gamma*2,e.beta*2);
+            });
+        });
+        function resizeSprite(s){
+            const scale = Math.max(innerWidth/s.texture.width, innerHeight/s.texture.height);
+            s.scale.set(scale);
+            s.x=(innerWidth-s.width)/2;
+            s.y=(innerHeight-s.height)/2;
+        }
+
+        /* ---------- nav toggle ---------- */
+        document.addEventListener('DOMContentLoaded',()=>{
+            const menu = document.getElementById('menuToggle');
+            const nav  = document.getElementById('navMenu');
+            menu.addEventListener('click',()=>nav.classList.toggle('active'));
+        });
+    </script>
+</body>
+</html>
