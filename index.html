@@ -176,18 +176,9 @@
             font-size: 14px;
         }
 
-        /* Temporary styles - will be replaced */
-        .admin-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.3);
-            text-decoration: none;
-        }
-
-        .admin-link:hover {
-            color: rgba(255,255,255,0.6);
+        /* Menu placeholder - will be replaced with real navigation */
+        .menu-toggle:hover span {
+            background: var(--accent-gold);
         }
     </style>
 </head>
@@ -213,14 +204,11 @@
         <p class="coming-soon">Full website coming soon</p>
     </div>
 
-    <!-- Temporary admin link - remove when menu is built -->
-    <a href="/admin/" class="admin-link">Admin</a>
-
     <script>
         // Configuration
         const GITHUB_REPO = 'enki-verse/arized-website'; // Update this to match your repo
         const SLIDE_DURATION = 5000; // 5 seconds per slide
-        const IS_PRIVATE_REPO = false; // Set to true if your repo is private
+        const IS_PRIVATE_REPO = false; // Set to false since repo is now public
         
         let featuredArtworks = [];
         let currentSlide = 0;
@@ -356,7 +344,7 @@
 
         // Simple menu toggle animation (placeholder)
         document.querySelector('.menu-toggle').addEventListener('click', function() {
-            alert('Menu coming soon! Visit /admin/ to upload artworks.');
+            alert('Gallery and navigation coming soon!');
         });
 
         // Initialize on load
