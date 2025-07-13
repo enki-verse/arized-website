@@ -75,7 +75,8 @@
     let fg, dispFilter;
     let mouseX = 0, mouseY = 0, gyroX = 0, gyroY = 0;
     let useGyro = false;
-
+    let baseBeta = 0;
+    let baseGamma = 0;
     function init(){
       /* foreground image */
       fg = new PIXI.Sprite(loader.resources.fg.texture);
@@ -125,11 +126,17 @@
     }
 
     function onGyro(e){
-      if (useGyro && e.beta !== null && e.gamma !== null){
-        gyroX = e.gamma * 3;
-        gyroY = e.beta  * 3;
-      }
-    }
+  if (!gyroEnabled) return;
+  // Capture the very first reading as the zero point
+  if (baseBeta === 0 && baseGamma === 0){
+    baseBeta = e.beta || 0;
+    baseGamma = e.gamma || 0;
+  }
+  const deltaBeta = (e.beta  || 0) - baseBeta;
+  const deltaGamma = (e.gamma || 0) - baseGamma;
+  gyroX = deltaGamma * 3;   // same scale as before
+  gyroY = deltaBeta  * 3;
+}
 
     function animate(){
       const x = useGyro ? gyroX : mouseX;
