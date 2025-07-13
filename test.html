@@ -31,7 +31,6 @@
     .nav-menu a:hover{color:var(--accent-gold)}
 
     .coming-soon{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.7)}
-
     .zoom-blur{animation:zB .8s forwards}
     @keyframes zB{0%{transform:scale(1) translateZ(0);filter:blur(0)}100%{transform:scale(1.35) translateZ(100px);filter:blur(5px)}}
   </style>
@@ -78,7 +77,6 @@
     let baseGamma = null;
 
     function init(){
-      /* foreground */
       fg = new PIXI.Sprite(loader.resources.fg.texture);
       const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
       fg.scale.set(scale);
@@ -86,7 +84,6 @@
       fg.y = (window.innerHeight - fg.height)/2;
       stage.addChild(fg);
 
-      /* depth map → displacement filter */
       const d = new PIXI.Sprite(loader.resources.depth.texture);
       d.scale.set(scale); d.x=fg.x; d.y=fg.y;
       dispFilter = new PIXI.filters.DisplacementFilter(d,0);
@@ -97,7 +94,7 @@
       window.addEventListener('mousemove', onMouse);
       window.addEventListener('deviceorientation', onGyro);
 
-      /* permission + enable gyro (desktop/Android) */
+      /* permission & gyro enable */
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
         window.addEventListener('devicemotion', ()=>{
           DeviceOrientationEvent.requestPermission().then(state=>{
@@ -126,7 +123,7 @@
 
     function onGyro(e){
       if (useGyro){
-        if (baseBeta === null) baseBeta  = e.beta  || 0;
+        if (baseBeta === null)  baseBeta  = e.beta  || 0;
         if (baseGamma === null) baseGamma = e.gamma || 0;
         const deltaBeta  = (e.beta  || 0) - baseBeta;
         const deltaGamma = (e.gamma || 0) - baseGamma;
