@@ -10,7 +10,16 @@
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Inter',sans-serif;background:#000;color:#fff;overflow-x:hidden;height:100vh}
     .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+
+    /* === DESKTOP (Pixi) === */
     #pixiCanvas{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    /* === MOBILE (CSS) === */
+    #mobileParallax{
+      position:absolute;top:-10%;left:-10%;width:120%;height:120%;
+      background:url('https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png') center/cover no-repeat;
+      will-change:transform;
+      transition:transform .2s ease-out;
+    }
 
     .hero-content{position:relative;z-index:2;text-align:center;cursor:pointer;user-select:none}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:300;letter-spacing:.1em;text-shadow:0 4px 12px rgba(0,0,0,.7)}
@@ -45,7 +54,10 @@
   </ul>
 
   <div class="hero">
+    <!-- DESKTOP (Pixi) -->
     <canvas id="pixiCanvas"></canvas>
+    <!-- MOBILE (CSS) -->
+    <div id="mobileParallax" style="display:none;position:absolute;top:-10%;left:-10%;width:120%;height:120%;background:url('https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png') center/cover no-repeat;will-change:transform;transition:transform .2s ease-out;"></div>
 
     <div class="menu-toggle" id="menuToggle">
       <span></span><span></span><span></span>
@@ -59,88 +71,89 @@
     <p class="coming-soon">Full website coming soon</p>
   </div>
 
+  <!-- Pixi only for desktop -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
   <script>
-    const FG_URL   = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png';
-    const DEPTH_URL= 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png';
+    /* ---------- detection ---------- */
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const canvas   = document.getElementById('pixiCanvas');
+    const mobileBg = document.getElementById('mobileParallax');
 
-    const canvas  = document.getElementById('pixiCanvas');
-    const renderer = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, { view:canvas, transparent:true, autoResize:true });
-    const stage    = new PIXI.Container();
-    const loader   = new PIXI.loaders.Loader();
-    loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(init);
+    /* ---------- DESKTOP (Pixi) ---------- */
+    if (!isMobile){
+      const FG_URL   = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png';
+      const DEPTH_URL= 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png';
 
-    let fg, dispFilter;
-    let mouseX = 0, mouseY = 0, gyroX = 0, gyroY = 0;
-    let useGyro = false;
-    let baseBeta  = null;
-    let baseGamma = null;
+      const renderer = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, { view:canvas, transparent:true, autoResize:true });
+      const stage    = new PIXI.Container();
+      const loader   = new PIXI.loaders.Loader();
+      loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(initPixi);
 
-    function init(){
-      fg = new PIXI.Sprite(loader.resources.fg.texture);
-      const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
-      fg.scale.set(scale);
-      fg.x = (window.innerWidth - fg.width)/2;
-      fg.y = (window.innerHeight - fg.height)/2;
-      stage.addChild(fg);
+      let fg, dispFilter;
+      function initPixi(){
+        fg = new PIXI.Sprite(loader.resources.fg.texture);
+        const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
+        fg.scale.set(scale);
+        fg.x = (window.innerWidth - fg.width)/2;
+        fg.y = (window.innerHeight - fg.height)/2;
+        stage.addChild(fg);
 
-      const d = new PIXI.Sprite(loader.resources.depth.texture);
-      d.scale.set(scale); d.x=fg.x; d.y=fg.y;
-      dispFilter = new PIXI.filters.DisplacementFilter(d,0);
-      fg.filters=[dispFilter];
-      stage.addChild(d); d.renderable=false;
+        const d = new PIXI.Sprite(loader.resources.depth.texture);
+        d.scale.set(scale); d.x=fg.x; d.y=fg.y;
+        dispFilter = new PIXI.filters.DisplacementFilter(d,0);
+        fg.filters=[dispFilter];
+        stage.addChild(d); d.renderable=false;
 
-      window.addEventListener('resize', resize);
-      window.addEventListener('mousemove', onMouse);
-      window.addEventListener('deviceorientation', onGyro);
+        window.addEventListener('resize', ()=>{
+          renderer.resize(window.innerWidth,window.innerHeight);
+          const s = Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
+          fg.scale.set(s); d.scale.set(s);
+          fg.x = d.x = (window.innerWidth - fg.width)/2;
+          fg.y = d.y = (window.innerHeight - fg.height)/2;
+        });
 
-      /* permission & gyro enable */
-      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
-        window.addEventListener('devicemotion', ()=>{
-          DeviceOrientationEvent.requestPermission().then(state=>{
-            if (state === 'granted') useGyro = true;
-          });
-        }, { once:true });
-      } else {
-        useGyro = true;
+        window.addEventListener('mousemove', e=>{
+          dispFilter.scale.x = (window.innerWidth/2 - e.clientX)/30;
+          dispFilter.scale.y = (window.innerHeight/2 - e.clientY)/30;
+        });
+
+        function animatePixi(){
+          renderer.render(stage);
+          requestAnimationFrame(animatePixi);
+        }
+        animatePixi();
       }
-
-      animate();
     }
 
-    function resize(){
-      renderer.resize(window.innerWidth, window.innerHeight);
-      const s = Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
-      fg.scale.set(s); d.scale.set(s);
-      fg.x = d.x = (window.innerWidth - fg.width)/2;
-      fg.y = d.y = (window.innerHeight - fg.height)/2;
-    }
+    /* ---------- MOBILE (CSS) ---------- */
+    else {
+      canvas.style.display = 'none';
+      mobileBg.style.display = 'block';
 
-    function onMouse(e){
-      mouseX = (window.innerWidth/2 - e.clientX)/30;
-      mouseY = (window.innerHeight/2 - e.clientY)/30;
-    }
+      let baseBeta  = null;
+      let baseGamma = null;
 
-    function onGyro(e){
-      if (useGyro){
+      function onGyro(e){
         if (baseBeta === null)  baseBeta  = e.beta  || 0;
         if (baseGamma === null) baseGamma = e.gamma || 0;
         const deltaBeta  = (e.beta  || 0) - baseBeta;
         const deltaGamma = (e.gamma || 0) - baseGamma;
-        gyroX = deltaGamma * 3;
-        gyroY = deltaBeta  * 3;
+        mobileBg.style.transform = `translate3d(${deltaGamma * 3}px, ${deltaBeta * 3}px, 0)`;
+      }
+
+      /* permission on first motion */
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+        window.addEventListener('devicemotion', ()=>{
+          DeviceOrientationEvent.requestPermission().then(state=>{
+            if (state === 'granted') window.addEventListener('deviceorientation', onGyro);
+          });
+        }, { once:true });
+      } else {
+        window.addEventListener('deviceorientation', onGyro);
       }
     }
 
-    function animate(){
-      const x = useGyro ? gyroX : mouseX;
-      const y = useGyro ? gyroY : mouseY;
-      dispFilter.scale.set(x,y);
-      renderer.render(stage);
-      requestAnimationFrame(animate);
-    }
-
-    /* nav toggle */
+    /* ---------- common ---------- */
     const menuToggle = document.getElementById('menuToggle');
     const navMenu    = document.getElementById('navMenu');
     menuToggle.addEventListener('click', ()=>{
@@ -148,10 +161,8 @@
       navMenu.classList.toggle('active');
     });
 
-    /* text = gallery button */
-    const hero = document.querySelector('.hero');
     document.getElementById('textBlock').addEventListener('click', ()=>{
-      hero.classList.add('zoom-blur');
+      document.querySelector('.hero').classList.add('zoom-blur');
       setTimeout(()=> window.location.href='artworks.html', 750);
     });
   </script>
