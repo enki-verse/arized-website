@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ari Zed – Panoramic View</title>
+  <title>Ari Zed – 360° Panorama</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -13,21 +13,12 @@
 </head>
 <body>
   <div id="viewer"></div>
-  <button id="startBtn">Tap to enter 360° view</button>
+  <button id="startBtn">Tap to enable gyro</button>
 
-  <!-- A-Frame VR framework -->
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script>
     const btn = document.getElementById('startBtn');
-    const scene = document.createElement('a-scene');
-    scene.setAttribute('embedded','');
-    scene.innerHTML = `
-      <a-assets>
-        <img id="pano" src="https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png" crossorigin="anonymous">
-      </a-assets>
-      <a-sky src="#pano" rotation="0 -90 0"></a-sky>
-      <a-camera wasd-controls-enabled="false" look-controls="true"></a-camera>
-    `;
 
     btn.addEventListener('click', async () => {
       /* iOS 13+ permission */
@@ -35,7 +26,15 @@
         const res = await DeviceOrientationEvent.requestPermission();
         if (res !== 'granted') return;
       }
-      document.body.removeChild(btn);
+      btn.style.display='none';
+
+      /* create scene once permission granted */
+      const scene = document.createElement('a-scene');
+      scene.setAttribute('embedded','');
+      scene.innerHTML = `
+        <a-sky color="#1a1a2e" material="src: #skyTexture"></a-sky>
+        <a-camera wasd-controls-enabled="false"></a-camera>
+      `;
       document.body.appendChild(scene);
     });
   </script>
