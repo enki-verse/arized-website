@@ -125,26 +125,31 @@
       mouseY = (window.innerHeight/2 - e.clientY)/30;
     }
 
-    function onGyro(e){
+    /* ---------- gyro zero-point + movement ---------- */
+let baseBeta  = null;
+let baseGamma = null;
+
+function onGyro(e){
   if (!gyroEnabled) return;
-  // Capture the very first reading as the zero point
-  if (baseBeta === 0 && baseGamma === 0){
-    baseBeta = e.beta || 0;
-    baseGamma = e.gamma || 0;
-  }
-  const deltaBeta = (e.beta  || 0) - baseBeta;
+
+  /* first frame = zero */
+  if (baseBeta === null) baseBeta  = e.beta  || 0;
+  if (baseGamma === null) baseGamma = e.gamma || 0;
+
+  const deltaBeta  = (e.beta  || 0) - baseBeta;
   const deltaGamma = (e.gamma || 0) - baseGamma;
-  gyroX = deltaGamma * 3;   // same scale as before
+
+  gyroX = deltaGamma * 3;
   gyroY = deltaBeta  * 3;
 }
 
-    function animate(){
-      const x = useGyro ? gyroX : mouseX;
-      const y = useGyro ? gyroY : mouseY;
-      dispFilter.scale.set(x,y);
-      renderer.render(stage);
-      requestAnimationFrame(animate);
-    }
+function animate(){
+  const x = useGyro ? gyroX : mouseX;
+  const y = useGyro ? gyroY : mouseY;
+  dispFilter.scale.set(x,y);
+  renderer.render(stage);
+  requestAnimationFrame(animate);
+}
 
     /* nav toggle */
     const menuToggle = document.getElementById('menuToggle');
