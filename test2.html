@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ari Zed – Desktop</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent-gold:#daa520}*{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#000;color:#fff;height:100vh}
+    .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    #pixiCanvas{position:absolute;top:0;left:0;width:100%;height:100%}
+    .hero-content{position:relative;z-index:2;text-align:center;cursor:pointer}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:300;text-shadow:0 4px 12px rgba(0,0,0,.7)}
+    .tagline{font-size:clamp(1rem,2vw,1.5rem);color:var(--accent-gold);text-shadow:0 2px 8px rgba(0,0,0,.6)}
+    .hero-content:hover h1{text-shadow:0 0 12px var(--accent-gold),0 0 24px var(--accent-gold)}
+    .hero-content:hover .tagline{text-shadow:0 0 8px var(--accent-gold)}
+    .menu-toggle{position:fixed;top:30px;right:30px;z-index:1000;cursor:pointer;padding:.5rem;display:flex;flex-direction:column;gap:6px}
+    .menu-toggle span{width:30px;height:2px;background:#fff;transition:.3s}
+    .menu-toggle.open span:nth-child(1){transform:rotate(-45deg) translate(-5px,5px)}
+    .menu-toggle.open span:nth-child(2){opacity:0}
+    .menu-toggle.open span:nth-child(3){transform:rotate(45deg) translate(-5px,-5px)}
+    .nav-menu{position:fixed;top:0;right:-100%;width:300px;height:100vh;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;align-items:center;transition:right .3s ease;z-index:999;list-style:none}
+    .nav-menu.active{right:0}
+    .nav-menu li{margin:1.5rem 0}
+    .nav-menu a{color:#fff;text-decoration:none;font-size:1.2rem;letter-spacing:.1em;text-transform:uppercase}
+    .nav-menu a:hover{color:var(--accent-gold)}
+    .coming-soon{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.7)}
+    .zoom-blur{animation:zB .8s forwards}
+    @keyframes zB{0%{transform:scale(1) translateZ(0);filter:blur(0)}100%{transform:scale(1.35) translateZ(100px);filter:blur(5px)}}
+  </style>
+  <script>
+    /***** auto-redirect mobile *****/
+    if (/iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+      window.location.replace('mobile.html');
+  </script>
+</head>
+<body>
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="/">HOME</a></li><li><a href="/artworks.html">ARTWORKS</a></li><li><a href="/about.html">ABOUT</a></li><li><a href="/contact.html">CONTACT</a></li>
+  </ul>
+
+  <div class="hero">
+    <canvas id="pixiCanvas"></canvas>
+
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-content" id="textBlock">
+      <h1>ARI ZED</h1>
+      <p class="tagline">Visionary Artist · Reality Creator</p>
+    </div>
+
+    <p class="coming-soon">Full website coming soon</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
+  <script>
+    const FG_URL='https://arized.art/depth/1.jpg';
+    const DEPTH_URL='https://arized.art/depth/1depth.png';
+
+    const canvas   = document.getElementById('pixiCanvas');
+    const renderer = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, {view:canvas,transparent:true,autoResize:true});
+    const stage    = new PIXI.Container();
+    const loader   = new PIXI.loaders.Loader();
+    loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(init);
+
+    let fg, dispFilter;
+    function init(){
+      fg = new PIXI.Sprite(loader.resources.fg.texture);
+      const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
+      fg.scale.set(scale);
+      fg.x = (window.innerWidth - fg.width)/2;
+      fg.y = (window.innerHeight - fg.height)/2;
+      stage.addChild(fg);
+
+      const d = new PIXI.Sprite(loader.resources.depth.texture);
+      d.scale.set(scale); d.x=fg.x; d.y=fg.y;
+      dispFilter = new PIXI.filters.DisplacementFilter(d,0);
+      fg.filters=[dispFilter];
+      stage.addChild(d); d.renderable=false;
+
+      window.addEventListener('resize', ()=>{
+        renderer.resize(window.innerWidth,window.innerHeight);
+        const s = Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
+        fg.scale.set(s); d.scale.set(s); fg.x=d.x=(window.innerWidth-fg.width)/2; fg.y=d.y=(window.innerHeight-fg.height)/2;
+      });
+
+      window.addEventListener('mousemove', e=>{
+        dispFilter.scale.x = (window.innerWidth/2 - e.clientX)/30;
+        dispFilter.scale.y = (window.innerHeight/2 - e.clientY)/30;
+      });
+
+      function animate(){
+        renderer.render(stage);
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu    = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', ()=>{ menuToggle.classList.toggle('open'); navMenu.classList.toggle('active'); });
+
+    document.getElementById('textBlock').addEventListener('click', ()=>{ document.querySelector('.hero').classList.add('zoom-blur');
+      setTimeout(()=>window.location.href='artworks.html',750); });
+  </script>
+</body>
+</html>
