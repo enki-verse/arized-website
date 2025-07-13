@@ -6,36 +6,97 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#000;font-family:'Inter',sans-serif;color:#fff;overflow:hidden}
-    #viewer{position:fixed;top:0;left:0;width:100%;height:100%}
-    #startBtn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:1rem 2rem;background:#daa520;color:#fff;border:none;border-radius:6px;font-size:1.2rem;cursor:pointer;z-index:100}
+    body{background:#000;font-family:'Inter',sans-serif;color:#fff;height:100vh}
+    .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative}
+    #pixiCanvas{position:absolute;top:0;left:0;width:100%;height:100%}
+    .btn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:1rem 2rem;background:#daa520;color:#fff;border:none;border-radius:6px;font-size:1.2rem;cursor:pointer;z-index:1001}
   </style>
 </head>
 <body>
-  <div id="viewer"></div>
-  <button id="startBtn">Tap to enable gyro</button>
+  <canvas id="pixiCanvas"></canvas>
+  <button id="enableBtn" class="btn">Tap to start 360° view</button>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
   <script>
-    const btn = document.getElementById('startBtn');
+    const FG_URL   = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png';
+    const DEPTH_URL= 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png';
 
-    btn.addEventListener('click', async () => {
-      /* iOS 13+ permission */
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        const res = await DeviceOrientationEvent.requestPermission();
-        if (res !== 'granted') return;
+    const canvas   = document.getElementById('pixiCanvas');
+    const renderer = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, {view:canvas,transparent:true,autoResize:true});
+    const stage    = new PIXI.Container();
+    const loader   = new PIXI.loaders.Loader();
+    loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(init);
+
+    let fg, dispFilter;
+    let baseBeta = null, baseGamma = null;
+
+    function init(){
+      fg = new PIXI.Sprite(loader.resources.fg.texture);
+      const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
+      fg.scale.set(scale);
+      fg.x = (window.innerWidth - fg.width)/2;
+      fg.y = (window.innerHeight - fg.height)/2;
+      stage.addChild(fg);
+
+      const d = new PIXI.Sprite(loader.resources.depth.texture);
+      d.scale.set(scale); d.x=fg.x; d.y=fg.y;
+      dispFilter = new PIXI.filters.DisplacementFilter(d,0);
+      fg.filters=[dispFilter];
+      stage.addChild(d); d.renderable=false;
+
+      window.addEventListener('resize', ()=>{
+        renderer.resize(window.innerWidth,window.innerHeight);
+        const s = Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
+        fg.scale.set(s); d.scale.set(s); fg.x=d.x=(window.innerWidth-fg.width)/2; fg.y=d.y=(window.innerHeight-fg.height)/2;
+      });
+
+      /* gyro with zero-point after permission */
+      function attachGyro() {
+        window.addEventListener('deviceorientation', e=>{
+          if (baseBeta === null)  baseBeta  = e.beta  || 0;
+          if (baseGamma === null) baseGamma = e.gamma || 0;
+          const deltaBeta  = (e.beta  || 0) - baseBeta;
+          const deltaGamma = (e.gamma || 0) - baseGamma;
+          dispFilter.scale.x = deltaGamma * 3;
+          dispFilter.scale.y = deltaBeta  * 3;
+        });
       }
-      btn.style.display='none';
 
-      /* create scene once permission granted */
-      const scene = document.createElement('a-scene');
-      scene.setAttribute('embedded','');
-      scene.innerHTML = `
-        <a-sky color="#1a1a2e" material="src: #skyTexture"></a-sky>
-        <a-camera wasd-controls-enabled="false"></a-camera>
-      `;
-      document.body.appendChild(scene);
+      /* iOS 13+ permission */
+      async function requestGyro() {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          const btn = document.getElementById('enableBtn');
+          btn.addEventListener('click', async () => {
+            const res = await DeviceOrientationEvent.requestPermission();
+            if (res === 'granted') {
+              btn.style.display = 'none';
+              attachGyro();
+            }
+          });
+        } else {
+          // Android / older Safari
+          attachGyro();
+        }
+      }
+      requestGyro();
+
+      function animate(){
+        renderer.render(stage);
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    /* nav toggle */
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', ()=>{ menuToggle.classList.toggle('open'); navMenu.classList.toggle('active'); });
+
+    /* zoom → gallery */
+    document.addEventListener('click', (e)=>{
+      if (e.target.id === 'enableBtn') return;
+      document.querySelector('.hero').classList.add('zoom-blur');
+      setTimeout(()=>window.location.href='artworks.html',750);
     });
   </script>
 </body>
