@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <button id="go">Enable Gyro</button>
+<script>
+document.getElementById('go').addEventListener('click', async ()=>{
+  if (typeof DeviceOrientationEvent.requestPermission === 'function'){
+    const res = await DeviceOrientationEvent.requestPermission();
+    if (res === 'granted') window.location.reload();
+  } else {
+    alert('Gyro already allowed or not needed');
+  }
+});
+</script>
 <head>
   <meta charset="UTF-8">
   <title>Ari Zed – Mobile</title>
