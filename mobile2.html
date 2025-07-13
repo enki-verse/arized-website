@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ari Zed – Panoramic View</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#000;font-family:'Inter',sans-serif;color:#fff;overflow:hidden}
+    #viewer{position:fixed;top:0;left:0;width:100%;height:100%}
+    #startBtn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:1rem 2rem;background:#daa520;color:#fff;border:none;border-radius:6px;font-size:1.2rem;cursor:pointer;z-index:100}
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+  <button id="startBtn">Tap to enter 360° view</button>
+
+  <!-- A-Frame VR framework -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script>
+    const btn = document.getElementById('startBtn');
+    const scene = document.createElement('a-scene');
+    scene.setAttribute('embedded','');
+    scene.innerHTML = `
+      <a-assets>
+        <img id="pano" src="https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png" crossorigin="anonymous">
+      </a-assets>
+      <a-sky src="#pano" rotation="0 -90 0"></a-sky>
+      <a-camera wasd-controls-enabled="false" look-controls="true"></a-camera>
+    `;
+
+    btn.addEventListener('click', async () => {
+      /* iOS 13+ permission */
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        const res = await DeviceOrientationEvent.requestPermission();
+        if (res !== 'granted') return;
+      }
+      document.body.removeChild(btn);
+      document.body.appendChild(scene);
+    });
+  </script>
+</body>
+</html>
