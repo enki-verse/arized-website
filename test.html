@@ -100,54 +100,58 @@
   </div>
 
   <script>
-    /* ---------- gyro / mouse parallax ---------- */
-    const bg = document.getElementById('parallax-bg');
-    let moveX = 0, moveY = 0;
+  const bg = document.getElementById('parallax-bg');
+  let moveX = 0, moveY = 0;
 
-    function updateTransform(x,y){
-      bg.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  function updateTransform(x, y) {
+    bg.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  }
+
+  /* === Permission + listener attachment === */
+  let gyroEnabled = false;
+  async function enableGyro() {
+    if (gyroEnabled) return;
+    gyroEnabled = true;
+
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const permission = await DeviceOrientationEvent.requestPermission();
+      if (permission === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
     }
+  }
 
-    /* mouse fallback */
-    document.addEventListener('mousemove', e=>{
-      moveX = (window.innerWidth/2 - e.clientX) / 25;
-      moveY = (window.innerHeight/2 - e.clientY) / 25;
-      updateTransform(moveX, moveY);
-    });
+  function handleOrientation(e) {
+    moveX = e.gamma * 2;
+    moveY = e.beta  * 2;
+    updateTransform(moveX, moveY);
+  }
 
-    /* gyroscope */
-    function handleOrientation(e){
-      moveX = e.gamma * 2;   // left-right tilt
-      moveY = e.beta  * 2;   // front-back tilt
-      updateTransform(moveX, moveY);
-    }
+  /* mouse fallback */
+  document.addEventListener('mousemove', e=>{
+    moveX = (window.innerWidth/2 - e.clientX) / 25;
+    moveY = (window.innerHeight/2 - e.clientY) / 25;
+    updateTransform(moveX, moveY);
+  });
 
-    /* iOS 13+ permission helper */
-    async function enableGyro(){
-      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
-        const permission = await DeviceOrientationEvent.requestPermission();
-        if (permission === 'granted') window.addEventListener('deviceorientation', handleOrientation);
-      } else {
-        window.addEventListener('deviceorientation', handleOrientation);
-      }
-    }
+  /* first tap anywhere (desktop or mobile) starts permission + gyro */
+  window.addEventListener('touchstart', enableGyro, { once: true });
+  window.addEventListener('mousedown',  enableGyro, { once: true });
 
-    /* nav toggle */
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu    = document.getElementById('navMenu');
-    menuToggle.addEventListener('click', ()=>{
-      menuToggle.classList.toggle('open');
-      navMenu.classList.toggle('active');
-    });
+  /* nav toggle */
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu    = document.getElementById('navMenu');
+  menuToggle.addEventListener('click', ()=>{
+    menuToggle.classList.toggle('open');
+    navMenu.classList.toggle('active');
+  });
 
-    /* click to zoom → artworks */
-    const hero = document.querySelector('.hero');
-    const textBlock = document.getElementById('textBlock');
-    textBlock.addEventListener('click', ()=>{
-      enableGyro();                      // ask permission once
-      hero.classList.add('zoom-blur');
-      setTimeout(()=> window.location.href='artworks.html', 750);
-    });
-  </script>
+  /* text = gallery button */
+  const hero = document.querySelector('.hero');
+  document.getElementById('textBlock').addEventListener('click', ()=>{
+    hero.classList.add('zoom-blur');
+    setTimeout(()=> window.location.href='artworks.html', 750);
+  });
+</script>
 </body>
 </html>
