@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <button id="go" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:1rem 2rem;background:var(--accent-gold);color:#fff;border:none;border-radius:4px;cursor:pointer;">Enable Gyro</button>
-
-<script>
-document.getElementById('go').addEventListener('click', async () => {
-  /* iOS 13+ needs explicit permission */
-  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    const res = await DeviceOrientationEvent.requestPermission();
-    if (res === 'granted') {
-      window.location.reload();   // gyro will now work
-    }
-  } else {
-    alert('Gyro already allowed or not needed');
-  }
-});
-</script>
 <head>
   <meta charset="UTF-8">
   <title>Ari Zed – Mobile</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root{--accent-gold:#daa520}*{margin:0;padding:0;box-sizing:border-box}
@@ -41,9 +26,19 @@ document.getElementById('go').addEventListener('click', async () => {
     .nav-menu.active{right:0}.nav-menu li{margin:1.5rem 0}.nav-menu a{color:#fff;text-decoration:none;font-size:1.2rem;letter-spacing:.1em;text-transform:uppercase}
     .nav-menu a:hover{color:var(--accent-gold)}.coming-soon{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.7)}
     .zoom-blur{animation:zB .8s forwards}@keyframes zB{0%{transform:scale(1) translateZ(0);filter:blur(0)}100%{transform:scale(1.35) translateZ(100px);filter:blur(5px)}}
+
+    /* permission button */
+    #enableGyro{
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      padding:1rem 2rem;background:var(--accent-gold);color:#fff;border:none;border-radius:4px;
+      cursor:pointer;z-index:1001;font-size:1rem;display:block;
+    }
   </style>
 </head>
 <body>
+
+  <button id="enableGyro" style="display:none;">Enable Gyro</button>
+
   <ul class="nav-menu" id="navMenu">
     <li><a href="/">HOME</a></li><li><a href="/artworks.html">ARTWORKS</a></li><li><a href="/about.html">ABOUT</a></li><li><a href="/contact.html">CONTACT</a></li>
   </ul>
@@ -75,52 +70,69 @@ document.getElementById('go').addEventListener('click', async () => {
     loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(init);
 
     let fg, dispFilter;
-    let baseBeta=null, baseGamma=null;
+    let baseBeta  = null;
+    let baseGamma = null;
 
     function init(){
       fg = new PIXI.Sprite(loader.resources.fg.texture);
       const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
       fg.scale.set(scale);
-      fg.x=(window.innerWidth-fg.width)/2;
-      fg.y=(window.innerHeight-fg.height)/2;
+      fg.x = (window.innerWidth - fg.width)/2;
+      fg.y = (window.innerHeight - fg.height)/2;
       stage.addChild(fg);
 
-      const d=new PIXI.Sprite(loader.resources.depth.texture);
-      d.scale.set(scale);d.x=fg.x;d.y=fg.y;
-      dispFilter=new PIXI.filters.DisplacementFilter(d,0);
-      fg.filters=[dispFilter];
-      stage.addChild(d);d.renderable=false;
+      const d = new PIXI.Sprite(loader.resources.depth.texture);
+      d.scale.set(scale); d.x = fg.x; d.y = fg.y;
+      dispFilter = new PIXI.filters.DisplacementFilter(d,0);
+      fg.filters = [dispFilter];
+      stage.addChild(d); d.renderable = false;
 
-      window.addEventListener('resize',()=>{
-        renderer.resize(window.innerWidth,window.innerHeight);
-        const s=Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
-        fg.scale.set(s);d.scale.set(s);fg.x=d.x=(window.innerWidth-fg.width)/2;fg.y=d.y=(window.innerHeight-fg.height)/2;
+      window.addEventListener('resize', ()=>{
+        renderer.resize(window.innerWidth, window.innerHeight);
+        const s = Math.max(window.innerWidth/fg.texture.width, window.innerHeight/fg.texture.height);
+        fg.scale.set(s); d.scale.set(s);
+        fg.x = d.x = (window.innerWidth - fg.width)/2;
+        fg.y = d.y = (window.innerHeight - fg.height)/2;
       });
 
-      /* mouse (desktop) */
-      window.addEventListener('mousemove',e=>{
-        dispFilter.scale.x=(window.innerWidth/2-e.clientX)/30;
-        dispFilter.scale.y=(window.innerHeight/2-e.clientY)/30;
+      /* mouse fallback (Android / desktop) */
+      window.addEventListener('mousemove', e=>{
+        dispFilter.scale.x = (window.innerWidth/2 - e.clientX)/30;
+        dispFilter.scale.y = (window.innerHeight/2 - e.clientY)/30;
       });
 
-      /* gyro (mobile) – zero-point on first reading */
-      window.addEventListener('deviceorientation',e=>{
-        if(baseBeta===null) baseBeta=e.beta||0;
-        if(baseGamma===null) baseGamma=e.gamma||0;
-        const deltaBeta=(e.beta||0)-baseBeta;
-        const deltaGamma=(e.gamma||0)-baseGamma;
-        dispFilter.scale.x=deltaGamma*3;
-        dispFilter.scale.y=deltaBeta*3;
-      });
-
-      /* gyro permission for iOS */
-      if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
-        window.addEventListener('devicemotion',()=>{
-          DeviceOrientationEvent.requestPermission().then(state=>{
-            if(state==='granted'){/*do nothing, listener already attached*/}
-          });
-        },{once:true});
+      /* gyro with zero-point after permission */
+      function attachGyro(){
+        window.addEventListener('deviceorientation', e=>{
+          if (baseBeta === null)  baseBeta  = e.beta  || 0;
+          if (baseGamma === null) baseGamma = e.gamma || 0;
+          const deltaBeta  = (e.beta  || 0) - baseBeta;
+          const deltaGamma = (e.gamma || 0) - baseGamma;
+          dispFilter.scale.x = deltaGamma * 3;
+          dispFilter.scale.y = deltaBeta  * 3;
+        });
       }
+
+      /* permission flow */
+      async function requestGyro(){
+        /* show button only on iOS 13+ */
+        if (typeof DeviceOrientationEvent.requestPermission === 'function'){
+          const btn = document.getElementById('enableGyro');
+          btn.style.display = 'block';
+          btn.addEventListener('click', async ()=>{
+            const res = await DeviceOrientationEvent.requestPermission();
+            if (res === 'granted') {
+              btn.style.display = 'none';
+              attachGyro();
+            }
+          });
+        } else {
+          /* Android / older iOS → no prompt needed */
+          attachGyro();
+        }
+      }
+
+      requestGyro();
 
       function animate(){
         renderer.render(stage);
@@ -129,11 +141,13 @@ document.getElementById('go').addEventListener('click', async () => {
       animate();
     }
 
-    const menuToggle=document.getElementById('menuToggle');
-    const navMenu=document.getElementById('navMenu');
-    menuToggle.addEventListener('click',()=>{menuToggle.classList.toggle('open');navMenu.classList.toggle('active');});
+    /* nav toggle */
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu    = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', ()=>{ menuToggle.classList.toggle('open'); navMenu.classList.toggle('active'); });
 
-    document.getElementById('textBlock').addEventListener('click',()=>{
+    /* zoom → gallery */
+    document.getElementById('textBlock').addEventListener('click', ()=>{
       document.querySelector('.hero').classList.add('zoom-blur');
       setTimeout(()=>window.location.href='artworks.html',750);
     });
