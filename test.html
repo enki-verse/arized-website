@@ -18,7 +18,6 @@
     .hero-content:hover h1{text-shadow:0 0 12px var(--accent-gold),0 0 24px var(--accent-gold),0 0 36px var(--accent-gold)}
     .hero-content:hover .tagline{text-shadow:0 0 8px var(--accent-gold),0 0 16px var(--accent-gold)}
 
-    /* cute burger → X */
     .menu-toggle{position:fixed;top:30px;right:30px;z-index:1000;cursor:pointer;padding:.5rem;display:flex;flex-direction:column;gap:6px}
     .menu-toggle span{width:30px;height:2px;background:#fff;transition:.3s;transform-origin:center}
     .menu-toggle.open span:nth-child(1){transform:rotate(-45deg) translate(-5px,5px)}
@@ -75,10 +74,11 @@
     let fg, dispFilter;
     let mouseX = 0, mouseY = 0, gyroX = 0, gyroY = 0;
     let useGyro = false;
-    let baseBeta = 0;
-    let baseGamma = 0;
+    let baseBeta  = null;
+    let baseGamma = null;
+
     function init(){
-      /* foreground image */
+      /* foreground */
       fg = new PIXI.Sprite(loader.resources.fg.texture);
       const scale = Math.max(window.innerWidth/fg.width, window.innerHeight/fg.height);
       fg.scale.set(scale);
@@ -90,26 +90,25 @@
       const d = new PIXI.Sprite(loader.resources.depth.texture);
       d.scale.set(scale); d.x=fg.x; d.y=fg.y;
       dispFilter = new PIXI.filters.DisplacementFilter(d,0);
-      fg.filters=[d, dispFilter];
+      fg.filters=[dispFilter];
       stage.addChild(d); d.renderable=false;
 
       window.addEventListener('resize', resize);
       window.addEventListener('mousemove', onMouse);
       window.addEventListener('deviceorientation', onGyro);
 
-      /* start animation */
-      animate();
-
-      /* ask permission once on first device motion (no tap needed) */
+      /* permission + enable gyro (desktop/Android) */
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
         window.addEventListener('devicemotion', ()=>{
           DeviceOrientationEvent.requestPermission().then(state=>{
-            if(state === 'granted') useGyro = true;
+            if (state === 'granted') useGyro = true;
           });
         }, { once:true });
       } else {
-        useGyro = true; // Android / desktop
+        useGyro = true;
       }
+
+      animate();
     }
 
     function resize(){
@@ -125,31 +124,24 @@
       mouseY = (window.innerHeight/2 - e.clientY)/30;
     }
 
-    /* ---------- gyro zero-point + movement ---------- */
-let baseBeta  = null;
-let baseGamma = null;
+    function onGyro(e){
+      if (useGyro){
+        if (baseBeta === null) baseBeta  = e.beta  || 0;
+        if (baseGamma === null) baseGamma = e.gamma || 0;
+        const deltaBeta  = (e.beta  || 0) - baseBeta;
+        const deltaGamma = (e.gamma || 0) - baseGamma;
+        gyroX = deltaGamma * 3;
+        gyroY = deltaBeta  * 3;
+      }
+    }
 
-function onGyro(e){
-  if (!gyroEnabled) return;
-
-  /* first frame = zero */
-  if (baseBeta === null) baseBeta  = e.beta  || 0;
-  if (baseGamma === null) baseGamma = e.gamma || 0;
-
-  const deltaBeta  = (e.beta  || 0) - baseBeta;
-  const deltaGamma = (e.gamma || 0) - baseGamma;
-
-  gyroX = deltaGamma * 3;
-  gyroY = deltaBeta  * 3;
-}
-
-function animate(){
-  const x = useGyro ? gyroX : mouseX;
-  const y = useGyro ? gyroY : mouseY;
-  dispFilter.scale.set(x,y);
-  renderer.render(stage);
-  requestAnimationFrame(animate);
-}
+    function animate(){
+      const x = useGyro ? gyroX : mouseX;
+      const y = useGyro ? gyroY : mouseY;
+      dispFilter.scale.set(x,y);
+      renderer.render(stage);
+      requestAnimationFrame(animate);
+    }
 
     /* nav toggle */
     const menuToggle = document.getElementById('menuToggle');
