@@ -15,19 +15,17 @@
 </head>
 
 <body>
-  <!-- 1. Permission prompt -->
   <div id="prompt">
     <h2>Look Around</h2>
     <p>Tap “Enable” and allow motion access to explore the 360° scene by moving your phone.</p>
     <button id="enableBtn">Enable</button>
   </div>
 
-  <!-- 2. 360° viewer -->
   <div id="viewer">
     <canvas id="canvas"></canvas>
   </div>
 
-  <!-- Three.js CDN -->
+  <!-- ✅ Clean CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r154/three.min.js"></script>
 
   <script>
@@ -36,54 +34,31 @@
     const enableBtn= document.getElementById('enableBtn');
 
     enableBtn.addEventListener('click', async () => {
-      // iOS 13+ requires user-gesture permission
       if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         const permission = await DeviceOrientationEvent.requestPermission();
-        if (permission !== 'granted') {
-          alert('Motion permission denied');
-          return;
-        }
+        if (permission !== 'granted') { alert('Motion permission denied'); return; }
       }
       prompt.style.display = 'none';
       viewer.style.display = 'flex';
-     function startViewer() {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
-  renderer.setSize(innerWidth, innerHeight);
+      startViewer();            // 🆕 actually run the viewer
+    });
 
-  const geo = new THREE.BoxGeometry(1,1,1);
-  const mat = new THREE.MeshBasicMaterial({color:0xff0000});
-  scene.add(new THREE.Mesh(geo, mat));
-  camera.position.z = 2;
+    function startViewer() {
+      const scene    = new THREE.Scene();
+      const camera   = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
+      renderer.setSize(innerWidth, innerHeight);
 
-  function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-  }
-  animate();
-}
-
-      // Device orientation controls
-      let alpha = 0, beta = 0, gamma = 0;
-      window.addEventListener('deviceorientation', e => {
-        alpha = THREE.MathUtils.degToRad(e.alpha || 0);
-        beta  = THREE.MathUtils.degToRad(e.beta  || 0);
-        gamma = THREE.MathUtils.degToRad(e.gamma || 0);
-      });
+      const geo = new THREE.BoxGeometry(1,1,1);
+      const mat = new THREE.MeshBasicMaterial({color: 0xff0000});
+      scene.add(new THREE.Mesh(geo, mat));
+      camera.position.z = 2;
 
       function animate() {
         requestAnimationFrame(animate);
-        // Apply rotations in standard order (y, x, z)
-        camera.quaternion.setFromEuler(new THREE.Euler(beta, alpha, -gamma, 'YXZ'));
         renderer.render(scene, camera);
       }
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
+      animate();
     }
   </script>
 </body>
