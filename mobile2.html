@@ -46,30 +46,23 @@
       }
       prompt.style.display = 'none';
       viewer.style.display = 'flex';
-      startViewer();
-    });
+     function startViewer() {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
+  renderer.setSize(innerWidth, innerHeight);
 
-    function startViewer() {
-      const scene    = new THREE.Scene();
-      const camera   = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas'), antialias: true});
-      renderer.setSize(window.innerWidth, window.innerHeight);
+  const geo = new THREE.BoxGeometry(1,1,1);
+  const mat = new THREE.MeshBasicMaterial({color:0xff0000});
+  scene.add(new THREE.Mesh(geo, mat));
+  camera.position.z = 2;
 
-      // 360° equirectangular texture
-      const loader = new THREE.TextureLoader();
-      loader.load(
-        'https://arized.art/depth/360gallery.jpg',
-        texture => {
-          const geometry = new THREE.SphereGeometry(500, 60, 40);
-          geometry.scale(-1, 1, 1); // inside out
-          const material = new THREE.MeshBasicMaterial({map: texture});
-          const sphere   = new THREE.Mesh(geometry, material);
-          scene.add(sphere);
-          animate();
-        },
-        undefined,
-        err => console.error('Texture load error:', err)
-      );
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+  animate();
+}
 
       // Device orientation controls
       let alpha = 0, beta = 0, gamma = 0;
