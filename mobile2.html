@@ -26,40 +26,27 @@
   </div>
 
   <!-- ✅ Clean CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r154/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+<script>
+(async () => {
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    const p = await DeviceOrientationEvent.requestPermission();
+    if (p !== 'granted') return alert('No gyro access');
+  }
 
-  <script>
-    const prompt   = document.getElementById('prompt');
-    const viewer   = document.getElementById('viewer');
-    const enableBtn= document.getElementById('enableBtn');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
+  renderer.setSize(innerWidth, innerHeight);
 
-    enableBtn.addEventListener('click', async () => {
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        const permission = await DeviceOrientationEvent.requestPermission();
-        if (permission !== 'granted') { alert('Motion permission denied'); return; }
-      }
-      prompt.style.display = 'none';
-      viewer.style.display = 'flex';
-      startViewer();            // 🆕 actually run the viewer
-    });
-
-    function startViewer() {
-      const scene    = new THREE.Scene();
-      const camera   = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
-      renderer.setSize(innerWidth, innerHeight);
-
-      const geo = new THREE.BoxGeometry(1,1,1);
-      const mat = new THREE.MeshBasicMaterial({color: 0xff0000});
-      scene.add(new THREE.Mesh(geo, mat));
-      camera.position.z = 2;
-
-      function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-      }
-      animate();
-    }
-  </script>
+  // red cube
+  scene.add(new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new THREE.MeshBasicMaterial({color: 0xff0000})
+  ));
+  camera.position.z = 2;
+  renderer.setAnimationLoop(() => renderer.render(scene, camera));
+})();
+</script>
 </body>
 </html>
