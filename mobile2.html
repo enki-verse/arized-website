@@ -2,51 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>360° Gyro Viewer</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-  <style>
-    html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#fff;background:#000}
-    #prompt,#viewer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;box-sizing:border-box}
-    #viewer{display:none}
-    button{padding:12px 24px;font-size:18px;border:none;border-radius:6px;background:#fff;color:#000;cursor:pointer}
-    button:active{background:#ddd}
-    #canvas{width:100%;height:100%;border:0}
-  </style>
+  <title>Red Cube Check</title>
+  <style>html,body{margin:0;height:100%;background:#000;color:#fff;font-family:sans-serif}</style>
 </head>
-
 <body>
-  <div id="prompt">
-    <h2>Look Around</h2>
-    <p>Tap “Enable” and allow motion access to explore the 360° scene by moving your phone.</p>
-    <button id="enableBtn">Enable</button>
-  </div>
+  <button id="btn" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:1em 2em;font-size:18px;">Enable</button>
+  <canvas id="c" style="display:block;width:100%;height:100%;"></canvas>
 
-  <div id="viewer">
-    <canvas id="canvas"></canvas>
-  </div>
-
-  <!-- ✅ Clean CDN -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
-<script>
-(async () => {
-  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    const p = await DeviceOrientationEvent.requestPermission();
-    if (p !== 'granted') return alert('No gyro access');
-  }
+  <script>
+  const btn = document.getElementById('btn');
+  const canvas = document.getElementById('c');
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas')});
-  renderer.setSize(innerWidth, innerHeight);
+  btn.addEventListener('click', async () => {
+    // iOS 13+ permission
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const p = await DeviceOrientationEvent.requestPermission();
+      if (p !== 'granted') { alert('Gyro permission denied'); return; }
+    }
 
-  // red cube
-  scene.add(new THREE.Mesh(
-    new THREE.BoxGeometry(1,1,1),
-    new THREE.MeshBasicMaterial({color: 0xff0000})
-  ));
-  camera.position.z = 2;
-  renderer.setAnimationLoop(() => renderer.render(scene, camera));
-})();
-</script>
+    btn.style.display = 'none';          // hide button
+    canvas.style.display = 'block';      // show canvas
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas});
+    renderer.setSize(innerWidth, innerHeight);
+
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(1,1,1),
+      new THREE.MeshBasicMaterial({color: 0xff0000})
+    );
+    scene.add(cube);
+    camera.position.z = 2;
+
+    renderer.setAnimationLoop(() => {
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    });
+  });
+  </script>
 </body>
 </html>
