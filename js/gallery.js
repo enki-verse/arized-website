@@ -78,6 +78,12 @@ function filterArtworks(filter) {
     renderGallery();
 }
 
+// Format price for display
+function formatPrice(price) {
+    if (!price) return 'Price on request';
+    return `$${price.toLocaleString()}`;
+}
+
 // Lightbox functionality
 let currentZoom = 1;
 const minZoom = 0.5;
@@ -88,6 +94,7 @@ let dragStartX = 0;
 let dragStartY = 0;
 let imageX = 0;
 let imageY = 0;
+const panStep = 20; // pixels to move with keyboard
 
 function openLightbox(artworkId) {
     const artwork = artworks.find(a => a.id === artworkId);
@@ -116,8 +123,9 @@ function openLightbox(artworkId) {
     imageY = 0;
     updateImageZoom();
     
-    // Add drag event listeners
+    // Add drag and keyboard event listeners
     setupDragListeners();
+    setupKeyboardListeners();
     
     lightbox.style.display = 'flex';
 }
@@ -161,6 +169,67 @@ function setupDragListeners() {
     lightboxImage.addEventListener('mousedown', startDrag);
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
+    
+    // Touch events for mobile
+    lightboxImage.addEventListener('touchstart', startDragTouch);
+    document.addEventListener('touchmove', dragTouch);
+    document.addEventListener('touchend', endDrag);
+}
+
+function setupKeyboardListeners() {
+    document.addEventListener('keydown', handleKeyboard);
+}
+
+function removeKeyboardListeners() {
+    document.removeEventListener('keydown', handleKeyboard);
+}
+
+function handleKeyboard(e) {
+    if (document.getElementById('lightbox').style.display === 'none') return;
+    
+    switch(e.key) {
+        case 'ArrowLeft':
+            e.preventDefault();
+            if (currentZoom > 1) {
+                imageX += panStep;
+                updateImageZoom();
+            }
+            break;
+        case 'ArrowRight':
+            e.preventDefault();
+            if (currentZoom > 1) {
+                imageX -= panStep;
+                updateImageZoom();
+            }
+            break;
+        case 'ArrowUp':
+            e.preventDefault();
+            if (currentZoom > 1) {
+                imageY += panStep;
+                updateImageZoom();
+            }
+            break;
+        case 'ArrowDown':
+            e.preventDefault();
+            if (currentZoom > 1) {
+                imageY -= panStep;
+                updateImageZoom();
+            }
+            break;
+        case 'Escape':
+            e.preventDefault();
+            closeLightbox();
+            break;
+        case '+':
+        case '=':
+            e.preventDefault();
+            zoomIn();
+            break;
+        case '-':
+            e.preventDefault();
+            zoomOut();
+            break;
+    }
 }
 
 function startDrag(e) {
@@ -181,18 +250,41 @@ function drag(e) {
     e.preventDefault();
 }
 
+function startDragTouch(e) {
+    if (currentZoom <= 1) return;
+    
+    isDragging = true;
+    const touch = e.touches[0];
+    dragStartX = touch.clientX - imageX;
+    dragStartY = touch.clientY - imageY;
+    e.preventDefault();
+}
+
+function dragTouch(e) {
+    if (!isDragging || currentZoom <= 1) return;
+    
+    const touch = e.touches[0];
+    imageX = touch.clientX - dragStartX;
+    imageY = touch.clientY - dragStartY;
+    updateImageZoom();
+    e.preventDefault();
+}
+
 function endDrag() {
     isDragging = false;
 }
 
-// Close lightbox
-document.querySelector('.lightbox .close').addEventListener('click', () => {
+function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
-});
+    removeKeyboardListeners();
+}
+
+// Close lightbox
+document.querySelector('.lightbox .close').addEventListener('click', closeLightbox);
 
 document.getElementById('lightbox').addEventListener('click', (e) => {
     if (e.target.id === 'lightbox') {
-        e.target.style.display = 'none';
+        closeLightbox();
     }
 });
 
