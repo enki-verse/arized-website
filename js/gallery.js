@@ -83,6 +83,11 @@ let currentZoom = 1;
 const minZoom = 0.5;
 const maxZoom = 3;
 const zoomStep = 0.25;
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let imageX = 0;
+let imageY = 0;
 
 function openLightbox(artworkId) {
     const artwork = artworks.find(a => a.id === artworkId);
@@ -105,9 +110,14 @@ function openLightbox(artworkId) {
         lightboxPrice.textContent = 'Not for sale';
     }
     
-    // Reset zoom
+    // Reset zoom and position
     currentZoom = 1;
+    imageX = 0;
+    imageY = 0;
     updateImageZoom();
+    
+    // Add drag event listeners
+    setupDragListeners();
     
     lightbox.style.display = 'flex';
 }
@@ -117,11 +127,18 @@ function updateImageZoom() {
     const zoomInBtn = document.getElementById('zoomIn');
     const zoomOutBtn = document.getElementById('zoomOut');
     
-    lightboxImage.style.transform = `scale(${currentZoom})`;
+    lightboxImage.style.transform = `scale(${currentZoom}) translate(${imageX}px, ${imageY}px)`;
     
     // Update button states
     zoomInBtn.disabled = currentZoom >= maxZoom;
     zoomOutBtn.disabled = currentZoom <= minZoom;
+    
+    // Update cursor based on zoom level
+    if (currentZoom > 1) {
+        lightboxImage.classList.add('zoomed');
+    } else {
+        lightboxImage.classList.remove('zoomed');
+    }
 }
 
 function zoomIn() {
@@ -136,6 +153,36 @@ function zoomOut() {
         currentZoom -= zoomStep;
         updateImageZoom();
     }
+}
+
+function setupDragListeners() {
+    const lightboxImage = document.getElementById('lightboxImage');
+    
+    lightboxImage.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+}
+
+function startDrag(e) {
+    if (currentZoom <= 1) return;
+    
+    isDragging = true;
+    dragStartX = e.clientX - imageX;
+    dragStartY = e.clientY - imageY;
+    e.preventDefault();
+}
+
+function drag(e) {
+    if (!isDragging || currentZoom <= 1) return;
+    
+    imageX = e.clientX - dragStartX;
+    imageY = e.clientY - dragStartY;
+    updateImageZoom();
+    e.preventDefault();
+}
+
+function endDrag() {
+    isDragging = false;
 }
 
 // Close lightbox
