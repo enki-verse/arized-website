@@ -119,9 +119,7 @@
     max-height: 80vh;
     object-fit: contain;
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.6),
-        0 35px 100px rgba(0, 0, 0, 0.3),
-        0 45px 140px rgba(0, 0, 0, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     transition: transform 0.3s ease;
@@ -200,7 +198,7 @@
 
 .lightbox-info {
     position: fixed;
-    bottom: 2rem;
+    top: 2rem;
     right: 2rem;
     background: white;
     color: #333;
