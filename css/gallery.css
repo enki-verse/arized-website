@@ -99,7 +99,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(240, 240, 240, 0.95);
     z-index: 2000;
     padding: 2rem;
 }
@@ -123,15 +123,69 @@
         0 20px 60px rgba(0, 0, 0, 0.15),
         0 0 0 1px rgba(255, 255, 255, 0.1);
     border-radius: 2px;
+    transition: transform 0.3s ease;
+    cursor: grab;
+}
+
+.lightbox img:active {
+    cursor: grabbing;
 }
 
 .close {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    color: var(--white);
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    color: #333;
     font-size: 2rem;
     cursor: pointer;
+    z-index: 2001;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+/* ===== ZOOM CONTROLS ===== */
+.zoom-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 2001;
+}
+
+.zoom-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+    transition: background 0.3s ease;
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.zoom-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .lightbox-info {
