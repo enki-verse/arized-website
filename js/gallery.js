@@ -30,17 +30,12 @@ function renderGallery() {
     
     grid.innerHTML = filteredArtworks.map(artwork => `
         <div class="artwork-card" data-id="${artwork.id}">
-            <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}" 
-                 alt="${artwork.title}" 
+            <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}"
+                 alt="${artwork.title}"
                  class="artwork-image">
             <div class="artwork-info">
                 <h3 class="artwork-title">${artwork.title}</h3>
-                <p class="artwork-details">${artwork.year} • ${artwork.medium}</p>
                 <p class="artwork-details">${artwork.dimensions}</p>
-                ${artwork.available && artwork.forSale 
-                    ? `<p class="artwork-price">${formatPrice(artwork.price)}</p>` 
-                    : '<p class="artwork-details">Not for sale</p>'
-                }
             </div>
         </div>
     `).join('');
