@@ -93,9 +93,9 @@
       "exhibitions": [
         "Bone and Boundary"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/who-is-dreaming-who.jpg",
         "medium": "images/artworks/medium/who-is-dreaming-who.jpg",
