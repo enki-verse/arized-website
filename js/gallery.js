@@ -108,14 +108,19 @@ function openLightbox(artworkId) {
     
     lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.large}`;
     lightboxImage.alt = artwork.title;
-    lightboxTitle.textContent = artwork.title;
+    
+    // Clean up title by removing dimensions if they're included
+    let cleanTitle = artwork.title;
+    if (cleanTitle.includes('cm')) {
+        // Remove dimension patterns like "230cm 140cm" or "230cm x 140cm"
+        cleanTitle = cleanTitle.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
+    }
+    
+    lightboxTitle.textContent = cleanTitle;
     lightboxDetails.textContent = `${artwork.year} • ${artwork.medium} • ${artwork.dimensions}`;
     
-    if (artwork.available && artwork.forSale) {
-        lightboxPrice.textContent = formatPrice(artwork.price);
-    } else {
-        lightboxPrice.textContent = 'Not for sale';
-    }
+    // Remove price display as requested
+    lightboxPrice.textContent = '';
     
     // Reset zoom and position
     currentZoom = 0.9;
