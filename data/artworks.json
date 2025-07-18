@@ -78,6 +78,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-18T14:23:31.339Z"
+    },
+    {
+      "id": "who-is-dreaming-who",
+      "title": "who is dreaming who",
+      "year": 2023,
+      "medium": "Oil on canvas",
+      "dimensions": "61 x 76 cm",
+      "price": 1800,
+      "category": "paintings",
+      "subjects": [
+        "figures"
+      ],
+      "exhibitions": [
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/who-is-dreaming-who.jpg",
+        "medium": "images/artworks/medium/who-is-dreaming-who.jpg",
+        "large": "images/artworks/large/who-is-dreaming-who.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-18T14:27:59.187Z"
     }
   ]
 }
