@@ -22,6 +22,34 @@
       },
       "description": "",
       "dateAdded": "2025-07-11T03:17:54.606Z"
+    },
+    {
+      "id": "plenum-endgame",
+      "title": "Plenum Endgame",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "85 x 105 cm",
+      "price": 2600,
+      "category": "paintings",
+      "subjects": [
+        "landscape",
+        "figures",
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Bone and Boundary",
+        "The Universe Is Leaking"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/plenum-endgame.jpg",
+        "medium": "images/artworks/medium/plenum-endgame.jpg",
+        "large": "images/artworks/large/plenum-endgame.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-18T14:07:48.884Z"
     }
   ]
 }
