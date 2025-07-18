@@ -136,8 +136,7 @@ function updateImageZoom() {
     const zoomInBtn = document.getElementById('zoomIn');
     const zoomOutBtn = document.getElementById('zoomOut');
     
-    // Apply zoom and translation to both image and the entire content container
-    lightboxImage.style.transform = `scale(${currentZoom}) translate(${imageX}px, ${imageY}px)`;
+    // Apply zoom and translation to the entire content container only
     lightboxContent.style.transform = `scale(${currentZoom}) translate(${imageX}px, ${imageY}px)`;
     
     // Update button states
