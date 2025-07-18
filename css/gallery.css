@@ -112,6 +112,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 120px;
 }
 
 .lightbox img {
@@ -200,9 +201,9 @@
 }
 
 .lightbox-info {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    position: absolute;
+    top: calc(100% + 50px);
+    right: 20px;
     background: white;
     color: #333;
     padding: 1rem 1.5rem;
@@ -211,7 +212,6 @@
     max-width: 300px;
     z-index: 2001;
     border: 1px solid #e0e0e0;
-    margin-bottom: 60px;
 }
 
 .lightbox-info h2 {
