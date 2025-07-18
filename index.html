@@ -47,6 +47,7 @@
             padding: 0.5rem;
             flex-direction: column;
             gap: 6px;
+            background: none; /* Remove any background */
         }
 
         .menu-toggle span {
@@ -142,15 +143,7 @@
             opacity: 1;
         }
 
-        .hero-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
-        }
+
 
         .hero-content {
             text-align: center;
