@@ -85,7 +85,7 @@ function formatPrice(price) {
 }
 
 // Lightbox functionality
-let currentZoom = 1;
+let currentZoom = 0.8;
 const minZoom = 0.5;
 const maxZoom = 3;
 const zoomStep = 0.25;
@@ -118,7 +118,7 @@ function openLightbox(artworkId) {
     }
     
     // Reset zoom and position
-    currentZoom = 1;
+    currentZoom = 0.8;
     imageX = 0;
     imageY = 0;
     updateImageZoom();
@@ -132,17 +132,20 @@ function openLightbox(artworkId) {
 
 function updateImageZoom() {
     const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxContent = document.querySelector('.lightbox-content');
     const zoomInBtn = document.getElementById('zoomIn');
     const zoomOutBtn = document.getElementById('zoomOut');
     
+    // Apply zoom and translation to both image and the entire content container
     lightboxImage.style.transform = `scale(${currentZoom}) translate(${imageX}px, ${imageY}px)`;
+    lightboxContent.style.transform = `scale(${currentZoom}) translate(${imageX}px, ${imageY}px)`;
     
     // Update button states
     zoomInBtn.disabled = currentZoom >= maxZoom;
     zoomOutBtn.disabled = currentZoom <= minZoom;
     
     // Update cursor based on zoom level
-    if (currentZoom > 1) {
+    if (currentZoom > 0.8) {
         lightboxImage.classList.add('zoomed');
     } else {
         lightboxImage.classList.remove('zoomed');
@@ -190,28 +193,28 @@ function handleKeyboard(e) {
     switch(e.key) {
         case 'ArrowLeft':
             e.preventDefault();
-            if (currentZoom > 1) {
+            if (currentZoom > 0.8) {
                 imageX += panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowRight':
             e.preventDefault();
-            if (currentZoom > 1) {
+            if (currentZoom > 0.8) {
                 imageX -= panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowUp':
             e.preventDefault();
-            if (currentZoom > 1) {
+            if (currentZoom > 0.8) {
                 imageY += panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowDown':
             e.preventDefault();
-            if (currentZoom > 1) {
+            if (currentZoom > 0.8) {
                 imageY -= panStep;
                 updateImageZoom();
             }
@@ -233,7 +236,7 @@ function handleKeyboard(e) {
 }
 
 function startDrag(e) {
-    if (currentZoom <= 1) return;
+    if (currentZoom <= 0.8) return;
     
     isDragging = true;
     dragStartX = e.clientX - imageX;
@@ -242,7 +245,7 @@ function startDrag(e) {
 }
 
 function drag(e) {
-    if (!isDragging || currentZoom <= 1) return;
+    if (!isDragging || currentZoom <= 0.8) return;
     
     imageX = e.clientX - dragStartX;
     imageY = e.clientY - dragStartY;
@@ -251,7 +254,7 @@ function drag(e) {
 }
 
 function startDragTouch(e) {
-    if (currentZoom <= 1) return;
+    if (currentZoom <= 0.8) return;
     
     isDragging = true;
     const touch = e.touches[0];
@@ -261,7 +264,7 @@ function startDragTouch(e) {
 }
 
 function dragTouch(e) {
-    if (!isDragging || currentZoom <= 1) return;
+    if (!isDragging || currentZoom <= 0.8) return;
     
     const touch = e.touches[0];
     imageX = touch.clientX - dragStartX;

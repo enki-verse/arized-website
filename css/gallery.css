@@ -113,11 +113,12 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 120px;
+    transform-origin: center center;
 }
 
 .lightbox img {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 60vh;
     object-fit: contain;
     box-shadow:
         inset 40px 0 40px -40px rgba(0, 0, 0, 0.4),
@@ -201,9 +202,10 @@
 }
 
 .lightbox-info {
-    position: absolute;
-    top: calc(100% + 50px);
-    right: 20px;
+    position: relative;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: 20px;
     background: white;
     color: #333;
     padding: 1rem 1.5rem;
@@ -212,6 +214,7 @@
     max-width: 300px;
     z-index: 2001;
     border: 1px solid #e0e0e0;
+    align-self: flex-end;
 }
 
 .lightbox-info h2 {
