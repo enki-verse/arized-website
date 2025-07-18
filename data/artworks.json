@@ -50,6 +50,34 @@
       },
       "description": "",
       "dateAdded": "2025-07-18T14:07:48.884Z"
+    },
+    {
+      "id": "rolling",
+      "title": "Rolling",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "85 x 105 cm",
+      "price": 2600,
+      "category": "paintings",
+      "subjects": [
+        "landscape",
+        "figures",
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking",
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": true,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/rolling.jpg",
+        "medium": "images/artworks/medium/rolling.jpg",
+        "large": "images/artworks/large/rolling.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-18T14:23:31.339Z"
     }
   ]
 }
