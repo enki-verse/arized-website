@@ -85,7 +85,7 @@ function formatPrice(price) {
 }
 
 // Lightbox functionality
-let currentZoom = 0.8;
+let currentZoom = 0.9;
 const minZoom = 0.5;
 const maxZoom = 3;
 const zoomStep = 0.25;
@@ -118,7 +118,7 @@ function openLightbox(artworkId) {
     }
     
     // Reset zoom and position
-    currentZoom = 0.8;
+    currentZoom = 0.9;
     imageX = 0;
     imageY = 0;
     updateImageZoom();
@@ -144,7 +144,7 @@ function updateImageZoom() {
     zoomOutBtn.disabled = currentZoom <= minZoom;
     
     // Update cursor based on zoom level
-    if (currentZoom > 0.8) {
+    if (currentZoom > 0.9) {
         lightboxImage.classList.add('zoomed');
     } else {
         lightboxImage.classList.remove('zoomed');
@@ -192,28 +192,28 @@ function handleKeyboard(e) {
     switch(e.key) {
         case 'ArrowLeft':
             e.preventDefault();
-            if (currentZoom > 0.8) {
+            if (currentZoom > 0.9) {
                 imageX += panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowRight':
             e.preventDefault();
-            if (currentZoom > 0.8) {
+            if (currentZoom > 0.9) {
                 imageX -= panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowUp':
             e.preventDefault();
-            if (currentZoom > 0.8) {
+            if (currentZoom > 0.9) {
                 imageY += panStep;
                 updateImageZoom();
             }
             break;
         case 'ArrowDown':
             e.preventDefault();
-            if (currentZoom > 0.8) {
+            if (currentZoom > 0.9) {
                 imageY -= panStep;
                 updateImageZoom();
             }
@@ -235,7 +235,7 @@ function handleKeyboard(e) {
 }
 
 function startDrag(e) {
-    if (currentZoom <= 0.8) return;
+    if (currentZoom <= 0.9) return;
     
     isDragging = true;
     dragStartX = e.clientX - imageX;
@@ -244,7 +244,7 @@ function startDrag(e) {
 }
 
 function drag(e) {
-    if (!isDragging || currentZoom <= 0.8) return;
+    if (!isDragging || currentZoom <= 0.9) return;
     
     imageX = e.clientX - dragStartX;
     imageY = e.clientY - dragStartY;
@@ -253,7 +253,7 @@ function drag(e) {
 }
 
 function startDragTouch(e) {
-    if (currentZoom <= 0.8) return;
+    if (currentZoom <= 0.9) return;
     
     isDragging = true;
     const touch = e.touches[0];
@@ -263,7 +263,7 @@ function startDragTouch(e) {
 }
 
 function dragTouch(e) {
-    if (!isDragging || currentZoom <= 0.8) return;
+    if (!isDragging || currentZoom <= 0.9) return;
     
     const touch = e.touches[0];
     imageX = touch.clientX - dragStartX;
