@@ -28,35 +28,59 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.9);
+    width: 250px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    padding: 1rem 2rem;
+    padding: 2rem 1.5rem;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
+.nav-logo {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-logo img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
 }
 
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--white);
     text-decoration: none;
     font-weight: 300;
     letter-spacing: 0.1em;
+    text-align: center;
 }
 
 .nav-menu {
     display: flex;
+    flex-direction: column;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.nav-menu li {
+    width: 100%;
 }
 
 .nav-menu a {
@@ -64,16 +88,24 @@ body {
     text-decoration: none;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     text-transform: uppercase;
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    border-left: 3px solid transparent;
 }
 
 .nav-menu a:hover {
     color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--accent-gold);
 }
 
 .nav-menu a.active {
     color: var(--accent-gold);
+    background: rgba(218, 165, 32, 0.1);
+    border-left-color: var(--accent-gold);
 }
 
 /* ===== MOBILE NAVIGATION ===== */
@@ -82,6 +114,12 @@ body {
     flex-direction: column;
     cursor: pointer;
     padding: 0.5rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
 }
 
 .menu-toggle span {
@@ -101,6 +139,12 @@ body {
 
 .section {
     padding: 4rem 0;
+}
+
+/* ===== BODY LAYOUT ===== */
+body {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
 }
 
 .btn {
@@ -123,30 +167,26 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+    body {
+        margin-left: 0;
+    }
+    
     .menu-toggle {
         display: flex;
     }
     
-    .nav-menu {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 2rem;
+    .navigation {
+        left: -250px;
         transition: left 0.3s ease;
     }
     
-    .nav-menu.active {
+    .navigation.active {
         left: 0;
     }
     
-    .nav-menu li {
-        margin: 1rem 0;
+    .nav-menu a {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
     }
 }
 
