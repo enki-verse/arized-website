@@ -6,8 +6,399 @@
     <title>Artworks - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/gallery.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Gallery-specific styles */
+        body {
+            background: #f8f8f8;
+        }
+
+        /* Sub Navigation */
+        .sub-nav {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .sub-nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exhibitions-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .exhibitions-nav h3 {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-right: 1rem;
+        }
+
+        .exhibition-btn {
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .exhibition-btn:hover,
+        .exhibition-btn.active {
+            background: var(--accent-gold);
+            color: white;
+        }
+
+        .lightbox-toggle {
+            background: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-toggle:hover {
+            background: var(--secondary-brown);
+        }
+
+        .lightbox-toggle.active {
+            background: var(--accent-gold);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 8px;
+            margin-bottom: 100px;
+        }
+
+        .artwork-card {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            transition: transform 0.2s ease;
+            cursor: grab;
+        }
+
+        .artwork-card:hover {
+            transform: scale(1.02);
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .artwork-card.dragging {
+            transform: scale(0.9);
+            opacity: 0.7;
+            cursor: grabbing;
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artwork-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1rem 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .artwork-card:hover .artwork-info {
+            opacity: 1;
+        }
+
+        .artwork-title {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .artwork-details {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Lightbox Panel */
+        .lightbox-panel {
+            position: fixed;
+            bottom: -200px;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            transition: bottom 0.3s ease;
+            z-index: 200;
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        .lightbox-panel.active {
+            bottom: 0;
+        }
+
+        .lightbox-content {
+            padding: 1rem 2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lightbox-header {
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lightbox-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .lightbox-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .lightbox-btn {
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-btn:hover {
+            background: var(--primary-brown);
+        }
+
+        .lightbox-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .selected-images {
+            display: flex;
+            gap: 1rem;
+            flex: 1;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .selected-image {
+            position: relative;
+            min-width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #333;
+        }
+
+        .selected-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .selected-image .remove-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--accent-gold);
+            background: rgba(218, 165, 32, 0.1);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            border-radius: 4px;
+            min-width: 200px;
+        }
+
+        /* Fullscreen Lightbox Viewer */
+        .lightbox-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 300;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-viewer.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewer-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewer-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .viewer-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .viewer-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .viewer-nav.prev {
+            left: -80px;
+        }
+
+        .viewer-nav.next {
+            right: -80px;
+        }
+
+        .viewer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .viewer-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sub-nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .exhibitions-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 4px;
+            }
+
+            .lightbox-content {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .selected-images {
+                order: 2;
+            }
+
+            .lightbox-header {
+                order: 1;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -32,39 +423,55 @@
         <span></span>
     </div>
 
-    <!-- Gallery Content -->
-    <main class="section">
-        <div class="container">
-            <h1 class="page-title">Artworks</h1>
-            
-            <!-- Filters -->
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="available">Available</button>
-                <button class="filter-btn" data-filter="featured">Featured</button>
+    <!-- Sub Navigation -->
+    <div class="sub-nav">
+        <div class="sub-nav-content">
+            <div class="exhibitions-nav">
+                <h3>Exhibitions</h3>
+                <button class="exhibition-btn active" data-exhibition="all">All Works</button>
+                <button class="exhibition-btn" data-exhibition="ODD I SEE">ODD I SEE</button>
+                <button class="exhibition-btn" data-exhibition="Bone and Boundary">Bone and Boundary</button>
+                <button class="exhibition-btn" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</button>
             </div>
+            <button class="lightbox-toggle" id="lightboxToggle">Lightbox (<span id="lightboxCount">0</span>)</button>
+        </div>
+    </div>
 
-            <!-- Gallery Grid -->
-            <div class="gallery-grid" id="galleryGrid">
-                <div class="loading">Loading artworks...</div>
-            </div>
+    <!-- Gallery Content -->
+    <main class="gallery-container">
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="loading">Loading artworks...</div>
         </div>
     </main>
 
-    <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
-        <span class="close">&times;</span>
+    <!-- Lightbox Panel -->
+    <div class="lightbox-panel" id="lightboxPanel">
         <div class="lightbox-content">
-            <img id="lightboxImage" src="" alt="">
-            <div class="lightbox-info">
-                <h2 id="lightboxTitle"></h2>
-                <p id="lightboxDetails"></p>
-                <p id="lightboxPrice"></p>
+            <div class="lightbox-header">
+                <div class="lightbox-title">Selected Artworks</div>
+                <div class="lightbox-controls">
+                    <button class="lightbox-btn" id="viewSelected" disabled>View Selected</button>
+                    <button class="lightbox-btn" id="saveAsPDF" disabled>Save as PDF</button>
+                    <button class="lightbox-btn" id="clearLightbox">Clear All</button>
+                </div>
+            </div>
+            <div class="selected-images" id="selectedImages">
+                <div class="drop-zone">Drag artworks here to add to lightbox</div>
             </div>
         </div>
-        <div class="zoom-controls">
-            <button class="zoom-btn" id="zoomIn">+</button>
-            <button class="zoom-btn" id="zoomOut">-</button>
+    </div>
+
+    <!-- Fullscreen Lightbox Viewer -->
+    <div class="lightbox-viewer" id="lightboxViewer">
+        <div class="viewer-content">
+            <button class="viewer-nav prev" id="viewerPrev">‹</button>
+            <img class="viewer-image" id="viewerImage" src="" alt="">
+            <button class="viewer-nav next" id="viewerNext">›</button>
+            <button class="viewer-close" id="viewerClose">×</button>
+            <div class="viewer-info" id="viewerInfo">
+                <div class="viewer-title"></div>
+                <div class="viewer-details"></div>
+            </div>
         </div>
     </div>
 
@@ -76,6 +483,290 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/gallery.js"></script>
+    <script>
+        // ===== GALLERY FUNCTIONALITY =====
+        const GITHUB_REPO = 'enki-verse/arized-website';
+        let artworks = [];
+        let filteredArtworks = [];
+        let selectedArtworks = [];
+        let currentViewerIndex = 0;
+
+        // Load artworks
+        async function loadArtworks() {
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
+                const data = await response.json();
+                artworks = data.artworks;
+                filteredArtworks = [...artworks];
+                renderGallery();
+                setupExhibitionFilters();
+            } catch (error) {
+                console.error('Error loading artworks:', error);
+                document.getElementById('galleryGrid').innerHTML = 
+                    '<p class="loading">Error loading artworks. Please try again later.</p>';
+            }
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            
+            if (filteredArtworks.length === 0) {
+                grid.innerHTML = '<p class="loading">No artworks found.</p>';
+                return;
+            }
+            
+            grid.innerHTML = filteredArtworks.map(artwork => `
+                <div class="artwork-card" 
+                     data-id="${artwork.id}" 
+                     draggable="true">
+                    <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}"
+                         alt="${artwork.title}"
+                         class="artwork-image">
+                    <div class="artwork-info">
+                        <div class="artwork-title">${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</div>
+                        <div class="artwork-details">${artwork.year} • ${artwork.dimensions}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add drag handlers
+            setupDragAndDrop();
+        }
+
+        // Setup exhibition filters
+        function setupExhibitionFilters() {
+            const exhibitionBtns = document.querySelectorAll('.exhibition-btn');
+            
+            exhibitionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    exhibitionBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filter artworks
+                    const exhibition = btn.dataset.exhibition;
+                    filterArtworksByExhibition(exhibition);
+                });
+            });
+        }
+
+        // Filter artworks by exhibition
+        function filterArtworksByExhibition(exhibition) {
+            if (exhibition === 'all') {
+                filteredArtworks = [...artworks];
+            } else {
+                filteredArtworks = artworks.filter(artwork => 
+                    artwork.exhibitions && artwork.exhibitions.includes(exhibition)
+                );
+            }
+            renderGallery();
+        }
+
+        // Setup drag and drop
+        function setupDragAndDrop() {
+            const cards = document.querySelectorAll('.artwork-card');
+            const dropZone = document.querySelector('.drop-zone');
+            const selectedContainer = document.getElementById('selectedImages');
+
+            cards.forEach(card => {
+                card.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', card.dataset.id);
+                    card.classList.add('dragging');
+                });
+
+                card.addEventListener('dragend', () => {
+                    card.classList.remove('dragging');
+                });
+            });
+
+            selectedContainer.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                selectedContainer.classList.add('drag-over');
+            });
+
+            selectedContainer.addEventListener('dragleave', () => {
+                selectedContainer.classList.remove('drag-over');
+            });
+
+            selectedContainer.addEventListener('drop', (e) => {
+                e.preventDefault();
+                selectedContainer.classList.remove('drag-over');
+                
+                const artworkId = e.dataTransfer.getData('text/plain');
+                addToLightbox(artworkId);
+            });
+        }
+
+        // Add artwork to lightbox
+        function addToLightbox(artworkId) {
+            const artwork = artworks.find(a => a.id === artworkId);
+            if (!artwork || selectedArtworks.find(a => a.id === artworkId)) return;
+
+            selectedArtworks.push(artwork);
+            updateLightboxDisplay();
+            updateLightboxCount();
+        }
+
+        // Remove from lightbox
+        function removeFromLightbox(artworkId) {
+            selectedArtworks = selectedArtworks.filter(a => a.id !== artworkId);
+            updateLightboxDisplay();
+            updateLightboxCount();
+        }
+
+        // Update lightbox display
+        function updateLightboxDisplay() {
+            const container = document.getElementById('selectedImages');
+            const dropZone = container.querySelector('.drop-zone');
+            
+            // Remove existing images except drop zone
+            const existingImages = container.querySelectorAll('.selected-image');
+            existingImages.forEach(img => img.remove());
+
+            // Add selected images
+            selectedArtworks.forEach(artwork => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'selected-image';
+                imageDiv.innerHTML = `
+                    <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}" alt="${artwork.title}">
+                    <button class="remove-btn" onclick="removeFromLightbox('${artwork.id}')">×</button>
+                `;
+                container.insertBefore(imageDiv, dropZone);
+            });
+
+            // Update button states
+            const viewBtn = document.getElementById('viewSelected');
+            const pdfBtn = document.getElementById('saveAsPDF');
+            const hasImages = selectedArtworks.length > 0;
+            
+            viewBtn.disabled = !hasImages;
+            pdfBtn.disabled = !hasImages;
+        }
+
+        // Update lightbox count
+        function updateLightboxCount() {
+            document.getElementById('lightboxCount').textContent = selectedArtworks.length;
+        }
+
+        // Lightbox toggle
+        document.getElementById('lightboxToggle').addEventListener('click', () => {
+            const panel = document.getElementById('lightboxPanel');
+            const toggle = document.getElementById('lightboxToggle');
+            
+            panel.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+
+        // View selected artworks
+        document.getElementById('viewSelected').addEventListener('click', () => {
+            if (selectedArtworks.length > 0) {
+                currentViewerIndex = 0;
+                showLightboxViewer();
+            }
+        });
+
+        // Show lightbox viewer
+        function showLightboxViewer() {
+            const viewer = document.getElementById('lightboxViewer');
+            viewer.classList.add('active');
+            updateViewerImage();
+        }
+
+        // Update viewer image
+        function updateViewerImage() {
+            if (selectedArtworks.length === 0) return;
+
+            const artwork = selectedArtworks[currentViewerIndex];
+            const image = document.getElementById('viewerImage');
+            const info = document.getElementById('viewerInfo');
+            
+            image.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.large}`;
+            image.alt = artwork.title;
+            
+            info.querySelector('.viewer-title').textContent = artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
+            info.querySelector('.viewer-details').textContent = `${artwork.year} • ${artwork.medium} • ${artwork.dimensions}`;
+
+            // Update navigation buttons
+            document.getElementById('viewerPrev').style.display = selectedArtworks.length > 1 ? 'flex' : 'none';
+            document.getElementById('viewerNext').style.display = selectedArtworks.length > 1 ? 'flex' : 'none';
+        }
+
+        // Viewer navigation
+        document.getElementById('viewerPrev').addEventListener('click', () => {
+            currentViewerIndex = (currentViewerIndex - 1 + selectedArtworks.length) % selectedArtworks.length;
+            updateViewerImage();
+        });
+
+        document.getElementById('viewerNext').addEventListener('click', () => {
+            currentViewerIndex = (currentViewerIndex + 1) % selectedArtworks.length;
+            updateViewerImage();
+        });
+
+        // Close viewer
+        document.getElementById('viewerClose').addEventListener('click', () => {
+            document.getElementById('lightboxViewer').classList.remove('active');
+        });
+
+        // Close viewer on outside click
+        document.getElementById('lightboxViewer').addEventListener('click', (e) => {
+            if (e.target.id === 'lightboxViewer') {
+                document.getElementById('lightboxViewer').classList.remove('active');
+            }
+        });
+
+        // Clear lightbox
+        document.getElementById('clearLightbox').addEventListener('click', () => {
+            selectedArtworks = [];
+            updateLightboxDisplay();
+            updateLightboxCount();
+        });
+
+        // Save as PDF
+        document.getElementById('saveAsPDF').addEventListener('click', () => {
+            if (selectedArtworks.length === 0) return;
+            
+            // Create a simple PDF-like view
+            const printWindow = window.open('', '_blank');
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Selected Artworks - Ari Zed</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; }
+                        h1 { text-align: center; margin-bottom: 30px; }
+                        .artwork { page-break-inside: avoid; margin-bottom: 40px; }
+                        .artwork img { max-width: 100%; height: auto; }
+                        .artwork-info { margin-top: 10px; }
+                        @media print { .no-print { display: none; } }
+                    </style>
+                </head>
+                <body>
+                    <h1>Selected Artworks by Ari Zed</h1>
+                    ${selectedArtworks.map(artwork => `
+                        <div class="artwork">
+                            <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.large}" alt="${artwork.title}">
+                            <div class="artwork-info">
+                                <h3>${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</h3>
+                                <p>${artwork.year} • ${artwork.medium} • ${artwork.dimensions}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div class="no-print" style="text-align: center; margin-top: 40px;">
+                        <button onclick="window.print()">Print / Save as PDF</button>
+                        <button onclick="window.close()">Close</button>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadArtworks);
+    </script>
 </body>
 </html>
