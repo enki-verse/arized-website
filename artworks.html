@@ -530,11 +530,13 @@
             }
         }
 
-        /* Gallery Grid - Refined */
+        /* Gallery Grid - Lisa-style consistent height layout */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 8px; /* Minimal spacing for gallery wall effect */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .artwork-card {
@@ -545,6 +547,7 @@
             cursor: grab;
             border-radius: 4px;
             box-shadow: var(--shadow-subtle);
+            /* Remove fixed width - let it scale based on image aspect ratio */
         }
 
         .artwork-card:hover {
@@ -559,10 +562,12 @@
         }
 
         .artwork-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
+            /* Consistent height with maintained aspect ratios */
+            height: 240px;
+            width: auto;
+            object-fit: contain;
             background: transparent;
+            display: block;
         }
 
         .artwork-info {
