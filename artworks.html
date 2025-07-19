@@ -761,6 +761,41 @@
             color: #666;
         }
 
+        .lightbox-price {
+            color: var(--accent-gold);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        .lightbox-status {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .lightbox-status.available {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .lightbox-status.sold {
+            background: #f44336;
+            color: white;
+        }
+
+        .lightbox-status.not-available {
+            background: #9e9e9e;
+            color: white;
+        }
+
         .lightbox-navigation {
             position: fixed;
             top: 50%;
@@ -1242,7 +1277,8 @@
             <div class="lightbox-info">
                 <h2 id="lightboxTitle"></h2>
                 <p id="lightboxDetails"></p>
-                <p id="lightboxPrice"></p>
+                <div class="lightbox-price" id="lightboxPrice"></div>
+                <span class="lightbox-status" id="lightboxStatus"></span>
             </div>
         </div>
         <div class="zoom-controls">
@@ -1523,6 +1559,26 @@
         let currentSelectionIndex = 0; // For navigating through selection
         let isViewingSelection = false; // Track if we're viewing through selection mode
 
+        // Helper functions for artwork info
+        function formatPrice(artwork) {
+            if (!artwork.price) return 'Price on Request';
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(artwork.price);
+        }
+
+        function getArtworkStatus(artwork) {
+            if (artwork.forSale === false) {
+                return { text: 'Sold', class: 'sold' };
+            } else if (artwork.available === true && artwork.forSale === true) {
+                return { text: 'Available', class: 'available' };
+            } else {
+                return { text: 'Not Available', class: 'not-available' };
+            }
+        }
+
         // Filter state
         let currentExhibitionFilter = 'all';
         let currentAvailabilityFilter = 'all';
@@ -1577,7 +1633,11 @@
                 grid.classList.remove('few-results');
             }
             
-            grid.innerHTML = filteredArtworks.map(artwork => `
+            grid.innerHTML = filteredArtworks.map(artwork => {
+                const status = getArtworkStatus(artwork);
+                const price = formatPrice(artwork);
+                
+                return `
                 <div class="artwork-card" 
                      data-id="${artwork.id}"
                      draggable="true">
@@ -1587,9 +1647,12 @@
                     <div class="artwork-info">
                         <div class="artwork-title">${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</div>
                         <div class="artwork-details">${artwork.year} • ${artwork.dimensions}</div>
+                        <div class="artwork-price">${price}</div>
+                        <span class="artwork-status ${status.class}">${status.text}</span>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
             
             // Add click and drag handlers
             setupCardInteractions();
@@ -1884,6 +1947,8 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDetails = document.getElementById('lightboxDetails');
+            const lightboxPrice = document.getElementById('lightboxPrice');
+            const lightboxStatus = document.getElementById('lightboxStatus');
             const saveAsPDF = document.getElementById('saveAsPDF');
             
             lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
@@ -1896,6 +1961,14 @@
             
             lightboxTitle.textContent = cleanTitle;
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
+            
+            // Update price and status
+            const price = formatPrice(currentViewingArtwork);
+            const status = getArtworkStatus(currentViewingArtwork);
+            
+            lightboxPrice.textContent = price;
+            lightboxStatus.textContent = status.text;
+            lightboxStatus.className = `lightbox-status ${status.class}`;
             
             // Update PDF button text based on mode
             if (isViewingSelection && selectedArtworks.length > 1) {
