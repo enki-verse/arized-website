@@ -464,18 +464,36 @@
         }
 
         .minimize-btn {
-            background: #666;
-            color: white;
+            width: 12px;
+            height: 12px;
+            background: #ffbc2e;
             border: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 0.7rem;
-            transition: background 0.3s ease;
+            font-size: 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            position: relative;
         }
 
         .minimize-btn:hover {
-            background: #333;
+            background: #ffaa00;
+            transform: scale(1.1);
+        }
+
+        .minimize-btn:active {
+            transform: scale(0.95);
+        }
+
+        .minimize-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 1px;
+            background: rgba(0,0,0,0.6);
         }
 
         .tray-controls {
@@ -668,7 +686,7 @@
         <div class="tray-header">
             <div class="tray-title-section">
                 <div class="tray-title">Selection (<span id="selectionCount">0</span> items)</div>
-                <button class="minimize-btn" id="minimizeTray">Hide</button>
+                <button class="minimize-btn" id="minimizeTray" title="Minimize"></button>
             </div>
             <div class="tray-controls">
                 <button class="tray-btn" id="viewSelection" disabled>View Selection</button>
@@ -790,6 +808,15 @@
         }
 
         function setupEventListeners() {
+            // Minimize tray button
+            document.getElementById('minimizeTray').addEventListener('click', () => {
+                const tray = document.getElementById('selectionTray');
+                const toggle = document.getElementById('selectionToggle');
+                
+                tray.classList.remove('active');
+                toggle.classList.remove('active');
+            });
+
             // Lightbox navigation
             document.getElementById('prevBtn').addEventListener('click', () => {
                 navigateSelection('prev');
@@ -847,13 +874,13 @@
                 generatePDF(selectedArtworks);
             });
 
-            // Save as PDF (from lightbox)
+            // Save as PDF (from lightbox) - Enhanced logic
             document.getElementById('saveAsPDF').addEventListener('click', () => {
                 if (isViewingSelection && selectedArtworks.length > 0) {
-                    // Export entire selection
+                    // Export entire selection when viewing through selection mode
                     generatePDF(selectedArtworks);
                 } else if (currentViewingArtwork) {
-                    // Export single artwork
+                    // Export single artwork when viewing individual piece
                     generatePDF([currentViewingArtwork]);
                 }
             });
@@ -1112,6 +1139,7 @@
 
         function updateAddToSelectionButton() {
             const addBtn = document.getElementById('addToSelection');
+            const pdfBtn = document.getElementById('saveAsPDF');
             if (!currentViewingArtwork) return;
             
             const isInSelection = selectedArtworks.find(a => a.id === currentViewingArtwork.id);
@@ -1125,6 +1153,13 @@
                 addBtn.classList.remove('added');
                 addBtn.disabled = false;
             }
+
+            // Update PDF button text when selection changes
+            if (isViewingSelection && selectedArtworks.length > 1) {
+                pdfBtn.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
+            } else {
+                pdfBtn.textContent = 'Save as PDF';
+            }
         }
 
         function updateLightboxImage() {
@@ -1133,6 +1168,7 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDetails = document.getElementById('lightboxDetails');
+            const pdfBtn = document.getElementById('saveAsPDF');
             
             lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
             lightboxImage.alt = currentViewingArtwork.title;
@@ -1144,6 +1180,13 @@
             
             lightboxTitle.textContent = cleanTitle;
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
+            
+            // Update PDF button text based on mode
+            if (isViewingSelection && selectedArtworks.length > 1) {
+                pdfBtn.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
+            } else {
+                pdfBtn.textContent = 'Save as PDF';
+            }
             
             // Update navigation buttons for selection browsing
             const prevBtn = document.getElementById('prevBtn');
