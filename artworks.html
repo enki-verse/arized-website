@@ -194,7 +194,7 @@
             height: 16px;
         }
 
-        /* Submenu Styles - Fixed Text Color */
+        /* Submenu Styles - Fixed Font and Structure */
         .submenu {
             max-height: 0;
             overflow: hidden;
@@ -204,16 +204,17 @@
         }
 
         .submenu.active {
-            max-height: 200px; /* Adjust based on content */
+            max-height: 300px; /* Increase for nested structure */
         }
 
         .submenu-item {
-            color: #2a2a2a !important; /* Force dark text - fix invisibility */
+            color: #2a2a2a !important;
             text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 400;
-            letter-spacing: 0.01em;
+            font-family: 'Space Grotesk', sans-serif !important; /* Force font family */
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.01em !important;
+            text-transform: uppercase !important;
             display: block;
             padding: 8px 16px;
             border-radius: 4px;
@@ -250,13 +251,125 @@
         .submenu-item.active {
             color: #1a1a1a !important;
             background: #f0f0f0;
-            font-weight: 500;
+            font-weight: 500 !important;
             transform: translateX(1px);
         }
 
         .submenu-item.active::before {
             opacity: 1;
             box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Exhibitions Toggle - Level 2 */
+        .exhibitions-toggle {
+            color: #2a2a2a !important;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.02em !important;
+            text-transform: uppercase !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-radius: 4px;
+            transition: all 0.15s ease-out;
+            position: relative;
+            margin-bottom: 4px;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .exhibitions-toggle:hover {
+            color: #1a1a1a !important;
+            background: #fafafa;
+            transform: translateX(1px);
+        }
+
+        .exhibitions-toggle.active {
+            color: #1a1a1a !important;
+            background: #f8f8f8;
+            font-weight: 600 !important;
+            transform: translateX(1px);
+        }
+
+        /* Exhibition Items - Level 3 */
+        .exhibition-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .exhibition-submenu.active {
+            max-height: 200px;
+        }
+
+        .exhibition-item {
+            color: #4a4a4a !important;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 11px !important;
+            font-weight: 400 !important;
+            letter-spacing: 0.01em !important;
+            text-transform: uppercase !important;
+            display: block;
+            padding: 6px 16px;
+            border-radius: 3px;
+            transition: all 0.15s ease-out;
+            position: relative;
+            margin-bottom: 1px;
+            background: transparent;
+        }
+
+        .exhibition-item::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.15s ease-out;
+        }
+
+        .exhibition-item:hover {
+            color: #2a2a2a !important;
+            background: #fafafa;
+            transform: translateX(1px);
+        }
+
+        .exhibition-item:hover::before {
+            opacity: 0.6;
+        }
+
+        .exhibition-item.active {
+            color: #2a2a2a !important;
+            background: #f0f0f0;
+            font-weight: 500 !important;
+            transform: translateX(1px);
+        }
+
+        .exhibition-item.active::before {
+            opacity: 1;
+            box-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Small dropdown arrow for exhibitions */
+        .exhibitions-arrow {
+            font-size: 8px;
+            transition: transform 0.15s ease-out;
+            color: var(--text-tertiary);
+        }
+
+        .exhibitions-toggle.active .exhibitions-arrow {
+            transform: rotate(180deg);
+            color: var(--accent-gold);
         }
 
         /* Dropdown Arrow - Fix initial state */
@@ -894,11 +1007,17 @@
                         ARTWORKS
                         <span class="dropdown-arrow">▼</span>
                     </a>
-                    <div class="submenu active" id="exhibitionsSubmenu">
-                        <a href="#" class="submenu-item active" data-exhibition="all">All Works</a>
-                        <a href="#" class="submenu-item" data-exhibition="ODD I SEE">ODD I SEE</a>
-                        <a href="#" class="submenu-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
-                        <a href="#" class="submenu-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
+                    <div class="submenu active" id="artworksSubmenu">
+                        <a href="#" class="exhibitions-toggle active" id="exhibitionsToggle">
+                            Exhibitions
+                            <span class="exhibitions-arrow">▼</span>
+                        </a>
+                        <div class="exhibition-submenu active" id="exhibitionSubmenu">
+                            <a href="#" class="exhibition-item active" data-exhibition="all">All Works</a>
+                            <a href="#" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
+                            <a href="#" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
+                            <a href="#" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
+                        </div>
                     </div>
                 </li>
                 <li><a href="about.html">ABOUT</a></li>
@@ -1006,9 +1125,9 @@
                 
                 // Close menu when clicking on a link (mobile only)
                 if (navMenu) {
-                    // Handle main nav links
+                    // Handle main nav links (but not toggles)
                     navMenu.querySelectorAll('li > a').forEach(link => {
-                        if (!link.id || link.id !== 'artworksToggle') { // Don't close on artworks toggle
+                        if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
                             link.addEventListener('click', () => {
                                 if (window.innerWidth <= 768) {
                                     navigation.classList.remove('active');
@@ -1021,8 +1140,8 @@
                         }
                     });
 
-                    // Handle submenu items
-                    navMenu.querySelectorAll('.submenu-item').forEach(link => {
+                    // Handle exhibition items (close menu on mobile)
+                    navMenu.querySelectorAll('.exhibition-item').forEach(link => {
                         link.addEventListener('click', () => {
                             if (window.innerWidth <= 768) {
                                 navigation.classList.remove('active');
@@ -1311,16 +1430,16 @@
             });
         }
 
-        // Exhibition filters (now submenu items) - Working version
+        // Exhibition filters (now exhibition-item class) - Fixed for new structure
         function setupExhibitionFilters() {
-            const submenuItems = document.querySelectorAll('.submenu-item');
+            const exhibitionItems = document.querySelectorAll('.exhibition-item');
             
-            submenuItems.forEach((item) => {
+            exhibitionItems.forEach((item) => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     
                     // Update active state
-                    submenuItems.forEach(i => i.classList.remove('active'));
+                    exhibitionItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
                     
                     // Filter artworks
