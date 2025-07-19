@@ -449,6 +449,46 @@
         body {
             margin: 0;
             transition: none; /* Remove transition for smoother mobile experience */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== MAIN CONTENT AREA ===== */
+        main.section {
+            flex: 1;
+            min-height: calc(100vh - 200px); /* Ensure minimum height minus approximate footer height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 8px; /* Minimal spacing for gallery wall effect */
+            min-height: 60vh; /* Ensure minimum height for loading state */
+        }
+
+        /* ===== FOOTER POSITIONING ===== */
+        footer {
+            margin-top: auto; /* Push footer to bottom */
+            background: var(--text-primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin: 0;
         }
 
         /* ===== OVERLAY FOR MOBILE MENU ===== */
