@@ -303,6 +303,7 @@
             border-radius: 8px;
             transition: all 0.15s ease-out;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            filter: invert(1);
         }
 
         .logo {
@@ -402,26 +403,6 @@
             transition: all 0.15s ease-out;
         }
 
-        .selection-section {
-            margin: 0 16px 32px;
-        }
-
-        .selection-toggle {
-            background: var(--accent-gold, #d4af37);
-            color: white;
-            border: none;
-            padding: 16px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            transition: all 0.15s ease-out;
-            width: 100%;
-        }
-
         .dropdown-arrow, .exhibitions-arrow {
             font-size: 10px;
             transition: transform 0.15s ease-out;
@@ -439,7 +420,7 @@
     <nav class="navigation" id="navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE" style="filter: invert(1);">
+                <img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE">
                 <a href="index.html" class="logo">ARI ZED</a>
             </div>
             
@@ -465,12 +446,6 @@
                 <li><a href="about.html">ABOUT</a></li>
                 <li><a href="contact.html" class="active">CONTACT</a></li>
             </ul>
-
-            <div class="selection-section">
-                <button class="selection-toggle" id="selectionToggle">
-                    Selection (<span id="lightboxCount">0</span>)
-                </button>
-            </div>
         </div>
     </nav>
 
@@ -605,6 +580,86 @@
 
     <script src="js/main.js"></script>
     <script>
+        // ===== MENU TOGGLE FUNCTIONALITY =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navigation = document.getElementById('navigation');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navigation) {
+                menuToggle.addEventListener('click', function() {
+                    navigation.classList.toggle('active');
+                    
+                    // Animate hamburger
+                    const spans = this.querySelectorAll('span');
+                    spans[0].style.transform = navigation.classList.contains('active')
+                        ? 'rotate(-45deg) translate(-5px, 6px)' : '';
+                    spans[1].style.opacity = navigation.classList.contains('active') ? '0' : '1';
+                    spans[2].style.transform = navigation.classList.contains('active')
+                        ? 'rotate(45deg) translate(-5px, -6px)' : '';
+                });
+                
+                // Close menu when clicking on a link (mobile only)
+                if (navMenu) {
+                    // Handle main nav links (but not toggles)
+                    navMenu.querySelectorAll('li > a').forEach(link => {
+                        if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 768) {
+                                    navigation.classList.remove('active');
+                                    const spans = menuToggle.querySelectorAll('span');
+                                    spans[0].style.transform = '';
+                                    spans[1].style.opacity = '1';
+                                    spans[2].style.transform = '';
+                                }
+                            });
+                        }
+                    });
+
+                    // Handle exhibition items (close menu on mobile)
+                    navMenu.querySelectorAll('.exhibition-item').forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (window.innerWidth <= 768) {
+                                navigation.classList.remove('active');
+                                const spans = menuToggle.querySelectorAll('span');
+                                spans[0].style.transform = '';
+                                spans[1].style.opacity = '1';
+                                spans[2].style.transform = '';
+                            }
+                        });
+                    });
+                }
+                
+                // Close menu when clicking outside (mobile only)
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 &&
+                        !menuToggle.contains(e.target) &&
+                        !navigation.contains(e.target) &&
+                        navigation.classList.contains('active')) {
+                        navigation.classList.remove('active');
+                        const spans = menuToggle.querySelectorAll('span');
+                        spans[0].style.transform = '';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = '';
+                    }
+                });
+            }
+
+            // Setup exhibitions toggle
+            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
+            if (exhibitionsToggle) {
+                exhibitionsToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const submenu = document.getElementById('exhibitionSubmenu');
+                    const toggle = document.getElementById('exhibitionsToggle');
+                    
+                    submenu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            }
+        });
+
         // Form submission handling
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
