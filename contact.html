@@ -14,6 +14,79 @@
             color: var(--white);
             padding: 6rem 0 4rem 0;
             text-align: center;
+        /* ===== ACCESSIBILITY & FOCUS STATES ===== */
+        *:focus-visible {
+            outline: 3px solid #DAA520;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Ensure minimum touch targets */
+        .form-group input,
+        .form-group textarea,
+        .form-group select,
+        .submit-btn,
+        .newsletter-form input,
+        .newsletter-form button {
+            min-height: 44px;
+        }
+
+        /* ===== LOADING STATES ===== */
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid #FFFFFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== MICRO-ANIMATIONS ===== */
+        .contact-detail a,
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-info,
+        .contact-form {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Subtle animations for better UX */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-content > * {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .contact-form {
+            animation-delay: 0.1s;
         }
 
         .contact-hero h1 {
@@ -804,7 +877,7 @@
                         Thank you for your message! I'll get back to you soon.
                     </div>
 
-                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+                    <form name="contact" netlify netlify-honeypot="bot-field" id="contactForm">
                         <!-- Hidden field for Netlify -->
                         <input type="hidden" name="form-name" value="contact">
                         <!-- Honeypot field for spam protection -->
@@ -857,7 +930,7 @@
             <h3>Join the Fertile Ascent</h3>
             <p>Receive updates on new artworks, consciousness expansion insights, and temple community developments.</p>
             
-            <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="newsletter-form" id="newsletterForm">
+            <form name="newsletter" netlify netlify-honeypot="bot-field" class="newsletter-form" id="newsletterForm">
                 <input type="hidden" name="form-name" value="newsletter">
                 <p style="display: none;">
                     <label>Don't fill this out if you're human: <input name="bot-field"></label>
@@ -958,49 +1031,107 @@
             });
         });
 
-        // Form submission handling
+        // Form submission handling with sophisticated UX
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
+            const submitBtn = this.querySelector('.submit-btn');
+            const successMessage = document.getElementById('successMessage');
             
-            // Reset form
-            this.reset();
+            // Add loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'SENDING...';
             
             // Submit to Netlify
+            const formData = new FormData(this);
             fetch('/', {
                 method: 'POST',
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(this)).toString()
-            }).catch(error => console.error('Error:', error));
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                // Show success message with animation
+                successMessage.style.display = 'block';
+                successMessage.style.opacity = '0';
+                successMessage.style.transform = 'translateY(-10px)';
+                
+                // Animate in
+                setTimeout(() => {
+                    successMessage.style.transition = 'all 0.3s ease';
+                    successMessage.style.opacity = '1';
+                    successMessage.style.transform = 'translateY(0)';
+                }, 10);
+                
+                // Reset form and button
+                this.reset();
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'SEND MESSAGE';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.opacity = '0';
+                    successMessage.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 300);
+                }, 5000);
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'SEND MESSAGE';
+                alert('There was an error sending your message. Please try again.');
+            });
         });
 
-        // Newsletter form handling
+        // Newsletter form handling with premium UX
         document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get email input
             const emailInput = this.querySelector('input[type="email"]');
             const submitButton = this.querySelector('button');
+            const originalText = submitButton.textContent;
             
-            // Show feedback
-            submitButton.textContent = 'Subscribed!';
-            submitButton.style.background = '#4CAF50';
-            
-            // Reset after 2 seconds
-            setTimeout(() => {
-                submitButton.textContent = 'Subscribe';
-                submitButton.style.background = '';
-                emailInput.value = '';
-            }, 2000);
+            // Add loading state
+            submitButton.style.background = '#B8941F';
+            submitButton.textContent = 'SUBSCRIBING...';
+            submitButton.disabled = true;
             
             // Submit to Netlify
+            const formData = new FormData(this);
             fetch('/', {
                 method: 'POST',
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(this)).toString()
-            }).catch(error => console.error('Error:', error));
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                // Show success state
+                submitButton.style.background = '#4CAF50';
+                submitButton.textContent = 'SUBSCRIBED!';
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    submitButton.style.background = '#DAA520';
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                    emailInput.value = '';
+                    
+                    // Add subtle success animation to input
+                    emailInput.style.borderColor = '#4CAF50';
+                    setTimeout(() => {
+                        emailInput.style.borderColor = '#E0E0E0';
+                    }, 1000);
+                    
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitButton.style.background = '#DAA520';
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                alert('There was an error subscribing. Please try again.');
+            });
         });
     </script>
 </body>
