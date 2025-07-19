@@ -367,6 +367,10 @@
             color: var(--text-tertiary);
         }
 
+        .exhibitions-toggle:hover .exhibitions-arrow {
+            color: var(--accent-gold);
+        }
+
         .exhibitions-toggle.active .exhibitions-arrow {
             transform: rotate(180deg);
             color: var(--accent-gold);
@@ -1430,8 +1434,23 @@
             });
         }
 
-        // Exhibition filters (now exhibition-item class) - Fixed for new structure
+        // Exhibition filters and toggle functionality
         function setupExhibitionFilters() {
+            // Setup exhibitions toggle first
+            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
+            if (exhibitionsToggle) {
+                exhibitionsToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const submenu = document.getElementById('exhibitionSubmenu');
+                    const toggle = document.getElementById('exhibitionsToggle');
+                    
+                    submenu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            }
+
+            // Setup exhibition item filters
             const exhibitionItems = document.querySelectorAll('.exhibition-item');
             
             exhibitionItems.forEach((item) => {
