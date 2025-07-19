@@ -751,6 +751,98 @@
         function initializeGallery() {
             loadArtworks();
             updateSelectionCount();
+            
+            // Setup selection tray toggle
+            document.getElementById('selectionToggle').addEventListener('click', () => {
+                const tray = document.getElementById('selectionTray');
+                const toggle = document.getElementById('selectionToggle');
+                
+                tray.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+
+            // Setup other event listeners
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            // Lightbox navigation
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                navigateSelection('prev');
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                navigateSelection('next');
+            });
+
+            // Add to selection from lightbox
+            document.getElementById('addToSelection').addEventListener('click', () => {
+                if (currentViewingArtwork) {
+                    addToSelection(currentViewingArtwork.id);
+                }
+            });
+
+            // Close lightbox
+            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+
+            document.getElementById('lightbox').addEventListener('click', (e) => {
+                if (e.target.id === 'lightbox') {
+                    closeLightbox();
+                }
+            });
+
+            // View selection in lightbox
+            document.getElementById('viewSelection').addEventListener('click', () => {
+                if (selectedArtworks.length > 0) {
+                    currentSelectionIndex = 0;
+                    currentViewingArtwork = selectedArtworks[0];
+                    document.getElementById('navigation').classList.add('hidden');
+                    document.getElementById('lightbox').style.display = 'flex';
+                    updateLightboxImage();
+                    updateAddToSelectionButton();
+                    resetZoom();
+                    
+                    // Close tray
+                    document.getElementById('selectionTray').classList.remove('active');
+                    document.getElementById('selectionToggle').classList.remove('active');
+                }
+            });
+
+            // Clear selection
+            document.getElementById('clearSelection').addEventListener('click', () => {
+                selectedArtworks = [];
+                updateSelectionDisplay();
+                updateSelectionCount();
+                updateAddToSelectionButton();
+            });
+
+            // Save selection as PDF
+            document.getElementById('saveSelection').addEventListener('click', () => {
+                if (selectedArtworks.length === 0) return;
+                generatePDF(selectedArtworks);
+            });
+
+            // Save as PDF (from lightbox)
+            document.getElementById('saveAsPDF').addEventListener('click', () => {
+                if (currentViewingArtwork) {
+                    generatePDF([currentViewingArtwork]);
+                }
+            });
+
+            // Zoom controls
+            document.getElementById('zoomIn').addEventListener('click', () => {
+                if (currentZoom < maxZoom) {
+                    currentZoom += zoomStep;
+                    updateImageZoom();
+                }
+            });
+
+            document.getElementById('zoomOut').addEventListener('click', () => {
+                if (currentZoom > minZoom) {
+                    currentZoom -= zoomStep;
+                    updateImageZoom();
+                }
+            });
         }
         // ===== GALLERY FUNCTIONALITY =====
         const GITHUB_REPO = 'enki-verse/arized-website';
