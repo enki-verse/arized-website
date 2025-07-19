@@ -6,133 +6,343 @@
     <title>About - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Page-specific styles */
+        /* ===== SOPHISTICATED ABOUT PAGE DESIGN ===== */
         .about-hero {
-            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
             color: var(--white);
-            padding: 6rem 0 4rem 0;
+            padding: 8rem 0 5rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .about-hero .container {
+            position: relative;
+            z-index: 2;
         }
 
         .about-hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 300;
-            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #2C1810;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .about-hero .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            color: var(--accent-gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: #F4F1E8;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            letter-spacing: 0.01em;
         }
 
         .about-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            padding: 0 24px;
         }
 
         .about-section {
-            margin-bottom: 3rem;
+            margin-bottom: 96px;
+            position: relative;
         }
 
         .about-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 300;
-            margin-bottom: 1.5rem;
-            color: var(--primary-brown);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 32px;
+            color: #2C1810;
+            position: relative;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+            border-radius: 1px;
         }
 
         .about-section p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.0625rem;
+            font-weight: 400;
             line-height: 1.7;
+            color: #2C1810;
+            margin-bottom: 24px;
+            letter-spacing: 0.001em;
         }
 
+        .about-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Philosophy Box - Premium Card Design */
         .philosophy-box {
-            background: var(--primary-brown);
-            color: var(--white);
-            padding: 2rem;
-            margin: 3rem 0;
-            border-left: 4px solid var(--accent-gold);
+            background: #FDFCF8;
+            border: 1px solid #E8E3DB;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 48px 40px;
+            margin: 72px 0;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid #DAA520;
+        }
+
+        .philosophy-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
         }
 
         .philosophy-box h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-gold);
+            font-size: 1.75rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            margin-bottom: 24px;
+            color: #DAA520;
+            line-height: 1.3;
         }
 
+        .philosophy-box p {
+            color: #2C1810;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stats Grid - Sophisticated Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin: 72px 0;
         }
 
         .stat-item {
+            background: #FFFFFF;
+            border: 1px solid #E8E3DB;
+            box-shadow: 0 2px 12px rgba(44,24,16,0.04);
+            border-radius: 12px;
+            padding: 48px 32px;
             text-align: center;
-            padding: 1.5rem;
-            background: var(--white);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(44,24,16,0.08);
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--accent-gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #DAA520;
             display: block;
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
         }
 
         .stat-label {
-            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            color: #6B6B6B;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.9rem;
+            letter-spacing: 0.12em;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            line-height: 1.4;
         }
 
+        /* Vision Section - Elegant Background Treatment */
         .vision-section {
-            background: var(--background-cream);
-            padding: 3rem 2rem;
-            margin: 3rem -2rem;
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border-radius: 24px;
+            padding: 72px 48px;
+            margin: 96px 0;
             text-align: center;
+            position: relative;
+            border: 1px solid #E8E3DB;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
         }
 
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+            border-radius: 0 0 2px 2px;
+        }
+
+        .vision-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2C1810;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .vision-section h2::after {
+            display: none; /* Remove individual underline */
+        }
+
+        .vision-section p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #2C1810;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        /* CTA Section - Premium Dark Treatment */
         .cta-section {
-            background: var(--text-dark);
+            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            border-radius: 24px;
             color: var(--white);
-            padding: 3rem 2rem;
-            margin: 3rem -2rem;
+            padding: 72px 48px;
+            margin: 96px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(44,24,16,0.15);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(218, 165, 32, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .cta-section h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 24px;
+            color: #F4F1E8;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
         }
 
-        /* ===== DESIGN SYSTEM VARIABLES ===== */
+        .cta-section p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #F4F1E8;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section .btn {
+            background: linear-gradient(135deg, #DAA520 0%, #B8941F 100%);
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+
+        .cta-section .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(218, 165, 32, 0.4);
+            background: linear-gradient(135deg, #E6B82D 0%, #C49F2A 100%);
+        }
+
+        .cta-section .btn:active {
+            transform: translateY(0);
+        }
+
+        /* ===== SOPHISTICATED COLOR SYSTEM ===== */
         :root {
             --primary-brown: #8B4513;
             --secondary-brown: #654321;
             --accent-gold: #DAA520;
-            --background-cream: #F4F1E8;
+            --background-cream: #FDFCF8;
             --text-dark: #2C1810;
-            --text-light: #666;
+            --text-light: #6B6B6B;
             --surface-white: #ffffff;
             --text-primary: #2a2a2a;
             --text-secondary: #6a6a6a;
             --text-tertiary: #9a9a9a;
-            --border-light: #f0f0f0;
+            --border-light: #E8E3DB;
             --border-medium: #e8e8e8;
             --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --white: #fff;
+            --white: #F4F1E8;
+            --refined-cream: #FDFCF8;
+            --sophisticated-gray: #6B6B6B;
+            --warm-black: #2C1810;
+            --refined-border: #E8E3DB;
         }
 
         /* ===== MOBILE-FIRST NAVIGATION ===== */
@@ -338,10 +548,56 @@
             transform: rotate(-45deg) translate(8px, -8px);
         }
 
-        /* ===== BODY LAYOUT ===== */
+        /* ===== BODY & BASE REFINEMENTS ===== */
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--refined-cream);
+            color: var(--warm-black);
+            line-height: 1.6;
             margin: 0;
-            transition: none; /* Remove transition for smoother mobile experience */
+            transition: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== MICRO-INTERACTIONS & TRANSITIONS ===== */
+        .about-section {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .about-section:nth-child(2) { animation-delay: 0.1s; }
+        .about-section:nth-child(3) { animation-delay: 0.2s; }
+        .about-section:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Link Refinements */
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        a:hover {
+            color: #B8941F;
+            letter-spacing: 0.01em;
+        }
+
+        /* Focus States for Accessibility */
+        *:focus {
+            outline: 3px solid rgba(218, 165, 32, 0.5);
+            outline-offset: 2px;
+        }
+
+        .btn:focus {
+            outline: 3px solid rgba(218, 165, 32, 0.8);
         }
 
         /* ===== OVERLAY FOR MOBILE MENU ===== */
@@ -383,24 +639,95 @@
             }
         }
 
-        /* ===== MOBILE RESPONSIVE ===== */
+        /* ===== MOBILE RESPONSIVE REFINEMENTS ===== */
         @media (max-width: 768px) {
+            .about-hero {
+                padding: 6rem 0 4rem 0;
+            }
+
             .about-hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                line-height: 1.2;
+                margin-bottom: 20px;
             }
             
             .about-hero .tagline {
                 font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .about-content {
+                padding: 0 16px;
+            }
+
+            .about-section {
+                margin-bottom: 72px;
+            }
+
+            .about-section h2 {
+                font-size: 1.875rem;
+                margin-bottom: 24px;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 24px;
+                margin: 48px 0;
+            }
+
+            .stat-item {
+                padding: 36px 24px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
             }
             
             .vision-section,
             .cta-section {
-                margin: 3rem -1rem;
-                padding: 2rem 1rem;
+                margin: 72px 0;
+                padding: 48px 24px;
+                border-radius: 16px;
+            }
+
+            .vision-section h2,
+            .cta-section h3 {
+                font-size: 1.75rem;
+                margin-bottom: 20px;
+            }
+
+            .vision-section p,
+            .cta-section p {
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .philosophy-box {
+                margin: 48px 0;
+                padding: 36px 24px;
+                border-radius: 12px;
+            }
+
+            .philosophy-box h3 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .philosophy-box p {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 16px;
+            }
+
+            .cta-section .btn {
+                padding: 14px 28px;
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -522,9 +849,9 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer style="background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%); color: #F4F1E8; text-align: center; padding: 48px 0; margin-top: 96px; border-top: 1px solid #E8E3DB;">
         <div class="container">
-            <p>&copy; 2025 Ari Zed. All rights reserved.</p>
+            <p style="opacity: 0.8; font-size: 0.875rem; font-family: 'Inter', sans-serif; letter-spacing: 0.025em;">&copy; 2025 Ari Zed. All rights reserved.</p>
         </div>
     </footer>
 
