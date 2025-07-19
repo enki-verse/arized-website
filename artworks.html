@@ -451,10 +451,31 @@
             background: white;
         }
 
+        .tray-title-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .tray-title {
             font-size: 1rem;
             font-weight: 600;
             color: #333;
+        }
+
+        .minimize-btn {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background 0.3s ease;
+        }
+
+        .minimize-btn:hover {
+            background: #333;
         }
 
         .tray-controls {
@@ -645,7 +666,10 @@
     <!-- Selection Tray -->
     <div class="selection-tray" id="selectionTray">
         <div class="tray-header">
-            <div class="tray-title">Selection (<span id="selectionCount">0</span> items)</div>
+            <div class="tray-title-section">
+                <div class="tray-title">Selection (<span id="selectionCount">0</span> items)</div>
+                <button class="minimize-btn" id="minimizeTray">Hide</button>
+            </div>
             <div class="tray-controls">
                 <button class="tray-btn" id="viewSelection" disabled>View Selection</button>
                 <button class="tray-btn" id="saveSelection" disabled>Save as PDF</button>
@@ -825,7 +849,11 @@
 
             // Save as PDF (from lightbox)
             document.getElementById('saveAsPDF').addEventListener('click', () => {
-                if (currentViewingArtwork) {
+                if (isViewingSelection && selectedArtworks.length > 0) {
+                    // Export entire selection
+                    generatePDF(selectedArtworks);
+                } else if (currentViewingArtwork) {
+                    // Export single artwork
                     generatePDF([currentViewingArtwork]);
                 }
             });
@@ -1148,6 +1176,7 @@
             }
             
             currentViewingArtwork = selectedArtworks[currentSelectionIndex];
+            isViewingSelection = true; // Maintain selection viewing mode
             updateLightboxImage();
             updateAddToSelectionButton();
             resetZoom();
