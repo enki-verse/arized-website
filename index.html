@@ -266,6 +266,15 @@
             z-index: 0;
         }
 
+        #pixiCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
         .hero-slide {
             position: absolute;
             top: 0;
@@ -463,15 +472,145 @@
         <p class="coming-soon">Full website coming soon</p>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
     <script>
         // Configuration
-        const GITHUB_REPO = 'enki-verse/arized-website'; // Update this to match your repo
-        const SLIDE_DURATION = 10000; // 10 seconds per slide (doubled from 5 seconds)
-        const IS_PRIVATE_REPO = false; // Set to false since repo is now public
+        const GITHUB_REPO = 'enki-verse/arized-website';
+        const SLIDE_DURATION = 10000;
+        const IS_PRIVATE_REPO = false;
+        
+        // 3D Image URLs
+        const FG_URL = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/4dbdcfaf-2029-4712-a058-0db20ef0a0b8/enkiverse+gallery+disolving.png';
+        const DEPTH_URL = 'https://images.squarespace-cdn.com/content/v1/6337fd5c05f92c45277028bc/0bbd7ee4-8501-4561-8ecb-b478d0f6834d/2.png';
         
         let featuredArtworks = [];
         let currentSlide = 0;
         let slideInterval = null;
+        let hasGraphicsAcceleration = false;
+        let pixiApp = null;
+
+        // Detect graphics acceleration and WebGL support
+        function detectGraphicsAcceleration() {
+            try {
+                // Test 1: Basic WebGL context creation
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                
+                if (!gl) {
+                    console.log('WebGL not supported');
+                    return false;
+                }
+
+                // Test 2: Check if it's software rendered (means no hardware acceleration)
+                const renderer = gl.getParameter(gl.RENDERER);
+                if (renderer && renderer.toLowerCase().includes('software')) {
+                    console.log('Software rendering detected:', renderer);
+                    return false;
+                }
+
+                // Test 3: Try to create PixiJS WebGL renderer
+                try {
+                    const testRenderer = new PIXI.WebGLRenderer(100, 100, {
+                        transparent: true,
+                        autoResize: false
+                    });
+                    
+                    if (testRenderer.type !== PIXI.RENDERER_TYPE.WEBGL) {
+                        console.log('PixiJS fell back to Canvas renderer');
+                        testRenderer.destroy();
+                        return false;
+                    }
+                    
+                    testRenderer.destroy();
+                    console.log('Graphics acceleration available');
+                    return true;
+                    
+                } catch (pixiError) {
+                    console.log('PixiJS WebGL creation failed:', pixiError);
+                    return false;
+                }
+                
+            } catch (error) {
+                console.log('Graphics acceleration detection failed:', error);
+                return false;
+            }
+        }
+
+        // Initialize 3D background with PixiJS
+        function init3DBackground() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'pixiCanvas';
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '1';
+            
+            const heroBackground = document.getElementById('heroBackground');
+            heroBackground.appendChild(canvas);
+
+            const renderer = new PIXI.WebGLRenderer(window.innerWidth, window.innerHeight, {
+                view: canvas,
+                transparent: true,
+                autoResize: true
+            });
+            
+            const stage = new PIXI.Container();
+            const loader = new PIXI.loaders.Loader();
+            
+            loader.add('fg', FG_URL).add('depth', DEPTH_URL).load(() => {
+                const fg = new PIXI.Sprite(loader.resources.fg.texture);
+                const scale = Math.max(window.innerWidth / fg.width, window.innerHeight / fg.height);
+                fg.scale.set(scale);
+                fg.x = (window.innerWidth - fg.width) / 2;
+                fg.y = (window.innerHeight - fg.height) / 2;
+                stage.addChild(fg);
+
+                const depthSprite = new PIXI.Sprite(loader.resources.depth.texture);
+                depthSprite.scale.set(scale);
+                depthSprite.x = fg.x;
+                depthSprite.y = fg.y;
+                
+                const dispFilter = new PIXI.filters.DisplacementFilter(depthSprite, 0);
+                fg.filters = [dispFilter];
+                stage.addChild(depthSprite);
+                depthSprite.renderable = false;
+
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    renderer.resize(window.innerWidth, window.innerHeight);
+                    const newScale = Math.max(window.innerWidth / fg.texture.width, window.innerHeight / fg.texture.height);
+                    fg.scale.set(newScale);
+                    depthSprite.scale.set(newScale);
+                    fg.x = depthSprite.x = (window.innerWidth - fg.width) / 2;
+                    fg.y = depthSprite.y = (window.innerHeight - fg.height) / 2;
+                });
+
+                // Mouse movement effect
+                window.addEventListener('mousemove', (e) => {
+                    dispFilter.scale.x = (window.innerWidth / 2 - e.clientX) / 30;
+                    dispFilter.scale.y = (window.innerHeight / 2 - e.clientY) / 30;
+                });
+
+                // Animation loop
+                function animate() {
+                    renderer.render(stage);
+                    requestAnimationFrame(animate);
+                }
+                animate();
+
+                // Hide loading message
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+
+            // Handle loader errors
+            loader.onError.add(() => {
+                console.log('Failed to load 3D assets, falling back to slideshow');
+                hasGraphicsAcceleration = false;
+                loadFeaturedArtworks();
+            });
+        }
 
         // Load featured artworks
         async function loadFeaturedArtworks() {
@@ -657,7 +796,18 @@
         });
 
         // Initialize on load
-        window.addEventListener('DOMContentLoaded', loadFeaturedArtworks);
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check for graphics acceleration first
+            hasGraphicsAcceleration = detectGraphicsAcceleration();
+            
+            if (hasGraphicsAcceleration) {
+                console.log('Using 3D background with graphics acceleration');
+                init3DBackground();
+            } else {
+                console.log('Graphics acceleration not available, using slideshow');
+                loadFeaturedArtworks();
+            }
+        });
     </script>
 </body>
 </html>
