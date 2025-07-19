@@ -782,12 +782,241 @@
             gap: 6px;
         }
 
+        .lightbox-status.available {
+            color: var(--accent-gold);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lightbox-status.available:hover {
+            color: var(--primary-brown);
+            text-decoration: underline;
+        }
+
         .status-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: #f44336;
             display: inline-block;
+        }
+
+        /* ===== INQUIRY MODAL ===== */
+        .inquiry-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            backdrop-filter: blur(5px);
+        }
+
+        .inquiry-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .inquiry-content {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .inquiry-header {
+            text-align: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid #E8E3DB;
+            padding-bottom: 24px;
+        }
+
+        .inquiry-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #2C1810;
+            margin-bottom: 8px;
+        }
+
+        .inquiry-artwork-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            margin-bottom: 4px;
+        }
+
+        .inquiry-artwork-details {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #6B6B6B;
+        }
+
+        .inquiry-artwork-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-top: 8px;
+        }
+
+        .inquiry-options {
+            margin-bottom: 24px;
+        }
+
+        .inquiry-options h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2C1810;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-gold);
+        }
+
+        .checkbox-option label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #2C1810;
+            cursor: pointer;
+        }
+
+        .inquiry-form-group {
+            margin-bottom: 20px;
+        }
+
+        .inquiry-form-group label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2C1810;
+            margin-bottom: 6px;
+        }
+
+        .inquiry-form-group input,
+        .inquiry-form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .inquiry-form-group input:focus,
+        .inquiry-form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+        }
+
+        .inquiry-form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .inquiry-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .inquiry-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .inquiry-btn.primary {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #B8941F 100%);
+            color: white;
+        }
+
+        .inquiry-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(218, 165, 32, 0.3);
+        }
+
+        .inquiry-btn.secondary {
+            background: transparent;
+            color: #6B6B6B;
+            border: 1px solid #E0E0E0;
+        }
+
+        .inquiry-btn.secondary:hover {
+            background: #F8F8F8;
+            border-color: #D0D0D0;
+        }
+
+        .inquiry-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .inquiry-close:hover {
+            background: #F0F0F0;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .lightbox-navigation {
@@ -1293,6 +1522,73 @@
         </div>
     </div>
 
+    <!-- Inquiry Modal -->
+    <div class="inquiry-modal" id="inquiryModal">
+        <div class="inquiry-content">
+            <button class="inquiry-close" id="inquiryClose">&times;</button>
+            
+            <div class="inquiry-header">
+                <h3>Artwork Inquiry</h3>
+                <div class="inquiry-artwork-title" id="inquiryArtworkTitle"></div>
+                <div class="inquiry-artwork-details" id="inquiryArtworkDetails"></div>
+                <div class="inquiry-artwork-price" id="inquiryArtworkPrice"></div>
+            </div>
+
+            <form id="inquiryForm" name="artwork-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="artwork-inquiry">
+                <input type="hidden" name="artwork-id" id="inquiryArtworkId">
+                <input type="hidden" name="artwork-title" id="inquiryArtworkTitleField">
+                <input type="hidden" name="artwork-price" id="inquiryArtworkPriceField">
+                
+                <!-- Honeypot field for spam protection -->
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
+
+                <div class="inquiry-options">
+                    <h4>I'm interested in:</h4>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="shippingQuote" name="shipping-quote" value="yes">
+                        <label for="shippingQuote">Shipping quote</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="paymentPlan" name="payment-plan" value="yes">
+                        <label for="paymentPlan">Payment plan options</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="privateViewing" name="private-viewing" value="yes">
+                        <label for="privateViewing">Private viewing</label>
+                    </div>
+                </div>
+
+                <div class="inquiry-form-group">
+                    <label for="inquiryName">Name *</label>
+                    <input type="text" id="inquiryName" name="name" required>
+                </div>
+
+                <div class="inquiry-form-group">
+                    <label for="inquiryEmail">Email *</label>
+                    <input type="email" id="inquiryEmail" name="email" required>
+                </div>
+
+                <div class="inquiry-form-group">
+                    <label for="inquiryPhone">Phone</label>
+                    <input type="tel" id="inquiryPhone" name="phone">
+                </div>
+
+                <div class="inquiry-form-group">
+                    <label for="inquiryMessage">Message</label>
+                    <textarea id="inquiryMessage" name="message" placeholder="Please let me know more about this artwork..."></textarea>
+                </div>
+
+                <div class="inquiry-actions">
+                    <button type="button" class="inquiry-btn secondary" id="inquiryCancel">Cancel</button>
+                    <button type="submit" class="inquiry-btn primary">Submit Inquiry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1542,7 +1838,17 @@
                         closeLightbox();
                     }
                 });
+
+                // Add click handler for available status
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('available') && currentViewingArtwork) {
+                        openInquiryModal(currentViewingArtwork);
+                    }
+                });
             }
+
+            // Setup inquiry modal
+            setupInquiryModal();
         }
 
         // ===== GALLERY FUNCTIONALITY =====
@@ -1959,11 +2265,18 @@
             
             lightboxPriceText.textContent = price;
             
-            // Create status text with red dot for sold items
+            // Create status text with red dot for sold items or clickable available
             if (status.class === 'sold') {
                 lightboxStatus.innerHTML = `${status.text} <span class="status-dot"></span>`;
+                lightboxStatus.className = 'lightbox-status';
+            } else if (status.class === 'available') {
+                lightboxStatus.textContent = status.text;
+                lightboxStatus.className = 'lightbox-status available';
+                lightboxStatus.style.cursor = 'pointer';
+                lightboxStatus.title = 'Click to inquire about this artwork';
             } else {
                 lightboxStatus.textContent = status.text;
+                lightboxStatus.className = 'lightbox-status';
             }
             
             // Update PDF button text based on mode
@@ -2231,6 +2544,131 @@
             updateSelectionDisplay();
             updateSelectionCount();
             updateAddToSelectionButton();
+        }
+
+        // ===== INQUIRY MODAL FUNCTIONALITY =====
+        function setupInquiryModal() {
+            const inquiryModal = document.getElementById('inquiryModal');
+            const inquiryClose = document.getElementById('inquiryClose');
+            const inquiryCancel = document.getElementById('inquiryCancel');
+            const inquiryForm = document.getElementById('inquiryForm');
+
+            // Close modal handlers
+            if (inquiryClose) {
+                inquiryClose.addEventListener('click', closeInquiryModal);
+            }
+
+            if (inquiryCancel) {
+                inquiryCancel.addEventListener('click', closeInquiryModal);
+            }
+
+            // Close on overlay click
+            if (inquiryModal) {
+                inquiryModal.addEventListener('click', (e) => {
+                    if (e.target.id === 'inquiryModal') {
+                        closeInquiryModal();
+                    }
+                });
+            }
+
+            // Handle form submission
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', handleInquirySubmission);
+            }
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && inquiryModal.classList.contains('active')) {
+                    closeInquiryModal();
+                }
+            });
+        }
+
+        function openInquiryModal(artwork) {
+            const modal = document.getElementById('inquiryModal');
+            const titleEl = document.getElementById('inquiryArtworkTitle');
+            const detailsEl = document.getElementById('inquiryArtworkDetails');
+            const priceEl = document.getElementById('inquiryArtworkPrice');
+            const idField = document.getElementById('inquiryArtworkId');
+            const titleField = document.getElementById('inquiryArtworkTitleField');
+            const priceField = document.getElementById('inquiryArtworkPriceField');
+
+            // Clean artwork title
+            let cleanTitle = artwork.title;
+            if (cleanTitle.includes('cm')) {
+                cleanTitle = cleanTitle.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
+            }
+
+            // Update modal content
+            titleEl.textContent = cleanTitle;
+            detailsEl.textContent = `${artwork.dimensions} • ${artwork.medium}`;
+            priceEl.textContent = formatPrice(artwork);
+
+            // Update hidden form fields
+            idField.value = artwork.id;
+            titleField.value = cleanTitle;
+            priceField.value = formatPrice(artwork);
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            // Focus first input
+            setTimeout(() => {
+                document.getElementById('inquiryName').focus();
+            }, 300);
+        }
+
+        function closeInquiryModal() {
+            const modal = document.getElementById('inquiryModal');
+            const form = document.getElementById('inquiryForm');
+            
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            
+            // Reset form
+            if (form) {
+                form.reset();
+            }
+        }
+
+        function handleInquirySubmission(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('.inquiry-btn.primary');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate processing time for better UX
+            setTimeout(() => {
+                // Show success state
+                submitBtn.textContent = 'Inquiry Sent!';
+                submitBtn.style.background = '#4CAF50';
+                
+                // Close modal after brief delay
+                setTimeout(() => {
+                    closeInquiryModal();
+                    
+                    // Reset button
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 1000);
+                    
+                }, 1500);
+                
+            }, 1000);
+            
+            // Submit to Netlify in background
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(new FormData(e.target)).toString()
+            }).catch(error => console.error('Error:', error));
         }
     </script>
 </body>
