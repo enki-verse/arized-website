@@ -194,7 +194,7 @@
             height: 16px;
         }
 
-        /* Submenu Styles - Fixed Visibility */
+        /* Submenu Styles - Fixed Text Color */
         .submenu {
             max-height: 0;
             overflow: hidden;
@@ -208,7 +208,7 @@
         }
 
         .submenu-item {
-            color: var(--text-primary); /* Make more visible */
+            color: #2a2a2a !important; /* Force dark text - fix invisibility */
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 12px;
@@ -220,7 +220,7 @@
             transition: all 0.15s ease-out;
             position: relative;
             margin-bottom: 2px;
-            opacity: 0.8; /* Slightly transparent but visible */
+            background: transparent;
         }
 
         .submenu-item::before {
@@ -238,10 +238,9 @@
         }
 
         .submenu-item:hover {
-            color: var(--text-primary);
+            color: #1a1a1a !important;
             background: #fafafa;
             transform: translateX(1px);
-            opacity: 1;
         }
 
         .submenu-item:hover::before {
@@ -249,11 +248,10 @@
         }
 
         .submenu-item.active {
-            color: var(--text-primary);
+            color: #1a1a1a !important;
             background: #f0f0f0;
             font-weight: 500;
             transform: translateX(1px);
-            opacity: 1;
         }
 
         .submenu-item.active::before {
@@ -1200,7 +1198,7 @@
         let imageX = 0;
         let imageY = 0;
 
-        // Load artworks
+        // Load artworks - Fixed to include filter setup
         async function loadArtworks() {
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
@@ -1208,6 +1206,9 @@
                 artworks = data.artworks;
                 filteredArtworks = [...artworks];
                 renderGallery();
+                
+                // Setup exhibition filters after artworks are loaded
+                setupExhibitionFilters();
             } catch (error) {
                 console.error('Error loading artworks:', error);
                 document.getElementById('galleryGrid').innerHTML = 
@@ -1220,7 +1221,7 @@
             const grid = document.getElementById('galleryGrid');
             
             if (filteredArtworks.length === 0) {
-                grid.innerHTML = '<p class="loading">No artworks found.</p>';
+                grid.innerHTML = '<p class="loading">No artworks found for this exhibition.</p>';
                 return;
             }
             
@@ -1310,7 +1311,7 @@
             });
         }
 
-        // Exhibition filters (now submenu items) - Fixed functionality
+        // Exhibition filters (now submenu items) - Working version
         function setupExhibitionFilters() {
             const submenuItems = document.querySelectorAll('.submenu-item');
             
