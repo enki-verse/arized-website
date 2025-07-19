@@ -954,6 +954,62 @@
             .artwork-card {
                 margin: 0 1rem;
             }
+
+            /* Hide selection functionality on mobile */
+            .selection-toggle {
+                display: none !important;
+            }
+
+            .selection-section {
+                display: none !important;
+            }
+
+            /* Hide zoom controls on mobile (pinch to zoom available) */
+            .zoom-controls {
+                display: none !important;
+            }
+
+            /* Hide add to selection button on mobile */
+            .nav-btn.add-to-selection {
+                display: none !important;
+            }
+
+            /* Adjust lightbox navigation for mobile without selection button */
+            .lightbox-navigation {
+                gap: 0.25rem;
+            }
+
+            .lightbox-navigation .nav-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            /* Hide selection tray completely on mobile */
+            .selection-tray {
+                display: none !important;
+            }
+
+            /* Hide drop indicator on mobile */
+            .drop-indicator {
+                display: none !important;
+            }
+
+            /* Disable dragging on mobile artworks */
+            .artwork-card {
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                user-drag: none;
+            }
+
+            .artwork-card[draggable] {
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                user-drag: none;
+            }
         }
     </style>
 </head>
@@ -1145,127 +1201,168 @@
 
         function initializeGallery() {
             loadArtworks();
-            updateSelectionCount();
             
-            // Setup selection tray toggle (now properly toggles open/closed)
-            document.getElementById('selectionToggle').addEventListener('click', () => {
-                const tray = document.getElementById('selectionTray');
-                const toggle = document.getElementById('selectionToggle');
+            // Only initialize selection functionality on desktop
+            if (window.innerWidth > 768) {
+                updateSelectionCount();
                 
-                // Check if tray is currently active
-                if (tray.classList.contains('active')) {
-                    // Close it
-                    tray.classList.remove('active');
-                    toggle.classList.remove('active');
-                } else {
-                    // Open it
-                    tray.classList.add('active');
-                    toggle.classList.add('active');
-                }
-            });
+                // Setup selection tray toggle (now properly toggles open/closed)
+                document.getElementById('selectionToggle').addEventListener('click', () => {
+                    const tray = document.getElementById('selectionTray');
+                    const toggle = document.getElementById('selectionToggle');
+                    
+                    // Check if tray is currently active
+                    if (tray.classList.contains('active')) {
+                        // Close it
+                        tray.classList.remove('active');
+                        toggle.classList.remove('active');
+                    } else {
+                        // Open it
+                        tray.classList.add('active');
+                        toggle.classList.add('active');
+                    }
+                });
+            }
 
             // Setup other event listeners
             setupEventListeners();
         }
 
         function setupEventListeners() {
-            // Minimize tray button
-            document.getElementById('minimizeTray').addEventListener('click', () => {
-                const tray = document.getElementById('selectionTray');
-                const toggle = document.getElementById('selectionToggle');
-                
-                tray.classList.remove('active');
-                toggle.classList.remove('active');
-            });
+            // Desktop-only selection functionality
+            if (window.innerWidth > 768) {
+                // Minimize tray button
+                const minimizeTray = document.getElementById('minimizeTray');
+                if (minimizeTray) {
+                    minimizeTray.addEventListener('click', () => {
+                        const tray = document.getElementById('selectionTray');
+                        const toggle = document.getElementById('selectionToggle');
+                        
+                        tray.classList.remove('active');
+                        toggle.classList.remove('active');
+                    });
+                }
 
-            // Setup drag functionality for lightbox
-            setupLightboxDrag();
+                // View selection in lightbox
+                const viewSelection = document.getElementById('viewSelection');
+                if (viewSelection) {
+                    viewSelection.addEventListener('click', () => {
+                        if (selectedArtworks.length > 0) {
+                            currentSelectionIndex = 0;
+                            currentViewingArtwork = selectedArtworks[0];
+                            isViewingSelection = true; // Viewing through selection mode
+                            document.getElementById('navigation').classList.add('hidden');
+                            document.getElementById('lightbox').style.display = 'flex';
+                            updateLightboxImage();
+                            updateAddToSelectionButton();
+                            resetZoom();
+                            
+                            // Close tray
+                            document.getElementById('selectionTray').classList.remove('active');
+                            document.getElementById('selectionToggle').classList.remove('active');
+                        }
+                    });
+                }
+
+                // Clear selection
+                const clearSelection = document.getElementById('clearSelection');
+                if (clearSelection) {
+                    clearSelection.addEventListener('click', () => {
+                        selectedArtworks = [];
+                        updateSelectionDisplay();
+                        updateSelectionCount();
+                        updateAddToSelectionButton();
+                    });
+                }
+
+                // Save selection as PDF
+                const saveSelection = document.getElementById('saveSelection');
+                if (saveSelection) {
+                    saveSelection.addEventListener('click', () => {
+                        if (selectedArtworks.length === 0) return;
+                        generatePDF(selectedArtworks);
+                    });
+                }
+
+                // Add to selection from lightbox
+                const addToSelection = document.getElementById('addToSelection');
+                if (addToSelection) {
+                    addToSelection.addEventListener('click', () => {
+                        if (currentViewingArtwork) {
+                            addToSelection(currentViewingArtwork.id);
+                        }
+                    });
+                }
+
+                // Zoom controls (desktop only)
+                const zoomIn = document.getElementById('zoomIn');
+                const zoomOut = document.getElementById('zoomOut');
+                if (zoomIn && zoomOut) {
+                    zoomIn.addEventListener('click', () => {
+                        if (currentZoom < maxZoom) {
+                            currentZoom += zoomStep;
+                            updateImageZoom();
+                        }
+                    });
+
+                    zoomOut.addEventListener('click', () => {
+                        if (currentZoom > minZoom) {
+                            currentZoom -= zoomStep;
+                            updateImageZoom();
+                        }
+                    });
+                }
+            }
+
+            // Setup drag functionality for lightbox (desktop only)
+            if (window.innerWidth > 768) {
+                setupLightboxDrag();
+            }
 
             // Setup keyboard navigation for lightbox
             setupKeyboardNavigation();
 
-            // Lightbox navigation
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                navigateSelection('prev');
-            });
+            // Lightbox navigation (available on both desktop and mobile)
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    navigateSelection('prev');
+                });
 
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                navigateSelection('next');
-            });
-
-            // Add to selection from lightbox
-            document.getElementById('addToSelection').addEventListener('click', () => {
-                if (currentViewingArtwork) {
-                    addToSelection(currentViewingArtwork.id);
-                }
-            });
+                nextBtn.addEventListener('click', () => {
+                    navigateSelection('next');
+                });
+            }
 
             // Close lightbox
-            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+            const lightboxClose = document.getElementById('lightboxClose');
+            if (lightboxClose) {
+                lightboxClose.addEventListener('click', closeLightbox);
+            }
 
-            document.getElementById('lightbox').addEventListener('click', (e) => {
-                if (e.target.id === 'lightbox') {
-                    closeLightbox();
-                }
-            });
-
-            // View selection in lightbox
-            document.getElementById('viewSelection').addEventListener('click', () => {
-                if (selectedArtworks.length > 0) {
-                    currentSelectionIndex = 0;
-                    currentViewingArtwork = selectedArtworks[0];
-                    isViewingSelection = true; // Viewing through selection mode
-                    document.getElementById('navigation').classList.add('hidden');
-                    document.getElementById('lightbox').style.display = 'flex';
-                    updateLightboxImage();
-                    updateAddToSelectionButton();
-                    resetZoom();
-                    
-                    // Close tray
-                    document.getElementById('selectionTray').classList.remove('active');
-                    document.getElementById('selectionToggle').classList.remove('active');
-                }
-            });
-
-            // Clear selection
-            document.getElementById('clearSelection').addEventListener('click', () => {
-                selectedArtworks = [];
-                updateSelectionDisplay();
-                updateSelectionCount();
-                updateAddToSelectionButton();
-            });
-
-            // Save selection as PDF
-            document.getElementById('saveSelection').addEventListener('click', () => {
-                if (selectedArtworks.length === 0) return;
-                generatePDF(selectedArtworks);
-            });
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target.id === 'lightbox') {
+                        closeLightbox();
+                    }
+                });
+            }
 
             // Save as PDF (from lightbox) - Enhanced logic
-            document.getElementById('saveAsPDF').addEventListener('click', () => {
-                if (isViewingSelection && selectedArtworks.length > 0) {
-                    // Export entire selection when viewing through selection mode
-                    generatePDF(selectedArtworks);
-                } else if (currentViewingArtwork) {
-                    // Export single artwork when viewing individual piece
-                    generatePDF([currentViewingArtwork]);
-                }
-            });
-
-            // Zoom controls
-            document.getElementById('zoomIn').addEventListener('click', () => {
-                if (currentZoom < maxZoom) {
-                    currentZoom += zoomStep;
-                    updateImageZoom();
-                }
-            });
-
-            document.getElementById('zoomOut').addEventListener('click', () => {
-                if (currentZoom > minZoom) {
-                    currentZoom -= zoomStep;
-                    updateImageZoom();
-                }
-            });
+            const saveAsPDF = document.getElementById('saveAsPDF');
+            if (saveAsPDF) {
+                saveAsPDF.addEventListener('click', () => {
+                    if (window.innerWidth > 768 && isViewingSelection && selectedArtworks.length > 0) {
+                        // Export entire selection when viewing through selection mode (desktop only)
+                        generatePDF(selectedArtworks);
+                    } else if (currentViewingArtwork) {
+                        // Export single artwork when viewing individual piece
+                        generatePDF([currentViewingArtwork]);
+                    }
+                });
+            }
         }
 
         // ===== GALLERY FUNCTIONALITY =====
@@ -1343,21 +1440,29 @@
                     }
                 });
 
-                // Drag functionality
-                card.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', card.dataset.id);
-                    card.classList.add('dragging');
-                    showDropIndicator();
-                });
+                // Only setup drag functionality on desktop (not mobile)
+                if (window.innerWidth > 768) {
+                    // Drag functionality
+                    card.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', card.dataset.id);
+                        card.classList.add('dragging');
+                        showDropIndicator();
+                    });
 
-                card.addEventListener('dragend', () => {
-                    card.classList.remove('dragging');
-                    hideDropIndicator();
-                });
+                    card.addEventListener('dragend', () => {
+                        card.classList.remove('dragging');
+                        hideDropIndicator();
+                    });
+                } else {
+                    // Remove draggable attribute on mobile
+                    card.removeAttribute('draggable');
+                }
             });
 
-            // Setup drop zone
-            setupDropZone();
+            // Only setup drop zone on desktop
+            if (window.innerWidth > 768) {
+                setupDropZone();
+            }
         }
 
         // Setup drop zone
