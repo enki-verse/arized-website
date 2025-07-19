@@ -92,11 +92,13 @@
             border-radius: 8px;
             transition: all 0.15s ease-out;
             box-shadow: var(--shadow-subtle);
+            filter: invert(1); /* Invert the logo colors */
         }
 
         .nav-logo img:hover {
             transform: translateY(-1px);
             box-shadow: var(--shadow-medium);
+            filter: invert(1) brightness(1.1); /* Maintain inversion on hover */
         }
 
         .logo {
@@ -115,7 +117,7 @@
             color: var(--accent-gold);
         }
 
-        /* Main Navigation - Sophisticated Hierarchy */
+        /* Main Navigation - Sophisticated Hierarchy with Submenu */
         .nav-menu {
             display: flex;
             flex-direction: column;
@@ -141,7 +143,7 @@
             margin: 0;
         }
 
-        .nav-menu a {
+        .nav-menu > li > a {
             color: var(--text-secondary);
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif;
@@ -151,13 +153,14 @@
             text-transform: uppercase;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 12px 16px;
             border-radius: 6px;
             transition: all 0.15s ease-out;
             position: relative;
         }
 
-        .nav-menu a::before {
+        .nav-menu > li > a::before {
             content: '';
             position: absolute;
             left: 0;
@@ -170,25 +173,100 @@
             transition: height 0.15s ease-out;
         }
 
-        .nav-menu a:hover {
+        .nav-menu > li > a:hover {
             color: var(--text-primary);
             background: #fafafa;
             transform: translateX(2px);
         }
 
-        .nav-menu a:hover::before {
+        .nav-menu > li > a:hover::before {
             height: 16px;
         }
 
-        .nav-menu a.active {
+        .nav-menu > li > a.active {
             color: var(--text-primary);
             background: #f8f8f8;
             font-weight: 500;
             transform: translateX(2px);
         }
 
-        .nav-menu a.active::before {
+        .nav-menu > li > a.active::before {
             height: 16px;
+        }
+
+        /* Submenu Styles */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .submenu.active {
+            max-height: 200px; /* Adjust based on content */
+        }
+
+        .submenu-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            display: block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.15s ease-out;
+            position: relative;
+            margin-bottom: 2px;
+        }
+
+        .submenu-item::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.15s ease-out;
+        }
+
+        .submenu-item:hover {
+            color: var(--text-primary);
+            background: #fafafa;
+            transform: translateX(1px);
+        }
+
+        .submenu-item:hover::before {
+            opacity: 0.4;
+        }
+
+        .submenu-item.active {
+            color: var(--text-primary);
+            background: #f8f8f8;
+            font-weight: 500;
+            transform: translateX(1px);
+        }
+
+        .submenu-item.active::before {
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Dropdown Arrow */
+        .dropdown-arrow {
+            font-size: 10px;
+            transition: transform 0.15s ease-out;
+            color: var(--text-tertiary);
+        }
+
+        .nav-menu > li > a.active .dropdown-arrow {
+            transform: rotate(180deg);
         }
 
         /* Sub Navigation - Refined Typography */
@@ -331,29 +409,31 @@
             font-weight: 600;
         }
 
-        /* Gallery Grid */
+        /* Gallery Grid - Refined */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 8px;
+            gap: 8px; /* Minimal spacing for gallery wall effect */
         }
 
         .artwork-card {
             position: relative;
             overflow: hidden;
-            background: transparent;
-            transition: transform 0.3s ease;
+            background: var(--surface-white);
+            transition: all 0.15s ease-out;
             cursor: grab;
+            border-radius: 4px;
+            box-shadow: var(--shadow-subtle);
         }
 
         .artwork-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
         }
 
         .artwork-card.dragging {
-            transform: scale(0.9);
-            opacity: 0.7;
+            transform: scale(0.95);
+            opacity: 0.8;
             cursor: grabbing;
         }
 
@@ -365,9 +445,9 @@
         }
 
         .artwork-info {
-            padding: 1.5rem;
+            padding: 16px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.15s ease-out;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -381,16 +461,18 @@
         }
 
         .artwork-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
             color: white;
         }
 
         .artwork-details {
             color: rgba(255,255,255,0.9);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
         }
 
         /* Original Lightbox Style */
@@ -758,13 +840,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(218, 165, 32, 0.9);
+            background: var(--accent-gold);
             color: white;
-            padding: 2rem;
+            padding: 24px 32px;
             border-radius: 8px;
-            font-size: 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
             display: none;
             z-index: 2003;
+            box-shadow: var(--shadow-strong);
         }
 
         .drop-indicator.active {
@@ -801,20 +886,23 @@
             </div>
             
             <ul class="nav-menu" id="navMenu">
-                <li><a href="artworks.html" class="active">ARTWORKS</a></li>
+                <li>
+                    <a href="artworks.html" class="active" id="artworksToggle">
+                        ARTWORKS
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="submenu active" id="exhibitionsSubmenu">
+                        <a href="#" class="submenu-item active" data-exhibition="all">All Works</a>
+                        <a href="#" class="submenu-item" data-exhibition="ODD I SEE">ODD I SEE</a>
+                        <a href="#" class="submenu-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
+                        <a href="#" class="submenu-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
+                    </div>
+                </li>
                 <li><a href="about.html">ABOUT</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
 
-            <div class="sub-nav">
-                <h3>Exhibitions</h3>
-                <div class="exhibition-menu">
-                    <button class="exhibition-btn active" data-exhibition="all">All Works</button>
-                    <button class="exhibition-btn" data-exhibition="ODD I SEE">ODD I SEE</button>
-                    <button class="exhibition-btn" data-exhibition="Bone and Boundary">Bone and Boundary</button>
-                    <button class="exhibition-btn" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</button>
-                </div>
-
+            <div class="selection-section">
                 <button class="selection-toggle" id="selectionToggle">
                     Selection (<span id="lightboxCount">0</span>)
                 </button>
@@ -915,7 +1003,23 @@
                 
                 // Close menu when clicking on a link (mobile only)
                 if (navMenu) {
-                    navMenu.querySelectorAll('a').forEach(link => {
+                    // Handle main nav links
+                    navMenu.querySelectorAll('li > a').forEach(link => {
+                        if (!link.id || link.id !== 'artworksToggle') { // Don't close on artworks toggle
+                            link.addEventListener('click', () => {
+                                if (window.innerWidth <= 768) {
+                                    navigation.classList.remove('active');
+                                    const spans = menuToggle.querySelectorAll('span');
+                                    spans[0].style.transform = '';
+                                    spans[1].style.opacity = '1';
+                                    spans[2].style.transform = '';
+                                }
+                            });
+                        }
+                    });
+
+                    // Handle submenu items
+                    navMenu.querySelectorAll('.submenu-item').forEach(link => {
                         link.addEventListener('click', () => {
                             if (window.innerWidth <= 768) {
                                 navigation.classList.remove('active');
@@ -1099,7 +1203,6 @@
                 artworks = data.artworks;
                 filteredArtworks = [...artworks];
                 renderGallery();
-                setupExhibitionFilters();
             } catch (error) {
                 console.error('Error loading artworks:', error);
                 document.getElementById('galleryGrid').innerHTML = 
@@ -1202,16 +1305,20 @@
             });
         }
 
-        // Exhibition filters
+        // Exhibition filters (now submenu items)
         function setupExhibitionFilters() {
-            const exhibitionBtns = document.querySelectorAll('.exhibition-btn');
+            const submenuItems = document.querySelectorAll('.submenu-item');
             
-            exhibitionBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    exhibitionBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+            submenuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
                     
-                    const exhibition = btn.dataset.exhibition;
+                    // Update active state
+                    submenuItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Filter artworks
+                    const exhibition = item.dataset.exhibition;
                     filterArtworksByExhibition(exhibition);
                 });
             });
