@@ -373,7 +373,7 @@
       <p class="tagline">Visionary Artist · Reality Creator</p>
     </div>
 
-    <p class="coming-soon">Full website coming soon</p>
+    <p class="coming-soon">Full website coming soon • Double-tap to recalibrate</p>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
@@ -394,6 +394,8 @@
     let fg, dispFilter;
     let baseBeta = null;
     let baseGamma = null;
+    let gyroHandler = null; // Store the event handler reference
+    let preventZoom = false;
 
     function init() {
       fg = new PIXI.Sprite(loader.resources.fg.texture);
@@ -459,6 +461,53 @@
       }
 
       requestGyro();
+
+      // Add recalibration functionality - double tap to recalibrate
+      let lastTapTime = 0;
+      document.addEventListener('touchend', (e) => {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTapTime;
+        
+        if (tapLength < 500 && tapLength > 0) {
+          // Double tap detected - recalibrate
+          e.preventDefault();
+          preventZoom = true; // Prevent zoom navigation
+          recalibrateGyro();
+          
+          // Re-enable zoom after a short delay
+          setTimeout(() => {
+            preventZoom = false;
+          }, 2000);
+        }
+        lastTapTime = currentTime;
+      });
+
+      function recalibrateGyro() {
+        if (gyroHandler) {
+          // Show brief feedback
+          const feedback = document.createElement('div');
+          feedback.textContent = 'Recalibrating...';
+          feedback.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(218, 165, 32, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            z-index: 1002;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+          `;
+          document.body.appendChild(feedback);
+          
+          setTimeout(() => {
+            document.body.removeChild(feedback);
+            attachGyro(); // Restart calibration process
+          }, 1000);
+        }
+      }
 
       function animate() {
         renderer.render(stage);
@@ -528,8 +577,10 @@
 
     /* zoom → gallery */
     document.getElementById('textBlock').addEventListener('click', () => {
-      document.querySelector('.hero').classList.add('zoom-blur');
-      setTimeout(() => window.location.href = 'artworks.html', 750);
+      if (!preventZoom) {
+        document.querySelector('.hero').classList.add('zoom-blur');
+        setTimeout(() => window.location.href = 'artworks.html', 750);
+      }
     });
   </script>
 </body>
