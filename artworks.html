@@ -974,14 +974,9 @@
                 display: none !important;
             }
 
-            /* Adjust lightbox navigation for mobile without selection button */
+            /* Hide ALL lightbox navigation buttons on mobile */
             .lightbox-navigation {
-                gap: 0.25rem;
-            }
-
-            .lightbox-navigation .nav-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
+                display: none !important;
             }
 
             /* Hide selection tray completely on mobile */
@@ -1322,20 +1317,36 @@
             // Setup keyboard navigation for lightbox
             setupKeyboardNavigation();
 
-            // Lightbox navigation (available on both desktop and mobile)
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            if (prevBtn && nextBtn) {
-                prevBtn.addEventListener('click', () => {
-                    navigateSelection('prev');
-                });
+            // Lightbox navigation (desktop only)
+            if (window.innerWidth > 768) {
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                if (prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        navigateSelection('prev');
+                    });
 
-                nextBtn.addEventListener('click', () => {
-                    navigateSelection('next');
-                });
+                    nextBtn.addEventListener('click', () => {
+                        navigateSelection('next');
+                    });
+                }
+
+                // Save as PDF (from lightbox) - Enhanced logic (desktop only)
+                const saveAsPDF = document.getElementById('saveAsPDF');
+                if (saveAsPDF) {
+                    saveAsPDF.addEventListener('click', () => {
+                        if (isViewingSelection && selectedArtworks.length > 0) {
+                            // Export entire selection when viewing through selection mode
+                            generatePDF(selectedArtworks);
+                        } else if (currentViewingArtwork) {
+                            // Export single artwork when viewing individual piece
+                            generatePDF([currentViewingArtwork]);
+                        }
+                    });
+                }
             }
 
-            // Close lightbox
+            // Close lightbox (available on both desktop and mobile)
             const lightboxClose = document.getElementById('lightboxClose');
             if (lightboxClose) {
                 lightboxClose.addEventListener('click', closeLightbox);
@@ -1346,20 +1357,6 @@
                 lightbox.addEventListener('click', (e) => {
                     if (e.target.id === 'lightbox') {
                         closeLightbox();
-                    }
-                });
-            }
-
-            // Save as PDF (from lightbox) - Enhanced logic
-            const saveAsPDF = document.getElementById('saveAsPDF');
-            if (saveAsPDF) {
-                saveAsPDF.addEventListener('click', () => {
-                    if (window.innerWidth > 768 && isViewingSelection && selectedArtworks.length > 0) {
-                        // Export entire selection when viewing through selection mode (desktop only)
-                        generatePDF(selectedArtworks);
-                    } else if (currentViewingArtwork) {
-                        // Export single artwork when viewing individual piece
-                        generatePDF([currentViewingArtwork]);
                     }
                 });
             }
@@ -1808,6 +1805,16 @@
         function handleKeyboard(e) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox.style.display === 'none') return;
+            
+            // Only enable keyboard navigation on desktop
+            if (window.innerWidth <= 768) {
+                // On mobile, only allow escape to close
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    closeLightbox();
+                }
+                return;
+            }
             
             const panStep = 20; // pixels to move with keyboard
             
