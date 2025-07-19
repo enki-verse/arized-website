@@ -767,33 +767,27 @@
             font-size: 1rem;
             font-weight: 600;
             margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .lightbox-status {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 12px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .lightbox-status.available {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .lightbox-status.sold {
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
             background: #f44336;
-            color: white;
-        }
-
-        .lightbox-status.not-available {
-            background: #9e9e9e;
-            color: white;
+            display: inline-block;
         }
 
         .lightbox-navigation {
@@ -1277,8 +1271,10 @@
             <div class="lightbox-info">
                 <h2 id="lightboxTitle"></h2>
                 <p id="lightboxDetails"></p>
-                <div class="lightbox-price" id="lightboxPrice"></div>
-                <span class="lightbox-status" id="lightboxStatus"></span>
+                <div class="lightbox-price">
+                    <span id="lightboxPriceText"></span>
+                    <span class="lightbox-status" id="lightboxStatus"></span>
+                </div>
             </div>
         </div>
         <div class="zoom-controls">
@@ -1634,9 +1630,6 @@
             }
             
             grid.innerHTML = filteredArtworks.map(artwork => {
-                const status = getArtworkStatus(artwork);
-                const price = formatPrice(artwork);
-                
                 return `
                 <div class="artwork-card" 
                      data-id="${artwork.id}"
@@ -1647,8 +1640,6 @@
                     <div class="artwork-info">
                         <div class="artwork-title">${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</div>
                         <div class="artwork-details">${artwork.year} • ${artwork.dimensions}</div>
-                        <div class="artwork-price">${price}</div>
-                        <span class="artwork-status ${status.class}">${status.text}</span>
                     </div>
                 </div>
                 `;
@@ -1947,7 +1938,7 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDetails = document.getElementById('lightboxDetails');
-            const lightboxPrice = document.getElementById('lightboxPrice');
+            const lightboxPriceText = document.getElementById('lightboxPriceText');
             const lightboxStatus = document.getElementById('lightboxStatus');
             const saveAsPDF = document.getElementById('saveAsPDF');
             
@@ -1966,9 +1957,14 @@
             const price = formatPrice(currentViewingArtwork);
             const status = getArtworkStatus(currentViewingArtwork);
             
-            lightboxPrice.textContent = price;
-            lightboxStatus.textContent = status.text;
-            lightboxStatus.className = `lightbox-status ${status.class}`;
+            lightboxPriceText.textContent = price;
+            
+            // Create status text with red dot for sold items
+            if (status.class === 'sold') {
+                lightboxStatus.innerHTML = `${status.text} <span class="status-dot"></span>`;
+            } else {
+                lightboxStatus.textContent = status.text;
+            }
             
             // Update PDF button text based on mode
             if (isViewingSelection && selectedArtworks.length > 1) {
