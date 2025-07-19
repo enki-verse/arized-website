@@ -472,6 +472,12 @@
         <p class="coming-soon">Full website coming soon</p>
     </div>
 
+    <script>
+        /***** Auto-redirect mobile users *****/
+        if (/iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            window.location.replace('mobile.html');
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
     <script>
         // Configuration
