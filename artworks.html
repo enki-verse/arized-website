@@ -377,7 +377,6 @@
             color: #666;
         }
 
-        /* Navigation Controls in Lightbox */
         .lightbox-navigation {
             position: fixed;
             bottom: 2rem;
@@ -408,7 +407,156 @@
             cursor: not-allowed;
         }
 
-        /* Drop zone for lightbox */
+        .nav-btn.add-to-selection {
+            background: var(--accent-gold);
+            color: white;
+            border-color: var(--accent-gold);
+        }
+
+        .nav-btn.add-to-selection:hover {
+            background: var(--primary-brown);
+            border-color: var(--primary-brown);
+        }
+
+        .nav-btn.add-to-selection.added {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        /* Selection Tray */
+        .selection-tray {
+            position: fixed;
+            bottom: -200px;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--accent-gold);
+            transition: bottom 0.3s ease;
+            z-index: 1500;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .selection-tray.active {
+            bottom: 0;
+        }
+
+        .tray-header {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+
+        .tray-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tray-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tray-btn {
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .tray-btn:hover {
+            background: var(--primary-brown);
+        }
+
+        .tray-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .tray-content {
+            padding: 1rem 2rem;
+            height: calc(100% - 60px);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+        }
+
+        .drop-zone {
+            min-width: 200px;
+            height: 100px;
+            border: 2px dashed var(--accent-gold);
+            background: rgba(218, 165, 32, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            background: rgba(218, 165, 32, 0.2);
+            border-color: var(--primary-brown);
+        }
+
+        .selected-thumbnail {
+            position: relative;
+            min-width: 100px;
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .selected-thumbnail:hover {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        .selected-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .selected-thumbnail .remove-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .selected-thumbnail .remove-btn:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* Drop indicator */
         .drop-indicator {
             position: fixed;
             top: 50%;
@@ -494,9 +642,26 @@
         </div>
     </main>
 
+    <!-- Selection Tray -->
+    <div class="selection-tray" id="selectionTray">
+        <div class="tray-header">
+            <div class="tray-title">Selection (<span id="selectionCount">0</span> items)</div>
+            <div class="tray-controls">
+                <button class="tray-btn" id="viewSelection" disabled>View Selection</button>
+                <button class="tray-btn" id="saveSelection" disabled>Save as PDF</button>
+                <button class="tray-btn" id="clearSelection">Clear All</button>
+            </div>
+        </div>
+        <div class="tray-content" id="trayContent">
+            <div class="drop-zone" id="dropZone">
+                Drag artworks here to add to selection
+            </div>
+        </div>
+    </div>
+
     <!-- Drop Indicator -->
     <div class="drop-indicator" id="dropIndicator">
-        Add to Lightbox Collection
+        Add to Selection
     </div>
 
     <!-- Lightbox Modal -->
@@ -515,6 +680,7 @@
             <button class="zoom-btn" id="zoomOut">-</button>
         </div>
         <div class="lightbox-navigation">
+            <button class="nav-btn add-to-selection" id="addToSelection">Add to Selection</button>
             <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
             <button class="nav-btn" id="nextBtn" disabled>Next →</button>
             <button class="nav-btn" id="saveAsPDF">Save as PDF</button>
@@ -534,8 +700,9 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let filteredArtworks = [];
-        let lightboxCollection = [];
-        let currentLightboxIndex = 0;
+        let selectedArtworks = []; // This is the selection collection
+        let currentViewingArtwork = null; // Currently viewing in lightbox
+        let currentSelectionIndex = 0; // For navigating through selection
 
         // Lightbox zoom functionality
         let currentZoom = 0.9;
@@ -594,10 +761,10 @@
         // Setup card interactions
         function setupCardInteractions() {
             document.querySelectorAll('.artwork-card').forEach(card => {
-                // Click to open in lightbox
+                // Click to view in lightbox (but don't add to selection)
                 card.addEventListener('click', (e) => {
                     if (!e.target.closest('[draggable]') || !isDragging) {
-                        openLightbox(card.dataset.id);
+                        viewArtworkInLightbox(card.dataset.id);
                     }
                 });
 
@@ -614,16 +781,46 @@
                 });
             });
 
-            // Setup drop zone on entire window
-            window.addEventListener('dragover', (e) => {
+            // Setup drop zone
+            setupDropZone();
+        }
+
+        // Setup drop zone
+        function setupDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            const trayContent = document.getElementById('trayContent');
+
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+
+            dropZone.addEventListener('dragleave', (e) => {
+                if (!dropZone.contains(e.relatedTarget)) {
+                    dropZone.classList.remove('drag-over');
+                }
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                const artworkId = e.dataTransfer.getData('text/plain');
+                if (artworkId) {
+                    addToSelection(artworkId);
+                }
+                hideDropIndicator();
+            });
+
+            // Also allow dropping anywhere in tray content
+            trayContent.addEventListener('dragover', (e) => {
                 e.preventDefault();
             });
 
-            window.addEventListener('drop', (e) => {
+            trayContent.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const artworkId = e.dataTransfer.getData('text/plain');
                 if (artworkId) {
-                    addToLightboxCollection(artworkId);
+                    addToSelection(artworkId);
                 }
                 hideDropIndicator();
             });
@@ -664,31 +861,63 @@
             document.getElementById('dropIndicator').classList.remove('active');
         }
 
-        // Lightbox collection management
-        function addToLightboxCollection(artworkId) {
+        // Selection management
+        function addToSelection(artworkId) {
             const artwork = artworks.find(a => a.id === artworkId);
-            if (!artwork || lightboxCollection.find(a => a.id === artworkId)) return;
+            if (!artwork || selectedArtworks.find(a => a.id === artworkId)) return;
 
-            lightboxCollection.push(artwork);
-            updateLightboxCount();
+            selectedArtworks.push(artwork);
+            updateSelectionDisplay();
+            updateSelectionCount();
+            updateAddToSelectionButton();
         }
 
-        function updateLightboxCount() {
-            document.getElementById('lightboxCount').textContent = lightboxCollection.length;
+        function removeFromSelection(artworkId) {
+            selectedArtworks = selectedArtworks.filter(a => a.id !== artworkId);
+            updateSelectionDisplay();
+            updateSelectionCount();
+            updateAddToSelectionButton();
         }
 
-        // Open lightbox
-        function openLightbox(artworkId) {
+        function updateSelectionCount() {
+            document.getElementById('lightboxCount').textContent = selectedArtworks.length;
+            document.getElementById('selectionCount').textContent = selectedArtworks.length;
+            
+            // Update tray buttons
+            const viewBtn = document.getElementById('viewSelection');
+            const saveBtn = document.getElementById('saveSelection');
+            const hasSelection = selectedArtworks.length > 0;
+            
+            viewBtn.disabled = !hasSelection;
+            saveBtn.disabled = !hasSelection;
+        }
+
+        function updateSelectionDisplay() {
+            const trayContent = document.getElementById('trayContent');
+            const dropZone = document.getElementById('dropZone');
+            
+            // Remove existing thumbnails
+            const existingThumbs = trayContent.querySelectorAll('.selected-thumbnail');
+            existingThumbs.forEach(thumb => thumb.remove());
+            
+            // Add selected thumbnails
+            selectedArtworks.forEach(artwork => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = 'selected-thumbnail';
+                thumbnail.innerHTML = `
+                    <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}" alt="${artwork.title}">
+                    <button class="remove-btn" onclick="removeFromSelection('${artwork.id}')">×</button>
+                `;
+                trayContent.insertBefore(thumbnail, dropZone);
+            });
+        }
+
+        // View artwork in lightbox (without adding to selection)
+        function viewArtworkInLightbox(artworkId) {
             const artwork = artworks.find(a => a.id === artworkId);
             if (!artwork) return;
 
-            // If not in collection, add it
-            if (!lightboxCollection.find(a => a.id === artworkId)) {
-                addToLightboxCollection(artworkId);
-            }
-
-            // Set current index
-            currentLightboxIndex = lightboxCollection.findIndex(a => a.id === artworkId);
+            currentViewingArtwork = artwork;
             
             // Hide navigation
             document.getElementById('navigation').classList.add('hidden');
@@ -698,31 +927,79 @@
             lightbox.style.display = 'flex';
             
             updateLightboxImage();
+            updateAddToSelectionButton();
             resetZoom();
         }
 
-        function updateLightboxImage() {
-            if (lightboxCollection.length === 0) return;
+        function updateAddToSelectionButton() {
+            const addBtn = document.getElementById('addToSelection');
+            if (!currentViewingArtwork) return;
+            
+            const isInSelection = selectedArtworks.find(a => a.id === currentViewingArtwork.id);
+            
+            if (isInSelection) {
+                addBtn.textContent = 'Added to Selection';
+                addBtn.classList.add('added');
+                addBtn.disabled = true;
+            } else {
+                addBtn.textContent = 'Add to Selection';
+                addBtn.classList.remove('added');
+                addBtn.disabled = false;
+            }
+        }
 
-            const artwork = lightboxCollection[currentLightboxIndex];
+        function updateLightboxImage() {
+            if (!currentViewingArtwork) return;
+
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDetails = document.getElementById('lightboxDetails');
             
-            lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.large}`;
-            lightboxImage.alt = artwork.title;
+            lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
+            lightboxImage.alt = currentViewingArtwork.title;
             
-            let cleanTitle = artwork.title;
+            let cleanTitle = currentViewingArtwork.title;
             if (cleanTitle.includes('cm')) {
                 cleanTitle = cleanTitle.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
             }
             
             lightboxTitle.textContent = cleanTitle;
-            lightboxDetails.textContent = `${artwork.year} • ${artwork.medium} • ${artwork.dimensions}`;
+            lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
             
-            // Update navigation buttons
-            document.getElementById('prevBtn').disabled = lightboxCollection.length <= 1;
-            document.getElementById('nextBtn').disabled = lightboxCollection.length <= 1;
+            // Update navigation buttons for selection browsing
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (selectedArtworks.length > 1) {
+                const currentIndex = selectedArtworks.findIndex(a => a.id === currentViewingArtwork.id);
+                if (currentIndex >= 0) {
+                    currentSelectionIndex = currentIndex;
+                    prevBtn.disabled = false;
+                    nextBtn.disabled = false;
+                } else {
+                    prevBtn.disabled = true;
+                    nextBtn.disabled = true;
+                }
+            } else {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+            }
+        }
+
+        // Navigate through selection in lightbox
+        function navigateSelection(direction) {
+            if (selectedArtworks.length === 0) return;
+            
+            if (direction === 'prev') {
+                currentSelectionIndex = (currentSelectionIndex - 1 + selectedArtworks.length) % selectedArtworks.length;
+            } else {
+                currentSelectionIndex = (currentSelectionIndex + 1) % selectedArtworks.length;
+            }
+            
+            currentViewingArtwork = selectedArtworks[currentSelectionIndex];
+            updateLightboxImage();
+            updateAddToSelectionButton();
+            resetZoom();
         }
 
         // Lightbox navigation
@@ -804,10 +1081,8 @@
             }
         });
 
-        // Save as PDF
-        document.getElementById('saveAsPDF').addEventListener('click', () => {
-            if (lightboxCollection.length === 0) return;
-            
+        // Generate PDF
+        function generatePDF(artworksArray) {
             const printWindow = window.open('', '_blank');
             const htmlContent = `
                 <!DOCTYPE html>
@@ -827,7 +1102,7 @@
                 </head>
                 <body>
                     <h1>Selected Artworks by Ari Zed</h1>
-                    ${lightboxCollection.map(artwork => `
+                    ${artworksArray.map(artwork => `
                         <div class="artwork">
                             <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.large}" alt="${artwork.title}">
                             <div class="artwork-info">
@@ -846,6 +1121,13 @@
             
             printWindow.document.write(htmlContent);
             printWindow.document.close();
+        }
+
+        // Save as PDF (from lightbox)
+        document.getElementById('saveAsPDF').addEventListener('click', () => {
+            if (currentViewingArtwork) {
+                generatePDF([currentViewingArtwork]);
+            }
         });
 
         // Initialize
