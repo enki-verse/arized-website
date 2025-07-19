@@ -136,18 +136,51 @@
             }
 
             body {
-                margin-left: 0;
+                margin-left: 0 !important; /* Remove margin on mobile */
             }
             
             .navigation {
-                left: -280px;
+                left: -280px !important; /* Start hidden on mobile */
                 width: 280px;
-                transition: left 0.15s ease-out;
+                transition: left 0.3s ease;
                 box-shadow: var(--shadow-strong);
             }
             
             .navigation.active {
-                left: 0;
+                left: 0 !important; /* Show when active */
+            }
+
+            .menu-toggle {
+                display: flex !important; /* Show hamburger on mobile */
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1002;
+                cursor: pointer;
+                padding: 0.5rem;
+                flex-direction: column;
+                gap: 6px;
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 4px;
+            }
+
+            .menu-toggle span {
+                width: 25px;
+                height: 2px;
+                background: var(--white);
+                transition: 0.3s;
+            }
+
+            .menu-toggle.open span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 5px);
+            }
+
+            .menu-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.open span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -5px);
             }
         }
 
@@ -163,7 +196,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             z-index: 1000;
             padding: 0;
-            transition: all 0.15s ease-out;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
@@ -311,9 +344,21 @@
             margin-left: 280px;
             transition: margin-left 0.15s ease-out;
         }
+
+        /* Hide hamburger menu on desktop */
+        .menu-toggle {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <!-- Navigation -->
     <nav class="navigation" id="navigation">
         <div class="nav-container">
