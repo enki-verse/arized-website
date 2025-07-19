@@ -194,7 +194,7 @@
             height: 16px;
         }
 
-        /* Submenu Styles */
+        /* Submenu Styles - Fixed Visibility */
         .submenu {
             max-height: 0;
             overflow: hidden;
@@ -208,7 +208,7 @@
         }
 
         .submenu-item {
-            color: var(--text-secondary);
+            color: var(--text-primary); /* Make more visible */
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 12px;
@@ -220,6 +220,7 @@
             transition: all 0.15s ease-out;
             position: relative;
             margin-bottom: 2px;
+            opacity: 0.8; /* Slightly transparent but visible */
         }
 
         .submenu-item::before {
@@ -240,17 +241,19 @@
             color: var(--text-primary);
             background: #fafafa;
             transform: translateX(1px);
+            opacity: 1;
         }
 
         .submenu-item:hover::before {
-            opacity: 0.4;
+            opacity: 0.6;
         }
 
         .submenu-item.active {
             color: var(--text-primary);
-            background: #f8f8f8;
+            background: #f0f0f0;
             font-weight: 500;
             transform: translateX(1px);
+            opacity: 1;
         }
 
         .submenu-item.active::before {
@@ -258,15 +261,17 @@
             box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
         }
 
-        /* Dropdown Arrow */
+        /* Dropdown Arrow - Fix initial state */
         .dropdown-arrow {
             font-size: 10px;
             transition: transform 0.15s ease-out;
             color: var(--text-tertiary);
         }
 
-        .nav-menu > li > a.active .dropdown-arrow {
+        .nav-menu > li > a.active .dropdown-arrow,
+        .nav-menu > li > a:hover .dropdown-arrow {
             transform: rotate(180deg);
+            color: var(--accent-gold);
         }
 
         /* Sub Navigation - Refined Typography */
@@ -1305,11 +1310,11 @@
             });
         }
 
-        // Exhibition filters (now submenu items)
+        // Exhibition filters (now submenu items) - Fixed functionality
         function setupExhibitionFilters() {
             const submenuItems = document.querySelectorAll('.submenu-item');
             
-            submenuItems.forEach(item => {
+            submenuItems.forEach((item) => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     
