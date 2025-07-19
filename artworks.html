@@ -211,11 +211,12 @@
         }
 
         .submenu.active {
-            max-height: 300px; /* Increase for nested structure */
+            max-height: 400px; /* Increased to accommodate both exhibitions and filters */
         }
 
         /* Exhibitions Toggle - Level 2 */
-        .exhibitions-toggle {
+        .exhibitions-toggle,
+        .filter-toggle {
             color: #2a2a2a !important;
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif !important;
@@ -235,13 +236,15 @@
             cursor: pointer;
         }
 
-        .exhibitions-toggle:hover {
+        .exhibitions-toggle:hover,
+        .filter-toggle:hover {
             color: #1a1a1a !important;
             background: #fafafa;
             transform: translateX(1px);
         }
 
-        .exhibitions-toggle.active {
+        .exhibitions-toggle.active,
+        .filter-toggle.active {
             color: #1a1a1a !important;
             background: #f8f8f8;
             font-weight: 600 !important;
@@ -249,19 +252,23 @@
         }
 
         /* Exhibition Items - Level 3 */
-        .exhibition-submenu {
+        .exhibition-submenu,
+        .filter-submenu {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.2s ease-out;
             margin-left: 16px;
             margin-top: 4px;
+            margin-bottom: 8px;
         }
 
-        .exhibition-submenu.active {
+        .exhibition-submenu.active,
+        .filter-submenu.active {
             max-height: 200px;
         }
 
-        .exhibition-item {
+        .exhibition-item,
+        .filter-item {
             color: #4a4a4a !important;
             text-decoration: none;
             font-family: 'Space Grotesk', sans-serif !important;
@@ -278,7 +285,8 @@
             background: transparent;
         }
 
-        .exhibition-item::before {
+        .exhibition-item::before,
+        .filter-item::before {
             content: '';
             position: absolute;
             left: 6px;
@@ -292,40 +300,47 @@
             transition: all 0.15s ease-out;
         }
 
-        .exhibition-item:hover {
+        .exhibition-item:hover,
+        .filter-item:hover {
             color: #2a2a2a !important;
             background: #fafafa;
             transform: translateX(1px);
         }
 
-        .exhibition-item:hover::before {
+        .exhibition-item:hover::before,
+        .filter-item:hover::before {
             opacity: 0.6;
         }
 
-        .exhibition-item.active {
+        .exhibition-item.active,
+        .filter-item.active {
             color: #2a2a2a !important;
             background: #f0f0f0;
             font-weight: 500 !important;
             transform: translateX(1px);
         }
 
-        .exhibition-item.active::before {
+        .exhibition-item.active::before,
+        .filter-item.active::before {
             opacity: 1;
             box-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
         }
 
-        /* Small dropdown arrow for exhibitions */
-        .exhibitions-arrow {
+        /* Small dropdown arrow for exhibitions and filters */
+        .exhibitions-arrow,
+        .filter-arrow {
             font-size: 8px;
             transition: transform 0.15s ease-out;
             color: var(--text-tertiary);
         }
 
-        .exhibitions-toggle:hover .exhibitions-arrow {
+        .exhibitions-toggle:hover .exhibitions-arrow,
+        .filter-toggle:hover .filter-arrow {
             color: var(--accent-gold);
         }
 
-        .exhibitions-toggle.active .exhibitions-arrow {
+        .exhibitions-toggle.active .exhibitions-arrow,
+        .filter-toggle.active .filter-arrow {
             transform: rotate(180deg);
             color: var(--accent-gold);
         }
@@ -537,6 +552,10 @@
             gap: 8px;
             justify-content: flex-start;
             align-items: flex-start;
+        }
+
+        .gallery-grid.few-results {
+            justify-content: center;
         }
 
         .artwork-card {
@@ -1156,6 +1175,17 @@
                             <a href="#" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
                             <a href="#" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
                         </div>
+                        
+                        <a href="#" class="filter-toggle" id="filterToggle">
+                            Filter
+                            <span class="filter-arrow">▼</span>
+                        </a>
+                        <div class="filter-submenu" id="filterSubmenu">
+                            <a href="#" class="filter-item active" data-filter="all">All</a>
+                            <a href="#" class="filter-item" data-filter="available">Available</a>
+                            <a href="#" class="filter-item" data-filter="sold">Sold</a>
+                            <a href="#" class="filter-item" data-filter="not-available">Not Available</a>
+                        </div>
                     </div>
                 </li>
                 <li><a href="about.html">ABOUT</a></li>
@@ -1281,13 +1311,18 @@
             if (navMenu) {
                 navMenu.querySelectorAll('li > a').forEach(link => {
                     // Don't close on dropdown toggles
-                    if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
+                    if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle' && link.id !== 'filterToggle')) {
                         link.addEventListener('click', closeMenu);
                     }
                 });
 
                 // Close menu when clicking on exhibition items
                 navMenu.querySelectorAll('.exhibition-item').forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+
+                // Close menu when clicking on filter items
+                navMenu.querySelectorAll('.filter-item').forEach(link => {
                     link.addEventListener('click', closeMenu);
                 });
             }
@@ -1488,6 +1523,10 @@
         let currentSelectionIndex = 0; // For navigating through selection
         let isViewingSelection = false; // Track if we're viewing through selection mode
 
+        // Filter state
+        let currentExhibitionFilter = 'all';
+        let currentAvailabilityFilter = 'all';
+
         // Lightbox zoom functionality
         let currentZoom = 0.9;
         const minZoom = 0.5;
@@ -1522,8 +1561,20 @@
             const grid = document.getElementById('galleryGrid');
             
             if (filteredArtworks.length === 0) {
-                grid.innerHTML = '<p class="loading">No artworks found for this exhibition.</p>';
+                let message = 'No artworks found';
+                if (currentExhibitionFilter !== 'all' || currentAvailabilityFilter !== 'all') {
+                    message += ' for the selected filters';
+                }
+                grid.innerHTML = `<p class="loading">${message}.</p>`;
+                grid.classList.remove('few-results');
                 return;
+            }
+            
+            // Add class for center alignment when few results
+            if (filteredArtworks.length <= 3) {
+                grid.classList.add('few-results');
+            } else {
+                grid.classList.remove('few-results');
             }
             
             grid.innerHTML = filteredArtworks.map(artwork => `
@@ -1542,6 +1593,9 @@
             
             // Add click and drag handlers
             setupCardInteractions();
+            
+            // Log filter results for debugging
+            console.log(`Showing ${filteredArtworks.length} artworks (Exhibition: ${currentExhibitionFilter}, Availability: ${currentAvailabilityFilter})`);
         }
 
         // Setup card interactions
@@ -1647,21 +1701,74 @@
                     exhibitionItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
                     
-                    // Filter artworks
-                    const exhibition = item.dataset.exhibition;
-                    filterArtworksByExhibition(exhibition);
+                    // Update filter state
+                    currentExhibitionFilter = item.dataset.exhibition;
+                    
+                    // Apply combined filters
+                    applyFilters();
+                });
+            });
+
+            // Setup filter toggle
+            const filterToggle = document.getElementById('filterToggle');
+            if (filterToggle) {
+                filterToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const submenu = document.getElementById('filterSubmenu');
+                    const toggle = document.getElementById('filterToggle');
+                    
+                    submenu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            }
+
+            // Setup filter item handlers
+            const filterItems = document.querySelectorAll('.filter-item');
+            
+            filterItems.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Update active state
+                    filterItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Update filter state
+                    currentAvailabilityFilter = item.dataset.filter;
+                    
+                    // Apply combined filters
+                    applyFilters();
                 });
             });
         }
 
-        function filterArtworksByExhibition(exhibition) {
-            if (exhibition === 'all') {
-                filteredArtworks = [...artworks];
-            } else {
-                filteredArtworks = artworks.filter(artwork => 
-                    artwork.exhibitions && artwork.exhibitions.includes(exhibition)
+        // Apply combined exhibition and availability filters
+        function applyFilters() {
+            let results = [...artworks];
+
+            // Apply exhibition filter
+            if (currentExhibitionFilter !== 'all') {
+                results = results.filter(artwork => 
+                    artwork.exhibitions && artwork.exhibitions.includes(currentExhibitionFilter)
                 );
             }
+
+            // Apply availability filter
+            switch (currentAvailabilityFilter) {
+                case 'available':
+                    results = results.filter(artwork => artwork.available === true && artwork.forSale === true);
+                    break;
+                case 'sold':
+                    results = results.filter(artwork => artwork.forSale === false);
+                    break;
+                case 'not-available':
+                    results = results.filter(artwork => artwork.available === false);
+                    break;
+                // 'all' shows everything, no additional filtering needed
+            }
+
+            filteredArtworks = results;
             renderGallery();
         }
 
