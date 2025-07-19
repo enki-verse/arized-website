@@ -794,13 +794,21 @@
             loadArtworks();
             updateSelectionCount();
             
-            // Setup selection tray toggle
+            // Setup selection tray toggle (now properly toggles open/closed)
             document.getElementById('selectionToggle').addEventListener('click', () => {
                 const tray = document.getElementById('selectionTray');
                 const toggle = document.getElementById('selectionToggle');
                 
-                tray.classList.toggle('active');
-                toggle.classList.toggle('active');
+                // Check if tray is currently active
+                if (tray.classList.contains('active')) {
+                    // Close it
+                    tray.classList.remove('active');
+                    toggle.classList.remove('active');
+                } else {
+                    // Open it
+                    tray.classList.add('active');
+                    toggle.classList.add('active');
+                }
             });
 
             // Setup other event listeners
@@ -816,6 +824,12 @@
                 tray.classList.remove('active');
                 toggle.classList.remove('active');
             });
+
+            // Setup drag functionality for lightbox
+            setupLightboxDrag();
+
+            // Setup keyboard navigation for lightbox
+            setupKeyboardNavigation();
 
             // Lightbox navigation
             document.getElementById('prevBtn').addEventListener('click', () => {
@@ -1273,6 +1287,62 @@
             } else {
                 lightboxImage.classList.remove('zoomed');
             }
+        }
+
+        // Setup drag functionality for lightbox
+        function setupLightboxDrag() {
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            lightboxImage.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Touch events for mobile
+            lightboxImage.addEventListener('touchstart', startDragTouch);
+            document.addEventListener('touchmove', dragTouch);
+            document.addEventListener('touchend', endDrag);
+        }
+
+        function startDrag(e) {
+            if (currentZoom <= 0.9) return;
+            
+            isDragging = true;
+            dragStartX = e.clientX - imageX;
+            dragStartY = e.clientY - imageY;
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging || currentZoom <= 0.9) return;
+            
+            imageX = e.clientX - dragStartX;
+            imageY = e.clientY - dragStartY;
+            updateImageZoom();
+            e.preventDefault();
+        }
+
+        function startDragTouch(e) {
+            if (currentZoom <= 0.9) return;
+            
+            isDragging = true;
+            const touch = e.touches[0];
+            dragStartX = touch.clientX - imageX;
+            dragStartY = touch.clientY - imageY;
+            e.preventDefault();
+        }
+
+        function dragTouch(e) {
+            if (!isDragging || currentZoom <= 0.9) return;
+            
+            const touch = e.touches[0];
+            imageX = touch.clientX - dragStartX;
+            imageY = touch.clientY - dragStartY;
+            updateImageZoom();
+            e.preventDefault();
+        }
+
+        function endDrag() {
+            isDragging = false;
         }
 
         function resetZoom() {
