@@ -744,6 +744,71 @@
 
         .lightbox-navigation {
             position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-navigation:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .lightbox-navigation:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(0.9);
+        }
+
+        .lightbox-navigation:disabled:hover {
+            transform: translateY(-50%) scale(0.9);
+            box-shadow: none;
+        }
+
+        .nav-btn-prev {
+            left: 2rem;
+        }
+
+        .nav-btn-next {
+            right: 2rem;
+        }
+
+        .nav-btn-prev::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 12px solid #333;
+            margin-left: -2px;
+        }
+
+        .nav-btn-next::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid #333;
+            margin-right: -2px;
+        }
+
+        /* Bottom action buttons */
+        .lightbox-actions {
+            position: fixed;
             bottom: 2rem;
             right: 2rem;
             display: flex;
@@ -751,7 +816,7 @@
             z-index: 2001;
         }
 
-        .nav-btn {
+        .action-btn {
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -760,30 +825,31 @@
             font-size: 0.9rem;
             color: #333;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
-        .nav-btn:hover {
+        .action-btn:hover {
             background: rgba(255, 255, 255, 1);
             border-color: rgba(0, 0, 0, 0.3);
         }
 
-        .nav-btn:disabled {
+        .action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .nav-btn.add-to-selection {
+        .action-btn.add-to-selection {
             background: var(--accent-gold);
             color: white;
             border-color: var(--accent-gold);
         }
 
-        .nav-btn.add-to-selection:hover {
+        .action-btn.add-to-selection:hover {
             background: var(--primary-brown);
             border-color: var(--primary-brown);
         }
 
-        .nav-btn.add-to-selection.added {
+        .action-btn.add-to-selection.added {
             background: #4CAF50;
             border-color: #4CAF50;
         }
@@ -1020,7 +1086,8 @@
             }
 
             /* Hide ALL lightbox navigation buttons on mobile */
-            .lightbox-navigation {
+            .lightbox-navigation,
+            .lightbox-actions {
                 display: none !important;
             }
 
@@ -1152,11 +1219,15 @@
             <button class="zoom-btn" id="zoomIn">+</button>
             <button class="zoom-btn" id="zoomOut">-</button>
         </div>
-        <div class="lightbox-navigation">
-            <button class="nav-btn add-to-selection" id="addToSelection">Add to Selection</button>
-            <button class="nav-btn" id="prevBtn" disabled>← Previous</button>
-            <button class="nav-btn" id="nextBtn" disabled>Next →</button>
-            <button class="nav-btn" id="saveAsPDF">Save as PDF</button>
+        
+        <!-- Round arrow navigation buttons -->
+        <button class="lightbox-navigation nav-btn-prev" id="prevBtn" disabled></button>
+        <button class="lightbox-navigation nav-btn-next" id="nextBtn" disabled></button>
+        
+        <!-- Action buttons at bottom -->
+        <div class="lightbox-actions">
+            <button class="action-btn add-to-selection" id="addToSelection">Add to Selection</button>
+            <button class="action-btn" id="saveAsPDF">Save as PDF</button>
         </div>
     </div>
 
@@ -1325,9 +1396,9 @@
                 }
 
                 // Add to selection from lightbox
-                const addToSelection = document.getElementById('addToSelection');
-                if (addToSelection) {
-                    addToSelection.addEventListener('click', () => {
+                const addToSelectionBtn = document.getElementById('addToSelection');
+                if (addToSelectionBtn) {
+                    addToSelectionBtn.addEventListener('click', () => {
                         if (currentViewingArtwork) {
                             addToSelection(currentViewingArtwork.id);
                         }
@@ -1368,11 +1439,11 @@
                 const nextBtn = document.getElementById('nextBtn');
                 if (prevBtn && nextBtn) {
                     prevBtn.addEventListener('click', () => {
-                        navigateSelection('prev');
+                        navigateLightbox('prev');
                     });
 
                     nextBtn.addEventListener('click', () => {
-                        navigateSelection('next');
+                        navigateLightbox('next');
                     });
                 }
 
@@ -1413,6 +1484,7 @@
         let filteredArtworks = [];
         let selectedArtworks = []; // This is the selection collection
         let currentViewingArtwork = null; // Currently viewing in lightbox
+        let currentArtworkIndex = 0; // For navigating through all artworks
         let currentSelectionIndex = 0; // For navigating through selection
         let isViewingSelection = false; // Track if we're viewing through selection mode
 
@@ -1659,6 +1731,7 @@
             if (!artwork) return;
 
             currentViewingArtwork = artwork;
+            currentArtworkIndex = filteredArtworks.findIndex(a => a.id === artworkId);
             isViewingSelection = false; // Individual artwork view
             
             // Hide navigation
@@ -1704,7 +1777,7 @@
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxTitle = document.getElementById('lightboxTitle');
             const lightboxDetails = document.getElementById('lightboxDetails');
-            const pdfBtn = document.getElementById('saveAsPDF');
+            const saveAsPDF = document.getElementById('saveAsPDF');
             
             lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
             lightboxImage.alt = currentViewingArtwork.title;
@@ -1719,43 +1792,52 @@
             
             // Update PDF button text based on mode
             if (isViewingSelection && selectedArtworks.length > 1) {
-                pdfBtn.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
+                saveAsPDF.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
             } else {
-                pdfBtn.textContent = 'Save as PDF';
+                saveAsPDF.textContent = 'Save as PDF';
             }
             
-            // Update navigation buttons for selection browsing
+            // Update navigation buttons
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             
-            if (selectedArtworks.length > 1) {
-                const currentIndex = selectedArtworks.findIndex(a => a.id === currentViewingArtwork.id);
-                if (currentIndex >= 0) {
-                    currentSelectionIndex = currentIndex;
-                    prevBtn.disabled = false;
-                    nextBtn.disabled = false;
-                } else {
-                    prevBtn.disabled = true;
-                    nextBtn.disabled = true;
-                }
+            if (isViewingSelection) {
+                // Selection mode - navigate through selected artworks
+                prevBtn.disabled = selectedArtworks.length <= 1 || currentSelectionIndex <= 0;
+                nextBtn.disabled = selectedArtworks.length <= 1 || currentSelectionIndex >= selectedArtworks.length - 1;
             } else {
-                prevBtn.disabled = true;
-                nextBtn.disabled = true;
+                // Normal mode - navigate through all filtered artworks
+                prevBtn.disabled = filteredArtworks.length <= 1 || currentArtworkIndex <= 0;
+                nextBtn.disabled = filteredArtworks.length <= 1 || currentArtworkIndex >= filteredArtworks.length - 1;
             }
         }
 
-        // Navigate through selection in lightbox
-        function navigateSelection(direction) {
-            if (selectedArtworks.length === 0) return;
-            
-            if (direction === 'prev') {
-                currentSelectionIndex = (currentSelectionIndex - 1 + selectedArtworks.length) % selectedArtworks.length;
+        // Navigate through artworks in lightbox
+        function navigateLightbox(direction) {
+            if (isViewingSelection) {
+                // Selection mode - navigate through selected artworks
+                if (selectedArtworks.length === 0) return;
+                
+                if (direction === 'prev') {
+                    currentSelectionIndex = Math.max(0, currentSelectionIndex - 1);
+                } else {
+                    currentSelectionIndex = Math.min(selectedArtworks.length - 1, currentSelectionIndex + 1);
+                }
+                
+                currentViewingArtwork = selectedArtworks[currentSelectionIndex];
             } else {
-                currentSelectionIndex = (currentSelectionIndex + 1) % selectedArtworks.length;
+                // Normal mode - navigate through all filtered artworks
+                if (filteredArtworks.length === 0) return;
+                
+                if (direction === 'prev') {
+                    currentArtworkIndex = Math.max(0, currentArtworkIndex - 1);
+                } else {
+                    currentArtworkIndex = Math.min(filteredArtworks.length - 1, currentArtworkIndex + 1);
+                }
+                
+                currentViewingArtwork = filteredArtworks[currentArtworkIndex];
             }
             
-            currentViewingArtwork = selectedArtworks[currentSelectionIndex];
-            isViewingSelection = true; // Maintain selection viewing mode
             updateLightboxImage();
             updateAddToSelectionButton();
             resetZoom();
@@ -1869,8 +1951,8 @@
                     if (currentZoom > 0.9) {
                         imageX += panStep;
                         updateImageZoom();
-                    } else if (isViewingSelection) {
-                        navigateSelection('prev');
+                    } else {
+                        navigateLightbox('prev');
                     }
                     break;
                 case 'ArrowRight':
@@ -1878,8 +1960,8 @@
                     if (currentZoom > 0.9) {
                         imageX -= panStep;
                         updateImageZoom();
-                    } else if (isViewingSelection) {
-                        navigateSelection('next');
+                    } else {
+                        navigateLightbox('next');
                     }
                     break;
                 case 'ArrowUp':
