@@ -14,79 +14,6 @@
             color: var(--white);
             padding: 6rem 0 4rem 0;
             text-align: center;
-        /* ===== ACCESSIBILITY & FOCUS STATES ===== */
-        *:focus-visible {
-            outline: 3px solid #DAA520;
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* Ensure minimum touch targets */
-        .form-group input,
-        .form-group textarea,
-        .form-group select,
-        .submit-btn,
-        .newsletter-form input,
-        .newsletter-form button {
-            min-height: 44px;
-        }
-
-        /* ===== LOADING STATES ===== */
-        .submit-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .submit-btn.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid #FFFFFF;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== MICRO-ANIMATIONS ===== */
-        .contact-detail a,
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .contact-info,
-        .contact-form {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Subtle animations for better UX */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .contact-content > * {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .contact-form {
-            animation-delay: 0.1s;
         }
 
         .contact-hero h1 {
@@ -107,17 +34,17 @@
             margin-bottom: 40px;
         }
 
-        /* ===== ASYMMETRICAL GRID LAYOUT (60/40) ===== */
+        /* ===== CONTACT CONTENT LAYOUT ===== */
         .contact-content {
             display: grid;
-            grid-template-columns: 1.5fr 1fr; /* 60/40 split */
+            grid-template-columns: 1.5fr 1fr;
             gap: 48px;
             max-width: 1200px;
             margin: 0 auto;
             align-items: start;
         }
 
-        /* ===== SOPHISTICATED CONTACT INFO CARD ===== */
+        /* ===== CONTACT INFO CARD ===== */
         .contact-info {
             background: #FDFCF8;
             border: 1px solid #F0EDE5;
@@ -140,7 +67,7 @@
             color: #2C1810;
         }
 
-        /* ===== PREMIUM CONTACT DETAILS ===== */
+        /* ===== CONTACT DETAILS ===== */
         .contact-detail {
             margin-bottom: 32px;
         }
@@ -174,89 +101,33 @@
             letter-spacing: 0.01em;
         }
 
-        /* ===== PREMIUM FORM DESIGN ===== */
+        /* ===== CONTACT FORM CARD ===== */
         .contact-form {
             background: #FFFFFF;
             border: 1px solid #E8E3DB;
             border-radius: 16px;
             padding: 48px 40px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            text-align: center;
         }
 
         .contact-form h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 300;
-            margin-bottom: 48px;
-            color: #2C1810;
-        }
-
-        /* ===== PREMIUM FORM STYLES ===== */
-        .form-group {
             margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 500;
             color: #2C1810;
-            margin-bottom: 8px;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            height: 48px;
-            padding: 0 16px;
-            border: 1px solid #E0E0E0;
-            border-radius: 8px;
+        .contact-form p {
             font-family: 'Inter', sans-serif;
-            font-size: 0.9375rem;
-            background: #FFFFFF;
-            transition: all 0.2s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #DAA520;
-            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
-        }
-
-        .form-group textarea {
-            height: 120px;
-            padding: 16px;
-            resize: vertical;
+            color: #6B6B6B;
             line-height: 1.6;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
             margin-bottom: 32px;
         }
 
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            font-weight: 400;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        /* ===== PREMIUM SUBMIT BUTTON ===== */
-        .submit-btn {
+        /* ===== CONTACT FORM BUTTON ===== */
+        .contact-btn {
             background: linear-gradient(135deg, #DAA520 0%, #B8941F 100%);
             color: #FFFFFF;
             padding: 16px 32px;
@@ -268,13 +139,14 @@
             letter-spacing: 0.025em;
             text-transform: uppercase;
             cursor: pointer;
-            width: 100%;
+            text-decoration: none;
+            display: inline-block;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .submit-btn::before {
+        .contact-btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -285,20 +157,20 @@
             transition: left 0.6s ease;
         }
 
-        .submit-btn:hover {
+        .contact-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(218, 165, 32, 0.3);
         }
 
-        .submit-btn:hover::before {
+        .contact-btn:hover::before {
             left: 100%;
         }
 
-        .submit-btn:active {
+        .contact-btn:active {
             transform: translateY(0);
         }
 
-        /* ===== SOPHISTICATED NEWSLETTER SECTION ===== */
+        /* ===== NEWSLETTER SECTION ===== */
         .newsletter-section {
             background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
             color: #FFFFFF;
@@ -341,66 +213,117 @@
             z-index: 1;
         }
 
-        /* ===== PREMIUM NEWSLETTER FORM ===== */
-        .newsletter-form {
+        /* ===== MAILCHIMP NEWSLETTER STYLING ===== */
+        #mc_embed_signup {
+            background: transparent !important;
+            clear: left;
+            font: 14px 'Inter', sans-serif;
+            width: 100% !important;
             max-width: 480px;
             margin: 0 auto;
-            display: flex;
             position: relative;
             z-index: 1;
+        }
+
+        #mc_embed_signup form {
+            display: flex !important;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        .newsletter-form input {
-            flex: 1;
-            height: 52px;
-            padding: 0 20px;
-            border: none;
-            border-radius: 12px 0 0 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            background: #FFFFFF;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+        #mc_embed_signup h2 {
+            display: none; /* Hide the default title */
         }
 
-        .newsletter-form input::placeholder {
+        #mc_embed_signup .indicates-required {
+            display: none; /* Hide the asterisk note */
+        }
+
+        #mc_embed_signup .mc-field-group {
+            margin: 0 !important;
+            flex: 1;
+        }
+
+        #mc_embed_signup label {
+            display: none; /* Hide labels for clean design */
+        }
+
+        #mc_embed_signup input[type="email"] {
+            width: 100% !important;
+            height: 52px !important;
+            padding: 0 20px !important;
+            border: none !important;
+            border-radius: 12px 0 0 12px !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 1rem !important;
+            background: #FFFFFF !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        #mc_embed_signup input[type="email"]::placeholder {
             color: #999999;
         }
 
-        .newsletter-form input:focus {
-            outline: none;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(218, 165, 32, 0.3);
+        #mc_embed_signup input[type="email"]:focus {
+            outline: none !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(218, 165, 32, 0.3) !important;
         }
 
-        .newsletter-form button {
-            background: #DAA520;
-            color: #FFFFFF;
-            border: none;
-            padding: 0 24px;
-            border-radius: 0 12px 12px 0;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.9375rem;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s ease;
+        #mc_embed_signup .optionalParent {
+            margin: 0 !important;
         }
 
-        .newsletter-form button:hover {
-            background: #D4AF37;
+        #mc_embed_signup .clear.foot {
+            margin: 0 !important;
+        }
+
+        #mc_embed_signup input[type="submit"] {
+            background: #DAA520 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            padding: 0 24px !important;
+            border-radius: 0 12px 12px 0 !important;
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 600 !important;
+            font-size: 0.9375rem !important;
+            cursor: pointer !important;
+            white-space: nowrap !important;
+            transition: all 0.2s ease !important;
+            height: 52px !important;
+            margin: 0 !important;
+        }
+
+        #mc_embed_signup input[type="submit"]:hover {
+            background: #D4AF37 !important;
             transform: translateX(-2px);
         }
 
-        /* Success message */
-        .success-message {
+        /* Hide Mailchimp branding and responses */
+        #mc_embed_signup .refferal_badge {
+            display: none !important;
+        }
+
+        #mc_embed_signup a[title="Mailchimp - email marketing made easy and fun"] {
+            display: none !important;
+        }
+
+        #mc_embed_signup #mce-responses {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 10px;
+        }
+
+        #mc_embed_signup .response {
             background: #4CAF50;
             color: white;
-            padding: 1rem;
+            padding: 12px;
             border-radius: 4px;
-            margin-bottom: 1rem;
-            display: none;
+            text-align: center;
         }
 
         /* ===== DESIGN SYSTEM VARIABLES ===== */
@@ -437,7 +360,6 @@
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            /* Hidden by default on all screen sizes */
             transform: translateX(-100%);
         }
 
@@ -584,7 +506,7 @@
             color: var(--text-tertiary);
         }
 
-        /* ===== HAMBURGER MENU - ALWAYS VISIBLE ===== */
+        /* ===== HAMBURGER MENU ===== */
         .menu-toggle {
             position: fixed;
             top: 1rem;
@@ -628,7 +550,7 @@
         /* ===== BODY LAYOUT ===== */
         body {
             margin: 0;
-            transition: none; /* Remove transition for smoother mobile experience */
+            transition: none;
         }
 
         /* ===== OVERLAY FOR MOBILE MENU ===== */
@@ -653,24 +575,24 @@
         /* ===== DESKTOP STYLES ===== */
         @media (min-width: 769px) {
             .navigation {
-                transform: translateX(0); /* Always visible on desktop */
+                transform: translateX(0);
                 position: fixed;
             }
             
             body {
-                margin-left: 280px; /* Make room for sidebar on desktop */
+                margin-left: 280px;
             }
             
             .menu-toggle {
-                display: none; /* Hide hamburger on desktop */
+                display: none;
             }
             
             .nav-overlay {
-                display: none; /* No overlay needed on desktop */
+                display: none;
             }
         }
 
-        /* ===== SOPHISTICATED RESPONSIVE DESIGN ===== */
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
             .contact-content {
                 grid-template-columns: 1fr;
@@ -725,10 +647,6 @@
                 margin-bottom: 24px;
             }
 
-            .form-group {
-                margin-bottom: 20px;
-            }
-
             .newsletter-section {
                 padding: 48px 24px;
                 margin: 48px 0;
@@ -744,20 +662,20 @@
                 margin-bottom: 32px;
             }
             
-            .newsletter-form {
-                flex-direction: column;
-                max-width: 100%;
+            #mc_embed_signup form {
+                flex-direction: column !important;
                 border-radius: 12px;
             }
 
-            .newsletter-form input {
-                border-radius: 12px;
-                margin-bottom: 12px;
+            #mc_embed_signup input[type="email"] {
+                border-radius: 12px !important;
+                margin-bottom: 12px !important;
             }
 
-            .newsletter-form button {
-                border-radius: 12px;
-                padding: 16px 24px;
+            #mc_embed_signup input[type="submit"] {
+                border-radius: 12px !important;
+                padding: 16px 24px !important;
+                height: auto !important;
             }
         }
 
@@ -872,53 +790,17 @@
                 <!-- Contact Form -->
                 <div class="contact-form">
                     <h2>Send a Message</h2>
+                    <p>Use our secure contact form to get in touch about artworks, commissions, or collaborations.</p>
                     
-                    <div class="success-message" id="successMessage">
-                        Thank you for your message! I'll get back to you soon.
-                    </div>
-
-                    <form name="contact" netlify netlify-honeypot="bot-field" id="contactForm">
-                        <!-- Hidden field for Netlify -->
-                        <input type="hidden" name="form-name" value="contact">
-                        <!-- Honeypot field for spam protection -->
-                        <p style="display: none;">
-                            <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                        </p>
-
-                        <div class="form-group">
-                            <label for="name">Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <select id="subject" name="subject">
-                                <option value="">Select a topic...</option>
-                                <option value="artwork-inquiry">Artwork Inquiry</option>
-                                <option value="commission">Commission Request</option>
-                                <option value="collaboration">Collaboration</option>
-                                <option value="press">Press/Media</option>
-                                <option value="general">General Inquiry</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" placeholder="Tell me about your interest in consciousness expansion through art..." required></textarea>
-                        </div>
-
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="newsletter" name="newsletter" value="yes">
-                            <label for="newsletter">Add me to the email list for updates on new artworks and temple community developments</label>
-                        </div>
-
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                    <a href="https://us18.list-manage.com/contact-form?u=d23a4f84e207d6abe00bd7c60&form_id=3325406975e53e5c404ccb08e25805f7" 
+                       target="_blank" 
+                       class="contact-btn">
+                        Open Contact Form
+                    </a>
+                    
+                    <p style="margin-top: 24px; font-size: 0.875rem; color: #999;">
+                        Opens in a new window • Powered by Mailchimp
+                    </p>
                 </div>
             </div>
         </div>
@@ -930,14 +812,33 @@
             <h3>Join the Fertile Ascent</h3>
             <p>Receive updates on new artworks, consciousness expansion insights, and temple community developments.</p>
             
-            <form name="newsletter" netlify netlify-honeypot="bot-field" class="newsletter-form" id="newsletterForm">
-                <input type="hidden" name="form-name" value="newsletter">
-                <p style="display: none;">
-                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                </p>
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
-            </form>
+            <!-- Your Working Newsletter Signup -->
+            <div id="mc_embed_shell">
+                <div id="mc_embed_signup">
+                    <form action="https://harryzedhughes.us18.list-manage.com/subscribe/post?u=d23a4f84e207d6abe00bd7c60&amp;id=133e6ddc07&amp;f_id=00abb2e6f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                        <div id="mc_embed_signup_scroll">
+                            <h2>Subscribe</h2>
+                            <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                            <div class="mc-field-group">
+                                <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                                <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value="" placeholder="Enter your email">
+                            </div>
+                            <div id="mce-responses" class="clear foot">
+                                <div class="response" id="mce-error-response" style="display: none;"></div>
+                                <div class="response" id="mce-success-response" style="display: none;"></div>
+                            </div>
+                            <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                <input type="text" name="b_d23a4f84e207d6abe00bd7c60_133e6ddc07" tabindex="-1" value="">
+                            </div>
+                            <div class="optionalParent">
+                                <div class="clear foot">
+                                    <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -960,17 +861,16 @@
                 navigation.classList.add('active');
                 navOverlay.classList.add('active');
                 menuToggle.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                document.body.style.overflow = 'hidden';
             }
             
             function closeMenu() {
                 navigation.classList.remove('active');
                 navOverlay.classList.remove('active');
                 menuToggle.classList.remove('open');
-                document.body.style.overflow = ''; // Restore scrolling
+                document.body.style.overflow = '';
             }
             
-            // Toggle menu on hamburger click
             if (menuToggle) {
                 menuToggle.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -982,27 +882,22 @@
                 });
             }
             
-            // Close menu on overlay click
             if (navOverlay) {
                 navOverlay.addEventListener('click', closeMenu);
             }
             
-            // Close menu when clicking on navigation links
             if (navMenu) {
                 navMenu.querySelectorAll('li > a').forEach(link => {
-                    // Don't close on dropdown toggles
                     if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
                         link.addEventListener('click', closeMenu);
                     }
                 });
 
-                // Close menu when clicking on exhibition items
                 navMenu.querySelectorAll('.exhibition-item').forEach(link => {
                     link.addEventListener('click', closeMenu);
                 });
             }
             
-            // Setup exhibitions toggle
             const exhibitionsToggle = document.getElementById('exhibitionsToggle');
             if (exhibitionsToggle) {
                 exhibitionsToggle.addEventListener('click', (e) => {
@@ -1016,123 +911,34 @@
                 });
             }
             
-            // Close menu on window resize if mobile
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
-                    closeMenu(); // Close mobile menu if switching to desktop
+                    closeMenu();
                 }
             });
             
-            // Handle escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && navigation.classList.contains('active')) {
                     closeMenu();
                 }
             });
         });
+    </script>
 
-        // Form submission handling with sophisticated UX
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('.submit-btn');
-            const successMessage = document.getElementById('successMessage');
-            
-            // Add loading state
-            submitBtn.classList.add('loading');
-            submitBtn.textContent = 'SENDING...';
-            
-            // Submit to Netlify
-            const formData = new FormData(this);
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(() => {
-                // Show success message with animation
-                successMessage.style.display = 'block';
-                successMessage.style.opacity = '0';
-                successMessage.style.transform = 'translateY(-10px)';
-                
-                // Animate in
-                setTimeout(() => {
-                    successMessage.style.transition = 'all 0.3s ease';
-                    successMessage.style.opacity = '1';
-                    successMessage.style.transform = 'translateY(0)';
-                }, 10);
-                
-                // Reset form and button
-                this.reset();
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'SEND MESSAGE';
-                
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMessage.style.opacity = '0';
-                    successMessage.style.transform = 'translateY(-10px)';
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 300);
-                }, 5000);
-                
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'SEND MESSAGE';
-                alert('There was an error sending your message. Please try again.');
-            });
-        });
-
-        // Newsletter form handling with premium UX
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const emailInput = this.querySelector('input[type="email"]');
-            const submitButton = this.querySelector('button');
-            const originalText = submitButton.textContent;
-            
-            // Add loading state
-            submitButton.style.background = '#B8941F';
-            submitButton.textContent = 'SUBSCRIBING...';
-            submitButton.disabled = true;
-            
-            // Submit to Netlify
-            const formData = new FormData(this);
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(() => {
-                // Show success state
-                submitButton.style.background = '#4CAF50';
-                submitButton.textContent = 'SUBSCRIBED!';
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    submitButton.style.background = '#DAA520';
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                    emailInput.value = '';
-                    
-                    // Add subtle success animation to input
-                    emailInput.style.borderColor = '#4CAF50';
-                    setTimeout(() => {
-                        emailInput.style.borderColor = '#E0E0E0';
-                    }, 1000);
-                    
-                }, 3000);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                submitButton.style.background = '#DAA520';
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                alert('There was an error subscribing. Please try again.');
-            });
-        });
+    <!-- Load Mailchimp validation script -->
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+        (function($) {
+            window.fnames = new Array(); 
+            window.ftypes = new Array();
+            fnames[0]='EMAIL';ftypes[0]='email';
+            fnames[1]='FNAME';ftypes[1]='text';
+            fnames[2]='LNAME';ftypes[2]='text';
+            fnames[3]='ADDRESS';ftypes[3]='address';
+            fnames[4]='PHONE';ftypes[4]='phone';
+            fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
     </script>
 </body>
 </html>
