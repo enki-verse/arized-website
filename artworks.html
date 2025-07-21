@@ -1003,6 +1003,20 @@
             color: #666;
         }
 
+        .form-message {
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.error {
+            background: #f44336;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -1522,7 +1536,7 @@
         </div>
     </div>
 
-    <!-- Inquiry Modal -->
+    <!-- Inquiry Modal - Updated for Mailchimp -->
     <div class="inquiry-modal" id="inquiryModal">
         <div class="inquiry-content">
             <button class="inquiry-close" id="inquiryClose">&times;</button>
@@ -1534,17 +1548,10 @@
                 <div class="inquiry-artwork-price" id="inquiryArtworkPrice"></div>
             </div>
 
-            <form id="inquiryForm" name="artwork-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="artwork-inquiry">
-                <input type="hidden" name="artwork-id" id="inquiryArtworkId">
-                <input type="hidden" name="artwork-title" id="inquiryArtworkTitleField">
-                <input type="hidden" name="artwork-price" id="inquiryArtworkPriceField">
-                
-                <!-- Honeypot field for spam protection -->
-                <p style="display: none;">
-                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                </p>
+            <div class="form-message" id="inquiryMessage"></div>
 
+            <!-- Simplified form that will redirect to Mailchimp -->
+            <form id="inquiryForm">
                 <div class="inquiry-options">
                     <h4>I'm interested in:</h4>
                     <div class="checkbox-option">
@@ -2546,7 +2553,7 @@
             updateAddToSelectionButton();
         }
 
-        // ===== INQUIRY MODAL FUNCTIONALITY =====
+        // ===== INQUIRY MODAL FUNCTIONALITY - UPDATED FOR MAILCHIMP =====
         function setupInquiryModal() {
             const inquiryModal = document.getElementById('inquiryModal');
             const inquiryClose = document.getElementById('inquiryClose');
@@ -2571,7 +2578,7 @@
                 });
             }
 
-            // Handle form submission
+            // Handle form submission - NEW MAILCHIMP INTEGRATION
             if (inquiryForm) {
                 inquiryForm.addEventListener('submit', handleInquirySubmission);
             }
@@ -2589,9 +2596,6 @@
             const titleEl = document.getElementById('inquiryArtworkTitle');
             const detailsEl = document.getElementById('inquiryArtworkDetails');
             const priceEl = document.getElementById('inquiryArtworkPrice');
-            const idField = document.getElementById('inquiryArtworkId');
-            const titleField = document.getElementById('inquiryArtworkTitleField');
-            const priceField = document.getElementById('inquiryArtworkPriceField');
 
             // Clean artwork title
             let cleanTitle = artwork.title;
@@ -2604,10 +2608,10 @@
             detailsEl.textContent = `${artwork.dimensions} • ${artwork.medium}`;
             priceEl.textContent = formatPrice(artwork);
 
-            // Update hidden form fields
-            idField.value = artwork.id;
-            titleField.value = cleanTitle;
-            priceField.value = formatPrice(artwork);
+            // Store artwork data for form submission
+            modal.dataset.artworkId = artwork.id;
+            modal.dataset.artworkTitle = cleanTitle;
+            modal.dataset.artworkPrice = formatPrice(artwork);
 
             // Show modal
             modal.classList.add('active');
@@ -2630,45 +2634,127 @@
             if (form) {
                 form.reset();
             }
+
+            // Hide any messages
+            document.getElementById('inquiryMessage').style.display = 'none';
+        }
+
+        function showInquiryMessage(message, type = 'success') {
+            const messageEl = document.getElementById('inquiryMessage');
+            messageEl.textContent = message;
+            messageEl.className = `form-message ${type}`;
+            messageEl.style.display = 'block';
         }
 
         function handleInquirySubmission(e) {
             e.preventDefault();
             
-            const submitBtn = e.target.querySelector('.inquiry-btn.primary');
+            const form = e.target;
+            const submitBtn = form.querySelector('.inquiry-btn.primary');
+            const modal = document.getElementById('inquiryModal');
             const originalText = submitBtn.textContent;
+            
+            // Get form data
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone') || '';
+            const message = formData.get('message') || '';
+            
+            // Get checkbox values
+            const shippingQuote = formData.get('shipping-quote') === 'yes';
+            const paymentPlan = formData.get('payment-plan') === 'yes';
+            const privateViewing = formData.get('private-viewing') === 'yes';
+            
+            // Get artwork data from modal
+            const artworkId = modal.dataset.artworkId;
+            const artworkTitle = modal.dataset.artworkTitle;
+            const artworkPrice = modal.dataset.artworkPrice;
             
             // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Simulate processing time for better UX
-            setTimeout(() => {
-                // Show success state
-                submitBtn.textContent = 'Inquiry Sent!';
-                submitBtn.style.background = '#4CAF50';
+            try {
+                // Create the inquiry message for Mailchimp
+                let inquiryDetails = `ARTWORK INQUIRY\n\n`;
+                inquiryDetails += `Artwork: ${artworkTitle}\n`;
+                inquiryDetails += `Price: ${artworkPrice}\n`;
+                inquiryDetails += `ID: ${artworkId}\n\n`;
+                inquiryDetails += `Customer Details:\n`;
+                inquiryDetails += `Name: ${name}\n`;
+                inquiryDetails += `Email: ${email}\n`;
+                if (phone) inquiryDetails += `Phone: ${phone}\n`;
+                inquiryDetails += `\nInterests:\n`;
+                if (shippingQuote) inquiryDetails += `- Shipping quote\n`;
+                if (paymentPlan) inquiryDetails += `- Payment plan options\n`;
+                if (privateViewing) inquiryDetails += `- Private viewing\n`;
+                if (message) inquiryDetails += `\nMessage: ${message}\n`;
                 
-                // Close modal after brief delay
+                // For now, we'll add them to Mailchimp with a special tag
+                // In a real implementation, you'd want to send this to your Mailchimp contact form
+                // or set up a more sophisticated system
+                
+                // Simulate sending to Mailchimp (you'll replace this with actual Mailchimp API call)
+                await sendToMailchimp(email, name, inquiryDetails, artworkTitle);
+                
+                // Show success message
+                showInquiryMessage('Thank you for your inquiry! I\'ll get back to you soon about this artwork.');
+                
+                // Reset form
+                form.reset();
+                
+                // Close modal after delay
                 setTimeout(() => {
                     closeInquiryModal();
-                    
-                    // Reset button
-                    setTimeout(() => {
-                        submitBtn.textContent = originalText;
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                    }, 1000);
-                    
-                }, 1500);
+                }, 2000);
                 
-            }, 1000);
+            } catch (error) {
+                console.error('Error sending inquiry:', error);
+                showInquiryMessage('There was an error sending your inquiry. Please try emailing me directly at ari@arized.art', 'error');
+            } finally {
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Function to send artwork inquiry to Mailchimp
+        async function sendToMailchimp(email, name, inquiryDetails, artworkTitle) {
+            // For now, this opens your Mailchimp contact form with pre-filled data
+            // You could replace this with an actual API call to Mailchimp
             
-            // Submit to Netlify in background
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(e.target)).toString()
-            }).catch(error => console.error('Error:', error));
+            const mailchimpUrl = 'https://us18.list-manage.com/contact-form?u=d23a4f84e207d6abe00bd7c60&form_id=3325406975e53e5c404ccb08e25805f7';
+            
+            // Create a form to submit to Mailchimp
+            const tempForm = document.createElement('form');
+            tempForm.method = 'POST';
+            tempForm.action = mailchimpUrl;
+            tempForm.target = '_blank';
+            tempForm.style.display = 'none';
+            
+            // Add form fields
+            const fields = {
+                'fields.1707': email, // Email field
+                'fields.1708': `Artwork Inquiry: ${artworkTitle}`, // Subject field
+                'fields.1709': inquiryDetails // Message field
+            };
+            
+            Object.keys(fields).forEach(fieldName => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = fieldName;
+                input.value = fields[fieldName];
+                tempForm.appendChild(input);
+            });
+            
+            // Submit the form
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            document.body.removeChild(tempForm);
+            
+            // Return a resolved promise
+            return Promise.resolve();
         }
     </script>
 </body>
