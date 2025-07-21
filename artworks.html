@@ -2675,55 +2675,22 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            try {
-                // Create the inquiry message for Mailchimp
-                let inquiryDetails = `ARTWORK INQUIRY\n\n`;
-                inquiryDetails += `Artwork: ${artworkTitle}\n`;
-                inquiryDetails += `Price: ${artworkPrice}\n`;
-                inquiryDetails += `ID: ${artworkId}\n\n`;
-                inquiryDetails += `Customer Details:\n`;
-                inquiryDetails += `Name: ${name}\n`;
-                inquiryDetails += `Email: ${email}\n`;
-                if (phone) inquiryDetails += `Phone: ${phone}\n`;
-                inquiryDetails += `\nInterests:\n`;
-                if (shippingQuote) inquiryDetails += `- Shipping quote\n`;
-                if (paymentPlan) inquiryDetails += `- Payment plan options\n`;
-                if (privateViewing) inquiryDetails += `- Private viewing\n`;
-                if (message) inquiryDetails += `\nMessage: ${message}\n`;
-                
-                // For now, we'll add them to Mailchimp with a special tag
-                // In a real implementation, you'd want to send this to your Mailchimp contact form
-                // or set up a more sophisticated system
-                
-                // Simulate sending to Mailchimp (you'll replace this with actual Mailchimp API call)
-                await sendToMailchimp(email, name, inquiryDetails, artworkTitle);
-                
-                // Show success message
-                showInquiryMessage('Thank you for your inquiry! I\'ll get back to you soon about this artwork.');
-                
-                // Reset form
-                form.reset();
-                
-                // Close modal after delay
-                setTimeout(() => {
-                    closeInquiryModal();
-                }, 2000);
-                
-            } catch (error) {
-                console.error('Error sending inquiry:', error);
-                showInquiryMessage('There was an error sending your inquiry. Please try emailing me directly at ari@arized.art', 'error');
-            } finally {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        }
-
-        // Function to send artwork inquiry to Mailchimp
-        async function sendToMailchimp(email, name, inquiryDetails, artworkTitle) {
-            // For now, this opens your Mailchimp contact form with pre-filled data
-            // You could replace this with an actual API call to Mailchimp
+            // Create the inquiry message for Mailchimp
+            let inquiryDetails = `ARTWORK INQUIRY\n\n`;
+            inquiryDetails += `Artwork: ${artworkTitle}\n`;
+            inquiryDetails += `Price: ${artworkPrice}\n`;
+            inquiryDetails += `ID: ${artworkId}\n\n`;
+            inquiryDetails += `Customer Details:\n`;
+            inquiryDetails += `Name: ${name}\n`;
+            inquiryDetails += `Email: ${email}\n`;
+            if (phone) inquiryDetails += `Phone: ${phone}\n`;
+            inquiryDetails += `\nInterests:\n`;
+            if (shippingQuote) inquiryDetails += `- Shipping quote\n`;
+            if (paymentPlan) inquiryDetails += `- Payment plan options\n`;
+            if (privateViewing) inquiryDetails += `- Private viewing\n`;
+            if (message) inquiryDetails += `\nMessage: ${message}\n`;
             
+            // Open Mailchimp contact form with pre-filled data
             const mailchimpUrl = 'https://us18.list-manage.com/contact-form?u=d23a4f84e207d6abe00bd7c60&form_id=3325406975e53e5c404ccb08e25805f7';
             
             // Create a form to submit to Mailchimp
@@ -2753,8 +2720,20 @@
             tempForm.submit();
             document.body.removeChild(tempForm);
             
-            // Return a resolved promise
-            return Promise.resolve();
+            // Show success message
+            showInquiryMessage('Thank you for your inquiry! Your request has been sent and I\'ll get back to you soon.');
+            
+            // Reset form
+            form.reset();
+            
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Close modal after delay
+            setTimeout(() => {
+                closeInquiryModal();
+            }, 2000);
         }
     </script>
 </body>
