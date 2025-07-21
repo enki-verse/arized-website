@@ -2675,53 +2675,43 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Create the inquiry message for Mailchimp
-            let inquiryDetails = `ARTWORK INQUIRY\n\n`;
-            inquiryDetails += `Artwork: ${artworkTitle}\n`;
-            inquiryDetails += `Price: ${artworkPrice}\n`;
-            inquiryDetails += `ID: ${artworkId}\n\n`;
-            inquiryDetails += `Customer Details:\n`;
-            inquiryDetails += `Name: ${name}\n`;
-            inquiryDetails += `Email: ${email}\n`;
-            if (phone) inquiryDetails += `Phone: ${phone}\n`;
-            inquiryDetails += `\nInterests:\n`;
-            if (shippingQuote) inquiryDetails += `- Shipping quote\n`;
-            if (paymentPlan) inquiryDetails += `- Payment plan options\n`;
-            if (privateViewing) inquiryDetails += `- Private viewing\n`;
-            if (message) inquiryDetails += `\nMessage: ${message}\n`;
+            // Create the inquiry email content
+            let emailSubject = `Artwork Inquiry: ${artworkTitle}`;
             
-            // Open Mailchimp contact form with pre-filled data
-            const mailchimpUrl = 'https://us18.list-manage.com/contact-form?u=d23a4f84e207d6abe00bd7c60&form_id=3325406975e53e5c404ccb08e25805f7';
+            let emailBody = `Hi Ari,%0D%0A%0D%0A`;
+            emailBody += `I'm interested in the following artwork:%0D%0A%0D%0A`;
+            emailBody += `ARTWORK DETAILS:%0D%0A`;
+            emailBody += `Title: ${artworkTitle}%0D%0A`;
+            emailBody += `Price: ${artworkPrice}%0D%0A`;
+            emailBody += `ID: ${artworkId}%0D%0A%0D%0A`;
             
-            // Create a form to submit to Mailchimp
-            const tempForm = document.createElement('form');
-            tempForm.method = 'POST';
-            tempForm.action = mailchimpUrl;
-            tempForm.target = '_blank';
-            tempForm.style.display = 'none';
+            emailBody += `MY CONTACT DETAILS:%0D%0A`;
+            emailBody += `Name: ${name}%0D%0A`;
+            emailBody += `Email: ${email}%0D%0A`;
+            if (phone) emailBody += `Phone: ${phone}%0D%0A`;
             
-            // Add form fields
-            const fields = {
-                'fields.1707': email, // Email field
-                'fields.1708': `Artwork Inquiry: ${artworkTitle}`, // Subject field
-                'fields.1709': inquiryDetails // Message field
-            };
+            emailBody += `%0D%0AI'M INTERESTED IN:%0D%0A`;
+            if (shippingQuote) emailBody += `• Shipping quote%0D%0A`;
+            if (paymentPlan) emailBody += `• Payment plan options%0D%0A`;
+            if (privateViewing) emailBody += `• Private viewing%0D%0A`;
+            if (!shippingQuote && !paymentPlan && !privateViewing) {
+                emailBody += `• General inquiry about this artwork%0D%0A`;
+            }
             
-            Object.keys(fields).forEach(fieldName => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = fieldName;
-                input.value = fields[fieldName];
-                tempForm.appendChild(input);
-            });
+            if (message) {
+                emailBody += `%0D%0AMESSAGE:%0D%0A${encodeURIComponent(message)}%0D%0A`;
+            }
             
-            // Submit the form
-            document.body.appendChild(tempForm);
-            tempForm.submit();
-            document.body.removeChild(tempForm);
+            emailBody += `%0D%0AThank you!%0D%0A${name}`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:ari@arized.art?subject=${encodeURIComponent(emailSubject)}&body=${emailBody}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
             
             // Show success message
-            showInquiryMessage('Thank you for your inquiry! Your request has been sent and I\'ll get back to you soon.');
+            showInquiryMessage('Your email client should open with a pre-composed message. Just click send to submit your inquiry!');
             
             // Reset form
             form.reset();
@@ -2733,7 +2723,7 @@
             // Close modal after delay
             setTimeout(() => {
                 closeInquiryModal();
-            }, 2000);
+            }, 3000);
         }
     </script>
 </body>
