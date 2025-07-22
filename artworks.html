@@ -1798,13 +1798,13 @@
                 // Add click handler for available status
                 lightbox.addEventListener('click', (e) => {
                     if (e.target.classList.contains('available') && currentViewingArtwork) {
-                        openInquiryModal(currentViewingArtwork);
+                        openContactPopup(currentViewingArtwork);
                     }
                 });
             }
 
-            // Setup inquiry modal
-            setupInquiryModal();
+            // Setup contact popup
+            setupContactPopup();
         }
 
         // ===== GALLERY FUNCTIONALITY =====
@@ -2502,177 +2502,46 @@
             updateAddToSelectionButton();
         }
 
-        // ===== INQUIRY MODAL FUNCTIONALITY - UPDATED FOR MAILCHIMP =====
-        function setupInquiryModal() {
-            const inquiryModal = document.getElementById('inquiryModal');
-            const inquiryClose = document.getElementById('inquiryClose');
-            const inquiryCancel = document.getElementById('inquiryCancel');
-            const inquiryForm = document.getElementById('inquiryForm');
+        // ===== CONTACT POPUP FUNCTIONALITY =====
+        function setupContactPopup() {
+            const contactPopup = document.getElementById('contactPopup');
+            const contactClose = document.getElementById('contactClose');
 
-            // Close modal handlers
-            if (inquiryClose) {
-                inquiryClose.addEventListener('click', closeInquiryModal);
-            }
-
-            if (inquiryCancel) {
-                inquiryCancel.addEventListener('click', closeInquiryModal);
+            // Close popup handlers
+            if (contactClose) {
+                contactClose.addEventListener('click', closeContactPopup);
             }
 
             // Close on overlay click
-            if (inquiryModal) {
-                inquiryModal.addEventListener('click', (e) => {
-                    if (e.target.id === 'inquiryModal') {
-                        closeInquiryModal();
+            if (contactPopup) {
+                contactPopup.addEventListener('click', (e) => {
+                    if (e.target.id === 'contactPopup') {
+                        closeContactPopup();
                     }
                 });
             }
 
-            // Handle form submission - NEW MAILCHIMP INTEGRATION
-            if (inquiryForm) {
-                inquiryForm.addEventListener('submit', handleInquirySubmission);
-            }
-
             // Close on escape key
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && inquiryModal.classList.contains('active')) {
-                    closeInquiryModal();
+                if (e.key === 'Escape' && contactPopup.classList.contains('active')) {
+                    closeContactPopup();
                 }
             });
         }
 
-        function openInquiryModal(artwork) {
-            const modal = document.getElementById('inquiryModal');
-            const titleEl = document.getElementById('inquiryArtworkTitle');
-            const detailsEl = document.getElementById('inquiryArtworkDetails');
-            const priceEl = document.getElementById('inquiryArtworkPrice');
-
-            // Clean artwork title
-            let cleanTitle = artwork.title;
-            if (cleanTitle.includes('cm')) {
-                cleanTitle = cleanTitle.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
-            }
-
-            // Update modal content
-            titleEl.textContent = cleanTitle;
-            detailsEl.textContent = `${artwork.dimensions} • ${artwork.medium}`;
-            priceEl.textContent = formatPrice(artwork);
-
-            // Store artwork data for form submission
-            modal.dataset.artworkId = artwork.id;
-            modal.dataset.artworkTitle = cleanTitle;
-            modal.dataset.artworkPrice = formatPrice(artwork);
-
-            // Show modal
-            modal.classList.add('active');
+        function openContactPopup(artwork) {
+            const popup = document.getElementById('contactPopup');
+            
+            // Show popup
+            popup.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
-
-            // Focus first input
-            setTimeout(() => {
-                document.getElementById('inquiryName').focus();
-            }, 300);
         }
 
-        function closeInquiryModal() {
-            const modal = document.getElementById('inquiryModal');
-            const form = document.getElementById('inquiryForm');
+        function closeContactPopup() {
+            const popup = document.getElementById('contactPopup');
             
-            modal.classList.remove('active');
+            popup.classList.remove('active');
             document.body.style.overflow = ''; // Restore scrolling
-            
-            // Reset form
-            if (form) {
-                form.reset();
-            }
-
-            // Hide any messages
-            document.getElementById('inquiryMessage').style.display = 'none';
-        }
-
-        function showInquiryMessage(message, type = 'success') {
-            const messageEl = document.getElementById('inquiryMessage');
-            messageEl.textContent = message;
-            messageEl.className = `form-message ${type}`;
-            messageEl.style.display = 'block';
-        }
-
-        function handleInquirySubmission(e) {
-            e.preventDefault();
-            
-            const form = e.target;
-            const submitBtn = form.querySelector('.inquiry-btn.primary');
-            const modal = document.getElementById('inquiryModal');
-            const originalText = submitBtn.textContent;
-            
-            // Get form data
-            const formData = new FormData(form);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const phone = formData.get('phone') || '';
-            const message = formData.get('message') || '';
-            
-            // Get checkbox values
-            const shippingQuote = formData.get('shipping-quote') === 'yes';
-            const paymentPlan = formData.get('payment-plan') === 'yes';
-            const privateViewing = formData.get('private-viewing') === 'yes';
-            
-            // Get artwork data from modal
-            const artworkId = modal.dataset.artworkId;
-            const artworkTitle = modal.dataset.artworkTitle;
-            const artworkPrice = modal.dataset.artworkPrice;
-            
-            // Show loading state
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            // Create the inquiry email content
-            let emailSubject = `Artwork Inquiry: ${artworkTitle}`;
-            
-            let emailBody = `Hi Ari,%0D%0A%0D%0A`;
-            emailBody += `I'm interested in the following artwork:%0D%0A%0D%0A`;
-            emailBody += `ARTWORK DETAILS:%0D%0A`;
-            emailBody += `Title: ${artworkTitle}%0D%0A`;
-            emailBody += `Price: ${artworkPrice}%0D%0A`;
-            emailBody += `ID: ${artworkId}%0D%0A%0D%0A`;
-            
-            emailBody += `MY CONTACT DETAILS:%0D%0A`;
-            emailBody += `Name: ${name}%0D%0A`;
-            emailBody += `Email: ${email}%0D%0A`;
-            if (phone) emailBody += `Phone: ${phone}%0D%0A`;
-            
-            emailBody += `%0D%0AI'M INTERESTED IN:%0D%0A`;
-            if (shippingQuote) emailBody += `• Shipping quote%0D%0A`;
-            if (paymentPlan) emailBody += `• Payment plan options%0D%0A`;
-            if (privateViewing) emailBody += `• Private viewing%0D%0A`;
-            if (!shippingQuote && !paymentPlan && !privateViewing) {
-                emailBody += `• General inquiry about this artwork%0D%0A`;
-            }
-            
-            if (message) {
-                emailBody += `%0D%0AMESSAGE:%0D%0A${encodeURIComponent(message)}%0D%0A`;
-            }
-            
-            emailBody += `%0D%0AThank you!%0D%0A${name}`;
-            
-            // Create mailto link
-            const mailtoLink = `mailto:ari@arized.art?subject=${encodeURIComponent(emailSubject)}&body=${emailBody}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            showInquiryMessage('Your email client should open with a pre-composed message. Just click send to submit your inquiry!');
-            
-            // Reset form
-            form.reset();
-            
-            // Reset button
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            
-            // Close modal after delay
-            setTimeout(() => {
-                closeInquiryModal();
-            }, 3000);
         }
     </script>
 </body>
