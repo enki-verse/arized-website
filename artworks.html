@@ -801,8 +801,8 @@
             display: inline-block;
         }
 
-        /* ===== INQUIRY MODAL ===== */
-        .inquiry-modal {
+        /* ===== CONTACT POPUP (REPLACES INQUIRY MODAL) ===== */
+        .contact-popup {
             display: none;
             position: fixed;
             top: 0;
@@ -814,173 +814,138 @@
             backdrop-filter: blur(5px);
         }
 
-        .inquiry-modal.active {
+        .contact-popup.active {
             display: flex;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
 
-        .inquiry-content {
+        .contact-content {
             background: #FFFFFF;
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 500px;
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 480px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: slideUp 0.3s ease;
-        }
-
-        .inquiry-header {
             text-align: center;
-            margin-bottom: 32px;
-            border-bottom: 1px solid #E8E3DB;
-            padding-bottom: 24px;
+            overflow: hidden;
         }
 
-        .inquiry-header h3 {
+        /* Logo watermark */
+        .contact-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-image: url('images/small white on black ENKIVERSE logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.03;
+            z-index: 1;
+            filter: invert(1);
+        }
+
+        .contact-content > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-content h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #2C1810;
-            margin-bottom: 8px;
-        }
-
-        .inquiry-artwork-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--accent-gold);
-            margin-bottom: 4px;
-        }
-
-        .inquiry-artwork-details {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            color: #6B6B6B;
-        }
-
-        .inquiry-artwork-price {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            margin-top: 8px;
-        }
-
-        .inquiry-options {
-            margin-bottom: 24px;
-        }
-
-        .inquiry-options h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1.75rem;
+            font-weight: 400;
             color: #2C1810;
             margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .contact-content .intro-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.0625rem;
+            color: #6B6B6B;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .contact-content .best-ways {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #2C1810;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .checkbox-option {
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .contact-method {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .checkbox-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent-gold);
-        }
-
-        .checkbox-option label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            color: #2C1810;
-            cursor: pointer;
-        }
-
-        .inquiry-form-group {
-            margin-bottom: 20px;
-        }
-
-        .inquiry-form-group label {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #2C1810;
-            margin-bottom: 6px;
-        }
-
-        .inquiry-form-group input,
-        .inquiry-form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #E0E0E0;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .inquiry-form-group input:focus,
-        .inquiry-form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
-        }
-
-        .inquiry-form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .inquiry-actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .inquiry-btn {
-            flex: 1;
             padding: 16px 24px;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .inquiry-btn.primary {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #B8941F 100%);
-            color: white;
-        }
-
-        .inquiry-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(218, 165, 32, 0.3);
-        }
-
-        .inquiry-btn.secondary {
-            background: transparent;
-            color: #6B6B6B;
-            border: 1px solid #E0E0E0;
-        }
-
-        .inquiry-btn.secondary:hover {
             background: #F8F8F8;
-            border-color: #D0D0D0;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .inquiry-close {
+        .contact-method:hover {
+            background: #F0F0F0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-method .emoji {
+            font-size: 1.25rem;
+        }
+
+        .contact-method .method-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: #2C1810;
+        }
+
+        .contact-method .method-detail {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            color: var(--accent-gold);
+        }
+
+        .contact-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: #6B6B6B;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .contact-signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: #2C1810;
+            margin-bottom: 0;
+        }
+
+        .contact-close {
             position: absolute;
             top: 16px;
             right: 16px;
@@ -998,23 +963,9 @@
             transition: all 0.2s ease;
         }
 
-        .inquiry-close:hover {
+        .contact-close:hover {
             background: #F0F0F0;
             color: #666;
-        }
-
-        .form-message {
-            background: #4CAF50;
-            color: white;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            text-align: center;
-            display: none;
-        }
-
-        .form-message.error {
-            background: #f44336;
         }
 
         @keyframes fadeIn {
@@ -1030,6 +981,34 @@
             to { 
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .contact-content {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+
+            .contact-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .contact-methods {
+                gap: 12px;
+            }
+
+            .contact-method {
+                padding: 14px 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .contact-content::before {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -1536,63 +1515,33 @@
         </div>
     </div>
 
-    <!-- Inquiry Modal - Updated for Mailchimp -->
-    <div class="inquiry-modal" id="inquiryModal">
-        <div class="inquiry-content">
-            <button class="inquiry-close" id="inquiryClose">&times;</button>
+    <!-- Contact Popup - Replaces Inquiry Modal -->
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-content">
+            <button class="contact-close" id="contactClose">&times;</button>
             
-            <div class="inquiry-header">
-                <h3>Artwork Inquiry</h3>
-                <div class="inquiry-artwork-title" id="inquiryArtworkTitle"></div>
-                <div class="inquiry-artwork-details" id="inquiryArtworkDetails"></div>
-                <div class="inquiry-artwork-price" id="inquiryArtworkPrice"></div>
+            <h3>Interested in owning this work?</h3>
+            <p class="intro-text">I'd love to hear what draws you to this piece.</p>
+            
+            <div class="best-ways">Best ways to reach me:</div>
+            
+            <div class="contact-methods">
+                <a href="mailto:ari@arized.art" class="contact-method">
+                    <span class="emoji">📧</span>
+                    <span class="method-text">Email:</span>
+                    <span class="method-detail">ari@arized.art</span>
+                </a>
+                
+                <a href="tel:+610466797302" class="contact-method">
+                    <span class="emoji">📱</span>
+                    <span class="method-text">Text:</span>
+                    <span class="method-detail">+61 0466 797 302</span>
+                </a>
             </div>
-
-            <div class="form-message" id="inquiryMessage"></div>
-
-            <!-- Simplified form that will redirect to Mailchimp -->
-            <form id="inquiryForm">
-                <div class="inquiry-options">
-                    <h4>I'm interested in:</h4>
-                    <div class="checkbox-option">
-                        <input type="checkbox" id="shippingQuote" name="shipping-quote" value="yes">
-                        <label for="shippingQuote">Shipping quote</label>
-                    </div>
-                    <div class="checkbox-option">
-                        <input type="checkbox" id="paymentPlan" name="payment-plan" value="yes">
-                        <label for="paymentPlan">Payment plan options</label>
-                    </div>
-                    <div class="checkbox-option">
-                        <input type="checkbox" id="privateViewing" name="private-viewing" value="yes">
-                        <label for="privateViewing">Private viewing</label>
-                    </div>
-                </div>
-
-                <div class="inquiry-form-group">
-                    <label for="inquiryName">Name *</label>
-                    <input type="text" id="inquiryName" name="name" required>
-                </div>
-
-                <div class="inquiry-form-group">
-                    <label for="inquiryEmail">Email *</label>
-                    <input type="email" id="inquiryEmail" name="email" required>
-                </div>
-
-                <div class="inquiry-form-group">
-                    <label for="inquiryPhone">Phone</label>
-                    <input type="tel" id="inquiryPhone" name="phone">
-                </div>
-
-                <div class="inquiry-form-group">
-                    <label for="inquiryMessage">Message</label>
-                    <textarea id="inquiryMessage" name="message" placeholder="Please let me know more about this artwork..."></textarea>
-                </div>
-
-                <div class="inquiry-actions">
-                    <button type="button" class="inquiry-btn secondary" id="inquiryCancel">Cancel</button>
-                    <button type="submit" class="inquiry-btn primary">Submit Inquiry</button>
-                </div>
-            </form>
+            
+            <p class="contact-note">Email and text work best for me — I'm usually in the studio with my phone on silent, but I respond to messages within 24 hours.</p>
+            
+            <p class="contact-signature">— Ari</p>
         </div>
     </div>
 
