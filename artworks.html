@@ -834,29 +834,6 @@
             overflow: hidden;
         }
 
-        /* Logo watermark */
-        .contact-content::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background-image: url('images/small white on black ENKIVERSE logo.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.03;
-            z-index: 1;
-            filter: invert(1);
-        }
-
-        .contact-content > * {
-            position: relative;
-            z-index: 2;
-        }
-
         .contact-content h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.75rem;
@@ -903,12 +880,76 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            position: relative;
         }
 
         .contact-method:hover {
             background: #F0F0F0;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-gold);
+            color: white;
+            border-color: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .copy-btn.copied {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .copy-feedback {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        .copy-feedback::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 12px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #333;
         }
 
         .contact-method .emoji {
@@ -1001,9 +1042,33 @@
 
             .contact-method {
                 padding: 14px 20px;
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                justify-content: flex-start;
                 gap: 8px;
+                position: relative;
+            }
+
+            .contact-method a {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 4px !important;
+                flex: 1;
+            }
+
+            .copy-btn {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .copy-feedback {
+                top: -35px;
+                right: 0;
+                font-size: 11px;
+                padding: 4px 8px;
             }
 
             .contact-content::before {
@@ -1526,17 +1591,29 @@
             <div class="best-ways">Best ways to reach me:</div>
             
             <div class="contact-methods">
-                <a href="mailto:ari@arized.art" class="contact-method">
-                    <span class="emoji">📧</span>
-                    <span class="method-text">Email:</span>
-                    <span class="method-detail">ari@arized.art</span>
-                </a>
+                <div class="contact-method">
+                    <a href="mailto:ari@arized.art" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex: 1;">
+                        <span class="emoji">📧</span>
+                        <span class="method-text">Email:</span>
+                        <span class="method-detail">ari@arized.art</span>
+                    </a>
+                    <button class="copy-btn" onclick="copyToClipboard('ari@arized.art', this)" title="Copy email">
+                        📋
+                    </button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
                 
-                <a href="tel:+610466797302" class="contact-method">
-                    <span class="emoji">📱</span>
-                    <span class="method-text">Text:</span>
-                    <span class="method-detail">+61 0466 797 302</span>
-                </a>
+                <div class="contact-method">
+                    <a href="tel:+610466797302" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex: 1;">
+                        <span class="emoji">📱</span>
+                        <span class="method-text">Text:</span>
+                        <span class="method-detail">+61 0466 797 302</span>
+                    </a>
+                    <button class="copy-btn" onclick="copyToClipboard('+610466797302', this)" title="Copy phone number">
+                        📋
+                    </button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
             </div>
             
             <p class="contact-note">Email and text work best for me — I'm usually in the studio with my phone on silent, but I respond to messages within 24 hours.</p>
@@ -2542,6 +2619,68 @@
             
             popup.classList.remove('active');
             document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Copy to clipboard functionality
+        function copyToClipboard(text, button) {
+            // Prevent the parent link from being clicked
+            event.stopPropagation();
+            event.preventDefault();
+            
+            // Try modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyFeedback(button);
+                }).catch(() => {
+                    // Fallback if clipboard API fails
+                    fallbackCopyToClipboard(text, button);
+                });
+            } else {
+                // Fallback for older browsers or non-secure contexts
+                fallbackCopyToClipboard(text, button);
+            }
+        }
+
+        function fallbackCopyToClipboard(text, button) {
+            // Create a temporary textarea element
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopyFeedback(button);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                // Show error feedback
+                showCopyFeedback(button, 'Failed to copy');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showCopyFeedback(button, message = 'Copied!') {
+            const feedback = button.nextElementSibling;
+            const originalText = feedback.textContent;
+            
+            // Update feedback text
+            feedback.textContent = message;
+            
+            // Add visual feedback to button
+            button.classList.add('copied');
+            feedback.classList.add('show');
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                button.classList.remove('copied');
+                feedback.classList.remove('show');
+                feedback.textContent = originalText;
+            }, 2000);
         }
     </script>
 </body>
