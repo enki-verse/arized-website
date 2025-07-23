@@ -103,6 +103,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-18T14:27:59.187Z"
+    },
+    {
+      "id": "caverns-measureless-to-man",
+      "title": "caverns measureless to man",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "102 x 76 cm",
+      "price": 1900,
+      "category": "paintings",
+      "subjects": [
+        "landscape",
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/caverns-measureless-to-man.jpg",
+        "medium": "images/artworks/medium/caverns-measureless-to-man.jpg",
+        "large": "images/artworks/large/caverns-measureless-to-man.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:18:32.689Z"
     }
   ]
 }
