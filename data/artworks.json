@@ -192,9 +192,9 @@
       "exhibitions": [
         "ODD I SEE"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/where-alph-the-sacred-river-ran.jpg",
         "medium": "images/artworks/medium/where-alph-the-sacred-river-ran.jpg",
