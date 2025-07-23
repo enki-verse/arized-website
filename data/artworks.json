@@ -177,6 +177,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-23T11:25:22.768Z"
+    },
+    {
+      "id": "where-alph-the-sacred-river-ran",
+      "title": "Where Alph the sacred river ran",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/where-alph-the-sacred-river-ran.jpg",
+        "medium": "images/artworks/medium/where-alph-the-sacred-river-ran.jpg",
+        "large": "images/artworks/large/where-alph-the-sacred-river-ran.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:33:44.449Z"
     }
   ]
 }
