@@ -229,6 +229,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-23T11:37:47.022Z"
+    },
+    {
+      "id": "arc",
+      "title": "Arc",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 76 cm",
+      "price": 1400,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "landscape",
+        "figures"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/arc.jpg",
+        "medium": "images/artworks/medium/arc.jpg",
+        "large": "images/artworks/large/arc.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:41:33.776Z"
     }
   ]
 }
