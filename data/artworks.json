@@ -129,6 +129,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-23T11:18:32.689Z"
+    },
+    {
+      "id": "dreamer-2",
+      "title": "Dreamer #2",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "figures"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dreamer-2.jpg",
+        "medium": "images/artworks/medium/dreamer-2.jpg",
+        "large": "images/artworks/large/dreamer-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:23:13.258Z"
     }
   ]
 }
