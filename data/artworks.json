@@ -282,6 +282,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-23T11:43:31.869Z"
+    },
+    {
+      "id": "pleasure-dome-decree",
+      "title": "Pleasure-dome decree",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 76 cm",
+      "price": 1400,
+      "category": "paintings",
+      "subjects": [
+        "figures",
+        "infinite being",
+        "landscape"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/pleasure-dome-decree.jpg",
+        "medium": "images/artworks/medium/pleasure-dome-decree.jpg",
+        "large": "images/artworks/large/pleasure-dome-decree.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:50:08.661Z"
     }
   ]
 }
