@@ -202,6 +202,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-23T11:33:44.449Z"
+    },
+    {
+      "id": "the-fertile-ascent",
+      "title": "the fertile ascent",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "76 x 102 cm",
+      "price": 1900,
+      "category": "paintings",
+      "subjects": [
+        "landscape",
+        "infinite being",
+        "figures"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-fertile-ascent.jpg",
+        "medium": "images/artworks/medium/the-fertile-ascent.jpg",
+        "large": "images/artworks/large/the-fertile-ascent.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-23T11:37:47.022Z"
     }
   ]
 }
