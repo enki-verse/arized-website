@@ -565,6 +565,29 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:06:41.452Z"
+    },
+    {
+      "id": "fahrenheit-451",
+      "title": "Fahrenheit 451",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "61 x 76 cm",
+      "price": 1800,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/fahrenheit-451.jpg",
+        "medium": "images/artworks/medium/fahrenheit-451.jpg",
+        "large": "images/artworks/large/fahrenheit-451.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:09:34.364Z"
     }
   ]
 }
