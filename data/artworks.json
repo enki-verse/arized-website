@@ -487,6 +487,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T14:41:16.711Z"
+    },
+    {
+      "id": "golden-dawn",
+      "title": "Golden Dawn",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "107 x 107 cm",
+      "price": 2200,
+      "category": "paintings",
+      "subjects": [
+        "figures",
+        "landscape",
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/golden-dawn.jpg",
+        "medium": "images/artworks/medium/golden-dawn.jpg",
+        "large": "images/artworks/large/golden-dawn.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T14:50:26.833Z"
     }
   ]
 }
