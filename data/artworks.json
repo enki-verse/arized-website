@@ -815,6 +815,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:38:14.716Z"
+    },
+    {
+      "id": "momento",
+      "title": "Momento",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/momento.jpg",
+        "medium": "images/artworks/medium/momento.jpg",
+        "large": "images/artworks/large/momento.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:41:17.800Z"
     }
   ]
 }
