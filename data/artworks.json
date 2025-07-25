@@ -385,6 +385,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T14:33:49.009Z"
+    },
+    {
+      "id": "growing-and-dying",
+      "title": "Growing and Dying",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "50 x 60 cm",
+      "price": 900,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/growing-and-dying.jpg",
+        "medium": "images/artworks/medium/growing-and-dying.jpg",
+        "large": "images/artworks/large/growing-and-dying.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T14:36:31.873Z"
     }
   ]
 }
