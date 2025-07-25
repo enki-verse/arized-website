@@ -375,9 +375,9 @@
       "exhibitions": [
         "ODD I SEE"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/gateway.jpg",
         "medium": "images/artworks/medium/gateway.jpg",
