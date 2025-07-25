@@ -514,6 +514,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T14:50:26.833Z"
+    },
+    {
+      "id": "luna",
+      "title": "Luna",
+      "year": 2023,
+      "medium": "Oil on canvas",
+      "dimensions": "100 x 150 cm",
+      "price": 3300,
+      "category": "paintings",
+      "subjects": [
+        "figures",
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Bone and Boundary"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/luna.jpg",
+        "medium": "images/artworks/medium/luna.jpg",
+        "large": "images/artworks/large/luna.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T14:54:10.026Z"
     }
   ]
 }
