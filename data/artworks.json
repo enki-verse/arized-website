@@ -790,6 +790,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:36:11.140Z"
+    },
+    {
+      "id": "substance",
+      "title": "Substance",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/substance.jpg",
+        "medium": "images/artworks/medium/substance.jpg",
+        "large": "images/artworks/large/substance.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:38:14.716Z"
     }
   ]
 }
