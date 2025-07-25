@@ -613,6 +613,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:11:24.729Z"
+    },
+    {
+      "id": "uberchu",
+      "title": "Uberchu",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "61 x 76 cm",
+      "price": 1900,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking",
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/uberchu.jpg",
+        "medium": "images/artworks/medium/uberchu.jpg",
+        "large": "images/artworks/large/uberchu.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:12:44.788Z"
     }
   ]
 }
