@@ -664,6 +664,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:18:41.414Z"
+    },
+    {
+      "id": "orb-it",
+      "title": "Orb IT",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/orb-it.jpg",
+        "medium": "images/artworks/medium/orb-it.jpg",
+        "large": "images/artworks/large/orb-it.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:30:13.649Z"
     }
   ]
 }
