@@ -410,6 +410,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T14:36:31.873Z"
+    },
+    {
+      "id": "portal",
+      "title": "Portal",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/portal.jpg",
+        "medium": "images/artworks/medium/portal.jpg",
+        "large": "images/artworks/large/portal.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T14:37:44.784Z"
     }
   ]
 }
