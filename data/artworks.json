@@ -588,6 +588,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:09:34.364Z"
+    },
+    {
+      "id": "synonym-antonym",
+      "title": "synonym antonym",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "76 x 61 cm",
+      "price": 1900,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/synonym-antonym.jpg",
+        "medium": "images/artworks/medium/synonym-antonym.jpg",
+        "large": "images/artworks/large/synonym-antonym.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:11:24.729Z"
     }
   ]
 }
