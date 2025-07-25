@@ -540,6 +540,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T14:54:10.026Z"
+    },
+    {
+      "id": "sky-castle",
+      "title": "Sky Castle",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "50 x 60 cm",
+      "price": 900,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/sky-castle.jpg",
+        "medium": "images/artworks/medium/sky-castle.jpg",
+        "large": "images/artworks/large/sky-castle.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:06:41.452Z"
     }
   ]
 }
