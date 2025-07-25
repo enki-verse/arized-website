@@ -639,6 +639,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:12:44.788Z"
+    },
+    {
+      "id": "timeless-watch",
+      "title": "Timeless watch",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "30 x 40 cm",
+      "price": 400,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/timeless-watch.jpg",
+        "medium": "images/artworks/medium/timeless-watch.jpg",
+        "large": "images/artworks/large/timeless-watch.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:18:41.414Z"
     }
   ]
 }
