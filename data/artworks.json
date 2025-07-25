@@ -740,6 +740,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:33:36.150Z"
+    },
+    {
+      "id": "rosy-fingers",
+      "title": "Rosy fingers",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/rosy-fingers.jpg",
+        "medium": "images/artworks/medium/rosy-fingers.jpg",
+        "large": "images/artworks/large/rosy-fingers.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:34:39.810Z"
     }
   ]
 }
