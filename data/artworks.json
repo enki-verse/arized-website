@@ -891,6 +891,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:44:10.547Z"
+    },
+    {
+      "id": "final-participation",
+      "title": "Final participation",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 76 cm",
+      "price": 1400,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/final-participation.jpg",
+        "medium": "images/artworks/medium/final-participation.jpg",
+        "large": "images/artworks/large/final-participation.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T15:45:22.972Z"
     }
   ]
 }
