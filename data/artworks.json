@@ -335,6 +335,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T10:54:26.251Z"
+    },
+    {
+      "id": "earths-core",
+      "title": "Earths core",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/earths-core.jpg",
+        "medium": "images/artworks/medium/earths-core.jpg",
+        "large": "images/artworks/large/earths-core.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-25T11:07:48.567Z"
     }
   ]
 }
