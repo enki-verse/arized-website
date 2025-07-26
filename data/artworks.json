@@ -1095,6 +1095,29 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:24:20.946Z"
+    },
+    {
+      "id": "flowering",
+      "title": "flowering",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "23 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/flowering.jpg",
+        "medium": "images/artworks/medium/flowering.jpg",
+        "large": "images/artworks/large/flowering.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:25:36.983Z"
     }
   ]
 }
