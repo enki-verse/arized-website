@@ -968,6 +968,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:13:44.353Z"
+    },
+    {
+      "id": "fete-of-the-dark-veiler",
+      "title": "Fete of the Dark Veiler",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "61 x 76 cm",
+      "price": 1800,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking",
+        "Bone and Boundary"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/fete-of-the-dark-veiler.jpg",
+        "medium": "images/artworks/medium/fete-of-the-dark-veiler.jpg",
+        "large": "images/artworks/large/fete-of-the-dark-veiler.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:16:19.407Z"
     }
   ]
 }
