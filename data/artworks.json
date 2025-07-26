@@ -1270,6 +1270,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:35:08.491Z"
+    },
+    {
+      "id": "welcome-to-forever",
+      "title": "Welcome to forever",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 25 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/welcome-to-forever.jpg",
+        "medium": "images/artworks/medium/welcome-to-forever.jpg",
+        "large": "images/artworks/large/welcome-to-forever.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:36:04.214Z"
     }
   ]
 }
