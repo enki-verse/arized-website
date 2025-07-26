@@ -1195,6 +1195,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:30:35.726Z"
+    },
+    {
+      "id": "thinking-allowed",
+      "title": "Thinking Allowed",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "85 x 105 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/thinking-allowed.jpg",
+        "medium": "images/artworks/medium/thinking-allowed.jpg",
+        "large": "images/artworks/large/thinking-allowed.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:32:29.108Z"
     }
   ]
 }
