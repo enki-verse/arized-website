@@ -1245,6 +1245,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:33:40.064Z"
+    },
+    {
+      "id": "unlocked",
+      "title": "unlocked",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "160 x 120 cm",
+      "price": 4800,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/unlocked.jpg",
+        "medium": "images/artworks/medium/unlocked.jpg",
+        "large": "images/artworks/large/unlocked.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:35:08.491Z"
     }
   ]
 }
