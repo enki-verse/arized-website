@@ -942,6 +942,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-25T15:47:07.153Z"
+    },
+    {
+      "id": "nyx-and-the-fates-85x105cm-2021",
+      "title": "Nyx and the fates 85x105cm 2021",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "85 x 105 cm",
+      "price": 2600,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/nyx-and-the-fates-85x105cm-2021.jpg",
+        "medium": "images/artworks/medium/nyx-and-the-fates-85x105cm-2021.jpg",
+        "large": "images/artworks/large/nyx-and-the-fates-85x105cm-2021.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:13:44.353Z"
     }
   ]
 }
