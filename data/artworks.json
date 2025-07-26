@@ -1069,6 +1069,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:23:00.060Z"
+    },
+    {
+      "id": "endymion-moon-lover-",
+      "title": "Endymion (moon lover)",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "23 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking",
+        "Bone and Boundary"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/endymion-moon-lover-.jpg",
+        "medium": "images/artworks/medium/endymion-moon-lover-.jpg",
+        "large": "images/artworks/large/endymion-moon-lover-.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:24:20.946Z"
     }
   ]
 }
