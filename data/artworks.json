@@ -1295,6 +1295,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:36:04.214Z"
+    },
+    {
+      "id": "homunculus-crossing-the-alps-on-life-world",
+      "title": "Homunculus crossing the alps on Life-world",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "41 x 51 cm",
+      "price": 1600,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/homunculus-crossing-the-alps-on-life-world.jpg",
+        "medium": "images/artworks/medium/homunculus-crossing-the-alps-on-life-world.jpg",
+        "large": "images/artworks/large/homunculus-crossing-the-alps-on-life-world.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:39:26.920Z"
     }
   ]
 }
