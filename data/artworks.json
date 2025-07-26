@@ -994,6 +994,29 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:16:19.407Z"
+    },
+    {
+      "id": "dream",
+      "title": "Dream",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "23 x 30 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dream.jpg",
+        "medium": "images/artworks/medium/dream.jpg",
+        "large": "images/artworks/large/dream.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:17:22.595Z"
     }
   ]
 }
