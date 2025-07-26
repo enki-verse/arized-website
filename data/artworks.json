@@ -1042,6 +1042,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:20:13.423Z"
+    },
+    {
+      "id": "embeded",
+      "title": "Embeded",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "98 x 72 cm",
+      "price": 2200,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures",
+        "landscape"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/embeded.jpg",
+        "medium": "images/artworks/medium/embeded.jpg",
+        "large": "images/artworks/large/embeded.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:23:00.060Z"
     }
   ]
 }
