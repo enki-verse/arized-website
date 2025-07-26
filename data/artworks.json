@@ -1118,6 +1118,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:25:36.983Z"
+    },
+    {
+      "id": "i-of-the-storm-120x160cm",
+      "title": "I of the storm 120x160cm",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "120 x 160 cm",
+      "price": 4500,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "landscape"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/i-of-the-storm-120x160cm.jpg",
+        "medium": "images/artworks/medium/i-of-the-storm-120x160cm.jpg",
+        "large": "images/artworks/large/i-of-the-storm-120x160cm.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:27:16.188Z"
     }
   ]
 }
