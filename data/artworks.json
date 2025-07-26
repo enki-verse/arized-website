@@ -1144,6 +1144,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:27:16.188Z"
+    },
+    {
+      "id": "red-wanderer",
+      "title": "Red Wanderer",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "41 x 51 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/red-wanderer.jpg",
+        "medium": "images/artworks/medium/red-wanderer.jpg",
+        "large": "images/artworks/large/red-wanderer.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:28:58.875Z"
     }
   ]
 }
