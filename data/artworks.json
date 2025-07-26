@@ -1220,6 +1220,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:32:29.108Z"
+    },
+    {
+      "id": "ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality",
+      "title": "Ulysses and the promethians Deriding Saturn and the fires of self consuming equality",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "150 x 190 cm",
+      "price": 5200,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality.jpg",
+        "medium": "images/artworks/medium/ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality.jpg",
+        "large": "images/artworks/large/ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:33:40.064Z"
     }
   ]
 }
