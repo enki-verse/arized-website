@@ -1017,6 +1017,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:17:22.595Z"
+    },
+    {
+      "id": "brainforrest",
+      "title": "Brainforrest",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "41 x 50 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/brainforrest.jpg",
+        "medium": "images/artworks/medium/brainforrest.jpg",
+        "large": "images/artworks/large/brainforrest.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:20:13.423Z"
     }
   ]
 }
