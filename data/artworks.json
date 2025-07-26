@@ -1169,6 +1169,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:28:58.875Z"
+    },
+    {
+      "id": "the-universe-is-leaking",
+      "title": "the universe is leaking",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "85 x 105 cm",
+      "price": 5600,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures"
+      ],
+      "exhibitions": [
+        "The Universe Is Leaking"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-universe-is-leaking.jpg",
+        "medium": "images/artworks/medium/the-universe-is-leaking.jpg",
+        "large": "images/artworks/large/the-universe-is-leaking.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-26T05:30:35.726Z"
     }
   ]
 }
