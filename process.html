@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Ari Zed</title>
+    <title>Process - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== MOBILE-FIRST NAVIGATION ===== */
+        /* ===== NAVIGATION (SAME AS OTHER PAGES) ===== */
         .navigation {
             position: fixed;
             top: 0;
@@ -227,7 +227,6 @@
             color: var(--text-tertiary);
         }
 
-        /* ===== HAMBURGER MENU ===== */
         .menu-toggle {
             position: fixed;
             top: 1rem;
@@ -282,7 +281,6 @@
             visibility: visible;
         }
 
-        /* ===== DESKTOP STYLES ===== */
         @media (min-width: 769px) {
             .navigation {
                 transform: translateX(0);
@@ -302,9 +300,9 @@
             }
         }
 
-        /* ===== ABOUT PAGE STYLES ===== */
-        .about-hero {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+        /* ===== PROCESS PAGE STYLES ===== */
+        .process-hero {
+            background: linear-gradient(135deg, #8B4513 0%, #2C1810 50%, #8B4513 100%);
             color: var(--white);
             padding: 8rem 0 5rem 0;
             text-align: center;
@@ -312,38 +310,38 @@
             overflow: hidden;
         }
 
-        .about-hero::before {
+        .process-hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 50% 30%, rgba(218, 165, 32, 0.12) 0%, transparent 60%);
             pointer-events: none;
         }
 
-        .about-hero .container {
+        .process-hero .container {
             position: relative;
             z-index: 2;
         }
 
-        .about-hero h1 {
+        .process-hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             font-weight: 300;
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 24px;
-            color: #2C1810;
+            color: #F4F1E8;
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .about-hero .tagline {
+        .process-hero .tagline {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
             font-weight: 400;
-            color: #F4F1E8;
+            color: #DAA520;
             opacity: 0.95;
             margin-bottom: 40px;
             letter-spacing: 0.01em;
@@ -359,13 +357,13 @@
             padding: 4rem 0;
         }
 
-        .about-content {
+        .process-content {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        .about-section {
+        .process-section {
             margin-bottom: 96px;
             position: relative;
             opacity: 0;
@@ -373,9 +371,10 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        .about-section:nth-child(2) { animation-delay: 0.1s; }
-        .about-section:nth-child(3) { animation-delay: 0.2s; }
-        .about-section:nth-child(4) { animation-delay: 0.3s; }
+        .process-section:nth-child(2) { animation-delay: 0.1s; }
+        .process-section:nth-child(3) { animation-delay: 0.2s; }
+        .process-section:nth-child(4) { animation-delay: 0.3s; }
+        .process-section:nth-child(5) { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
             to {
@@ -384,7 +383,7 @@
             }
         }
 
-        .about-section h2 {
+        .process-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.25rem;
             font-weight: 300;
@@ -395,7 +394,7 @@
             position: relative;
         }
 
-        .about-section h2::after {
+        .process-section h2::after {
             content: '';
             position: absolute;
             bottom: -12px;
@@ -406,7 +405,7 @@
             border-radius: 1px;
         }
 
-        .about-section p {
+        .process-section p {
             font-family: 'Inter', sans-serif;
             font-size: 1.0625rem;
             font-weight: 400;
@@ -416,112 +415,304 @@
             letter-spacing: 0.001em;
         }
 
-        .about-section p:last-child {
+        .process-section p:last-child {
             margin-bottom: 0;
         }
 
-        /* Stats Grid */
-        .stats-grid {
+        /* Studio Schedule Grid */
+        .schedule-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 32px;
             margin: 72px 0;
         }
 
-        .stat-item {
+        .schedule-card {
             background: #FFFFFF;
             border: 1px solid #E8E3DB;
             box-shadow: 0 2px 12px rgba(44,24,16,0.04);
-            border-radius: 12px;
-            padding: 48px 32px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 40px 32px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .stat-item::before {
+        .schedule-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #DAA520, #B8941F);
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #DAA520);
         }
 
-        .stat-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(44,24,16,0.08);
+        .schedule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(44,24,16,0.12);
         }
 
-        .stat-number {
+        .schedule-time {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 1.5rem;
             font-weight: 300;
             color: #DAA520;
-            display: block;
-            line-height: 1;
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-        }
-
-        .stat-label {
-            font-family: 'Inter', sans-serif;
-            color: #6B6B6B;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-size: 0.6875rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        /* Archive Callout Box */
-        .archive-box {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
-            border: 2px solid #DAA520;
-            border-radius: 16px;
-            padding: 48px 40px;
-            margin: 72px 0;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 24px rgba(218, 165, 32, 0.1);
-        }
-
-        .archive-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
-        }
-
-        .archive-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 300;
-            letter-spacing: -0.01em;
-            margin-bottom: 24px;
-            color: #DAA520;
+            margin-bottom: 16px;
             line-height: 1.3;
         }
 
-        .archive-box p {
+        .schedule-activity {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: #2C1810;
-            font-size: 1.0625rem;
-            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .schedule-desc {
+            color: #6B6B6B;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        /* States & Materials Grid */
+        .states-materials-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin: 72px 0;
+        }
+
+        .states-column,
+        .materials-column {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border: 1px solid #E8E3DB;
+            border-radius: 20px;
+            padding: 48px 40px;
+            position: relative;
+        }
+
+        .states-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2C1810, #8B4513);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .materials-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #DAA520);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .column-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 300;
+            color: #2C1810;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .state-item,
+        .material-item {
             margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(44, 24, 16, 0.1);
         }
 
-        .archive-box a {
+        .state-item:last-child,
+        .material-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             color: #8B4513;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(139, 69, 19, 0.3);
+            margin-bottom: 8px;
         }
 
-        .archive-box a:hover {
+        .item-desc {
+            color: #6B6B6B;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        /* Scale & Presence Section */
+        .scale-section {
+            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            border-radius: 24px;
+            color: var(--white);
+            padding: 72px 48px;
+            margin: 96px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(44,24,16,0.2);
+        }
+
+        .scale-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .scale-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #F4F1E8;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .scale-section h2::after {
+            display: none;
+        }
+
+        .scale-dimensions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+        }
+
+        .dimension-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 32px 24px;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .dimension-size {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 300;
             color: #DAA520;
-            border-bottom-color: #DAA520;
-            letter-spacing: 0.01em;
+            display: block;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .dimension-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #F4F1E8;
+            margin-bottom: 12px;
+        }
+
+        .dimension-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #F4F1E8;
+            opacity: 0.8;
+        }
+
+        .scale-philosophy {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .scale-philosophy p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #F4F1E8;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Consciousness States Box */
+        .consciousness-box {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border: 2px solid #DAA520;
+            border-radius: 20px;
+            padding: 56px 48px;
+            margin: 72px 0;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
+        }
+
+        .consciousness-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #DAA520;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .consciousness-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .consciousness-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #8B4513;
+            display: block;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #2C1810;
+            margin-bottom: 12px;
+        }
+
+        .step-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #6B6B6B;
         }
 
         /* Vision Section */
@@ -566,13 +757,13 @@
             font-size: 1.125rem;
             line-height: 1.6;
             color: #2C1810;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 24px;
         }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
             border-radius: 24px;
             color: var(--white);
             padding: 72px 48px;
@@ -580,7 +771,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(44,24,16,0.15);
+            box-shadow: 0 8px 32px rgba(139,69,19,0.2);
         }
 
         .cta-section::before {
@@ -590,7 +781,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 70% 30%, rgba(218, 165, 32, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -665,54 +856,90 @@
 
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .about-hero {
+            .process-hero {
                 padding: 6rem 0 4rem 0;
             }
 
-            .about-hero h1 {
+            .process-hero h1 {
                 font-size: 2.5rem;
                 line-height: 1.2;
                 margin-bottom: 20px;
             }
             
-            .about-hero .tagline {
+            .process-hero .tagline {
                 font-size: 1rem;
                 margin-bottom: 32px;
             }
 
-            .about-content {
+            .process-content {
                 padding: 0 16px;
             }
 
-            .about-section {
+            .process-section {
                 margin-bottom: 72px;
             }
 
-            .about-section h2 {
+            .process-section h2 {
                 font-size: 1.875rem;
                 margin-bottom: 24px;
             }
 
-            .about-section p {
+            .process-section p {
                 font-size: 1rem;
                 line-height: 1.6;
                 margin-bottom: 20px;
             }
             
-            .stats-grid {
+            .schedule-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
                 margin: 48px 0;
             }
 
-            .stat-item {
-                padding: 36px 24px;
+            .schedule-card {
+                padding: 32px 24px;
+                border-radius: 12px;
             }
 
-            .stat-number {
-                font-size: 2.5rem;
+            .states-materials-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                margin: 48px 0;
+            }
+
+            .states-column,
+            .materials-column {
+                padding: 40px 24px;
+                border-radius: 16px;
+            }
+
+            .column-title {
+                font-size: 1.5rem;
+                margin-bottom: 24px;
             }
             
+            .consciousness-box {
+                margin: 48px 0;
+                padding: 40px 24px;
+                border-radius: 16px;
+            }
+
+            .consciousness-box h3 {
+                font-size: 1.75rem;
+                margin-bottom: 32px;
+            }
+
+            .consciousness-steps {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .step-number {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+
+            .scale-section,
             .vision-section,
             .cta-section {
                 margin: 72px 0;
@@ -720,33 +947,25 @@
                 border-radius: 16px;
             }
 
+            .scale-section h2,
             .vision-section h2,
             .cta-section h3 {
                 font-size: 1.75rem;
-                margin-bottom: 20px;
+                margin-bottom: 24px;
             }
 
-            .vision-section p,
-            .cta-section p {
-                font-size: 1rem;
+            .scale-dimensions {
+                grid-template-columns: 1fr;
+                gap: 24px;
                 margin-bottom: 32px;
             }
 
-            .archive-box {
-                margin: 48px 0;
-                padding: 36px 24px;
-                border-radius: 12px;
+            .dimension-item {
+                padding: 24px 16px;
             }
 
-            .archive-box h3 {
+            .dimension-size {
                 font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-
-            .archive-box p {
-                font-size: 1rem;
-                line-height: 1.6;
-                margin-bottom: 16px;
             }
 
             .btn {
@@ -794,9 +1013,9 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="about.html" class="active">ABOUT</a></li>
+                <li><a href="about.html">ABOUT</a></li>
                 <li><a href="philosophy.html">PHILOSOPHY</a></li>
-                <li><a href="process.html">PROCESS</a></li>
+                <li><a href="process.html" class="active">PROCESS</a></li>
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
@@ -804,79 +1023,198 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="about-hero">
+    <section class="process-hero">
         <div class="container">
-            <h1>About Ari Zed</h1>
-            <p class="tagline">Reality Creation Artist • Consciousness Explorer • Visionary</p>
+            <h1>Creating Psychic Landscapes</h1>
+            <p class="tagline">Studio Practice • Mystical States • Consciousness Technologies</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="section">
         <div class="container">
-            <div class="about-content">
-                
-                <!-- Stats Section -->
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">20</span>
-                        <span class="stat-label">Years Painting</span>
+            <div class="process-content">
+
+                <!-- Studio Practice Overview -->
+                <div class="process-section">
+                    <h2>Sacred Studio Practice</h2>
+                    <p>The creation of consciousness-expanding art requires more than technical skill—it demands a disciplined practice of accessing and embodying non-ordinary states of awareness. My studio becomes a temple space where the boundaries between artist, artwork, and consciousness itself dissolve.</p>
+                    
+                    <p>Each painting session is both artistic practice and mystical investigation, requiring careful preparation of both physical space and psychological state to channel the visionary experiences that become psychic landscapes.</p>
+                </div>
+
+                <!-- Daily Schedule -->
+                <div class="schedule-grid">
+                    <div class="schedule-card">
+                        <div class="schedule-time">5:30 - 7:30 AM</div>
+                        <div class="schedule-activity">Prime Creation Window</div>
+                        <div class="schedule-desc">Sacred studio time before family wakes. Consciousness most receptive to visionary states and deep focus work.</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">37</span>
-                        <span class="stat-label">Years of Life</span>
+                    
+                    <div class="schedule-card">
+                        <div class="schedule-time">Morning Light</div>
+                        <div class="schedule-activity">Color Perception</div>
+                        <div class="schedule-desc">Natural light optimal for color mixing and seeing true relationships between pigments and consciousness.</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Possibilities</span>
+                    
+                    <div class="schedule-card">
+                        <div class="schedule-time">Evening Sessions</div>
+                        <div class="schedule-activity">Contemplative Work</div>
+                        <div class="schedule-desc">Artificial light sessions for contemplative detail work and accessing deeper mystical states.</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="schedule-time">Integration Time</div>
+                        <div class="schedule-activity">Documentation</div>
+                        <div class="schedule-desc">Recording insights, photographing progress, and planning next sessions while experiences are fresh.</div>
                     </div>
                 </div>
 
-                <!-- Origin Story -->
-                <div class="about-section">
-                    <h2>The Journey Begins</h2>
-                    <p>From the Victorian bush of Australia emerged a vision that would challenge the very nature of reality itself. What started as world-building through fantasy roleplaying evolved into something far more profound—a rejection of the conventional suburban path that society calls "normal" but I recognized as being "asleep at the wheel."</p>
+                <!-- Consciousness States & Materials -->
+                <div class="states-materials-grid">
+                    <div class="states-column">
+                        <h3 class="column-title">Consciousness States</h3>
+                        
+                        <div class="state-item">
+                            <div class="item-name">Active Imagination</div>
+                            <div class="item-desc">Bridge between conscious intention and unconscious wisdom through guided visual dialogue.</div>
+                        </div>
+                        
+                        <div class="state-item">
+                            <div class="item-name">Flow State</div>
+                            <div class="item-desc">Complete absorption where painter, painting, and painted become unified consciousness expressing itself.</div>
+                        </div>
+                        
+                        <div class="state-item">
+                            <div class="item-name">Visionary Reception</div>
+                            <div class="item-desc">Open receptivity to images and insights emerging from deeper layers of awareness.</div>
+                        </div>
+                        
+                        <div class="state-item">
+                            <div class="item-name">Embodied Gnosis</div>
+                            <div class="item-desc">Direct knowing through the body-mind unity, translating mystical understanding into physical form.</div>
+                        </div>
+                    </div>
                     
-                    <p>This transformation wasn't sudden. It unfolded over years of deep questioning, mystical experiences, and artistic exploration that would eventually crystalize into what I now call "reality creation" through visionary art.</p>
+                    <div class="materials-column">
+                        <h3 class="column-title">Materials & Tools</h3>
+                        
+                        <div class="material-item">
+                            <div class="item-name">Oil Paints</div>
+                            <div class="item-desc">Primarily oils for their luminosity, blending capacity, and extended working time allowing consciousness to fully develop.</div>
+                        </div>
+                        
+                        <div class="material-item">
+                            <div class="item-name">Canvas Preparation</div>
+                            <div class="item-desc">Hand-stretched canvases prepared with rabbit skin glue and lead white ground for optimal paint reception.</div>
+                        </div>
+                        
+                        <div class="material-item">
+                            <div class="item-name">Brush Selection</div>
+                            <div class="item-desc">Range from fine detail brushes for precision work to large brushes for sweeping consciousness expressions.</div>
+                        </div>
+                        
+                        <div class="material-item">
+                            <div class="item-name">Color Harmony</div>
+                            <div class="item-desc">Limited palettes focused on psychological impact and consciousness resonance rather than mere representation.</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Archive Callout -->
-                <div class="archive-box">
-                    <h3>The Complete Artistic Journey</h3>
-                    <p>For those interested in witnessing the full evolution of this consciousness expansion practice, the complete artistic development from suburban awakening to reality creation mastery is documented at <a href="https://harryzedhughes.com" target="_blank">harryzedhughes.com</a>.</p>
+                <!-- Scale & Presence -->
+                <div class="scale-section">
+                    <h2>Scale and Consciousness Impact</h2>
                     
-                    <p>This archive captures the raw development, the experiments, the breakthroughs and the gradual refinement that led to today's sophisticated reality creation practice. It's a testament to the power of sustained vision and the courage to follow consciousness where it leads.</p>
+                    <div class="scale-dimensions">
+                        <div class="dimension-item">
+                            <span class="dimension-size">50cm</span>
+                            <div class="dimension-label">Intimate Dialogue</div>
+                            <div class="dimension-desc">Personal contemplation pieces for close viewing and individual consciousness work</div>
+                        </div>
+                        
+                        <div class="dimension-item">
+                            <span class="dimension-size">100cm</span>
+                            <div class="dimension-label">Presence Field</div>
+                            <div class="dimension-desc">Room-scale works that create environmental consciousness shifts</div>
+                        </div>
+                        
+                        <div class="dimension-item">
+                            <span class="dimension-size">200cm+</span>
+                            <div class="dimension-label">Reality Portals</div>
+                            <div class="dimension-desc">Epic scale works designed to completely transform perceptual reality</div>
+                        </div>
+                    </div>
+                    
+                    <div class="scale-philosophy">
+                        <p>Scale isn't arbitrary—it's consciousness technology. Larger works create more powerful presence fields that can literally restructure a viewer's perceptual reality, while intimate pieces allow for profound personal dialogue with expanded awareness.</p>
+                    </div>
                 </div>
 
-                <!-- Artistic Awakening -->
-                <div class="about-section">
-                    <h2>Awakening to Reality Creation</h2>
-                    <p>Through two decades of dedicated practice, I've mastered the visionary techniques of active imagination and mystical experience, developing what I call "psychic landscape painting"—artworks that don't just depict reality, but actively seduce viewers into expanded states of consciousness.</p>
-                    
-                    <p>My paintings serve as bridges between mind and matter, each piece functioning as both aesthetic experience and consciousness technology. This isn't metaphor—it's a practical understanding of how visual art can restructure perception and open doorways to expanded awareness.</p>
+                <!-- Consciousness Access Process -->
+                <div class="consciousness-box">
+                    <h3>Accessing Visionary States</h3>
+                    <div class="consciousness-steps">
+                        <div class="consciousness-step">
+                            <span class="step-number">01</span>
+                            <div class="step-title">Space Preparation</div>
+                            <div class="step-desc">Sacred studio setup with optimal lighting, clean materials, and consciousness-conducive environment</div>
+                        </div>
+                        
+                        <div class="consciousness-step">
+                            <span class="step-number">02</span>
+                            <div class="step-title">Meditation</div>
+                            <div class="step-desc">Brief centering practice to move from ordinary consciousness to receptive awareness states</div>
+                        </div>
+                        
+                        <div class="consciousness-step">
+                            <span class="step-number">03</span>
+                            <div class="step-title">Visual Dialogue</div>
+                            <div class="step-desc">Active imagination process to receive imagery and insights from deeper consciousness layers</div>
+                        </div>
+                        
+                        <div class="consciousness-step">
+                            <span class="step-number">04</span>
+                            <div class="step-title">Embodied Creation</div>
+                            <div class="step-desc">Translating visionary experience into paint through sustained flow state and embodied knowing</div>
+                        </div>
+                        
+                        <div class="consciousness-step">
+                            <span class="step-number">05</span>
+                            <div class="step-title">Integration</div>
+                            <div class="step-desc">Grounding the experience through reflection, documentation, and practical completion of the work</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Current Mission -->
-                <div class="about-section">
-                    <h2>The Fertile Ascent Vision</h2>
-                    <p>Today, from my studio in Hamilton Hill, Western Australia, I continue developing this reality creation practice while working toward something unprecedented: the establishment of temple-communities where consciousness evolution becomes a lived reality.</p>
+                <!-- Technical Mastery -->
+                <div class="process-section">
+                    <h2>Technical Foundation</h2>
+                    <p>Twenty years of dedicated practice has developed the technical fluency necessary to translate mystical experiences into compelling visual form. This isn't about copying external appearances but developing the craft mastery that allows consciousness to express itself freely through paint.</p>
                     
-                    <p>This is "The Fertile Ascent"—a movement toward post-rational consciousness through the integration of art, philosophy, and intentional community. It's about creating spaces where visionaries and consciousness explorers can gather, create, and push the boundaries of what it means to be human in the 21st century.</p>
+                    <p>Every technical choice—from color mixing to brushwork to composition—serves the larger purpose of creating artworks that function as portals for consciousness expansion. The medium becomes transparent to the message when craft is sufficiently developed.</p>
+                </div>
+
+                <!-- Documentation & Evolution -->
+                <div class="process-section">
+                    <h2>Evolution Through Documentation</h2>
+                    <p>Each painting becomes a learning laboratory, with progress documented through photography and reflection journals. This creates feedback loops that accelerate both technical development and consciousness access abilities.</p>
+                    
+                    <p>The goal isn't to repeat successful formulas but to continually push the boundaries of what's possible when consciousness and craft unite in service of reality creation. Every completed work informs the next level of exploration.</p>
                 </div>
 
                 <!-- Vision Section -->
                 <div class="vision-section">
-                    <h2>Living the Vision</h2>
-                    <p>Each painting I create is a step toward this larger vision. Every brushstroke serves the mission of consciousness expansion, whether for individual collectors seeking transformative art or for the growing community of reality creators ready to participate in humanity's next evolutionary leap.</p>
+                    <h2>Beyond Individual Practice</h2>
+                    <p>This studio practice serves a larger vision: developing the methods and creating the artworks that will anchor temple-communities where consciousness expansion becomes collective reality.</p>
                     
-                    <p>This isn't about escaping reality—it's about becoming conscious creators of it.</p>
+                    <p>Each painting is both individual expression and contribution to humanity's evolving consciousness. The process refines not just artistic skill but practical techniques for accessing and embodying expanded awareness that can be shared and taught.</p>
                 </div>
 
                 <!-- Call to Action -->
                 <div class="cta-section">
-                    <h3>Join the Journey</h3>
-                    <p>Whether you're a collector seeking artworks that transform spaces and consciousness, or a fellow reality creator ready to explore the frontiers of human potential, I invite you to connect with this expanding vision.</p>
-                    <a href="contact.html" class="btn">Get In Touch</a>
+                    <h3>Experience the Results</h3>
+                    <p>See how this consciousness-focused process manifests in the completed artworks—each one a testament to the power of disciplined mystical practice.</p>
+                    <a href="artworks.html" class="btn">View Gallery</a>
                 </div>
 
             </div>
@@ -891,7 +1229,7 @@
     </footer>
 
     <script>
-        // ===== MOBILE NAVIGATION FUNCTIONALITY =====
+        // Navigation functionality (same as other pages)
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menuToggle');
             const navigation = document.getElementById('navigation');

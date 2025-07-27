@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Ari Zed</title>
+    <title>Philosophy - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== MOBILE-FIRST NAVIGATION ===== */
+        /* ===== NAVIGATION (SAME AS ABOUT) ===== */
         .navigation {
             position: fixed;
             top: 0;
@@ -227,7 +227,6 @@
             color: var(--text-tertiary);
         }
 
-        /* ===== HAMBURGER MENU ===== */
         .menu-toggle {
             position: fixed;
             top: 1rem;
@@ -282,7 +281,6 @@
             visibility: visible;
         }
 
-        /* ===== DESKTOP STYLES ===== */
         @media (min-width: 769px) {
             .navigation {
                 transform: translateX(0);
@@ -302,9 +300,9 @@
             }
         }
 
-        /* ===== ABOUT PAGE STYLES ===== */
-        .about-hero {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+        /* ===== PHILOSOPHY PAGE STYLES ===== */
+        .philosophy-hero {
+            background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #2C1810 100%);
             color: var(--white);
             padding: 8rem 0 5rem 0;
             text-align: center;
@@ -312,38 +310,38 @@
             overflow: hidden;
         }
 
-        .about-hero::before {
+        .philosophy-hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 70% 20%, rgba(218, 165, 32, 0.15) 0%, transparent 60%);
             pointer-events: none;
         }
 
-        .about-hero .container {
+        .philosophy-hero .container {
             position: relative;
             z-index: 2;
         }
 
-        .about-hero h1 {
+        .philosophy-hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             font-weight: 300;
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 24px;
-            color: #2C1810;
+            color: #F4F1E8;
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .about-hero .tagline {
+        .philosophy-hero .tagline {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
             font-weight: 400;
-            color: #F4F1E8;
+            color: #DAA520;
             opacity: 0.95;
             margin-bottom: 40px;
             letter-spacing: 0.01em;
@@ -359,13 +357,13 @@
             padding: 4rem 0;
         }
 
-        .about-content {
+        .philosophy-content {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        .about-section {
+        .philosophy-section {
             margin-bottom: 96px;
             position: relative;
             opacity: 0;
@@ -373,9 +371,10 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        .about-section:nth-child(2) { animation-delay: 0.1s; }
-        .about-section:nth-child(3) { animation-delay: 0.2s; }
-        .about-section:nth-child(4) { animation-delay: 0.3s; }
+        .philosophy-section:nth-child(2) { animation-delay: 0.1s; }
+        .philosophy-section:nth-child(3) { animation-delay: 0.2s; }
+        .philosophy-section:nth-child(4) { animation-delay: 0.3s; }
+        .philosophy-section:nth-child(5) { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
             to {
@@ -384,7 +383,7 @@
             }
         }
 
-        .about-section h2 {
+        .philosophy-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.25rem;
             font-weight: 300;
@@ -395,7 +394,7 @@
             position: relative;
         }
 
-        .about-section h2::after {
+        .philosophy-section h2::after {
             content: '';
             position: absolute;
             bottom: -12px;
@@ -406,7 +405,7 @@
             border-radius: 1px;
         }
 
-        .about-section p {
+        .philosophy-section p {
             font-family: 'Inter', sans-serif;
             font-size: 1.0625rem;
             font-weight: 400;
@@ -416,112 +415,203 @@
             letter-spacing: 0.001em;
         }
 
-        .about-section p:last-child {
+        .philosophy-section p:last-child {
             margin-bottom: 0;
         }
 
-        /* Stats Grid */
-        .stats-grid {
+        /* Four Metaphors Grid */
+        .metaphors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 32px;
             margin: 72px 0;
         }
 
-        .stat-item {
+        .metaphor-card {
             background: #FFFFFF;
             border: 1px solid #E8E3DB;
             box-shadow: 0 2px 12px rgba(44,24,16,0.04);
-            border-radius: 12px;
-            padding: 48px 32px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 40px 32px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .stat-item::before {
+        .metaphor-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, #DAA520, #B8941F);
         }
 
-        .stat-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(44,24,16,0.08);
+        .metaphor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(44,24,16,0.12);
         }
 
-        .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 300;
-            color: #DAA520;
-            display: block;
-            line-height: 1;
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-        }
-
-        .stat-label {
-            font-family: 'Inter', sans-serif;
-            color: #6B6B6B;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-size: 0.6875rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        /* Archive Callout Box */
-        .archive-box {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
-            border: 2px solid #DAA520;
-            border-radius: 16px;
-            padding: 48px 40px;
-            margin: 72px 0;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 24px rgba(218, 165, 32, 0.1);
-        }
-
-        .archive-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
-        }
-
-        .archive-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 300;
-            letter-spacing: -0.01em;
+        .metaphor-icon {
+            font-size: 2.5rem;
             margin-bottom: 24px;
+            display: block;
+        }
+
+        .metaphor-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
             color: #DAA520;
+            margin-bottom: 16px;
             line-height: 1.3;
         }
 
-        .archive-box p {
+        .metaphor-card p {
             color: #2C1810;
-            font-size: 1.0625rem;
-            line-height: 1.7;
-            margin-bottom: 24px;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
         }
 
-        .archive-box a {
-            color: #8B4513;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(139, 69, 19, 0.3);
+        .metaphor-card p:last-child {
+            margin-bottom: 0;
         }
 
-        .archive-box a:hover {
+        /* Consciousness Principles Box */
+        .principles-box {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border: 2px solid #DAA520;
+            border-radius: 20px;
+            padding: 56px 48px;
+            margin: 72px 0;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
+        }
+
+        .principles-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 300;
             color: #DAA520;
-            border-bottom-color: #DAA520;
-            letter-spacing: 0.01em;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .principles-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .principle-item {
+            text-align: center;
+        }
+
+        .principle-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #8B4513;
+            display: block;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .principle-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #2C1810;
+            margin-bottom: 12px;
+        }
+
+        .principle-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #6B6B6B;
+        }
+
+        /* Active Imagination Section */
+        .imagination-section {
+            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            border-radius: 24px;
+            color: var(--white);
+            padding: 72px 48px;
+            margin: 96px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(44,24,16,0.2);
+        }
+
+        .imagination-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(218, 165, 32, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .imagination-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #F4F1E8;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .imagination-section h2::after {
+            display: none;
+        }
+
+        .imagination-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-arrow {
+            font-size: 1.5rem;
+            color: #DAA520;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .step-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #DAA520;
+            margin-bottom: 12px;
+        }
+
+        .step-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #F4F1E8;
+            opacity: 0.9;
         }
 
         /* Vision Section */
@@ -566,13 +656,13 @@
             font-size: 1.125rem;
             line-height: 1.6;
             color: #2C1810;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 24px;
         }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
             border-radius: 24px;
             color: var(--white);
             padding: 72px 48px;
@@ -580,7 +670,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(44,24,16,0.15);
+            box-shadow: 0 8px 32px rgba(139,69,19,0.2);
         }
 
         .cta-section::before {
@@ -590,7 +680,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 70% 30%, rgba(218, 165, 32, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -665,54 +755,83 @@
 
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .about-hero {
+            .philosophy-hero {
                 padding: 6rem 0 4rem 0;
             }
 
-            .about-hero h1 {
+            .philosophy-hero h1 {
                 font-size: 2.5rem;
                 line-height: 1.2;
                 margin-bottom: 20px;
             }
             
-            .about-hero .tagline {
+            .philosophy-hero .tagline {
                 font-size: 1rem;
                 margin-bottom: 32px;
             }
 
-            .about-content {
+            .philosophy-content {
                 padding: 0 16px;
             }
 
-            .about-section {
+            .philosophy-section {
                 margin-bottom: 72px;
             }
 
-            .about-section h2 {
+            .philosophy-section h2 {
                 font-size: 1.875rem;
                 margin-bottom: 24px;
             }
 
-            .about-section p {
+            .philosophy-section p {
                 font-size: 1rem;
                 line-height: 1.6;
                 margin-bottom: 20px;
             }
             
-            .stats-grid {
+            .metaphors-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
                 margin: 48px 0;
             }
 
-            .stat-item {
-                padding: 36px 24px;
+            .metaphor-card {
+                padding: 32px 24px;
+                border-radius: 12px;
             }
 
-            .stat-number {
-                font-size: 2.5rem;
+            .metaphor-icon {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .metaphor-card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 12px;
             }
             
+            .principles-box {
+                margin: 48px 0;
+                padding: 40px 24px;
+                border-radius: 16px;
+            }
+
+            .principles-box h3 {
+                font-size: 1.75rem;
+                margin-bottom: 32px;
+            }
+
+            .principles-list {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .principle-number {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+
+            .imagination-section,
             .vision-section,
             .cta-section {
                 margin: 72px 0;
@@ -720,33 +839,16 @@
                 border-radius: 16px;
             }
 
+            .imagination-section h2,
             .vision-section h2,
             .cta-section h3 {
                 font-size: 1.75rem;
-                margin-bottom: 20px;
+                margin-bottom: 24px;
             }
 
-            .vision-section p,
-            .cta-section p {
-                font-size: 1rem;
-                margin-bottom: 32px;
-            }
-
-            .archive-box {
-                margin: 48px 0;
-                padding: 36px 24px;
-                border-radius: 12px;
-            }
-
-            .archive-box h3 {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-
-            .archive-box p {
-                font-size: 1rem;
-                line-height: 1.6;
-                margin-bottom: 16px;
+            .imagination-steps {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
 
             .btn {
@@ -794,8 +896,8 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="about.html" class="active">ABOUT</a></li>
-                <li><a href="philosophy.html">PHILOSOPHY</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="philosophy.html" class="active">PHILOSOPHY</a></li>
                 <li><a href="process.html">PROCESS</a></li>
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
@@ -804,79 +906,133 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="about-hero">
+    <section class="philosophy-hero">
         <div class="container">
-            <h1>About Ari Zed</h1>
-            <p class="tagline">Reality Creation Artist • Consciousness Explorer • Visionary</p>
+            <h1>The Magician's Castle</h1>
+            <p class="tagline">A Framework for Consciousness Expansion through Reality Creation</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="section">
         <div class="container">
-            <div class="about-content">
-                
-                <!-- Stats Section -->
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">20</span>
-                        <span class="stat-label">Years Painting</span>
+            <div class="philosophy-content">
+
+                <!-- Foundation Principle -->
+                <div class="philosophy-section">
+                    <h2>Consciousness as Primary Reality</h2>
+                    <p>At the heart of this work lies a radical understanding: consciousness is primary, and the material world is its extrinsic appearance. We are not biological machines struggling to understand an external universe—we are focal points where infinite consciousness gains perspective on itself.</p>
+                    
+                    <p>This isn't metaphysical speculation but practical philosophy. When we recognize ourselves as consciousness exploring itself through form, everything changes. Art becomes technology for consciousness expansion. Reality becomes malleable. Creation becomes conscious participation in the universe's self-understanding.</p>
+                </div>
+
+                <!-- Four Major Metaphors -->
+                <div class="philosophy-section">
+                    <h2>Four Metaphors for Understanding</h2>
+                    <p>The Magician's Castle framework operates through four interconnected metaphors that map the territory of consciousness expansion:</p>
+                </div>
+
+                <div class="metaphors-grid">
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🌌</span>
+                        <h3>The Ground of Being</h3>
+                        <p>The infinite consciousness that appears to us as the physical universe. Contains all answers but lacks the ability to ask questions or see itself. Through our individuated awareness, it gains perspective and self-understanding.</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">37</span>
-                        <span class="stat-label">Years of Life</span>
+                    
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🏰</span>
+                        <h3>The Castle</h3>
+                        <p>An individual's complete reality tunnel—the ontological structure extruded from the Ground of Being. Contains foundations (often hidden) upon which all experience is built. Must become "graspable" to be consciously navigated.</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Possibilities</span>
+                    
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🧙‍♂️</span>
+                        <h3>The Magician</h3>
+                        <p>Our higher self that inhabits the castle and creates/receives avatars (thought forms/experiences). Distinguished from the "Monkey" (ego/internal monologue). The Magician evolves the castle; the Monkey stagnates it.</p>
+                    </div>
+                    
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🌊</span>
+                        <h3>The Tidal Wave</h3>
+                        <p>A retroactive force from the future representing the pull toward full realization of potential. Connected to apocalyptic transformation and consciousness evolution. Manifests as breakthrough moments and quantum leaps.</p>
                     </div>
                 </div>
 
-                <!-- Origin Story -->
-                <div class="about-section">
-                    <h2>The Journey Begins</h2>
-                    <p>From the Victorian bush of Australia emerged a vision that would challenge the very nature of reality itself. What started as world-building through fantasy roleplaying evolved into something far more profound—a rejection of the conventional suburban path that society calls "normal" but I recognized as being "asleep at the wheel."</p>
-                    
-                    <p>This transformation wasn't sudden. It unfolded over years of deep questioning, mystical experiences, and artistic exploration that would eventually crystalize into what I now call "reality creation" through visionary art.</p>
+                <!-- Active Imagination Section -->
+                <div class="imagination-section">
+                    <h2>Active Imagination Process</h2>
+                    <div class="imagination-steps">
+                        <div class="step-item">
+                            <span class="step-arrow">➤</span>
+                            <div class="step-title">Move Away</div>
+                            <div class="step-desc">From small self identification and limiting beliefs</div>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-arrow">👁</span>
+                            <div class="step-title">Look Into</div>
+                            <div class="step-desc">Infinite being and expanded awareness</div>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-arrow">💬</span>
+                            <div class="step-title">Dialogue</div>
+                            <div class="step-desc">With consciousness through imagination</div>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-arrow">🎨</span>
+                            <div class="step-title">Embody</div>
+                            <div class="step-desc">Insights through creative expression</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Archive Callout -->
-                <div class="archive-box">
-                    <h3>The Complete Artistic Journey</h3>
-                    <p>For those interested in witnessing the full evolution of this consciousness expansion practice, the complete artistic development from suburban awakening to reality creation mastery is documented at <a href="https://harryzedhughes.com" target="_blank">harryzedhughes.com</a>.</p>
-                    
-                    <p>This archive captures the raw development, the experiments, the breakthroughs and the gradual refinement that led to today's sophisticated reality creation practice. It's a testament to the power of sustained vision and the courage to follow consciousness where it leads.</p>
+                <!-- Consciousness Navigation Principles -->
+                <div class="principles-box">
+                    <h3>Navigation Principles</h3>
+                    <div class="principles-list">
+                        <div class="principle-item">
+                            <span class="principle-number">01</span>
+                            <div class="principle-title">Beauty as Guide</div>
+                            <div class="principle-desc">When truth and morality become unclear, beauty provides reliable navigation toward expanded consciousness</div>
+                        </div>
+                        <div class="principle-item">
+                            <span class="principle-number">02</span>
+                            <div class="principle-title">Wisdom Production</div>
+                            <div class="principle-desc">Distinguish between imagination that produces wisdom and imagination that merely entertains or distracts</div>
+                        </div>
+                        <div class="principle-item">
+                            <span class="principle-number">03</span>
+                            <div class="principle-title">Integration</div>
+                            <div class="principle-desc">Unite opposing forces rather than choosing sides—masculine/feminine, order/chaos, transcendence/embodiment</div>
+                        </div>
+                        <div class="principle-item">
+                            <span class="principle-number">04</span>
+                            <div class="principle-title">Embodiment</div>
+                            <div class="principle-desc">The goal is not to escape the body but to embody mind into full understanding and creative expression</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Artistic Awakening -->
-                <div class="about-section">
-                    <h2>Awakening to Reality Creation</h2>
-                    <p>Through two decades of dedicated practice, I've mastered the visionary techniques of active imagination and mystical experience, developing what I call "psychic landscape painting"—artworks that don't just depict reality, but actively seduce viewers into expanded states of consciousness.</p>
+                <!-- Art as Technology -->
+                <div class="philosophy-section">
+                    <h2>Art as Consciousness Technology</h2>
+                    <p>Visionary art functions as bridge-building technology between consciousness and matter. Each painting becomes a doorway—not merely depicting reality but actively restructuring the viewer's perceptual field and opening access to expanded states of awareness.</p>
                     
-                    <p>My paintings serve as bridges between mind and matter, each piece functioning as both aesthetic experience and consciousness technology. This isn't metaphor—it's a practical understanding of how visual art can restructure perception and open doorways to expanded awareness.</p>
+                    <p>This is why I call my work "psychic landscape painting." These aren't illustrations of mystical concepts but functional technologies for consciousness expansion, designed to seduce viewers into recognition of their own reality-creation capabilities.</p>
                 </div>
 
-                <!-- Current Mission -->
-                <div class="about-section">
-                    <h2>The Fertile Ascent Vision</h2>
-                    <p>Today, from my studio in Hamilton Hill, Western Australia, I continue developing this reality creation practice while working toward something unprecedented: the establishment of temple-communities where consciousness evolution becomes a lived reality.</p>
-                    
-                    <p>This is "The Fertile Ascent"—a movement toward post-rational consciousness through the integration of art, philosophy, and intentional community. It's about creating spaces where visionaries and consciousness explorers can gather, create, and push the boundaries of what it means to be human in the 21st century.</p>
-                </div>
-
-                <!-- Vision Section -->
+                <!-- The Fertile Ascent Vision -->
                 <div class="vision-section">
-                    <h2>Living the Vision</h2>
-                    <p>Each painting I create is a step toward this larger vision. Every brushstroke serves the mission of consciousness expansion, whether for individual collectors seeking transformative art or for the growing community of reality creators ready to participate in humanity's next evolutionary leap.</p>
+                    <h2>The Fertile Ascent</h2>
+                    <p>This framework points toward something unprecedented: temple-communities where consciousness evolution becomes lived reality. Not escape from the world, but conscious creation of new world-structures that optimize for individual freedom and collective awakening.</p>
                     
-                    <p>This isn't about escaping reality—it's about becoming conscious creators of it.</p>
+                    <p>The Fertile Ascent is the movement toward post-rational consciousness through integration of mystical wisdom, aesthetic beauty, embodied sexuality, and practical community building. It's humanity's next evolutionary step, and it begins with individual recognition of our role as conscious creators of reality.</p>
                 </div>
 
                 <!-- Call to Action -->
                 <div class="cta-section">
-                    <h3>Join the Journey</h3>
-                    <p>Whether you're a collector seeking artworks that transform spaces and consciousness, or a fellow reality creator ready to explore the frontiers of human potential, I invite you to connect with this expanding vision.</p>
-                    <a href="contact.html" class="btn">Get In Touch</a>
+                    <h3>Explore the Framework</h3>
+                    <p>Ready to dive deeper into consciousness expansion through art? Discover how these principles manifest in creative practice and community building.</p>
+                    <a href="process.html" class="btn">See the Process</a>
                 </div>
 
             </div>
@@ -891,7 +1047,7 @@
     </footer>
 
     <script>
-        // ===== MOBILE NAVIGATION FUNCTIONALITY =====
+        // Navigation functionality (same as other pages)
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menuToggle');
             const navigation = document.getElementById('navigation');
