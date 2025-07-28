@@ -1848,6 +1848,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:22:31.100Z"
+    },
+    {
+      "id": "snakes-and-ladders-",
+      "title": "Snakes And Ladders ",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "66 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/snakes-and-ladders-.jpg",
+        "medium": "images/artworks/medium/snakes-and-ladders-.jpg",
+        "large": "images/artworks/large/snakes-and-ladders-.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:22:42.118Z"
     }
   ]
 }
