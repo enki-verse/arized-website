@@ -1648,6 +1648,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:20:54.835Z"
+    },
+    {
+      "id": "keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world",
+      "title": "Keep On Floating On.... Outermost Layer Consisting Of Cloud Spaceships On Life World",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "40 x 51 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world.jpg",
+        "medium": "images/artworks/medium/keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world.jpg",
+        "large": "images/artworks/large/keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:21:05.376Z"
     }
   ]
 }
