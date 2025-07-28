@@ -8,19 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* ===== GALLERY STYLES ===== */
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--text-dark);
-        }
-
-        /* ===== WORLD-CLASS DESIGN SYSTEM ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap');
-
+        /* ===== SOPHISTICATED DESIGN SYSTEM ===== */
         :root {
             --primary-brown: #8B4513;
             --secondary-brown: #654321;
@@ -485,9 +473,11 @@
 
         .gallery-grid {
             flex: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 8px; /* Minimal spacing for gallery wall effect */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Increased from 8px for more space */
+            justify-content: flex-start;
+            align-items: flex-start;
             min-height: 60vh; /* Ensure minimum height for loading state */
         }
 
@@ -545,15 +535,7 @@
             }
         }
 
-        /* Gallery Grid - Lisa-style consistent height layout */
-        .gallery-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-
+        /* Gallery Grid - Updated thumbnail sizes */
         .gallery-grid.few-results {
             justify-content: center;
         }
@@ -581,8 +563,8 @@
         }
 
         .artwork-image {
-            /* Consistent height with maintained aspect ratios */
-            height: 240px;
+            /* Increased size by 20%: 240px * 1.2 = 288px */
+            height: 288px;
             width: auto;
             object-fit: contain;
             background: transparent;
@@ -1927,12 +1909,14 @@
         let imageX = 0;
         let imageY = 0;
 
-        // Load artworks - Fixed to include filter setup
+        // Load artworks - Modified to sort by year descending
         async function loadArtworks() {
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
                 const data = await response.json();
-                artworks = data.artworks;
+                
+                // Sort artworks by year in descending order (newest first)
+                artworks = data.artworks.sort((a, b) => b.year - a.year);
                 filteredArtworks = [...artworks];
                 renderGallery();
                 
@@ -1966,7 +1950,10 @@
                 grid.classList.remove('few-results');
             }
             
-            grid.innerHTML = filteredArtworks.map(artwork => {
+            // Sort filtered artworks by year descending before rendering
+            const sortedFilteredArtworks = [...filteredArtworks].sort((a, b) => b.year - a.year);
+            
+            grid.innerHTML = sortedFilteredArtworks.map(artwork => {
                 return `
                 <div class="artwork-card" 
                      data-id="${artwork.id}"
