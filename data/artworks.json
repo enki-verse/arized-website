@@ -1723,6 +1723,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:21:23.853Z"
+    },
+    {
+      "id": "lost-utopians",
+      "title": "Lost Utopians",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "51 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/lost-utopians.jpg",
+        "medium": "images/artworks/medium/lost-utopians.jpg",
+        "large": "images/artworks/large/lost-utopians.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:21:33.515Z"
     }
   ]
 }
