@@ -48,7 +48,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== NAVIGATION (SAME AS ABOUT) ===== */
+        /* ===== NAVIGATION (SAME AS OTHER PAGES) ===== */
         .navigation {
             position: fixed;
             top: 0;
@@ -302,9 +302,7 @@
 
         /* ===== PHILOSOPHY PAGE STYLES ===== */
         .philosophy-hero {
-            background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(139, 69, 19, 0.8)), url('images/artworks/large/floating-castle.jpg');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #2C1810 100%);
             color: var(--white);
             padding: 8rem 0 5rem 0;
             text-align: center;
@@ -419,6 +417,62 @@
 
         .philosophy-section p:last-child {
             margin-bottom: 0;
+        }
+
+        /* Floating Castle Image Section */
+        .castle-visualization {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border: 1px solid #E8E3DB;
+            border-radius: 20px;
+            padding: 48px 40px;
+            margin: 72px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+
+        .castle-visualization::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+            border-radius: 0 0 2px 2px;
+        }
+
+        .castle-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(44,24,16,0.12);
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .castle-image:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(44,24,16,0.16);
+        }
+
+        .castle-caption {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #8B4513;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .castle-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #6B6B6B;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Four Metaphors Grid */
@@ -790,6 +844,25 @@
                 line-height: 1.6;
                 margin-bottom: 20px;
             }
+
+            .castle-visualization {
+                margin: 48px 0;
+                padding: 32px 24px;
+                border-radius: 16px;
+            }
+
+            .castle-image {
+                margin-bottom: 24px;
+            }
+
+            .castle-caption {
+                font-size: 1.125rem;
+                margin-bottom: 12px;
+            }
+
+            .castle-description {
+                font-size: 0.9375rem;
+            }
             
             .metaphors-grid {
                 grid-template-columns: 1fr;
@@ -926,6 +999,13 @@
                     <p>At the heart of this work lies a radical understanding: consciousness is primary, and the material world is its extrinsic appearance. We are not biological machines struggling to understand an external universe—we are focal points where infinite consciousness gains perspective on itself.</p>
                     
                     <p>This isn't metaphysical speculation but practical philosophy. When we recognize ourselves as consciousness exploring itself through form, everything changes. Art becomes technology for consciousness expansion. Reality becomes malleable. Creation becomes conscious participation in the universe's self-understanding.</p>
+                </div>
+
+                <!-- Floating Castle Visualization -->
+                <div class="castle-visualization">
+                    <img src="https://raw.githubusercontent.com/enki-verse/arized-website/main/images/artworks/large/floating-castle.jpg" alt="Floating Castle" class="castle-image">
+                    <div class="castle-caption">"Floating Castle" (2020)</div>
+                    <div class="castle-description">A visual representation of the ontological structure that emerges from consciousness—the individual's complete reality tunnel, suspended between earth and sky, anchored yet free to evolve.</div>
                 </div>
 
                 <!-- Four Major Metaphors -->
