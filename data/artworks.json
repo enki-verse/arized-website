@@ -2048,6 +2048,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:24:09.898Z"
+    },
+    {
+      "id": "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world",
+      "title": "We All Eat Each Other Continually - Cloud Spaceship Production Beneath Outermost Layer On Life World",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "23 x 31 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world.jpg",
+        "medium": "images/artworks/medium/we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world.jpg",
+        "large": "images/artworks/large/we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:24:21.288Z"
     }
   ]
 }
