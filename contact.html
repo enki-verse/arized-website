@@ -471,7 +471,7 @@
 
         /* ===== NEWSLETTER SECTION WITH BANNER BACKGROUND ===== */
         .newsletter-section {
-            background: linear-gradient(rgba(44, 24, 16, 0.75), rgba(139, 69, 19, 0.75)), url('images/zed%20profile%20slide2.png');
+            background: url('images/zed%20profile%20slide2.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -481,17 +481,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .newsletter-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.2) 0%, rgba(44, 24, 16, 0.4) 100%);
-            pointer-events: none;
         }
 
         .newsletter-section h3 {
