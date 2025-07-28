@@ -1998,6 +1998,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:23:43.396Z"
+    },
+    {
+      "id": "wanderer-in-the-mist",
+      "title": "Wanderer In The Mist",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "51 x 40 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/wanderer-in-the-mist.jpg",
+        "medium": "images/artworks/medium/wanderer-in-the-mist.jpg",
+        "large": "images/artworks/large/wanderer-in-the-mist.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:23:57.202Z"
     }
   ]
 }
