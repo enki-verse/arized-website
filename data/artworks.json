@@ -1320,6 +1320,33 @@
       },
       "description": "",
       "dateAdded": "2025-07-26T05:39:26.920Z"
+    },
+    {
+      "id": "the-fisher-king-esalan-institute",
+      "title": "The Fisher King - Esalan Institute",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "150 x 190 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures",
+        "landscape"
+      ],
+      "exhibitions": [
+        "Picnic at the end of time"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-fisher-king-esalan-institute.jpg",
+        "medium": "images/artworks/medium/the-fisher-king-esalan-institute.jpg",
+        "large": "images/artworks/large/the-fisher-king-esalan-institute.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T03:43:39.635Z"
     }
   ]
 }
