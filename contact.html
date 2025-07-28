@@ -469,14 +469,18 @@
             transform: translateY(0);
         }
 
-        /* ===== NEWSLETTER SECTION ===== */
+        /* ===== NEWSLETTER SECTION WITH BANNER BACKGROUND ===== */
         .newsletter-section {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            background: linear-gradient(rgba(44, 24, 16, 0.75), rgba(139, 69, 19, 0.75)), url('images/zed%20profile%20slide2.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: #FFFFFF;
             padding: 96px 48px;
-            margin: 96px 0;
+            margin: 96px 0 0 0;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .newsletter-section::before {
@@ -486,7 +490,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.02"><circle cx="30" cy="30" r="1"/></g></svg>') repeat;
+            background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.2) 0%, rgba(44, 24, 16, 0.4) 100%);
             pointer-events: none;
         }
 
@@ -496,7 +500,9 @@
             font-weight: 300;
             margin-bottom: 24px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7), 1px 1px 4px rgba(0, 0, 0, 1);
+            color: #FFFFFF;
         }
 
         .newsletter-section p {
@@ -504,12 +510,13 @@
             font-size: 1.0625rem;
             font-weight: 400;
             margin-bottom: 48px;
-            opacity: 0.9;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.6), 1px 1px 3px rgba(0, 0, 0, 1);
+            color: #FFFFFF;
         }
 
         /* ===== MAILCHIMP NEWSLETTER STYLING ===== */
@@ -528,9 +535,11 @@
             display: flex !important;
             border-radius: 12px !important;
             overflow: hidden !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
             padding: 0 !important;
             margin: 0 !important;
+            position: relative !important;
+            z-index: 3 !important;
         }
 
         #mc_embed_signup h2 {
@@ -708,11 +717,6 @@
 
             .newsletter-section {
                 padding: 72px 32px;
-                margin: 72px 0;
-            }
-
-            .profile-banner {
-                padding: 72px 0;
                 margin: 72px 0 0 0;
             }
         }
@@ -809,11 +813,6 @@
             }
 
             .newsletter-section {
-                padding: 32px 16px;
-                margin: 32px 0;
-            }
-
-            .profile-banner {
                 padding: 32px 16px;
                 margin: 32px 0 0 0;
             }
@@ -957,13 +956,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </section>
-
-    <!-- Profile Banner Section -->
-    <section class="profile-banner">
-        <div class="container">
-            <img src="images/zed%20profile%20slide2.png" alt="Ari Zed Profile" class="profile-banner-image">
         </div>
     </section>
 
