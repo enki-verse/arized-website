@@ -1372,6 +1372,32 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T03:46:54.669Z"
+    },
+    {
+      "id": "the-tempest-after-giorgione-",
+      "title": "The Tempest (after Giorgione)",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "150 x 190 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "landscape"
+      ],
+      "exhibitions": [
+        "Picnic at the end of time"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-tempest-after-giorgione-.jpg",
+        "medium": "images/artworks/medium/the-tempest-after-giorgione-.jpg",
+        "large": "images/artworks/large/the-tempest-after-giorgione-.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T03:57:29.832Z"
     }
   ]
 }
