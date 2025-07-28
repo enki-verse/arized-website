@@ -1873,6 +1873,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:22:42.118Z"
+    },
+    {
+      "id": "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace",
+      "title": "That Other Time We Were All Hanging Out On That Cloud, And You Said We Should Sail West And Watch The Sun Set On The Whipped Cream Palace",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "51 x 40 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg",
+        "medium": "images/artworks/medium/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg",
+        "large": "images/artworks/large/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:22:54.625Z"
     }
   ]
 }
