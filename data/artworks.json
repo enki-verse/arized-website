@@ -1773,6 +1773,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:21:43.733Z"
+    },
+    {
+      "id": "nyseion-2",
+      "title": "Nyseion 2",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "61 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/nyseion-2.jpg",
+        "medium": "images/artworks/medium/nyseion-2.jpg",
+        "large": "images/artworks/large/nyseion-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:21:54.785Z"
     }
   ]
 }
