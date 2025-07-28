@@ -2023,6 +2023,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T05:23:57.202Z"
+    },
+    {
+      "id": "wanderer-in-the-ouranous-gardens",
+      "title": "Wanderer In The Ouranous Gardens",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "66 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/wanderer-in-the-ouranous-gardens.jpg",
+        "medium": "images/artworks/medium/wanderer-in-the-ouranous-gardens.jpg",
+        "large": "images/artworks/large/wanderer-in-the-ouranous-gardens.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:24:09.898Z"
     }
   ]
 }
