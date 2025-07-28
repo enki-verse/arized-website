@@ -1423,6 +1423,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T04:00:59.701Z"
+    },
+    {
+      "id": "as-you-fall-deeper-the-horizon-bubble-emerges",
+      "title": "As you fall deeper the horizon bubble emerges",
+      "year": 2017,
+      "medium": "Oil on board",
+      "dimensions": "50 x 50 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Picnic at the end of time"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/as-you-fall-deeper-the-horizon-bubble-emerges.jpg",
+        "medium": "images/artworks/medium/as-you-fall-deeper-the-horizon-bubble-emerges.jpg",
+        "large": "images/artworks/large/as-you-fall-deeper-the-horizon-bubble-emerges.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T04:02:11.066Z"
     }
   ]
 }
