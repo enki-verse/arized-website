@@ -1448,6 +1448,31 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T04:02:11.066Z"
+    },
+    {
+      "id": "a-moment-in-the-shade-before-returning-to-the-ship-",
+      "title": "A Moment In The Shade Before Returning To The Ship ",
+      "year": 2018,
+      "medium": "Oil on canvas",
+      "dimensions": "51 x 76 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/a-moment-in-the-shade-before-returning-to-the-ship-.jpg",
+        "medium": "images/artworks/medium/a-moment-in-the-shade-before-returning-to-the-ship-.jpg",
+        "large": "images/artworks/large/a-moment-in-the-shade-before-returning-to-the-ship-.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-07-28T05:19:17.300Z"
     }
   ]
 }
