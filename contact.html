@@ -6,25 +6,25 @@
     <title>Contact - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* ===== SOPHISTICATED CONTACT PAGE DESIGN ===== */
+        /* ===== SOPHISTICATED DESIGN SYSTEM ===== */
         :root {
             --primary-brown: #8B4513;
             --secondary-brown: #654321;
             --accent-gold: #DAA520;
-            --background-cream: #F4F1E8;
+            --background-cream: #FDFCF8;
             --text-dark: #2C1810;
-            --text-light: #666;
+            --text-light: #6B6B6B;
             --surface-white: #ffffff;
             --text-primary: #2a2a2a;
             --text-secondary: #6a6a6a;
             --text-tertiary: #9a9a9a;
-            --border-light: #f0f0f0;
+            --border-light: #E8E3DB;
             --border-medium: #e8e8e8;
             --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --white: #fff;
+            --white: #F4F1E8;
         }
 
         * {
@@ -58,14 +58,14 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 1rem;
-            color: #2C1810;
+            color: #F4F1E8;
         }
 
         .contact-hero .tagline {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
             font-weight: 400;
-            color: #8B7355;
+            color: #DAA520;
             margin-bottom: 40px;
         }
 
@@ -325,7 +325,7 @@
 
         /* ===== CONTACT CONTENT LAYOUT ===== */
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -336,9 +336,9 @@
 
         .contact-content {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 48px;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             align-items: start;
         }
@@ -362,13 +362,17 @@
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 300;
-            margin-bottom: 48px;
+            margin-bottom: 32px;
             color: #2C1810;
         }
 
         /* ===== CONTACT DETAILS ===== */
         .contact-detail {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+        }
+
+        .contact-detail:last-child {
+            margin-bottom: 0;
         }
 
         .contact-detail h3 {
@@ -378,7 +382,7 @@
             text-transform: uppercase;
             letter-spacing: 0.12em;
             color: #DAA520;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .contact-detail p {
@@ -396,8 +400,6 @@
 
         .contact-detail a:hover {
             color: #DAA520;
-            transform: scale(1.02);
-            letter-spacing: 0.01em;
         }
 
         /* ===== CONTACT FORM CARD ===== */
@@ -414,7 +416,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 300;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             color: #2C1810;
         }
 
@@ -469,43 +471,51 @@
             transform: translateY(0);
         }
 
-        /* ===== NEWSLETTER SECTION WITH BANNER BACKGROUND ===== */
+        /* ===== NEWSLETTER SECTION ===== */
         .newsletter-section {
-            background: url('images/zed%20profile%20slide2.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
             color: #FFFFFF;
-            padding: 96px 48px;
-            margin: 96px 0 0 0;
+            padding: 72px 48px;
+            margin: 72px 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/zed%20profile%20slide2.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            pointer-events: none;
         }
 
         .newsletter-section h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 300;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             position: relative;
-            z-index: 2;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7), 1px 1px 4px rgba(0, 0, 0, 1);
-            color: #FFFFFF;
+            z-index: 1;
         }
 
         .newsletter-section p {
             font-family: 'Inter', sans-serif;
-            font-size: 1.0625rem;
+            font-size: 1rem;
             font-weight: 400;
-            margin-bottom: 48px;
-            max-width: 600px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
-            z-index: 2;
-            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.6), 1px 1px 3px rgba(0, 0, 0, 1);
-            color: #FFFFFF;
+            z-index: 1;
         }
 
         /* ===== MAILCHIMP NEWSLETTER STYLING ===== */
@@ -524,11 +534,9 @@
             display: flex !important;
             border-radius: 12px !important;
             overflow: hidden !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
             padding: 0 !important;
             margin: 0 !important;
-            position: relative !important;
-            z-index: 3 !important;
         }
 
         #mc_embed_signup h2 {
@@ -641,45 +649,13 @@
             margin: 0 !important;
         }
 
-        /* ===== PROFILE BANNER SECTION ===== */
-        .profile-banner {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
-            padding: 96px 0;
-            margin: 96px 0 0 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #DAA520, #B8941F);
-        }
-
-        .profile-banner-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 12px 48px rgba(44, 24, 16, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .profile-banner-image:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 64px rgba(44, 24, 16, 0.2);
-        }
-
         /* Footer */
         footer {
             background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
             color: #F4F1E8;
             text-align: center;
             padding: 48px 0;
+            margin-top: 72px;
             border-top: 1px solid #E8E3DB;
         }
 
@@ -705,8 +681,8 @@
             }
 
             .newsletter-section {
-                padding: 72px 32px;
-                margin: 72px 0 0 0;
+                padding: 56px 32px;
+                margin: 56px 0;
             }
         }
 
@@ -739,26 +715,27 @@
             .contact-info h2,
             .contact-form h2 {
                 font-size: 1.75rem;
-                margin-bottom: 32px;
-            }
-
-            .contact-detail {
                 margin-bottom: 24px;
             }
 
+            .contact-detail {
+                margin-bottom: 20px;
+            }
+
             .newsletter-section {
-                padding: 48px 24px;
-                margin: 48px 0;
+                padding: 40px 24px;
+                margin: 40px 0;
+                border-radius: 12px;
             }
 
             .newsletter-section h3 {
-                font-size: 1.875rem;
-                margin-bottom: 16px;
+                font-size: 1.75rem;
+                margin-bottom: 12px;
             }
 
             .newsletter-section p {
-                font-size: 1rem;
-                margin-bottom: 32px;
+                font-size: 0.9375rem;
+                margin-bottom: 24px;
             }
             
             #mc_embed_signup form {
@@ -775,15 +752,6 @@
                 border-radius: 12px !important;
                 padding: 16px 24px !important;
                 height: auto !important;
-            }
-
-            .profile-banner {
-                padding: 48px 24px;
-                margin: 48px 0 0 0;
-            }
-
-            .profile-banner-image {
-                border-radius: 12px;
             }
         }
 
@@ -803,7 +771,7 @@
 
             .newsletter-section {
                 padding: 32px 16px;
-                margin: 32px 0 0 0;
+                margin: 32px 0;
             }
         }
     </style>
@@ -859,7 +827,7 @@
     <section class="contact-hero">
         <div class="container">
             <h1>Get In Touch</h1>
-            <p class="tagline">Ready to explore consciousness through art?</p>
+            <p class="tagline">Let's connect</p>
         </div>
     </section>
 
@@ -870,7 +838,7 @@
                 
                 <!-- Contact Information -->
                 <div class="contact-info">
-                    <h2>Let's Connect</h2>
+                    <h2>Contact</h2>
                     
                     <div class="contact-detail">
                         <h3>Email</h3>
@@ -883,18 +851,8 @@
                     </div>
 
                     <div class="contact-detail">
-                        <h3>Commissions</h3>
-                        <p>I accept select commissions for large-scale consciousness-expanding artworks. Inquire about availability and pricing for custom pieces designed to transform your space.</p>
-                    </div>
-
-                    <div class="contact-detail">
-                        <h3>Collectors</h3>
-                        <p>For serious collectors interested in acquiring existing works or discussing future pieces, I'm happy to arrange private viewings and discuss the vision behind each painting.</p>
-                    </div>
-
-                    <div class="contact-detail">
-                        <h3>Collaborations</h3>
-                        <p>Interested in collaborating on consciousness expansion projects, temple community development, or reality creation ventures? Let's explore the possibilities.</p>
+                        <h3>Response Time</h3>
+                        <p>Usually within 24 hours</p>
                     </div>
                 </div>
 
@@ -910,7 +868,7 @@
                     </a>
                     
                     <p style="margin-top: 24px; font-size: 0.875rem; color: #999;">
-                        Opens in a new window • Powered by Mailchimp
+                        Opens in a new window
                     </p>
                 </div>
             </div>
@@ -920,8 +878,8 @@
     <!-- Newsletter Section -->
     <section class="newsletter-section">
         <div class="container">
-            <h3>Join the Fertile Ascent</h3>
-            <p>Receive updates on new artworks, consciousness expansion insights, and temple community developments.</p>
+            <h3>Stay Connected</h3>
+            <p>Receive updates on new artworks and consciousness expansion insights.</p>
             
             <!-- Clean Newsletter Signup -->
             <div id="mc_embed_signup">
