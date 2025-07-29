@@ -537,6 +537,37 @@
             color: #6B6B6B;
         }
 
+        /* Philosophy Image Styling */
+        .philosophy-image {
+            margin: 48px 0;
+            text-align: center;
+        }
+
+        .castle-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(44, 24, 16, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .castle-image:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(44, 24, 16, 0.2);
+        }
+
+        .image-caption {
+            margin-top: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: #6B6B6B;
+            font-style: italic;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* Active Imagination Section */
         .imagination-section {
             background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
@@ -855,6 +886,20 @@
                 padding: 14px 28px;
                 font-size: 0.875rem;
             }
+
+            .philosophy-image {
+                margin: 32px 0;
+            }
+
+            .castle-image {
+                border-radius: 8px;
+            }
+
+            .image-caption {
+                margin-top: 12px;
+                font-size: 0.8125rem;
+                padding: 0 16px;
+            }
         }
     </style>
 </head>
@@ -938,6 +983,14 @@
                 <div class="philosophy-section">
                     <h2>Four Metaphors for Understanding</h2>
                     <p>The Magician's Castle framework operates through four interconnected metaphors that map the territory of consciousness expansion:</p>
+                    
+                    <!-- Floating Castle Image -->
+                    <div class="philosophy-image">
+                        <img src="images/artworks/medium/floating-castle.jpg" alt="Floating Castle - Oil on canvas, 2020" class="castle-image">
+                        <div class="image-caption">
+                            <em>Floating Castle</em> (2020) - A visual representation of the ontological structures we inhabit and can consciously evolve
+                        </div>
+                    </div>
                 </div>
 
                 <div class="metaphors-grid">
