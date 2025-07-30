@@ -316,13 +316,14 @@
 
         .enter-text {
             position: absolute;
-            top: 50%;
+            top: 100%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
+            margin-top: 20px;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1rem, 2vw, 1.5rem);
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.2);
             text-shadow: 0 2px 8px rgba(0,0,0,.8);
             opacity: 0;
             transition: opacity 0.3s ease;
