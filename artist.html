@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Ari Zed</title>
+    <title>Artist - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -302,51 +302,56 @@
             }
         }
 
-        /* ===== ABOUT PAGE STYLES ===== */
-        .about-hero {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            color: var(--white);
-            padding: 8rem 0 5rem 0;
-            text-align: center;
+        /* ===== ARTIST PAGE STYLES ===== */
+        .artist-hero {
             position: relative;
+            color: var(--white);
+            text-align: center;
             overflow: hidden;
         }
 
-        .about-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+        .artist-hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 60vh;
+            object-fit: cover;
         }
 
-        .about-hero .container {
+        .artist-hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 4rem 0 3rem 0;
+        }
+
+        .artist-hero .container {
             position: relative;
             z-index: 2;
         }
 
-        .about-hero h1 {
+        .artist-hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             font-weight: 300;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            margin-bottom: 24px;
-            color: #2C1810;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 16px;
+            color: #F4F1E8;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
         }
 
-        .about-hero .tagline {
+        .artist-hero .subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.125rem;
-            font-weight: 400;
-            color: #F4F1E8;
-            opacity: 0.95;
-            margin-bottom: 40px;
-            letter-spacing: 0.01em;
+            font-weight: 300;
+            color: #DAA520;
+            margin-bottom: 0;
+            letter-spacing: 0.1em;
+            font-style: italic;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
 
         .container {
@@ -359,13 +364,13 @@
             padding: 4rem 0;
         }
 
-        .about-content {
+        .artist-content {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        .about-section {
+        .artist-section {
             margin-bottom: 96px;
             position: relative;
             opacity: 0;
@@ -373,10 +378,13 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        .about-section:nth-child(2) { animation-delay: 0.1s; }
-        .about-section:nth-child(3) { animation-delay: 0.2s; }
-        .about-section:nth-child(4) { animation-delay: 0.3s; }
-        .about-section:nth-child(5) { animation-delay: 0.4s; }
+        .artist-section:nth-child(2) { animation-delay: 0.1s; }
+        .artist-section:nth-child(3) { animation-delay: 0.2s; }
+        .artist-section:nth-child(4) { animation-delay: 0.3s; }
+        .artist-section:nth-child(5) { animation-delay: 0.4s; }
+        .artist-section:nth-child(6) { animation-delay: 0.5s; }
+        .artist-section:nth-child(7) { animation-delay: 0.6s; }
+        .artist-section:nth-child(8) { animation-delay: 0.7s; }
 
         @keyframes fadeInUp {
             to {
@@ -385,7 +393,7 @@
             }
         }
 
-        .about-section h2 {
+        .artist-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.25rem;
             font-weight: 300;
@@ -396,7 +404,7 @@
             position: relative;
         }
 
-        .about-section h2::after {
+        .artist-section h2::after {
             content: '';
             position: absolute;
             bottom: -12px;
@@ -407,7 +415,7 @@
             border-radius: 1px;
         }
 
-        .about-section p {
+        .artist-section p {
             font-family: 'Inter', sans-serif;
             font-size: 1.0625rem;
             font-weight: 400;
@@ -417,7 +425,7 @@
             letter-spacing: 0.001em;
         }
 
-        .about-section p:last-child {
+        .artist-section p:last-child {
             margin-bottom: 0;
         }
 
@@ -666,35 +674,40 @@
 
         /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .about-hero {
+            .artist-hero {
                 padding: 6rem 0 4rem 0;
             }
 
-            .about-hero h1 {
+            .artist-hero h1 {
                 font-size: 2.5rem;
                 line-height: 1.2;
+                margin-bottom: 12px;
+            }
+
+            .artist-hero .subtitle {
+                font-size: 1rem;
                 margin-bottom: 20px;
             }
             
-            .about-hero .tagline {
+            .artist-hero .tagline {
                 font-size: 1rem;
                 margin-bottom: 32px;
             }
 
-            .about-content {
+            .artist-content {
                 padding: 0 16px;
             }
 
-            .about-section {
+            .artist-section {
                 margin-bottom: 72px;
             }
 
-            .about-section h2 {
+            .artist-section h2 {
                 font-size: 1.875rem;
                 margin-bottom: 24px;
             }
 
-            .about-section p {
+            .artist-section p {
                 font-size: 1rem;
                 line-height: 1.6;
                 margin-bottom: 20px;
@@ -795,9 +808,9 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="about.html" class="active">ABOUT</a></li>
                 <li><a href="philosophy.html">PHILOSOPHY</a></li>
                 <li><a href="process.html">PROCESS</a></li>
+                <li><a href="artist.html" class="active">ARTIST</a></li>
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
@@ -805,17 +818,18 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="about-hero">
+    <section class="artist-hero">
         <div class="container">
-            <h1>About Ari Zed</h1>
-            <p class="tagline">Reality Creation Artist • Consciousness Explorer • Visionary</p>
+            <h1>Ari Zed</h1>
+            <p class="subtitle">— Reality Creation Artist —</p>
+            <p class="tagline">Consciousness Explorer • Visionary</p>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="section">
         <div class="container">
-            <div class="about-content">
+            <div class="artist-content">
                 
                 <!-- Stats Section -->
                 <div class="stats-grid">
@@ -834,7 +848,7 @@
                 </div>
 
                 <!-- Finding the Land of Plenty -->
-                <div class="about-section">
+                <div class="artist-section">
                     <h2>Finding the Land of Plenty</h2>
                     <p>At the start of 2022, I was living in a comfortable paradise—the family home in Hurstbridge where I'd grown up, with its beautiful garden. We had this real desire to find a larger block of land, to live amongst community. But I realize now it was also a procrastination measure—something I was using as a crutch to say I can't create my truly best work until I'm living on my own fertile land.</p>
                     
@@ -842,7 +856,7 @@
                     
                     <p>So we left. Traveled up the east coast of Australia, got caught for months in floods in northern NSW, living isolated in a tent on a small hill with floodwaters around us. Queensland had beautiful places, but it wasn't the right time. We ended up in Denmark, Western Australia, then finally Hamilton Hill.</p>
                     
-                    <p>For three and a half years, I was still "Harry"—still carrying that weight, still searching for something external. But here's what I discovered just this year, at 37: <strong>We are living in a new world already. I suppose I have found the land of plenty. But it isn't a physical space. It is a mindset.</strong></p>
+                    <p>For three and a half years, I was still "Harry"—still carrying that weight, still searching for something external. But here's what I discovered just this year, at 37: We are living in a new world already. I suppose I have found the land of plenty. But it isn't a physical space. It is a mindset.</p>
                 </div>
 
                 <!-- Archive Callout -->
@@ -854,53 +868,56 @@
                 </div>
 
                 <!-- The Name That Opens -->
-                <div class="about-section">
+                <div class="artist-section">
                     <h2>The Name That Opens</h2>
                     <p>"Harry" felt bland. Harry means "to worry". It didn't feel like me. It's actually hard to say, as if you have to force it off the tongue, a kind of clenched mouth pushing to get it out.</p>
                     
-                    <p>Ari starts with a wonderful deep opening of the throat and rolls upward. The shift came just this year when I realized <strong>I have everything I need right now.</strong> When I stopped stressing about achieving something in the future, it all came together. I felt so different inside myself that I knew it was time to change my name.</p>
+                    <p>Ari starts with a wonderful deep opening of the throat and rolls upward. The shift came just this year when I realized I have everything I need right now. When I stopped stressing about achieving something in the future, it all came together. I felt so different inside myself that I knew it was time to change my name.</p>
                     
                     <p>Ari sheds the unneeded baggage and becomes more elemental. This transformation is fresh, immediate—I'm still discovering what it means to create from this new place.</p>
-              
-                    <img src="https://arized.art/images/Ari Zed banner narrow smaller.jpg" alt="Ari Zed Sun Eating" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 32px; box-shadow: 0 4px 24px rgba(44,24,16,0.08);">
+                </div>
+
+                <!-- Opening Portals -->
+                <div class="artist-section">
                     <h2>Opening Portals, Not Just Painting</h2>
                     <p>I'm working on four 2-meter canvases at the moment. That scale allows me to paint people in landscapes while having fun with paint application. The scale creates a bodily reaction for the viewer, becomes more encompassing of their field of view. It sits in stark contrast to our overwhelming consumption of media through mobile phones—these grand narrative paintings cannot be experienced in phone format without zooming in and out.</p>
                     
-                    <p>But it's more than scale. My paintings are collections of elements like tarot cards, dense with symbolism, rich delights for people to bite into. I myself may not fully have "read" their meaning, but just like tarot, they're meaningful tools for self-transformation for those willing to do the work. <strong>My paintings are a celebration of the possibilities of art and an invitation for others to join me.</strong></p>
+                    <p>But it's more than scale. My paintings are collections of elements like tarot cards, dense with symbolism, rich delights for people to bite into. I myself may not fully have "read" their meaning, but just like tarot, they're meaningful tools for self-transformation for those willing to do the work. My paintings are a celebration of the possibilities of art and an invitation for others to join me.</p>
                 </div>
 
                 <!-- The Fertile Ascent Vision -->
-                <div class="about-section">
+                <div class="artist-section">
                     <h2>The Fertile Ascent Vision</h2>
-                    <p>Many people worry about the apocalypse coming, the singularity, a period of change so rapid we can't see what's coming. But I'm seeing that <strong>the world has already shifted for those who would like to step into it.</strong> We're in a world of radical freedom and unlimited resources—it's all really a matter of choice as to which world we want to live in.</p>
+                    <p>Many people worry about the apocalypse coming, the singularity, a period of change so rapid we can't see what's coming. But I'm seeing that the world has already shifted for those who would like to step into it. We're in a world of radical freedom and unlimited resources—it's all really a matter of choice as to which world we want to live in.</p>
                     
                     <p>The Fertile Ascent is the continuing movement and unfolding of creativity, fertility, and freedom. Much like the fertile crescent that was the birthplace of humanity, the Mesopotamian rivers that were symbols of Enki the fertility god. It's our movement toward godhood, creating temple-communities that look like places of childlike, playful creation of awe-inspiring beautiful spaces surrounded by nature.</p>
                 </div>
 
                 <!-- Living the Work -->
-                <div class="about-section">
+                <div class="artist-section">
                     <h2>Living the Work</h2>
                     <p>I balance my time in the studio with my family—my partner and three children—enjoying greatly hanging out with them, going on imaginative and creative journeys. Their childlike creativity and energy is godlike. They are part of everything.</p>
                     
-                    <p><strong>I have been given a gift by infinite being that I have a responsibility to share.</strong> My work now is of a limitless picnic at the end of time, a grand theater that encompasses the everyday and transforms it.</p>
+                    <p>I have been given a gift by infinite being that I have a responsibility to share. My work now is of a limitless picnic at the end of time, a grand theater that encompasses the everyday and transforms it.</p>
                     
                     <p>I really don't feel the need for external approval as much anymore. I don't have an exhibition in mind, but I'm working fervently, with a wild energy I would usually only get in the lead up to a show. I'm learning to open up the sharing of my art as another artistic process I can enjoy for its own sake.</p>
                 </div>
 
                 <!-- The Invitation -->
-                <div class="about-section">
+                <div class="vision-section">
                     <h2>The Invitation</h2>
-                    <p>To someone drawn to my work but not understanding the philosophy: <strong>There is nothing to understand. Experience the painting from your own self. Whatever understanding you get is valid. Words do not capture what these paintings do—it is a feeling in the body.</strong></p>
+                    <p>To someone drawn to my work but not understanding the philosophy: There is nothing to understand. Experience the painting from your own self. Whatever understanding you get is valid. Words do not capture what these paintings do—it is a feeling in the body.</p>
                     
                     <p>My art is for the select few who are already in this space with me, ready to step into the potential of what the world can be for them.</p>
                     
-                    <p>If you could tell your pre-transformation self one thing: <strong>You have everything you need. It's time to start living fully. Creating fully.</strong></p>
+                    <p><em>If you could tell your pre-transformation self one thing: You have everything you need. It's time to start living fully. Creating fully.</em></p>
                 </div>
 
                 <!-- Call to Action -->
                 <div class="cta-section">
-                    <p>Ready to explore the philosophical framework behind this transformation? Discover the consciousness technologies and reality creation principles that guide this work.</p>
-                    <a href="philosophy.html" class="btn">Explore the Philosophy</a>
+                    <h3>Connect with the Vision</h3>
+                    <p>Whether you're a collector seeking artworks that transform spaces and consciousness, or a fellow reality creator ready to explore the frontiers of human potential, I invite you to connect with this expanding vision.</p>
+                    <a href="contact.html" class="btn">Get In Touch</a>
                 </div>
 
             </div>
