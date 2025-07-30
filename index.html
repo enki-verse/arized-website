@@ -300,70 +300,44 @@
             transition: all 0.3s ease;
         }
 
-        /* Glow effect on hover */
-        .hero-content:hover h1 {
-            text-shadow: 0 0 12px var(--accent-gold), 0 0 24px var(--accent-gold);
-        }
-
-        .hero-content:hover .tagline {
-            text-shadow: 0 0 8px var(--accent-gold);
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
+        .logo-container {
+            position: relative;
+            display: inline-block;
             opacity: 0;
             animation: fadeInUp 1s ease forwards;
-            text-shadow: 0 4px 12px rgba(0,0,0,.7);
-            transition: text-shadow 0.3s ease;
         }
 
-        .tagline {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
-            color: var(--accent-gold);
-            text-shadow: 0 2px 8px rgba(0,0,0,.6);
-            transition: text-shadow 0.3s ease;
-        }
-
-        .coming-soon {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            color: rgba(255,255,255,0.7);
-            opacity: 0;
-            animation: fadeIn 1s ease 1.5s forwards;
-        }
-
-        .slide-indicators {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 3;
-        }
-
-        .slide-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
+        .hero-logo {
+            max-width: clamp(200px, 15vw, 400px);
+            height: auto;
             transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,.7));
         }
 
-        .slide-dot.active {
-            background: var(--accent-gold);
-            width: 24px;
-            border-radius: 4px;
+        .enter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 8px rgba(0,0,0,.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            letter-spacing: 0.2em;
+        }
+
+        /* Glow effect on hover */
+        .hero-content:hover .hero-logo {
+            filter: drop-shadow(0 0 20px var(--accent-gold)) drop-shadow(0 0 40px var(--accent-gold)) drop-shadow(0 4px 12px rgba(0,0,0,.7));
+        }
+
+        .hero-content:hover .enter-text {
+            opacity: 1;
+            text-shadow: 0 0 8px var(--accent-gold), 0 2px 8px rgba(0,0,0,.8);
         }
 
         /* Zoom effect animation */
@@ -463,13 +437,11 @@
         </div>
 
         <div class="hero-content" id="heroContent">
-            <h1>ARI ZED</h1>
-            <p class="tagline">Visionary Artist · Reality Creator</p>
+            <div class="logo-container">
+                <img src="images/logos simple 3a smaller transparent red glow.png" alt="Enter" class="hero-logo" id="heroLogo">
+                <div class="enter-text" id="enterText">ENTER</div>
+            </div>
         </div>
-
-        <div class="slide-indicators" id="slideIndicators"></div>
-
-        <p class="coming-soon">Full website coming soon</p>
     </div>
 
     <script>
@@ -666,7 +638,6 @@
         // Setup slideshow
         function setupSlideshow() {
             const backgroundContainer = document.getElementById('heroBackground');
-            const indicatorsContainer = document.getElementById('slideIndicators');
             
             document.getElementById('loadingMessage').style.display = 'none';
             
@@ -685,14 +656,6 @@
                 }
                 
                 backgroundContainer.appendChild(slide);
-                
-                const dot = document.createElement('div');
-                dot.className = 'slide-dot';
-                if (index === 0) {
-                    dot.classList.add('active');
-                }
-                dot.addEventListener('click', () => goToSlide(index));
-                indicatorsContainer.appendChild(dot);
             });
             
             if (featuredArtworks.length > 1) {
@@ -715,13 +678,9 @@
 
         function goToSlide(index) {
             const slides = document.querySelectorAll('.hero-slide');
-            const dots = document.querySelectorAll('.slide-dot');
             
             slides[currentSlide].classList.remove('active');
             slides[index].classList.add('active');
-            
-            dots[currentSlide].classList.remove('active');
-            dots[index].classList.add('active');
             
             currentSlide = index;
             
