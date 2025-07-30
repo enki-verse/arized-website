@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Ari Zed</title>
+    <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== SOPHISTICATED DESIGN SYSTEM ===== */
+        :root {
+            --primary-brown: #8B4513;
+            --secondary-brown: #654321;
+            --accent-gold: #DAA520;
+            --background-cream: #FDFCF8;
+            --text-dark: #2C1810;
+            --text-light: #6B6B6B;
+            --surface-white: #ffffff;
+            --text-primary: #2a2a2a;
+            --text-secondary: #6a6a6a;
+            --text-tertiary: #9a9a9a;
+            --border-light: #E8E3DB;
+            --border-medium: #e8e8e8;
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --white: #F4F1E8;
+            --refined-cream: #FDFCF8;
+            --sophisticated-gray: #6B6B6B;
+            --warm-black: #2C1810;
+            --refined-border: #E8E3DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--refined-cream);
+            color: var(--warm-black);
+            line-height: 1.6;
+            margin: 0;
+            transition: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== MOBILE-FIRST NAVIGATION ===== */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--surface-white);
+            border-right: 1px solid var(--border-medium);
+            box-shadow: var(--shadow-strong);
+            z-index: 1000;
+            padding: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(-100%);
+        }
+
+        .navigation.active {
+            transform: translateX(0);
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 32px 0;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 0 24px 32px;
+            position: relative;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: var(--border-light);
+        }
+
+        .nav-logo img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            transition: all 0.15s ease-out;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            filter: invert(1);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-align: center;
+            text-transform: uppercase;
+            transition: all 0.15s ease-out;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            gap: 4px;
+            margin-bottom: 40px;
+            padding: 0 16px 32px;
+            position: relative;
+        }
+
+        .nav-menu > li > a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-radius: 6px;
+            transition: all 0.15s ease-out;
+            position: relative;
+        }
+
+        .nav-menu > li > a.active,
+        .nav-menu > li > a:hover {
+            color: var(--text-primary);
+            background: #fafafa;
+            transform: translateX(2px);
+        }
+
+        .nav-menu > li > a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            transition: height 0.15s ease-out;
+        }
+
+        .nav-menu > li > a:hover::before,
+        .nav-menu > li > a.active::before {
+            height: 16px;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .submenu.active {
+            max-height: 300px;
+        }
+
+        .exhibitions-toggle {
+            color: #2a2a2a !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            text-transform: uppercase !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-radius: 4px;
+            transition: all 0.15s ease-out;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .exhibition-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .exhibition-submenu.active {
+            max-height: 200px;
+        }
+
+        .exhibition-item {
+            color: #4a4a4a !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: 11px !important;
+            text-transform: uppercase !important;
+            display: block;
+            padding: 6px 16px;
+            text-decoration: none;
+            transition: all 0.15s ease-out;
+        }
+
+        .dropdown-arrow, .exhibitions-arrow {
+            font-size: 10px;
+            transition: transform 0.15s ease-out;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== HAMBURGER MENU ===== */
+        .menu-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1002;
+            cursor: pointer;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== DESKTOP STYLES ===== */
+        @media (min-width: 769px) {
+            .navigation {
+                transform: translateX(0);
+                position: fixed;
+            }
+            
+            body {
+                margin-left: 280px;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-overlay {
+                display: none;
+            }
+        }
+
+        /* ===== ABOUT PAGE STYLES ===== */
+        .about-hero {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            color: var(--white);
+            padding: 8rem 0 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .about-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #2C1810;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .about-hero .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: #F4F1E8;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            letter-spacing: 0.01em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .about-section {
+            margin-bottom: 96px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .about-section:nth-child(2) { animation-delay: 0.1s; }
+        .about-section:nth-child(3) { animation-delay: 0.2s; }
+        .about-section:nth-child(4) { animation-delay: 0.3s; }
+        .about-section:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 32px;
+            color: #2C1810;
+            position: relative;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+            border-radius: 1px;
+        }
+
+        .about-section p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.0625rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #2C1810;
+            margin-bottom: 24px;
+            letter-spacing: 0.001em;
+        }
+
+        .about-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin: 72px 0;
+        }
+
+        .stat-item {
+            background: #FFFFFF;
+            border: 1px solid #E8E3DB;
+            box-shadow: 0 2px 12px rgba(44,24,16,0.04);
+            border-radius: 12px;
+            padding: 48px 32px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(44,24,16,0.08);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #DAA520;
+            display: block;
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            color: #6B6B6B;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* Archive Callout Box */
+        .archive-box {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border: 2px solid #DAA520;
+            border-radius: 16px;
+            padding: 48px 40px;
+            margin: 72px 0;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px rgba(218, 165, 32, 0.1);
+        }
+
+        .archive-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
+        }
+
+        .archive-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            margin-bottom: 24px;
+            color: #DAA520;
+            line-height: 1.3;
+        }
+
+        .archive-box p {
+            color: #2C1810;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .archive-box a {
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.3);
+        }
+
+        .archive-box a:hover {
+            color: #DAA520;
+            border-bottom-color: #DAA520;
+            letter-spacing: 0.01em;
+        }
+
+        /* Vision Section */
+        .vision-section {
+            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
+            border-radius: 24px;
+            padding: 72px 48px;
+            margin: 96px 0;
+            text-align: center;
+            position: relative;
+            border: 1px solid #E8E3DB;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #B8941F);
+            border-radius: 0 0 2px 2px;
+        }
+
+        .vision-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2C1810;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .vision-section h2::after {
+            display: none;
+        }
+
+        .vision-section p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #2C1810;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            border-radius: 24px;
+            color: var(--white);
+            padding: 72px 48px;
+            margin: 96px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(44,24,16,0.15);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(218, 165, 32, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 24px;
+            color: #F4F1E8;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #F4F1E8;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #DAA520 0%, #B8941F 100%);
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(218, 165, 32, 0.4);
+            background: linear-gradient(135deg, #E6B82D 0%, #C49F2A 100%);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
+            color: #F4F1E8;
+            text-align: center;
+            padding: 48px 0;
+            margin-top: 96px;
+            border-top: 1px solid #E8E3DB;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.025em;
+            margin: 0;
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 6rem 0 4rem 0;
+            }
+
+            .about-hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+                margin-bottom: 20px;
+            }
+            
+            .about-hero .tagline {
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .about-content {
+                padding: 0 16px;
+            }
+
+            .about-section {
+                margin-bottom: 72px;
+            }
+
+            .about-section h2 {
+                font-size: 1.875rem;
+                margin-bottom: 24px;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin: 48px 0;
+            }
+
+            .stat-item {
+                padding: 36px 24px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .vision-section,
+            .cta-section {
+                margin: 72px 0;
+                padding: 48px 24px;
+                border-radius: 16px;
+            }
+
+            .vision-section h2,
+            .cta-section h3 {
+                font-size: 1.75rem;
+                margin-bottom: 20px;
+            }
+
+            .vision-section p,
+            .cta-section p {
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .archive-box {
+                margin: 48px 0;
+                padding: 36px 24px;
+                border-radius: 12px;
+            }
+
+            .archive-box h3 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .archive-box p {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 16px;
+            }
+
+            .btn {
+                padding: 14px 28px;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation" id="navigation">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE">
+                <a href="index.html" class="logo">ARI ZED</a>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li>
+                    <a href="artworks.html" id="artworksToggle">
+                        ARTWORKS
+                        <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="submenu" id="artworksSubmenu">
+                        <a href="#" class="exhibitions-toggle" id="exhibitionsToggle">
+                            Exhibitions
+                            <span class="exhibitions-arrow">▼</span>
+                        </a>
+                        <div class="exhibition-submenu" id="exhibitionSubmenu">
+                            <a href="artworks.html" class="exhibition-item active" data-exhibition="all">All Works</a>
+                            <a href="artworks.html" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
+                            <a href="artworks.html" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
+                            <a href="artworks.html" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="about.html" class="active">ABOUT</a></li>
+                <li><a href="philosophy.html">PHILOSOPHY</a></li>
+                <li><a href="process.html">PROCESS</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About Ari Zed</h1>
+            <p class="tagline">Reality Creation Artist • Consciousness Explorer • Visionary</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="section">
+        <div class="container">
+            <div class="about-content">
+                
+                <!-- Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">20</span>
+                        <span class="stat-label">Years Painting</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">37</span>
+                        <span class="stat-label">Years Becoming</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Possibilities Now</span>
+                    </div>
+                </div>
+
+                <!-- Finding the Land of Plenty -->
+                <div class="about-section">
+                    <h2>Finding the Land of Plenty</h2>
+                    <p>At the start of 2022, I was living in a comfortable paradise—the family home in Hurstbridge where I'd grown up, with its beautiful garden. We had this real desire to find a larger block of land, to live amongst community. But I realize now it was also a procrastination measure—something I was using as a crutch to say I can't create my truly best work until I'm living on my own fertile land.</p>
+                    
+                    <p>My work was always powerful—collectors have valued and connected with my paintings throughout the journey. But I hadn't yet given myself permission to produce the great work. I was always striving for the complete artwork that would work on many planes of reality at once, never compromising for smallness, but still seeking that external validation.</p>
+                    
+                    <p>So we left. Traveled up the east coast of Australia, got caught for months in floods in northern NSW, living isolated in a tent on a small hill with floodwaters around us. Queensland had beautiful places, but it wasn't the right time. We ended up in Denmark, Western Australia, then finally Hamilton Hill.</p>
+                    
+                    <p>For three and a half years, I was still "Harry"—still carrying that weight, still searching for something external. But here's what I discovered just this year, at 37: <strong>We are living in a new world already. I suppose I have found the land of plenty. But it isn't a physical space. It is a mindset.</strong></p>
+                </div>
+
+                <!-- Archive Callout -->
+                <div class="archive-box">
+                    <h3>The Complete Artistic Journey</h3>
+                    <p>For those curious about the full evolution, twenty years of artistic development—from observational painting to color theory, anatomy, philosophy, literature—is documented at <a href="https://harryzedhughes.com" target="_blank">harryzedhughes.com</a>.</p>
+                    
+                    <p>You'd see a polymathic mind that would never compromise for smallness, always striving for the complete artwork that would work on many planes of reality at once. The struggles, experiments, and relentless pursuit of mastery that led to this moment of creative freedom.</p>
+                </div>
+
+                <!-- The Name That Opens -->
+                <div class="about-section">
+                    <h2>The Name That Opens</h2>
+                    <p>"Harry" felt bland. Harry means "to worry". It didn't feel like me. It's actually hard to say, as if you have to force it off the tongue, a kind of clenched mouth pushing to get it out.</p>
+                    
+                    <p>Ari starts with a wonderful deep opening of the throat and rolls upward. The shift came just this year when I realized <strong>I have everything I need right now.</strong> When I stopped stressing about achieving something in the future, it all came together. I felt so different inside myself that I knew it was time to change my name.</p>
+                    
+                    <p>Ari sheds the unneeded baggage and becomes more elemental. This transformation is fresh, immediate—I'm still discovering what it means to create from this new place.</p>
+              
+                    <img src="https://arized.art/images/Ari Zed banner narrow smaller.jpg" alt="Ari Zed Sun Eating" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 32px; box-shadow: 0 4px 24px rgba(44,24,16,0.08);">
+                    <h2>Opening Portals, Not Just Painting</h2>
+                    <p>I'm working on four 2-meter canvases at the moment. That scale allows me to paint people in landscapes while having fun with paint application. The scale creates a bodily reaction for the viewer, becomes more encompassing of their field of view. It sits in stark contrast to our overwhelming consumption of media through mobile phones—these grand narrative paintings cannot be experienced in phone format without zooming in and out.</p>
+                    
+                    <p>But it's more than scale. My paintings are collections of elements like tarot cards, dense with symbolism, rich delights for people to bite into. I myself may not fully have "read" their meaning, but just like tarot, they're meaningful tools for self-transformation for those willing to do the work. <strong>My paintings are a celebration of the possibilities of art and an invitation for others to join me.</strong></p>
+                </div>
+
+                <!-- The Fertile Ascent Vision -->
+                <div class="about-section">
+                    <h2>The Fertile Ascent Vision</h2>
+                    <p>Many people worry about the apocalypse coming, the singularity, a period of change so rapid we can't see what's coming. But I'm seeing that <strong>the world has already shifted for those who would like to step into it.</strong> We're in a world of radical freedom and unlimited resources—it's all really a matter of choice as to which world we want to live in.</p>
+                    
+                    <p>The Fertile Ascent is the continuing movement and unfolding of creativity, fertility, and freedom. Much like the fertile crescent that was the birthplace of humanity, the Mesopotamian rivers that were symbols of Enki the fertility god. It's our movement toward godhood, creating temple-communities that look like places of childlike, playful creation of awe-inspiring beautiful spaces surrounded by nature.</p>
+                </div>
+
+                <!-- Living the Work -->
+                <div class="about-section">
+                    <h2>Living the Work</h2>
+                    <p>I balance my time in the studio with my family—my partner and three children—enjoying greatly hanging out with them, going on imaginative and creative journeys. Their childlike creativity and energy is godlike. They are part of everything.</p>
+                    
+                    <p><strong>I have been given a gift by infinite being that I have a responsibility to share.</strong> My work now is of a limitless picnic at the end of time, a grand theater that encompasses the everyday and transforms it.</p>
+                    
+                    <p>I really don't feel the need for external approval as much anymore. I don't have an exhibition in mind, but I'm working fervently, with a wild energy I would usually only get in the lead up to a show. I'm learning to open up the sharing of my art as another artistic process I can enjoy for its own sake.</p>
+                </div>
+
+                <!-- The Invitation -->
+                <div class="about-section">
+                    <h2>The Invitation</h2>
+                    <p>To someone drawn to my work but not understanding the philosophy: <strong>There is nothing to understand. Experience the painting from your own self. Whatever understanding you get is valid. Words do not capture what these paintings do—it is a feeling in the body.</strong></p>
+                    
+                    <p>My art is for the select few who are already in this space with me, ready to step into the potential of what the world can be for them.</p>
+                    
+                    <p>If you could tell your pre-transformation self one thing: <strong>You have everything you need. It's time to start living fully. Creating fully.</strong></p>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="cta-section">
+                    <p>Ready to explore the philosophical framework behind this transformation? Discover the consciousness technologies and reality creation principles that guide this work.</p>
+                    <a href="philosophy.html" class="btn">Explore the Philosophy</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ari Zed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== MOBILE NAVIGATION FUNCTIONALITY =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navigation = document.getElementById('navigation');
+            const navOverlay = document.getElementById('navOverlay');
+            const navMenu = document.getElementById('navMenu');
+            
+            function openMenu() {
+                navigation.classList.add('active');
+                navOverlay.classList.add('active');
+                menuToggle.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeMenu() {
+                navigation.classList.remove('active');
+                navOverlay.classList.remove('active');
+                menuToggle.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (navigation.classList.contains('active')) {
+                        closeMenu();
+                    } else {
+                        openMenu();
+                    }
+                });
+            }
+            
+            if (navOverlay) {
+                navOverlay.addEventListener('click', closeMenu);
+            }
+            
+            if (navMenu) {
+                navMenu.querySelectorAll('li > a').forEach(link => {
+                    if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
+                        link.addEventListener('click', closeMenu);
+                    }
+                });
+
+                navMenu.querySelectorAll('.exhibition-item').forEach(link => {
+                    link.addEventListener('click', closeMenu);
+                });
+            }
+            
+            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
+            if (exhibitionsToggle) {
+                exhibitionsToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const submenu = document.getElementById('exhibitionSubmenu');
+                    const toggle = document.getElementById('exhibitionsToggle');
+                    
+                    submenu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                });
+            }
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMenu();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navigation.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
