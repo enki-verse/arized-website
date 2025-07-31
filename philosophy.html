@@ -476,95 +476,6 @@
             margin-bottom: 0;
         }
 
-        /* Consciousness Principles Box */
-        .principles-box {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
-            border: 2px solid #DAA520;
-            border-radius: 20px;
-            padding: 56px 48px;
-            margin: 72px 0;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
-        }
-
-        .principles-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 300;
-            color: #DAA520;
-            text-align: center;
-            margin-bottom: 40px;
-            line-height: 1.2;
-        }
-
-        .principles-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-        }
-
-        .principle-item {
-            text-align: center;
-        }
-
-        .principle-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: #8B4513;
-            display: block;
-            margin-bottom: 16px;
-            line-height: 1;
-        }
-
-        .principle-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #2C1810;
-            margin-bottom: 12px;
-        }
-
-        .principle-desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9375rem;
-            line-height: 1.6;
-            color: #6B6B6B;
-        }
-
-        /* Philosophy Image Styling */
-        .philosophy-image {
-            margin: 48px 0;
-            text-align: center;
-        }
-
-        .castle-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(44, 24, 16, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .castle-image:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(44, 24, 16, 0.2);
-        }
-
-        .image-caption {
-            margin-top: 16px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: #6B6B6B;
-            font-style: italic;
-            line-height: 1.5;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         /* Active Imagination Section */
         .imagination-section {
             background: linear-gradient(135deg, #2C1810 0%, #1F0F08 100%);
@@ -607,7 +518,7 @@
 
         .imagination-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 40px;
             position: relative;
             z-index: 2;
@@ -640,52 +551,6 @@
             line-height: 1.6;
             color: #F4F1E8;
             opacity: 0.9;
-        }
-
-        /* Vision Section */
-        .vision-section {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F8F5F0 100%);
-            border-radius: 24px;
-            padding: 72px 48px;
-            margin: 96px 0;
-            text-align: center;
-            position: relative;
-            border: 1px solid #E8E3DB;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-        }
-
-        .vision-section::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, #DAA520, #B8941F);
-            border-radius: 0 0 2px 2px;
-        }
-
-        .vision-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: #2C1810;
-            margin-bottom: 32px;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .vision-section h2::after {
-            display: none;
-        }
-
-        .vision-section p {
-            font-size: 1.125rem;
-            line-height: 1.6;
-            color: #2C1810;
-            max-width: 700px;
-            margin: 0 auto 24px;
         }
 
         /* CTA Section */
@@ -837,29 +702,7 @@
                 margin-bottom: 12px;
             }
             
-            .principles-box {
-                margin: 48px 0;
-                padding: 40px 24px;
-                border-radius: 16px;
-            }
-
-            .principles-box h3 {
-                font-size: 1.75rem;
-                margin-bottom: 32px;
-            }
-
-            .principles-list {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .principle-number {
-                font-size: 2rem;
-                margin-bottom: 12px;
-            }
-
             .imagination-section,
-            .vision-section,
             .cta-section {
                 margin: 72px 0;
                 padding: 48px 24px;
@@ -867,7 +710,6 @@
             }
 
             .imagination-section h2,
-            .vision-section h2,
             .cta-section h3 {
                 font-size: 1.75rem;
                 margin-bottom: 24px;
@@ -881,20 +723,6 @@
             .btn {
                 padding: 14px 28px;
                 font-size: 0.875rem;
-            }
-
-            .philosophy-image {
-                margin: 32px 0;
-            }
-
-            .castle-image {
-                border-radius: 8px;
-            }
-
-            .image-caption {
-                margin-top: 12px;
-                font-size: 0.8125rem;
-                padding: 0 16px;
             }
         }
     </style>
@@ -963,21 +791,13 @@
                     <h2>Consciousness as Primary Reality</h2>
                     <p>At the heart of this work lies a radical understanding: consciousness is primary, and the material world is its extrinsic appearance. We are not biological machines struggling to understand an external universe—we are focal points where infinite consciousness gains perspective on itself.</p>
                     
-                    <p>This isn't metaphysical speculation but practical philosophy. When we recognize ourselves as consciousness exploring itself through form, everything changes. Art becomes technology for consciousness expansion. Reality becomes malleable. Creation becomes conscious participation in the universe's self-understanding.</p>
+                    <p>This isn't metaphysical speculation but practical philosophy. When we recognize ourselves as consciousness exploring itself through embodiment, everything changes. Art becomes a bridge for consciousness expansion. Reality becomes malleable. Creation becomes conscious participation in the universe's self-understanding.</p>
                 </div>
 
                 <!-- Four Major Metaphors -->
                 <div class="philosophy-section">
                     <h2>Four Metaphors for Understanding</h2>
                     <p>The Magician's Castle framework operates through four interconnected metaphors that map the territory of consciousness expansion:</p>
-                    
-                    <!-- Floating Castle Image -->
-                    <div class="philosophy-image">
-                        <img src="images/artworks/medium/floating-castle.jpg" alt="Floating Castle - Oil on canvas, 2020" class="castle-image">
-                        <div class="image-caption">
-                            <em>Floating Castle</em> (2020) - A visual representation of the ontological structures we inhabit and can consciously evolve
-                        </div>
-                    </div>
                 </div>
 
                 <div class="metaphors-grid">
@@ -990,25 +810,25 @@
                     <div class="metaphor-card">
                         <span class="metaphor-icon">🏰</span>
                         <h3>The Castle</h3>
-                        <p>An individual's complete reality tunnel—the ontological structure extruded from the Ground of Being. Contains foundations (often hidden) upon which all experience is built. Must become "graspable" to be consciously navigated.</p>
+                        <p>An individual's complete reality tunnel—the ontological structure extruded from the Ground of Being. Contains foundations (often hidden) upon which all experience is built. Must become "graspable" to be consciously navigated. Each castle is uniquely constructed through personal history, beliefs, and imagination, yet shares common structural elements with all human consciousness.</p>
                     </div>
                     
                     <div class="metaphor-card">
                         <span class="metaphor-icon">🧙‍♂️</span>
                         <h3>The Magician</h3>
-                        <p>Our higher self that inhabits the castle and creates/receives avatars (thought forms/experiences). Distinguished from the "Monkey" (ego/internal monologue). The Magician evolves the castle; the Monkey stagnates it.</p>
+                        <p>Our higher self that inhabits the castle and creates/receives avatars (thought forms/experiences). Distinguished from the "Monkey" (ego/internal monologue). The Magician evolves the castle through conscious participation; the Monkey stagnates it through unconscious repetition.</p>
                     </div>
                     
                     <div class="metaphor-card">
                         <span class="metaphor-icon">🌊</span>
-                        <h3>The Tidal Wave</h3>
-                        <p>A retroactive force from the future representing the pull toward full realization of potential. Connected to apocalyptic transformation and consciousness evolution. Manifests as breakthrough moments and quantum leaps.</p>
+                        <h3>The Theatre</h3>
+                        <p>The inner theatre is everything we experience. This is the realm of active imagination—the dynamic space where we engage in dialogue with the infinite. Here, the conscious and unconscious minds meet and dance, creating new realities through imaginative participation. The theatre is both stage and audience, where we witness and direct the unfolding drama of consciousness exploring itself. It's through this inner theatre that we access visionary states, receive guidance, and consciously participate in reality creation.</p>
                     </div>
                 </div>
 
-                <!-- Active Imagination Section -->
+                <!-- Ideal Active Imagination Process -->
                 <div class="imagination-section">
-                    <h2>Active Imagination Process</h2>
+                    <h2>Ideal Active Imagination Process</h2>
                     <div class="imagination-steps">
                         <div class="step-item">
                             <span class="step-arrow">➤</span>
@@ -1026,64 +846,32 @@
                             <div class="step-desc">With consciousness through imagination</div>
                         </div>
                         <div class="step-item">
+                            <span class="step-arrow">💖</span>
+                            <div class="step-title">Love</div>
+                            <div class="step-desc">Non-small self love. Find beauty. When truth and morality become unclear, beauty provides reliable navigation toward expanded consciousness</div>
+                        </div>
+                        <div class="step-item">
                             <span class="step-arrow">🎨</span>
                             <div class="step-title">Embody</div>
-                            <div class="step-desc">Insights through creative expression</div>
+                            <div class="step-desc">Insights through creative expression. Unite opposing forces—masculine/feminine, order/chaos, transcendence/embodiment. Transform mental into physical reality</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Consciousness Navigation Principles -->
-                <div class="principles-box">
-                    <h3>Navigation Principles</h3>
-                    <div class="principles-list">
-                        <div class="principle-item">
-                            <span class="principle-number">01</span>
-                            <div class="principle-title">Beauty as Guide</div>
-                            <div class="principle-desc">When truth and morality become unclear, beauty provides reliable navigation toward expanded consciousness</div>
-                        </div>
-                        <div class="principle-item">
-                            <span class="principle-number">02</span>
-                            <div class="principle-title">Wisdom Production</div>
-                            <div class="principle-desc">Distinguish between imagination that produces wisdom and imagination that merely entertains or distracts</div>
-                        </div>
-                        <div class="principle-item">
-                            <span class="principle-number">03</span>
-                            <div class="principle-title">Integration</div>
-                            <div class="principle-desc">Unite opposing forces rather than choosing sides—masculine/feminine, order/chaos, transcendence/embodiment</div>
-                        </div>
-                        <div class="principle-item">
-                            <span class="principle-number">04</span>
-                            <div class="principle-title">Embodiment</div>
-                            <div class="principle-desc">The goal is not to escape the body but to embody mind into full understanding and creative expression</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Art as Technology -->
+                <!-- Art as Consciousness Bridge -->
                 <div class="philosophy-section">
-                    <h2>Art as Consciousness Technology</h2>
-                    <p>Visionary art functions as bridge-building technology between consciousness and matter. Each painting becomes a doorway—not merely depicting reality but actively restructuring the viewer's perceptual field and opening access to expanded states of awareness.</p>
+                    <h2>Art as Consciousness Bridge</h2>
+                    <p>Visionary art functions as a door between consciousness and matter. Paintings don't just depict reality, but actively restructure the viewer's perceptual field and open access to expanded states of awareness.</p>
                     
-                    <p>Each painting becomes what I call a "meaning-generating machine"—dense with symbolism like tarot cards, rich delights for people to bite into. I myself may not fully have "read" their meaning, but just like tarot, they're meaningful tools for self-transformation for those willing to do the work.</p>
+                    <p>Each painting becomes what I call a "meaning-generating machine" dense with symbolism like tarot cards, rich delights for people to bite into. I myself may not fully have "read" their meaning, but just like tarot, they're meaningful tools for self-transformation for those willing to do the work.</p>
                     
-                    <p>This is why I call my work "psychic landscape painting." These aren't illustrations of mystical concepts but functional technologies for consciousness expansion, designed to seduce viewers into recognition of their own reality-creation capabilities.</p>
-                </div>
-
-                <!-- The Fertile Ascent Vision -->
-                <div class="vision-section">
-                    <h2>The Fertile Ascent</h2>
-                    <p>This realization—that we already live in the land of plenty when we shift our consciousness—is what I call The Fertile Ascent. It's not a future destination but a present reality available to those ready to step into it.</p>
-                    
-                    <p>This framework points toward something unprecedented: temple-communities where consciousness evolution becomes lived reality. Not escape from the world, but conscious creation of new world-structures that optimize for individual freedom and collective awakening.</p>
-                    
-                    <p>The Fertile Ascent is the movement toward post-rational consciousness through integration of mystical wisdom, aesthetic beauty, embodied sexuality, and practical community building. It's humanity's next evolutionary step, and it begins with individual recognition of our role as conscious creators of reality.</p>
+                    <p>This is why I call my work "psychic landscape painting." These aren't illustrations of mystical concepts but functional catalysts for consciousness expansion, designed to seduce viewers into recognition of their own reality-creation capabilities.</p>
                 </div>
 
                 <!-- Call to Action -->
                 <div class="cta-section">
                     <h3>Enter the Alchemical Workshop</h3>
-                    <p>Ready to see how this philosophical framework manifests in daily creative practice? Discover the actual methods and consciousness technologies behind the artworks.</p>
+                    <p>Ready to see how this philosophical framework manifests in daily creative practice? Discover the actual methods and consciousness exploration practices behind the artworks.</p>
                     <a href="process.html" class="btn">Witness the Creative Process →</a>
                 </div>
 
