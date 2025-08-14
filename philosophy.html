@@ -52,7 +52,7 @@
         .navigation {
             position: fixed;
             top: 0;
-            left: 0;
+            left: -280px; /* Hidden by default */
             width: 280px;
             height: 100vh;
             background: var(--surface-white);
@@ -60,14 +60,13 @@
             box-shadow: var(--shadow-strong);
             z-index: 1000;
             padding: 0;
-            transition: all 0.3s ease;
+            transition: left 0.3s ease;
             display: flex;
             flex-direction: column;
-            transform: translateX(-100%);
         }
 
         .navigation.active {
-            transform: translateX(0);
+            left: 0; /* Show when active */
         }
 
         .nav-container {
@@ -282,21 +281,12 @@
         }
 
         @media (min-width: 769px) {
-            .navigation {
-                transform: translateX(0);
-                position: fixed;
-            }
-            
-            body {
-                margin-left: 280px;
-            }
-            
             .menu-toggle {
-                display: none;
+                display: block; /* Show burger menu on desktop too */
             }
             
             .nav-overlay {
-                display: none;
+                display: block; /* Show overlay on desktop too */
             }
         }
 
@@ -516,41 +506,167 @@
             display: none;
         }
 
-        .imagination-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 40px;
-            position: relative;
+        /* ===== FLOWCHART STYLES ===== */
+        .flowchart-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
             z-index: 2;
+            position: relative;
         }
 
-        .step-item {
+        .flowchart-title {
             text-align: center;
+            margin-bottom: 50px;
         }
 
-        .step-arrow {
-            font-size: 1.5rem;
-            color: #DAA520;
-            margin-bottom: 16px;
+        .title-icon {
+            font-size: 3rem;
             display: block;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 4px 8px rgba(218, 165, 32, 0.3));
+        }
+
+        .flowchart-title h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #F4F1E8;
+            margin: 0;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .flow-step {
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            border-radius: 20px;
+            padding: 32px 28px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(44, 24, 16, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .flow-step:hover .step-content {
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 1);
+            border-color: #DAA520;
+            box-shadow: 0 12px 32px rgba(218, 165, 32, 0.2);
+            filter: brightness(1.03) drop-shadow(0 0 20px rgba(218, 165, 32, 0.15));
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover .step-icon {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 15px rgba(218, 165, 32, 0.6));
         }
 
         .step-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.875rem;
+            font-size: 1.1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: #DAA520;
             margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover .step-title {
+            color: #B8941F;
+            text-shadow: 0 0 8px rgba(218, 165, 32, 0.4);
         }
 
         .step-desc {
             font-family: 'Inter', sans-serif;
-            font-size: 0.9375rem;
-            line-height: 1.6;
-            color: #F4F1E8;
-            opacity: 0.9;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #2C1810;
+            opacity: 0.85;
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover .step-desc {
+            opacity: 1;
+            color: #1F0F08;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #DAA520;
+            margin: 20px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(218, 165, 32, 0.3));
+        }
+
+        .flow-arrow:hover {
+            transform: scale(1.2);
+            color: #B8941F;
+            filter: drop-shadow(0 0 12px rgba(218, 165, 32, 0.6));
+        }
+
+        /* Mobile Responsive for Flowchart */
+        @media (max-width: 768px) {
+            .flowchart-container {
+                padding: 30px 16px;
+            }
+
+            .flowchart-title h3 {
+                font-size: 1.8rem;
+            }
+
+            .title-icon {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+
+            .step-content {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+
+            .step-icon {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+
+            .step-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .step-desc {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .flow-arrow {
+                font-size: 1.5rem;
+                margin: 16px 0;
+            }
         }
 
         /* CTA Section */
@@ -660,6 +776,17 @@
 
             .philosophy-hero h1 em {
                 font-size: 0.75em;
+            }
+
+            /* Mobile layout for hero with thumbnail */
+            .philosophy-hero .container > div {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+            }
+
+            .philosophy-hero .container > div > div:first-child img {
+                width: 150px !important;
+                height: 150px !important;
             }
 
             .philosophy-content {
@@ -814,6 +941,106 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* ===== PARALLAX BACKGROUND ===== */
+        .parallax-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('images/artworks/large/yellow-brick-road.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -1;
+            will-change: transform;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .parallax-background.visible {
+            opacity: 0.8;
+        }
+
+        .parallax-background.locked {
+            position: fixed;
+            transform: none !important;
+        }
+
+        /* Override main content to have transparent/semi-transparent backgrounds */
+        .philosophy-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .philosophy-section {
+            margin-bottom: 150px; /* Increased from 96px */
+            background: rgba(253, 252, 248, 0.85); /* Reduced opacity to show background better */
+            padding: 48px;
+            border-radius: 16px;
+            backdrop-filter: blur(5px); /* Reduced blur */
+            box-shadow: 0 8px 32px rgba(44, 24, 16, 0.1);
+        }
+
+        /* Metaphors grid with more spacing */
+        .metaphors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 80px; /* Increased significantly for more background visibility */
+            margin: 150px 0; /* Increased from 72px */
+        }
+
+        .metaphor-card {
+            background: rgba(255, 255, 255, 0.85); /* Reduced opacity */
+            backdrop-filter: blur(5px); /* Reduced blur */
+            border: 1px solid rgba(232, 227, 219, 0.6);
+            box-shadow: 0 8px 32px rgba(44,24,16,0.08);
+            border-radius: 16px;
+            padding: 40px 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Imagination and CTA sections with transparency */
+        .imagination-section,
+        .cta-section {
+            background: rgba(44, 24, 16, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 150px 0; /* Increased from 96px */
+        }
+
+        /* Parallax scroll effect */
+        @media (prefers-reduced-motion: no-preference) {
+            .parallax-background {
+                transform: translateZ(0);
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .parallax-background {
+                background-attachment: scroll;
+                height: 100vh;
+            }
+            
+            .philosophy-section {
+                margin-bottom: 100px;
+                padding: 32px 24px;
+            }
+            
+            .metaphors-grid {
+                gap: 32px;
+                margin: 80px 0;
+            }
+            
+            .imagination-section,
+            .cta-section {
+                margin: 100px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -866,46 +1093,37 @@
     <!-- Scrollspy Navigation -->
     <div class="scrollspy-nav" id="scrollspyNav">
         <ul>
-            <li><a href="#video-section" data-section="video-section">Framework</a></li>
             <li><a href="#consciousness-section" data-section="consciousness-section">Consciousness</a></li>
+            <li><a href="#video-section" data-section="video-section">Framework</a></li>
             <li><a href="#metaphors-section" data-section="metaphors-section">Metaphors</a></li>
-            <li><a href="#avatars-transformation-section" data-section="avatars-transformation-section">Interaction</a></li>
             <li><a href="#imagination-section" data-section="imagination-section">Process</a></li>
             <li><a href="#art-bridge-section" data-section="art-bridge-section">Art Bridge</a></li>
         </ul>
     </div>
 
-    <!-- Banner Image Section -->
-    <section style="position: relative; width: 100%; height: 400px; overflow: hidden; margin-bottom: 2rem;">
-        <img src="images/artworks/large/floating-castle.jpg"
-             alt="Floating Castle"
-             style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(44,24,16,0.3) 0%, rgba(139,69,19,0.2) 50%, rgba(44,24,16,0.3) 100%);"></div>
-    </section>
-
-    <!-- Hero Section -->
+    <!-- Hero Section with Thumbnail -->
     <section class="philosophy-hero">
         <div class="container">
-            <h1>Map<br>— <em>The Magician's Castle</em> —</h1>
+            <div style="display: flex; align-items: center; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div style="flex-shrink: 0;">
+                    <img src="images/artworks/large/floating-castle.jpg"
+                         alt="Floating Castle"
+                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 3px solid rgba(218, 165, 32, 0.3);">
+                </div>
+                <div style="text-align: center;">
+                    <h1>Map<br>— <em>The Magician's Castle</em> —</h1>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Parallax Background -->
+    <div class="parallax-background"></div>
 
     <!-- Main Content -->
     <main class="section">
         <div class="container">
             <div class="philosophy-content">
-
-                <!-- YouTube Video Section -->
-                <div class="philosophy-section" id="video-section">
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 12px; margin-bottom: 48px;">
-                        <iframe
-                            src="https://www.youtube.com/embed/nCERFR4WfPk"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                            allowfullscreen
-                            title="Material Method Methodology and the Chain of Being">
-                        </iframe>
-                    </div>
-                </div>
 
                 <!-- Caution Notice -->
                 <div class="philosophy-section" id="caution-section">
@@ -923,6 +1141,31 @@
                     
                     <p>The Magician's Castle framework operates through interconnected metaphors that map the territory of consciousness expansion:</p>
                 </div>
+
+                <!-- YouTube Video Section -->
+                <div class="philosophy-section" id="video-section">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 12px; margin-bottom: 48px;">
+                        <iframe
+                            src="https://www.youtube.com/embed/nCERFR4WfPk"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            allowfullscreen
+                            title="Material Method Methodology and the Chain of Being">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Transparent spacer before logo -->
+                <div style="height: 150px; margin: 50px 0; background: transparent;"></div>
+
+                <!-- Logo positioned halfway between video and cards -->
+                <div style="text-align: center; margin: 40px 0; background: transparent;">
+                    <img src="images/logos simple 3a smaller transparent red glow.png"
+                         alt="Ari Zed Logo"
+                         style="width: 80px; height: auto; opacity: 0.7; transition: opacity 0.3s ease;">
+                </div>
+
+                <!-- Transparent spacer after logo -->
+                <div style="height: 150px; margin: 50px 0; background: transparent;"></div>
 
                 <div class="metaphors-grid" id="metaphors-section">
                     <div class="metaphor-card">
@@ -948,54 +1191,88 @@
                         <h3>The Theatre</h3>
                         <p>The inner theatre is everything we consciously experience. The Magician interacts with a vast collection of avatars that are in various states of connection and interaction with one another. The world conception is visualised as a grand theatre inside the castle. The structure of the theatre is often changing. There are so many ways for the world to be understood. Whole worlds may exist within this theatre which is vast and cavernous.</p>
                     </div>
-                </div>
-
-                <!-- Avatars and Transformation Cards -->
-                <div class="philosophy-section" id="avatars-transformation-section">
-                    <h2>Consciousness Interaction</h2>
-                    <div class="metaphors-grid">
-                        <div class="metaphor-card">
-                            <span class="metaphor-icon">👥</span>
-                            <h3>Avatars</h3>
-                            <p>Although each of us is separated from others inside our castle we are able to interact through the medium of the ground of being using avatars. We produce and receive avatars that give us pictures of the world, of others and of all ideas. We "emit" avatars into the ground of being even when we are sleeping.</p>
-                        </div>
-                        
-                        <div class="metaphor-card">
-                            <span class="metaphor-icon">🔄</span>
-                            <h3>Transformation</h3>
-                            <p>We are able to restructure our theatre and tangentially our castle and the ground of being by interacting with avatars. For instance talking to others or reading a book where we gain avatars through the ground of being. There is another powerful method that draws from unconscious areas whether that be from the castle or further afield, and this is active imagination.</p>
-                        </div>
+                    
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">👥</span>
+                        <h3>Avatars</h3>
+                        <p>Although each of us is separated from others inside our castle we are able to interact through the medium of the ground of being using avatars. We produce and receive avatars that give us pictures of the world, of others and of all ideas. We "emit" avatars into the ground of being even when we are sleeping.</p>
+                    </div>
+                    
+                    <div class="metaphor-card">
+                        <span class="metaphor-icon">🔄</span>
+                        <h3>Transformation</h3>
+                        <p>We are able to restructure our theatre and tangentially our castle and the ground of being by interacting with avatars. For instance talking to others or reading a book where we gain avatars through the ground of being. There is another powerful method that draws from unconscious areas whether that be from the castle or further afield, and this is active imagination.</p>
                     </div>
                 </div>
 
-                <!-- Ideal Active Imagination Process -->
+
+                <!-- Ideal Active Imagination Process - Flowchart -->
                 <div class="imagination-section" id="imagination-section">
-                    <h2>Ideal Active Imagination Process</h2>
-                    <div class="imagination-steps">
-                        <div class="step-item">
-                            <span class="step-arrow">➤</span>
-                            <div class="step-title">Move Away</div>
-                            <div class="step-desc">From small self identification and limiting beliefs. (somehow take yourself out of your monkey mind.)</div>
+                    <div class="flowchart-container">
+                        <!-- Title -->
+                        <div class="flowchart-title">
+                            <span class="title-icon">🧠</span>
+                            <h3>Ideal Active Imagination Process</h3>
                         </div>
-                        <div class="step-item">
-                            <span class="step-arrow">👁</span>
-                            <div class="step-title">Look Into</div>
-                            <div class="step-desc">Infinite being and expanded awareness. (sometimes you just need to choose to say yes)</div>
-                        </div>
-                        <div class="step-item">
-                            <span class="step-arrow">💬</span>
-                            <div class="step-title">Dialogue</div>
-                            <div class="step-desc">With consciousness through imagination. (ask questions and answer them.)</div>
-                        </div>
-                        <div class="step-item">
-                            <span class="step-arrow">💖</span>
-                            <div class="step-title">Love</div>
-                            <div class="step-desc">Extend love to your antithesis and it becomes synthesis. This integration of chaos produces beauty. Find beauty. When truth and morality become unclear, beauty provides reliable navigation toward expanded consciousness.</div>
-                        </div>
-                        <div class="step-item">
-                            <span class="step-arrow">🎨</span>
-                            <div class="step-title">Embody</div>
-                            <div class="step-desc">Insights through creative expression. Unite opposing forces—masculine/feminine, order/chaos, transcendence/embodiment. The process of embodiment makes things graspable, and continues the process.</div>
+                        
+                        <!-- Flow Steps -->
+                        <div class="flow-steps">
+                            <!-- Step 1 -->
+                            <div class="flow-step">
+                                <div class="step-content">
+                                    <span class="step-icon">➤</span>
+                                    <div class="step-title">Move Away</div>
+                                    <div class="step-desc">From small self identification and limiting beliefs. (somehow take yourself out of your monkey mind.)</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flow-arrow">↓</div>
+                            
+                            <!-- Step 2 -->
+                            <div class="flow-step">
+                                <div class="step-content">
+                                    <span class="step-icon">👁</span>
+                                    <div class="step-title">Look Into</div>
+                                    <div class="step-desc">Infinite being and expanded awareness. (sometimes you just need to choose to say yes)</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flow-arrow">↓</div>
+                            
+                            <!-- Step 3 -->
+                            <div class="flow-step">
+                                <div class="step-content">
+                                    <span class="step-icon">💬</span>
+                                    <div class="step-title">Dialogue</div>
+                                    <div class="step-desc">With consciousness through imagination. (ask questions and answer them.)</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flow-arrow">↓</div>
+                            
+                            <!-- Step 4 -->
+                            <div class="flow-step">
+                                <div class="step-content">
+                                    <span class="step-icon">💖</span>
+                                    <div class="step-title">Love</div>
+                                    <div class="step-desc">Extend love to your antithesis and it becomes synthesis. This integration of chaos produces beauty. Find beauty. When truth and morality become unclear, beauty provides reliable navigation toward expanded consciousness.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Arrow -->
+                            <div class="flow-arrow">↓</div>
+                            
+                            <!-- Step 5 -->
+                            <div class="flow-step">
+                                <div class="step-content">
+                                    <span class="step-icon">🎨</span>
+                                    <div class="step-title">Embody</div>
+                                    <div class="step-desc">Insights through creative expression. Unite opposing forces—masculine/feminine, order/chaos, transcendence/embodiment. The process of embodiment makes things graspable, and continues the process.</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1157,8 +1434,40 @@
                 });
             });
 
+            // Parallax effect
+            const parallaxBackground = document.querySelector('.parallax-background');
+            const videoSection = document.getElementById('video-section');
+            const metaphorsSection = document.getElementById('metaphors-section');
+            
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                
+                if (parallaxBackground && videoSection && metaphorsSection) {
+                    const videoSectionBottom = videoSection.offsetTop + videoSection.offsetHeight;
+                    const metaphorsSectionTop = metaphorsSection.offsetTop;
+                    const metaphorsSectionBottom = metaphorsSection.offsetTop + metaphorsSection.offsetHeight;
+                    
+                    // Show background after video section ends
+                    if (scrolled > videoSectionBottom + 200) { // Added delay of 200px
+                        parallaxBackground.classList.add('visible');
+                        
+                        // Lock the background in place when metaphors section is in view
+                        if (scrolled >= metaphorsSectionTop - window.innerHeight &&
+                            scrolled <= metaphorsSectionBottom + window.innerHeight) {
+                            parallaxBackground.classList.add('locked');
+                        } else {
+                            parallaxBackground.classList.remove('locked');
+                        }
+                    } else {
+                        parallaxBackground.classList.remove('visible');
+                        parallaxBackground.classList.remove('locked');
+                    }
+                }
+            }
+
             // Listen for scroll events
             window.addEventListener('scroll', function() {
+                requestAnimationFrame(updateParallax);
                 toggleScrollspyVisibility();
                 updateActiveLink();
             });
