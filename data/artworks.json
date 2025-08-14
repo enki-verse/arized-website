@@ -2219,6 +2219,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-14T08:14:31.183Z"
+    },
+    {
+      "id": "floating-castle-2",
+      "title": "Floating castle 2",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "100 x 100 cm",
+      "price": 2000,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/floating-castle-2.jpg",
+        "medium": "images/artworks/medium/floating-castle-2.jpg",
+        "large": "images/artworks/large/floating-castle-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-14T08:17:45.122Z"
     }
   ]
 }
