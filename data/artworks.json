@@ -2173,6 +2173,29 @@
       },
       "description": "",
       "dateAdded": "2025-07-28T06:43:58.631Z"
+    },
+    {
+      "id": "anima-entering-platos-cave",
+      "title": "Anima entering platos cave",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "76 x 61 cm",
+      "price": 1900,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/anima-entering-platos-cave.jpg",
+        "medium": "images/artworks/medium/anima-entering-platos-cave.jpg",
+        "large": "images/artworks/large/anima-entering-platos-cave.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-14T08:12:27.570Z"
     }
   ]
 }
