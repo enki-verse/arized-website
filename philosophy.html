@@ -725,6 +725,95 @@
                 font-size: 0.875rem;
             }
         }
+
+        /* ===== SCROLLSPY NAVIGATION ===== */
+        .scrollspy-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px 8px;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .scrollspy-nav.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scrollspy-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scrollspy-nav li {
+            position: relative;
+        }
+
+        .scrollspy-nav a {
+            display: block;
+            padding: 8px 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .scrollspy-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .scrollspy-nav a:hover,
+        .scrollspy-nav a.active {
+            color: var(--text-primary);
+            background: rgba(218, 165, 32, 0.1);
+            transform: translateX(-2px);
+        }
+
+        .scrollspy-nav a:hover::before,
+        .scrollspy-nav a.active::before {
+            height: 16px;
+        }
+
+        /* Hide scrollspy on mobile */
+        @media (max-width: 768px) {
+            .scrollspy-nav {
+                display: none;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
@@ -774,6 +863,26 @@
         </div>
     </nav>
 
+    <!-- Scrollspy Navigation -->
+    <div class="scrollspy-nav" id="scrollspyNav">
+        <ul>
+            <li><a href="#video-section" data-section="video-section">Framework</a></li>
+            <li><a href="#consciousness-section" data-section="consciousness-section">Consciousness</a></li>
+            <li><a href="#metaphors-section" data-section="metaphors-section">Metaphors</a></li>
+            <li><a href="#avatars-transformation-section" data-section="avatars-transformation-section">Interaction</a></li>
+            <li><a href="#imagination-section" data-section="imagination-section">Process</a></li>
+            <li><a href="#art-bridge-section" data-section="art-bridge-section">Art Bridge</a></li>
+        </ul>
+    </div>
+
+    <!-- Banner Image Section -->
+    <section style="position: relative; width: 100%; height: 400px; overflow: hidden; margin-bottom: 2rem;">
+        <img src="images/artworks/large/floating-castle.jpg"
+             alt="Floating Castle"
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(44,24,16,0.3) 0%, rgba(139,69,19,0.2) 50%, rgba(44,24,16,0.3) 100%);"></div>
+    </section>
+
     <!-- Hero Section -->
     <section class="philosophy-hero">
         <div class="container">
@@ -786,15 +895,27 @@
         <div class="container">
             <div class="philosophy-content">
 
+                <!-- YouTube Video Section -->
+                <div class="philosophy-section" id="video-section">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 12px; margin-bottom: 48px;">
+                        <iframe
+                            src="https://www.youtube.com/embed/nCERFR4WfPk"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            allowfullscreen
+                            title="Material Method Methodology and the Chain of Being">
+                        </iframe>
+                    </div>
+                </div>
+
                 <!-- Caution Notice -->
-                <div class="philosophy-section">
+                <div class="philosophy-section" id="caution-section">
                     <div style="background: rgba(218, 165, 32, 0.1); border: 1px solid #DAA520; border-radius: 8px; padding: 24px; margin-bottom: 48px; font-style: italic; color: #8B4513;">
                         <strong>CAUTION:</strong> the following background philosophy I have provided due to many people asking me about it, but it is not needed to experience and enjoy the artwork. the art is made to stand on its own.
                     </div>
                 </div>
 
                 <!-- Foundation Principle -->
-                <div class="philosophy-section">
+                <div class="philosophy-section" id="consciousness-section">
                     <h2>Consciousness as Primary Reality</h2>
                     <p>At the heart of this work lies a radical understanding: consciousness is primary, and the material world is its extrinsic appearance. We are not biological machines struggling to understand an external universe—we are focal points where infinite consciousness gains perspective on itself.</p>
                     
@@ -803,7 +924,7 @@
                     <p>The Magician's Castle framework operates through interconnected metaphors that map the territory of consciousness expansion:</p>
                 </div>
 
-                <div class="metaphors-grid">
+                <div class="metaphors-grid" id="metaphors-section">
                     <div class="metaphor-card">
                         <span class="metaphor-icon">🌌</span>
                         <h3>The Ground of Being</h3>
@@ -829,20 +950,26 @@
                     </div>
                 </div>
 
-                <!-- Avatars Section -->
-                <div class="philosophy-section">
-                    <h2>Avatars</h2>
-                    <p>Although each of us is separated from others inside our castle we are able to interact through the medium of the ground of being using avatars. We produce and receive avatars that give us pictures of the world, of others and of all ideas. We "emit" avatars into the ground of being even when we are sleeping.</p>
-                </div>
-
-                <!-- Transformation Section -->
-                <div class="philosophy-section">
-                    <h2>Transformation</h2>
-                    <p>We are able to restructure our theatre and tangentially our castle and the ground of being by interacting with avatars. For instance talking to others or reading a book where we gain avatars through the ground of being. There is another powerful method that draws from unconscious areas whether that be from the castle or further afield, and this is active imagination.</p>
+                <!-- Avatars and Transformation Cards -->
+                <div class="philosophy-section" id="avatars-transformation-section">
+                    <h2>Consciousness Interaction</h2>
+                    <div class="metaphors-grid">
+                        <div class="metaphor-card">
+                            <span class="metaphor-icon">👥</span>
+                            <h3>Avatars</h3>
+                            <p>Although each of us is separated from others inside our castle we are able to interact through the medium of the ground of being using avatars. We produce and receive avatars that give us pictures of the world, of others and of all ideas. We "emit" avatars into the ground of being even when we are sleeping.</p>
+                        </div>
+                        
+                        <div class="metaphor-card">
+                            <span class="metaphor-icon">🔄</span>
+                            <h3>Transformation</h3>
+                            <p>We are able to restructure our theatre and tangentially our castle and the ground of being by interacting with avatars. For instance talking to others or reading a book where we gain avatars through the ground of being. There is another powerful method that draws from unconscious areas whether that be from the castle or further afield, and this is active imagination.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Ideal Active Imagination Process -->
-                <div class="imagination-section">
+                <div class="imagination-section" id="imagination-section">
                     <h2>Ideal Active Imagination Process</h2>
                     <div class="imagination-steps">
                         <div class="step-item">
@@ -874,7 +1001,7 @@
                 </div>
 
                 <!-- Art as Consciousness Bridge -->
-                <div class="philosophy-section">
+                <div class="philosophy-section" id="art-bridge-section">
                     <h2>Art as Consciousness Bridge</h2>
                     <p>In this view of reality artwork is a bridge. A tool that people can use to project and generate meaning. Spatial constructions of meaning.</p>
                     
@@ -884,7 +1011,7 @@
                 </div>
 
                 <!-- Call to Action -->
-                <div class="cta-section">
+                <div class="cta-section" id="cta-section">
                     <h3>Enter the Alchemical Workshop</h3>
                     <p>Ready to see how this philosophical framework manifests in daily creative practice? Discover the actual methods and consciousness exploration practices behind the artworks.</p>
                     <a href="process.html" class="btn">Witness the Creative Process →</a>
@@ -974,6 +1101,71 @@
                     closeMenu();
                 }
             });
+            // Scrollspy functionality
+            const scrollspyNav = document.getElementById('scrollspyNav');
+            const scrollspyLinks = scrollspyNav.querySelectorAll('a');
+            const sections = document.querySelectorAll('[id$="-section"]');
+            
+            // Show/hide scrollspy nav based on scroll position
+            function toggleScrollspyVisibility() {
+                const heroHeight = document.querySelector('.philosophy-hero').offsetHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > heroHeight / 2) {
+                    scrollspyNav.classList.add('visible');
+                } else {
+                    scrollspyNav.classList.remove('visible');
+                }
+            }
+
+            // Update active link based on scroll position
+            function updateActiveLink() {
+                let current = '';
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                scrollspyLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Smooth scroll to section
+            scrollspyLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Listen for scroll events
+            window.addEventListener('scroll', function() {
+                toggleScrollspyVisibility();
+                updateActiveLink();
+            });
+
+            // Initial check
+            toggleScrollspyVisibility();
+            updateActiveLink();
         });
     </script>
 </body>
