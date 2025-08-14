@@ -346,13 +346,13 @@
             color: var(--accent-gold);
         }
 
-        /* Selection Toggle - Refined Premium Button */
+        /* Selection Toggle - Fixed Floating Button */
         .selection-toggle {
             background: var(--accent-gold);
             color: white;
             border: none;
-            padding: 16px 24px;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border-radius: 50px;
             cursor: pointer;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 12px;
@@ -360,10 +360,70 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             transition: all 0.15s ease-out;
-            margin: 0 16px 32px;
-            position: relative;
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1001;
             overflow: hidden;
-            box-shadow: var(--shadow-subtle);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* Scale Toggle Button - Positioned underneath Selection Button */
+        .scale-toggle {
+            background: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            transition: all 0.15s ease-out;
+            position: fixed;
+            top: calc(50% + 60px);
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1001;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .scale-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .scale-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(139, 69, 19, 0.4);
+            background: #a0522d;
+        }
+
+        .scale-toggle:hover::before {
+            left: 100%;
+        }
+
+        .scale-toggle:active {
+            transform: translateY(0);
+        }
+
+        .scale-toggle.active {
+            background: #654321;
+            box-shadow: 0 8px 32px rgba(139, 69, 19, 0.5);
         }
 
         .selection-toggle::before {
@@ -540,6 +600,12 @@
             justify-content: center;
         }
 
+        .gallery-grid.scale-view {
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
         .artwork-card {
             position: relative;
             overflow: hidden;
@@ -549,6 +615,10 @@
             border-radius: 4px;
             box-shadow: var(--shadow-subtle);
             /* Remove fixed width - let it scale based on image aspect ratio */
+        }
+
+        .artwork-card.scale-view {
+            flex-shrink: 0;
         }
 
         .artwork-card:hover {
@@ -569,6 +639,13 @@
             object-fit: contain;
             background: transparent;
             display: block;
+        }
+
+        .artwork-image.scale-view {
+            height: auto;
+            width: auto;
+            max-height: 400px;
+            object-fit: contain;
         }
 
         .artwork-info {
@@ -1207,25 +1284,28 @@
         }
 
         .minimize-btn {
-            width: 12px;
-            height: 12px;
+            width: 24px;
+            height: 24px;
             background: #ffbc2e;
-            border: none;
+            border: 2px solid #e6a82d;
             border-radius: 50%;
             cursor: pointer;
             font-size: 0;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             position: relative;
+            margin-left: 8px;
         }
 
         .minimize-btn:hover {
             background: #ffaa00;
-            transform: scale(1.1);
+            border-color: #cc9900;
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .minimize-btn:active {
-            transform: scale(0.95);
+            transform: scale(1.05);
         }
 
         .minimize-btn::before {
@@ -1234,9 +1314,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 6px;
-            height: 1px;
-            background: rgba(0,0,0,0.6);
+            width: 10px;
+            height: 2px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 1px;
         }
 
         .tray-controls {
@@ -1480,6 +1561,11 @@
                 display: none !important;
             }
 
+            /* Hide scale toggle on mobile */
+            .scale-toggle {
+                display: none !important;
+            }
+
             .selection-section {
                 display: none !important;
             }
@@ -1625,6 +1711,16 @@
         <span></span>
     </div>
 
+    <!-- Fixed Selection Button -->
+    <button class="selection-toggle" id="selectionToggle">
+        Selection (<span id="lightboxCount">0</span>)
+    </button>
+
+    <!-- Scale View Toggle Button -->
+    <button class="scale-toggle" id="scaleToggle">
+        Scale View
+    </button>
+
     <!-- Navigation with Sub Navigation -->
     <nav class="navigation" id="navigation">
         <div class="nav-container">
@@ -1669,12 +1765,6 @@
                 <li><a href="cv.html">CV</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
             </ul>
-
-            <div class="selection-section">
-                <button class="selection-toggle" id="selectionToggle">
-                    Selection (<span id="lightboxCount">0</span>)
-                </button>
-            </div>
         </div>
     </nav>
 
@@ -1919,6 +2009,21 @@
         }
 
         function setupEventListeners() {
+            // Setup scale toggle (available on all devices)
+            const scaleToggle = document.getElementById('scaleToggle');
+            if (scaleToggle) {
+                scaleToggle.addEventListener('click', () => {
+                    console.log('Scale toggle clicked, current state:', isScaleView);
+                    isScaleView = !isScaleView;
+                    scaleToggle.classList.toggle('active', isScaleView);
+                    scaleToggle.textContent = isScaleView ? 'Normal View' : 'Scale View';
+                    console.log('New scale view state:', isScaleView);
+                    renderGallery();
+                });
+            } else {
+                console.log('Scale toggle button not found');
+            }
+
             // Desktop-only selection functionality
             if (window.innerWidth > 768) {
                 // Minimize tray button
@@ -2076,6 +2181,7 @@
         let currentArtworkIndex = 0; // For navigating through all artworks
         let currentSelectionIndex = 0; // For navigating through selection
         let isViewingSelection = false; // Track if we're viewing through selection mode
+        let isScaleView = false; // Track if we're in scale view mode
 
         // Helper functions for artwork info
         function formatPrice(artwork) {
@@ -2132,6 +2238,43 @@
             }
         }
 
+        // Parse dimensions to get width and height in cm
+        function parseDimensions(dimensionString) {
+            if (!dimensionString) return { width: 50, height: 50 }; // Default fallback
+            
+            // Handle various dimension formats: "230 x 140 cm", "85x105cm", "61 x 76 cm", etc.
+            const match = dimensionString.match(/(\d+)\s*x\s*(\d+)/i);
+            if (match) {
+                return {
+                    width: parseInt(match[1]),
+                    height: parseInt(match[2])
+                };
+            }
+            
+            // Fallback for malformed dimensions
+            return { width: 50, height: 50 };
+        }
+
+        // Calculate scale for artwork based on dimensions
+        function calculateScaleSize(artwork, maxHeight = 400) {
+            const { width, height } = parseDimensions(artwork.dimensions);
+            
+            // Calculate aspect ratio
+            const aspectRatio = width / height;
+            
+            // Scale to fit within maxHeight while maintaining aspect ratio
+            let scaledHeight = Math.min(height * 2, maxHeight); // Scale factor of 2 for visibility
+            let scaledWidth = scaledHeight * aspectRatio;
+            
+            // Ensure minimum size for very small artworks
+            if (scaledHeight < 80) {
+                scaledHeight = 80;
+                scaledWidth = scaledHeight * aspectRatio;
+            }
+            
+            return { width: scaledWidth, height: scaledHeight };
+        }
+
         // Render gallery
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
@@ -2142,12 +2285,15 @@
                     message += ' for the selected filters';
                 }
                 grid.innerHTML = `<p class="loading">${message}.</p>`;
-                grid.classList.remove('few-results');
+                grid.classList.remove('few-results', 'scale-view');
                 return;
             }
             
-            // Add class for center alignment when few results
-            if (filteredArtworks.length <= 3) {
+            // Update grid classes based on view mode
+            grid.classList.toggle('scale-view', isScaleView);
+            
+            // Add class for center alignment when few results (only in normal view)
+            if (!isScaleView && filteredArtworks.length <= 3) {
                 grid.classList.add('few-results');
             } else {
                 grid.classList.remove('few-results');
@@ -2157,13 +2303,25 @@
             const sortedFilteredArtworks = [...filteredArtworks].sort((a, b) => b.year - a.year);
             
             grid.innerHTML = sortedFilteredArtworks.map(artwork => {
+                let imageStyle = '';
+                let cardClass = 'artwork-card';
+                let imageClass = 'artwork-image';
+                
+                if (isScaleView) {
+                    const scaleSize = calculateScaleSize(artwork);
+                    imageStyle = `style="width: ${scaleSize.width}px; height: ${scaleSize.height}px;"`;
+                    cardClass += ' scale-view';
+                    imageClass += ' scale-view';
+                }
+                
                 return `
-                <div class="artwork-card" 
+                <div class="${cardClass}"
                      data-id="${artwork.id}"
                      draggable="true">
                     <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}"
                          alt="${artwork.title}"
-                         class="artwork-image">
+                         class="${imageClass}"
+                         ${imageStyle}>
                     <div class="artwork-info">
                         <div class="artwork-title">${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</div>
                         <div class="artwork-details">${artwork.year} • ${artwork.dimensions}</div>
@@ -2176,7 +2334,7 @@
             setupCardInteractions();
             
             // Log filter results for debugging
-            console.log(`Showing ${filteredArtworks.length} artworks (Exhibition: ${currentExhibitionFilter}, Availability: ${currentAvailabilityFilter})`);
+            console.log(`Showing ${filteredArtworks.length} artworks (Exhibition: ${currentExhibitionFilter}, Availability: ${currentAvailabilityFilter}, Scale View: ${isScaleView})`);
         }
 
         // Setup card interactions
