@@ -1527,6 +1527,91 @@
                 user-drag: none;
             }
         }
+
+        /* ===== ARTIST HERO SECTION ===== */
+        .artist-hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .artist-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .artist-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .artist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artist-info {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem 3rem;
+        }
+
+        .artist-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin: 0;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Responsive for Artist Hero */
+        @media (max-width: 768px) {
+            .artist-hero {
+                height: 300px;
+                margin-bottom: 1.5rem;
+            }
+
+            .artist-info {
+                padding: 1.5rem 2rem;
+            }
+
+            .artist-info h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .artist-hero {
+                height: 250px;
+            }
+
+            .artist-info {
+                padding: 1rem 1.5rem;
+            }
+
+            .artist-info h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1555,6 +1640,17 @@
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <div class="submenu active" id="artworksSubmenu">
+                        <a href="#" class="filter-toggle active" id="filterToggle">
+                            Filter
+                            <span class="filter-arrow">▼</span>
+                        </a>
+                        <div class="filter-submenu active" id="filterSubmenu">
+                            <a href="#" class="filter-item active" data-filter="all">All</a>
+                            <a href="#" class="filter-item" data-filter="available">Available</a>
+                            <a href="#" class="filter-item" data-filter="sold">Sold</a>
+                            <a href="#" class="filter-item" data-filter="not-available">Not Available</a>
+                        </div>
+                        
                         <a href="#" class="exhibitions-toggle" id="exhibitionsToggle">
                             Exhibitions
                             <span class="exhibitions-arrow">▼</span>
@@ -1564,17 +1660,6 @@
                             <a href="#" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
                             <a href="#" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
                             <a href="#" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
-                        </div>
-                        
-                        <a href="#" class="filter-toggle" id="filterToggle">
-                            Filter
-                            <span class="filter-arrow">▼</span>
-                        </a>
-                        <div class="filter-submenu" id="filterSubmenu">
-                            <a href="#" class="filter-item active" data-filter="all">All</a>
-                            <a href="#" class="filter-item" data-filter="available">Available</a>
-                            <a href="#" class="filter-item" data-filter="sold">Sold</a>
-                            <a href="#" class="filter-item" data-filter="not-available">Not Available</a>
                         </div>
                     </div>
                 </li>
@@ -1592,6 +1677,18 @@
             </div>
         </div>
     </nav>
+
+    <!-- Artist Hero Section -->
+    <section class="artist-hero">
+        <div class="artist-content">
+            <div class="artist-image">
+                <img src="images/zed profile slide2.png" alt="Ari Zed - Artist">
+            </div>
+            <div class="artist-info">
+                <h1>Artworks by Ari Zed</h1>
+            </div>
+        </div>
+    </section>
 
     <!-- Gallery Content -->
     <main class="section">
