@@ -227,31 +227,30 @@
         }
 
         .menu-toggle {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 1002;
-            cursor: pointer;
-            padding: 0.75rem;
             display: flex;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1001;
+            cursor: pointer;
+            padding: 0.5rem;
             flex-direction: column;
             gap: 6px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
         .menu-toggle span {
-            width: 28px;
-            height: 3px;
-            background: var(--white);
-            transition: all 0.3s ease;
-            border-radius: 2px;
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: #fff;
+            transition: 0.3s;
         }
 
         .menu-toggle.open span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
+            transform: rotate(-45deg) translate(-5px, 5px);
         }
 
         .menu-toggle.open span:nth-child(2) {
@@ -259,7 +258,7 @@
         }
 
         .menu-toggle.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
+            transform: rotate(45deg) translate(-5px, -5px);
         }
 
         .nav-overlay {
@@ -282,7 +281,7 @@
 
         @media (min-width: 769px) {
             .menu-toggle {
-                display: block; /* Show burger menu on desktop too */
+                display: flex; /* Show burger menu on desktop too */
             }
             
             .nav-overlay {
@@ -292,12 +291,32 @@
 
         /* ===== PHILOSOPHY PAGE STYLES ===== */
         .philosophy-hero {
-            background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #2C1810 100%);
+            background: url('images/artworks/large/floating-castle.jpg'), linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #2C1810 100%);
+            background-size: contain, cover;
+            background-position: center center, center;
+            background-repeat: no-repeat, no-repeat;
             color: var(--white);
             padding: 8rem 0 5rem 0;
             text-align: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .philosophy-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .philosophy-hero .container {
+            position: relative;
+            z-index: 2;
         }
 
         .philosophy-hero::before {
@@ -1101,18 +1120,11 @@
         </ul>
     </div>
 
-    <!-- Hero Section with Thumbnail -->
+    <!-- Hero Section with Background Image -->
     <section class="philosophy-hero">
         <div class="container">
-            <div style="display: flex; align-items: center; gap: 2rem; justify-content: center; flex-wrap: wrap;">
-                <div style="flex-shrink: 0;">
-                    <img src="images/artworks/large/floating-castle.jpg"
-                         alt="Floating Castle"
-                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 3px solid rgba(218, 165, 32, 0.3);">
-                </div>
-                <div style="text-align: center;">
-                    <h1>Map<br>— <em>The Magician's Castle</em> —</h1>
-                </div>
+            <div style="text-align: center;">
+                <h1>Map<br>— <em>The Magician's Castle</em> —</h1>
             </div>
         </div>
     </section>

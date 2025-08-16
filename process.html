@@ -52,7 +52,7 @@
         .navigation {
             position: fixed;
             top: 0;
-            left: 0;
+            left: -280px; /* Hidden by default */
             width: 280px;
             height: 100vh;
             background: var(--surface-white);
@@ -60,14 +60,13 @@
             box-shadow: var(--shadow-strong);
             z-index: 1000;
             padding: 0;
-            transition: all 0.3s ease;
+            transition: left 0.3s ease;
             display: flex;
             flex-direction: column;
-            transform: translateX(-100%);
         }
 
         .navigation.active {
-            transform: translateX(0);
+            left: 0; /* Show when active */
         }
 
         .nav-container {
@@ -228,31 +227,30 @@
         }
 
         .menu-toggle {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 1002;
-            cursor: pointer;
-            padding: 0.75rem;
             display: flex;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1001;
+            cursor: pointer;
+            padding: 0.5rem;
             flex-direction: column;
             gap: 6px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
         .menu-toggle span {
-            width: 28px;
-            height: 3px;
-            background: var(--white);
-            transition: all 0.3s ease;
-            border-radius: 2px;
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: #fff;
+            transition: 0.3s;
         }
 
         .menu-toggle.open span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
+            transform: rotate(-45deg) translate(-5px, 5px);
         }
 
         .menu-toggle.open span:nth-child(2) {
@@ -260,7 +258,7 @@
         }
 
         .menu-toggle.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
+            transform: rotate(45deg) translate(-5px, -5px);
         }
 
         .nav-overlay {
@@ -282,21 +280,12 @@
         }
 
         @media (min-width: 769px) {
-            .navigation {
-                transform: translateX(0);
-                position: fixed;
-            }
-            
-            body {
-                margin-left: 280px;
-            }
-            
             .menu-toggle {
-                display: none;
+                display: flex; /* Show burger menu on desktop too */
             }
             
             .nav-overlay {
-                display: none;
+                display: block; /* Show overlay on desktop too */
             }
         }
 
@@ -934,6 +923,95 @@
                 font-size: 0.875rem;
             }
         }
+
+        /* ===== SCROLLSPY NAVIGATION ===== */
+        .scrollspy-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px 8px;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .scrollspy-nav.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scrollspy-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .scrollspy-nav li {
+            position: relative;
+        }
+
+        .scrollspy-nav a {
+            display: block;
+            padding: 8px 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .scrollspy-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-gold);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .scrollspy-nav a:hover,
+        .scrollspy-nav a.active {
+            color: var(--text-primary);
+            background: rgba(218, 165, 32, 0.1);
+            transform: translateX(-2px);
+        }
+
+        .scrollspy-nav a:hover::before,
+        .scrollspy-nav a.active::before {
+            height: 16px;
+        }
+
+        /* Hide scrollspy on mobile */
+        @media (max-width: 768px) {
+            .scrollspy-nav {
+                display: none;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
@@ -983,6 +1061,21 @@
         </div>
     </nav>
 
+    <!-- Scrollspy Navigation -->
+    <div class="scrollspy-nav" id="scrollspyNav">
+        <ul>
+            <li><a href="#visionary-section" data-section="visionary-section">Visionary</a></li>
+            <li><a href="#materials-section" data-section="materials-section">Materials</a></li>
+            <li><a href="#technique-section" data-section="technique-section">Technique</a></li>
+            <li><a href="#flow-section" data-section="flow-section">Flow State</a></li>
+            <li><a href="#symbolic-section" data-section="symbolic-section">Symbols</a></li>
+            <li><a href="#evolution-section" data-section="evolution-section">Evolution</a></li>
+            <li><a href="#integration-section" data-section="integration-section">Integration</a></li>
+            <li><a href="#meaning-section" data-section="meaning-section">Meaning</a></li>
+            <li><a href="#journey-section" data-section="journey-section">Journey</a></li>
+        </ul>
+    </div>
+
     <!-- Hero Section -->
     <section class="process-hero">
         <div class="container">
@@ -1003,7 +1096,7 @@
                 </div>
 
                 <!-- Accessing the Visionary Realm -->
-                <div class="process-section">
+                <div class="process-section" id="visionary-section">
                     <h2>Accessing the Visionary Realm</h2>
                     <p>Getting into the right headspace for visionary work has evolved into natural practice. Sometimes I use the Wim Hof breathing method in bed and receive visions. But really, I can pick out a vision at any time—the skill develops with practice.</p>
                     
@@ -1013,19 +1106,17 @@
                 </div>
 
                 <!-- Materials as Extensions of Consciousness -->
-                <div class="process-section">
+                <div class="process-section" id="materials-section">
                     <h2>Materials as Extensions of Consciousness</h2>
                     <p>My material choices serve consciousness expansion, not just aesthetic preferences. I use oil paints because they're slow-drying and muddy—allowing me to work back into the painting, constantly processing and reprocessing. Glazing, scumbling, wiping back to develop form and highlights.</p>
                     
-                    <p>I've graduated to a simplified palette, like my name—mainly colors close to Cyan magenta yellow but in high-quality oil paint: Phthalo blue, Indian yellow, Alizarin crimson, with the addition of Titanium white. I don't use blacks and browns from tubes but mix my own. Gamblin solvents and mediums because they're least toxic, using solvents from the makeup industry.</p>
-
-                    <p>[My palette is almost the colours of the alchemic process but black is blue.]</p>
+                    <p>I've graduated to a simplified palette, like my name—mainly colors close to Cyan magenta yellow but in high-quality oil paint: Phthalo blue, Indian yellow, Alizarin crimson, with the addition of Titanium white. Gamblin solvents and mediums because they're least toxic, using solvents from the makeup industry.</p>
 
                     <p>From this simplified palette, I can make infinite colors. It's rare that any single color goes straight from tube to canvas. I stretch my own canvases or have them stretched, prime with acrylic for a smooth, non-absorbent surface that works beautifully with my semi-transparent, high-chroma approach.</p>
                 </div>
 
                 <!-- The Full Spectrum of Technique -->
-                <div class="process-section">
+                <div class="process-section" id="technique-section">
                     <h2>The Full Spectrum of Technique</h2>
                     <p>I use every technique available—wet on wet, layers, glazing, scumbling, smudging, wiping, scraping, flicking. Each serves different aspects of consciousness expression. Sometimes I'll intentionally add discordant elements so I can find ways to integrate them later, knowing there are no real mistakes when you're working in flow.</p>
                     
@@ -1033,7 +1124,7 @@
                 </div>
 
                 <!-- When Time Disappears -->
-                <div class="process-section">
+                <div class="process-section" id="flow-section">
                     <h2>When Time Disappears</h2>
                     <p>In flow state, I feel energized and time flies by. I may forget to eat. There's a feeling that nothing can go wrong, that even apparent mistakes become opportunities for deeper integration. My definition of beauty is unified chaos—bringing order and disorder into perfect tension.</p>
                     
@@ -1041,7 +1132,7 @@
                 </div>
 
                 <!-- The Symbolic Language That Emerges -->
-                <div class="process-section">
+                <div class="process-section" id="symbolic-section">
                     <h2>The Symbolic Language That Emerges</h2>
                     <p>People ask about the symbolism in my work—the mountain painted a certain way, why a horse appears here, why this figure needs a red robe. More often, these elements emerge because they feel right for the painting's development. I may not consciously know why something needs to be there, but these elements build rich symbology that viewers love exploring, letting their minds wander and find stories and meanings emerging.</p>
 
@@ -1049,7 +1140,7 @@
                 </div>
 
                 <!-- Twenty Years of Evolution -->
-                <div class="process-section">
+                <div class="process-section" id="evolution-section">
                     <h2>Twenty Years of Evolution</h2>
                     <p>My work began with observational painting, but I was always a polymathic mind that wouldn't compromise for smallness. I devoured everything—observational painting, color theory, perspective, anatomy, history, philosophy, literature, theatre, movies, museums worldwide, architecture.</p>
                     
@@ -1059,7 +1150,7 @@
                 </div>
 
                 <!-- Integration Challenges -->
-                <div class="process-section">
+                <div class="process-section" id="integration-section">
                     <h2>Integration Challenges</h2>
                     <p>The biggest practical challenges remain balancing time with family and painting, and finding comfort with sharing work online. But I need to develop better documentation and sharing practices.</p>
                     
@@ -1069,7 +1160,7 @@
                 </div>
 
                 <!-- Paintings as Meaning-Generating Machines -->
-                <div class="process-section">
+                <div class="process-section" id="meaning-section">
                     <h2>Paintings as Meaning-Generating Machines</h2>
                     <p>For paintings to function as portals rather than just images, they must have bodily impact and beauty. They must be open-ended, meaning-generating machines that introduce something new—a gift of chaos that gets integrated. They must open rather than close possibilities.</p>
                     
@@ -1077,7 +1168,7 @@
                 </div>
 
                 <!-- The Continuing Journey -->
-                <div class="process-section">
+                <div class="process-section" id="journey-section">
                     <h2>The Continuing Journey</h2>
                     <p>This practice serves something larger than individual expression. Each painting contributes to developing methods that will anchor temple-communities where consciousness expansion becomes collective reality. The process refines not just artistic skill but practical approaches for accessing expanded awareness that can be shared and taught.</p>
                     
@@ -1177,6 +1268,72 @@
                     closeMenu();
                 }
             });
+
+            // Scrollspy functionality
+            const scrollspyNav = document.getElementById('scrollspyNav');
+            const scrollspyLinks = scrollspyNav.querySelectorAll('a');
+            const sections = document.querySelectorAll('[id$=\"-section\"]');
+            
+            // Show/hide scrollspy nav based on scroll position
+            function toggleScrollspyVisibility() {
+                const heroHeight = document.querySelector('.process-hero').offsetHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > heroHeight / 2) {
+                    scrollspyNav.classList.add('visible');
+                } else {
+                    scrollspyNav.classList.remove('visible');
+                }
+            }
+
+            // Update active link based on scroll position
+            function updateActiveLink() {
+                let current = '';
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                scrollspyLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Smooth scroll to section
+            scrollspyLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Listen for scroll events
+            window.addEventListener('scroll', function() {
+                toggleScrollspyVisibility();
+                updateActiveLink();
+            });
+
+            // Initial check
+            toggleScrollspyVisibility();
+            updateActiveLink();
         });
     </script>
 </body>
