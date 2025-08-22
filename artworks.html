@@ -312,9 +312,12 @@
         /* Small dropdown arrow for exhibitions and filters */
         .exhibitions-arrow,
         .filter-arrow {
-            font-size: 8px;
+            font-size: 10px;
+            font-weight: 500;
             transition: transform 0.15s ease-out;
             color: var(--text-tertiary);
+            margin-left: 6px;
+            display: inline-block;
         }
 
         .exhibitions-toggle:hover .exhibitions-arrow,
@@ -2006,6 +2009,12 @@
 
                     console.log('After toggle - submenu classes:', submenu.classList.toString());
                     console.log('After toggle - toggle classes:', toggle.classList.toString());
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
+                    console.log('After toggle - arrow should rotate based on active class:', toggle.classList.contains('active') ? 'UP (180deg)' : 'DOWN (0deg)');
                 });
             } else {
                 console.log('Exhibitions toggle NOT found!');
