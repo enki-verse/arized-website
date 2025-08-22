@@ -716,32 +716,6 @@
       "dateAdded": "2025-07-25T15:32:07.138Z"
     },
     {
-      "id": "wanderer",
-      "title": "Wanderer",
-      "year": 2024,
-      "medium": "Oil on canvas",
-      "dimensions": "90 x 122 cm",
-      "price": 2600,
-      "category": "paintings",
-      "subjects": [
-        "infinite being",
-        "landscape"
-      ],
-      "exhibitions": [
-        "ODD I SEE"
-      ],
-      "available": true,
-      "featured": false,
-      "forSale": true,
-      "images": {
-        "thumbnail": "images/artworks/thumbnails/wanderer.jpg",
-        "medium": "images/artworks/medium/wanderer.jpg",
-        "large": "images/artworks/large/wanderer.jpg"
-      },
-      "description": "",
-      "dateAdded": "2025-07-25T15:33:36.150Z"
-    },
-    {
       "id": "rosy-fingers",
       "title": "Rosy fingers",
       "year": 2024,
