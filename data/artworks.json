@@ -2265,6 +2265,33 @@
       },
       "description": "",
       "dateAdded": "2025-08-14T08:36:57.424Z"
+    },
+    {
+      "id": "wanderer",
+      "title": "Wanderer",
+      "year": 2024,
+      "medium": "Oil on canvas",
+      "dimensions": "90 x 122 cm",
+      "price": 2600,
+      "category": "paintings",
+      "subjects": [
+        "infinite being",
+        "figures",
+        "landscape"
+      ],
+      "exhibitions": [
+        "ODD I SEE"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/wanderer.jpg",
+        "medium": "images/artworks/medium/wanderer.jpg",
+        "large": "images/artworks/large/wanderer.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-22T13:21:27.568Z"
     }
   ]
 }
