@@ -30,7 +30,7 @@
         .navigation {
             position: fixed;
             top: 0;
-            left: 0;
+            left: -280px; /* Hidden by default */
             width: 280px;
             height: 100vh;
             background: var(--surface-white);
@@ -38,19 +38,13 @@
             box-shadow: var(--shadow-strong);
             z-index: 1000;
             padding: 0;
-            transition: all 0.3s ease;
+            transition: left 0.3s ease;
             display: flex;
             flex-direction: column;
-            /* Hidden by default on all screen sizes */
-            transform: translateX(-100%);
         }
 
         .navigation.active {
-            transform: translateX(0);
-        }
-
-        .navigation.hidden {
-            transform: translateX(-100%);
+            left: 0; /* Show when active */
         }
 
         .nav-container {
@@ -271,6 +265,7 @@
             position: relative;
             margin-bottom: 1px;
             background: transparent;
+            cursor: pointer;
         }
 
         .exhibition-item::before,
@@ -475,13 +470,31 @@
             z-index: 1002;
             cursor: pointer;
             padding: 0.75rem;
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             gap: 6px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 8px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            border: 2px solid transparent;
+            user-select: none;
+            pointer-events: auto !important;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-color: rgba(218, 165, 32, 0.3);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid rgba(218, 165, 32, 0.5);
+            outline-offset: 2px;
         }
 
         .menu-toggle:hover {
@@ -523,6 +536,12 @@
             min-height: calc(100vh - 200px); /* Ensure minimum height minus approximate footer height */
             display: flex;
             flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Adjust main content when navigation is active */
+        .navigation.active ~ main.section {
+            margin-left: 280px;
         }
 
         .container {
@@ -571,27 +590,18 @@
         }
 
         .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
+            opacity: 0 !important; /* No darkening effect */
+            visibility: hidden !important; /* Keep overlay hidden */
         }
 
         /* ===== DESKTOP STYLES ===== */
         @media (min-width: 769px) {
-            .navigation {
-                transform: translateX(0); /* Always visible on desktop */
-                position: fixed;
-            }
-            
-            body {
-                margin-left: 280px; /* Make room for sidebar on desktop */
-            }
-            
             .menu-toggle {
-                display: none; /* Hide hamburger on desktop */
+                display: flex; /* Show hamburger menu on desktop too */
             }
-            
+
             .nav-overlay {
-                display: none; /* No overlay needed on desktop */
+                display: block; /* Show overlay on desktop too */
             }
         }
 
@@ -1452,6 +1462,12 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(139,69,19,0.2);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Adjust CTA section when navigation is active */
+        .navigation.active ~ .cta-section {
+            margin-left: 280px;
         }
 
         .cta-section::before {
@@ -1624,6 +1640,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Adjust hero section when navigation is active */
+        .navigation.active ~ .artist-hero {
+            margin-left: 280px;
         }
 
         .artist-content {
@@ -1725,8 +1747,10 @@
     <nav class="navigation" id="navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE">
-                <a href="index.html" class="logo">ARI ZED</a>
+                <a href="index.html">
+                    <img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE">
+                </a>
+                <a href="contact.html" class="logo">ARI ZED</a>
             </div>
             
             <ul class="nav-menu" id="navMenu">
@@ -1904,76 +1928,157 @@
 
     <script>
         // ===== MOBILE NAVIGATION FUNCTIONALITY =====
+        // Enhanced Menu toggle functionality (copied from working index.html)
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menuToggle');
             const navigation = document.getElementById('navigation');
-            const navOverlay = document.getElementById('navOverlay');
             const navMenu = document.getElementById('navMenu');
-            
-            function openMenu() {
-                navigation.classList.add('active');
-                navOverlay.classList.add('active');
-                menuToggle.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            if (menuToggle && navigation) {
+                menuToggle.addEventListener('click', function() {
+                    navigation.classList.toggle('active');
+                    menuToggle.classList.toggle('open');
+                });
+
+                // Close menu when clicking on a link
+                if (navMenu) {
+                    // Handle main nav links (but not toggles)
+                    navMenu.querySelectorAll('li > a').forEach(link => {
+                        if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle' && link.id !== 'filterToggle')) {
+                            link.addEventListener('click', () => {
+                                navigation.classList.remove('active');
+                                menuToggle.classList.remove('open');
+                            });
+                        }
+                    });
+
+                    // Handle exhibition items (keep menu open after click)
+                    navMenu.querySelectorAll('.exhibition-item').forEach(link => {
+                        link.addEventListener('click', () => {
+                            // Don't close menu for exhibition items - user wants to see results and potentially select other exhibitions
+                        });
+                    });
+
+                    // Handle filter items (keep menu open after click)
+                    navMenu.querySelectorAll('.filter-item').forEach(link => {
+                        link.addEventListener('click', () => {
+                            // Don't close menu for filter items - user wants to see results and potentially select other filters
+                        });
+                    });
+                }
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!menuToggle.contains(e.target) &&
+                        !navigation.contains(e.target) &&
+                        navigation.classList.contains('active')) {
+                        navigation.classList.remove('active');
+                        menuToggle.classList.remove('open');
+                    }
+                });
             }
-            
-            function closeMenu() {
-                navigation.classList.remove('active');
-                navOverlay.classList.remove('active');
-                menuToggle.classList.remove('open');
-                document.body.style.overflow = ''; // Restore scrolling
+
+            // Setup exhibitions toggle
+            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
+            if (exhibitionsToggle) {
+                console.log('Exhibitions toggle found, adding click listener');
+                exhibitionsToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Exhibitions toggle clicked');
+
+                    const submenu = document.getElementById('exhibitionSubmenu');
+                    const toggle = document.getElementById('exhibitionsToggle');
+
+                    console.log('Before toggle - submenu classes:', submenu.classList.toString());
+                    console.log('Before toggle - toggle classes:', toggle.classList.toString());
+
+                    // Toggle exhibition submenu
+                    submenu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+
+                    // If exhibitions submenu is now active, close filter submenu
+                    if (submenu.classList.contains('active')) {
+                        const filterSubmenu = document.getElementById('filterSubmenu');
+                        const filterToggle = document.getElementById('filterToggle');
+                        filterSubmenu.classList.remove('active');
+                        filterToggle.classList.remove('active');
+                    }
+
+                    console.log('After toggle - submenu classes:', submenu.classList.toString());
+                    console.log('After toggle - toggle classes:', toggle.classList.toString());
+                });
+            } else {
+                console.log('Exhibitions toggle NOT found!');
             }
-            
-            // Toggle menu on hamburger click
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function(e) {
+
+            // Setup filter toggle
+            const filterToggle = document.getElementById('filterToggle');
+            console.log('Filter toggle element:', filterToggle);
+
+            if (filterToggle) {
+                console.log('Setting up filter toggle click listener');
+
+                filterToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
                     e.stopPropagation();
-                    if (navigation.classList.contains('active')) {
-                        closeMenu();
+
+                    console.log('Filter toggle clicked');
+
+                    const submenu = document.getElementById('filterSubmenu');
+                    const toggle = document.getElementById('filterToggle');
+
+                    console.log('Before toggle - submenu:', submenu?.classList.toString());
+                    console.log('Before toggle - toggle:', toggle?.classList.toString());
+
+                    // Force set the classes instead of toggling to ensure proper state
+                    const isCurrentlyActive = submenu.classList.contains('active');
+
+                    if (isCurrentlyActive) {
+                        // Close the submenu
+                        submenu.classList.remove('active');
+                        toggle.classList.remove('active');
+                        console.log('Closing filter submenu');
                     } else {
-                        openMenu();
+                        // Open the submenu
+                        submenu.classList.add('active');
+                        toggle.classList.add('active');
+
+                        // Close exhibition submenu
+                        const exhibitionSubmenu = document.getElementById('exhibitionSubmenu');
+                        const exhibitionToggle = document.getElementById('exhibitionsToggle');
+                        exhibitionSubmenu.classList.remove('active');
+                        exhibitionToggle.classList.remove('active');
+
+                        console.log('Opening filter submenu');
                     }
-                });
-            }
-            
-            // Close menu on overlay click
-            if (navOverlay) {
-                navOverlay.addEventListener('click', closeMenu);
-            }
-            
-            // Close menu when clicking on navigation links
-            if (navMenu) {
-                navMenu.querySelectorAll('li > a').forEach(link => {
-                    // Don't close on dropdown toggles
-                    if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle' && link.id !== 'filterToggle')) {
-                        link.addEventListener('click', closeMenu);
-                    }
+
+                    console.log('After toggle - submenu:', submenu?.classList.toString());
+                    console.log('After toggle - toggle:', toggle?.classList.toString());
+
+                    // Force style update to ensure CSS transitions work
+                    setTimeout(() => {
+                        submenu.style.display = submenu.classList.contains('active') ? 'block' : 'none';
+                        console.log('Forced style update - submenu display:', getComputedStyle(submenu).display);
+                        console.log('Forced style update - submenu maxHeight:', getComputedStyle(submenu).maxHeight);
+                    }, 10);
                 });
 
-                // Close menu when clicking on exhibition items
-                navMenu.querySelectorAll('.exhibition-item').forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                });
-
-                // Close menu when clicking on filter items
-                navMenu.querySelectorAll('.filter-item').forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                });
+                // Also add a fallback click handler directly on the element
+                filterToggle.onclick = (e) => {
+                    console.log('Filter toggle onclick triggered');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // The main event listener should handle this
+                };
+            } else {
+                console.error('Filter toggle element not found!');
             }
-            
-            // Close menu on window resize if mobile
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    closeMenu(); // Close mobile menu if switching to desktop
-                }
-            });
-            
-            // Handle escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && navigation.classList.contains('active')) {
-                    closeMenu();
-                }
-            });
+
+            // Initialize menu as open on artworks page (unique to this page)
+            if (navigation && menuToggle) {
+                navigation.classList.add('active');
+                menuToggle.classList.add('open');
+            }
 
             // Initialize gallery
             initializeGallery();
@@ -2415,19 +2520,7 @@
 
         // Exhibition filters and toggle functionality
         function setupExhibitionFilters() {
-            // Setup exhibitions toggle first
-            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
-            if (exhibitionsToggle) {
-                exhibitionsToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    const submenu = document.getElementById('exhibitionSubmenu');
-                    const toggle = document.getElementById('exhibitionsToggle');
-                    
-                    submenu.classList.toggle('active');
-                    toggle.classList.toggle('active');
-                });
-            }
+            // Note: exhibitions toggle is already set up in main navigation setup
 
             // Setup exhibition item filters
             const exhibitionItems = document.querySelectorAll('.exhibition-item');
@@ -2448,19 +2541,6 @@
                 });
             });
 
-            // Setup filter toggle
-            const filterToggle = document.getElementById('filterToggle');
-            if (filterToggle) {
-                filterToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    const submenu = document.getElementById('filterSubmenu');
-                    const toggle = document.getElementById('filterToggle');
-                    
-                    submenu.classList.toggle('active');
-                    toggle.classList.toggle('active');
-                });
-            }
 
             // Setup filter item handlers
             const filterItems = document.querySelectorAll('.filter-item');
