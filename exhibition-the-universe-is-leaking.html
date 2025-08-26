@@ -1442,39 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "the-universe-is-leaking",
-  "name": "The Universe Is Leaking",
-  "description": "A cosmic meditation on the fragility of reality and the permeable boundaries between dimensions. This exhibition explores themes of cosmic consciousness and the infinite nature of being.",
-  "year": 2021,
-  "startDate": "2021-06-01",
-  "endDate": "2021-08-31",
-  "location": "Perth Institute of Contemporary Arts",
-  "curator": "Dr. James Franklin",
-  "thumbnailImage": "images/artworks/medium/the-universe-is-leaking.jpg",
-  "artworks": [
-    "plenum-endgame",
-    "rolling",
-    "nyx-and-the-fates-85x105cm-2021",
-    "fete-of-the-dark-veiler",
-    "dream",
-    "brainforrest",
-    "embeded",
-    "endymion-moon-lover-",
-    "flowering",
-    "i-of-the-storm-120x160cm",
-    "red-wanderer",
-    "the-universe-is-leaking",
-    "thinking-allowed",
-    "ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality",
-    "unlocked",
-    "welcome-to-forever",
-    "homunculus-crossing-the-alps-on-life-world",
-    "flow",
-    "uberchu"
-  ],
-  "documentation": []
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter

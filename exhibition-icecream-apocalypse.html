@@ -1442,29 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "icecream-apocalypse",
-  "name": "Icecream apocalypse",
-  "description": "A surreal exploration of consumer culture and environmental collapse, where sweet indulgence meets existential dread in a world turned upside down.",
-  "year": 2016,
-  "startDate": "2016-07-01",
-  "endDate": "2016-09-30",
-  "location": "Alternative Art Space, Northbridge",
-  "curator": "Alex Thompson",
-  "thumbnailImage": "images/artworks/medium/ice-cream-apocalypse.jpg",
-  "artworks": [
-    "the-mystic-and-the-alchemist-met-in-the-desert",
-    "hannibal-crossing-the-alps",
-    "mordory",
-    "ulysses",
-    "general-relativity",
-    "ice-cream-apocalypse",
-    "the-wild-west",
-    "reckoning-of-the-crystal-mud-fragment",
-    "gods-light-and-the-drone"
-  ],
-  "documentation": []
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter

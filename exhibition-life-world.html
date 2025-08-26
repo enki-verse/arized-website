@@ -1442,48 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "life-world",
-  "name": "Life world",
-  "description": "An immersive exploration of interconnected ecosystems and mythical realms, where organic forms merge with cosmic landscapes to create a unified vision of life's complexity.",
-  "year": 2018,
-  "startDate": "2018-04-20",
-  "endDate": "2018-07-15",
-  "location": "Gallery Central, Perth",
-  "curator": "Maria Santos",
-  "thumbnailImage": "images/artworks/thumbnails/elstir-on-a-sojourn-through-the-dark-rocky-caverns.jpg",
-  "artworks": [
-    "a-moment-in-the-shade-before-returning-to-the-ship-",
-    "adapa-lived-here-on-life-world",
-    "cloud-sinus-biosphere-layer-on-life-world",
-    "engulfing-emerging-swelling-embodiments-after-gods-mind-was-fractured-and-the-universe-began-its-dispersive-sensitive-chaos-the-origin-rock-",
-    "frumblings-in-the-belly-o-matic-",
-    "giant-on-utopia",
-    "improv-dance-on-nyseion-76-x-61cm",
-    "iron-egg-mountains-near-the-entrance-to-yrya-s-cave-",
-    "keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world",
-    "life-world",
-    "life-world-wet-ware-mushroom-computer",
-    "lost-utopians",
-    "nyseion-1",
-    "nyseion-2",
-    "nyseion-3",
-    "ouranous",
-    "snakes-and-ladders-",
-    "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace",
-    "the-dangers-of-finally-finding-yourself-on-a-plane-of-unknowing-a-melting-jelly-the-giants-that-helped-construct-utopia-and-roam-on-life-world-are-born-from-eggs-that-are-scattered-through-the-galaxy",
-    "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-",
-    "thoughts-blinding-on-mountain-plane-robes-of-felt-andfat-",
-    "transportal-geometric-on-the-road-to-olympus",
-    "wanderer-in-the-mist",
-    "wanderer-in-the-ouranous-gardens",
-    "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world",
-    "i-dream-of-genesis",
-    "elstir-on-a-sojourn-through-the-dark-rocky-caverns",
-    "floating-castle"
-  ],
-  "documentation": []
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter

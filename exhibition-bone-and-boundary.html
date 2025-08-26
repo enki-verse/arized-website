@@ -1442,37 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "bone-and-boundary",
-  "name": "Bone and Boundary",
-  "description": "An introspective journey through the liminal spaces between life and death, exploring the boundaries that define our existence and the profound mysteries that lie beyond.",
-  "year": 2021,
-  "startDate": "2021-09-10",
-  "endDate": "2021-11-15",
-  "location": "Fremantle Arts Centre",
-  "curator": "Sarah Mitchell",
-  "thumbnailImage": "images/artworks/medium/plenum-endgame.jpg",
-  "artworks": [
-    "plenum-endgame",
-    "rolling",
-    "who-is-dreaming-who",
-    "golden-dawn",
-    "luna",
-    "fahrenheit-451",
-    "synonym-antonym",
-    "uberchu",
-    "fete-of-the-dark-veiler",
-    "endymion-moon-lover-"
-  ],
-  "documentation": [
-    {
-      "type": "document",
-      "filename": "bone-and-boundary-review.pdf",
-      "caption": "Critical review from Art Monthly Australia",
-      "path": "images/documentation/bone-and-boundary-review.pdf"
-    }
-  ]
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter

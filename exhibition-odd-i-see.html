@@ -1442,57 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "odd-i-see",
-  "name": "ODD I SEE",
-  "description": "A contemporary exploration of perception and reality through surreal landscapes and abstract forms. This exhibition challenges viewers to question what they see and understand the hidden dimensions of consciousness.",
-  "year": 2024,
-  "startDate": "2024-03-15",
-  "endDate": "2024-05-30",
-  "location": "Contemporary Art Gallery, Perth",
-  "curator": "Ari Zed",
-  "thumbnailImage": "images/artworks/medium/the-fairy-raid-230cm-140cm.jpg",
-  "artworks": [
-    "the-fairy-raid-230cm-140cm",
-    "caverns-measureless-to-man",
-    "dreamer-2",
-    "monkey-magic",
-    "where-alph-the-sacred-river-ran",
-    "the-fertile-ascent",
-    "arc",
-    "milk-of-paradise",
-    "pleasure-dome-decree",
-    "twice-five-miles-of-fertile-ground",
-    "earths-core",
-    "gateway",
-    "growing-and-dying",
-    "portal",
-    "the-path-to-freedom",
-    "cowboy-engulfed",
-    "sky-castle",
-    "timeless-watch",
-    "orb-it",
-    "armchair-traveler",
-    "rosy-fingers",
-    "through-caverns-measureless-to-man-down-to-a-sunless-sea",
-    "substance",
-    "momento",
-    "dreamer-1",
-    "escape-velocity",
-    "final-participation",
-    "rotas-opera",
-    "wanderer"
-  ],
-  "documentation": [
-    {
-      "type": "document",
-      "filename": "odd-i-see-catalog.pdf",
-      "caption": "Exhibition catalog with essay by the artist",
-      "path": "images/documentation/odd-i-see-catalog.pdf"
-    }
-  ]
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter
@@ -1897,8 +1847,11 @@
         // Initialize the gallery
         async function initializeGallery() {
             try {
-                // Use embedded exhibition data directly
-                // exhibitionData is already defined at the top of the script
+                // Load exhibition data dynamically from documentation.json
+                const exhibitionId = getExhibitionIdFromURL();
+                if (exhibitionId) {
+                    exhibitionData = await loadExhibitionData(exhibitionId);
+                }
 
                 // Load artworks data
                 artworks = await loadArtworks();
@@ -1912,9 +1865,6 @@
                 // Render gallery and documentation
                 renderGallery();
                 renderDocumentation();
-
-                // Setup lightbox event handlers
-                setupLightboxEventHandlers();
 
                 // Setup lightbox event handlers
                 setupLightboxEventHandlers();

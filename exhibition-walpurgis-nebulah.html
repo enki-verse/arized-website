@@ -1442,59 +1442,7 @@
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
         let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = {
-  "id": "walpurgis-nebulah",
-  "name": "Walpurgis Nebulah",
-  "description": "A mystical journey through otherworldly landscapes and cosmic phenomena, exploring themes of transformation, ritual, and the intersection between the earthly and the divine.",
-  "year": 2017,
-  "startDate": "2017-10-31",
-  "endDate": "2018-01-15",
-  "location": "Underground Gallery, Fremantle",
-  "curator": "Ari Zed",
-  "thumbnailImage": "images/artworks/medium/nagual-morphology.jpg",
-  "artworks": [
-    "archean-eon-",
-    "hunting-for-yrya-in-the-iron-egg-mountains",
-    "the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim",
-    "blueshifted",
-    "an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be",
-    "the-coronation-of-the-emperor-eolian",
-    "space-slug-",
-    "retroactive-force-rhinoceros-",
-    "nimbless-numinance-limbless-exuberance",
-    "the-task-of-flowers",
-    "post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history",
-    "thought-embodied-stones-",
-    "forever-through-this-mist-of-desire",
-    "nagual-morphology"
-  ],
-  "documentation": [
-    {
-      "type": "image",
-      "filename": "walpurgis-nebulah-1756196778290-red-gallery-harry-zed-hughes-4-smaller_orig.jpg",
-      "caption": "red-gallery-harry-zed-hughes-4-smaller_orig.jpg",
-      "path": "images/documentation/walpurgis-nebulah-1756196778290-red-gallery-harry-zed-hughes-4-smaller_orig.jpg"
-    },
-    {
-      "type": "image",
-      "filename": "walpurgis-nebulah-1756196780853-red-gallery-harry-zed-hughes-1-smaller_orig.jpg",
-      "caption": "red-gallery-harry-zed-hughes-1-smaller_orig.jpg",
-      "path": "images/documentation/walpurgis-nebulah-1756196780853-red-gallery-harry-zed-hughes-1-smaller_orig.jpg"
-    },
-    {
-      "type": "image",
-      "filename": "walpurgis-nebulah-1756196784925-red-gallery-harry-zed-hughes-2-smaller_orig.jpg",
-      "caption": "red-gallery-harry-zed-hughes-2-smaller_orig.jpg",
-      "path": "images/documentation/walpurgis-nebulah-1756196784925-red-gallery-harry-zed-hughes-2-smaller_orig.jpg"
-    },
-    {
-      "type": "image",
-      "filename": "walpurgis-nebulah-1756196786848-red-gallery-harry-zed-hughes-7-smaller_orig.jpg",
-      "caption": "red-gallery-harry-zed-hughes-7-smaller_orig.jpg",
-      "path": "images/documentation/walpurgis-nebulah-1756196786848-red-gallery-harry-zed-hughes-7-smaller_orig.jpg"
-    }
-  ]
-};
+        let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
         // Get exhibition ID from URL parameter
