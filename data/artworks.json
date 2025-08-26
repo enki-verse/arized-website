@@ -2308,6 +2308,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:32:04.434Z"
+    },
+    {
+      "id": "the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim",
+      "title": "The Catullus agent is the dream that qualifies the quantity we swim",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "120 x 160 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim.jpg",
+        "medium": "images/artworks/medium/the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim.jpg",
+        "large": "images/artworks/large/the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:32:13.587Z"
     }
   ]
 }
