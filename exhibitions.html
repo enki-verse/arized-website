@@ -236,8 +236,8 @@
         /* Exhibition grid */
         .exhibitions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
@@ -257,7 +257,7 @@
 
         .exhibition-thumbnail {
             width: 100%;
-            height: 250px;
+            aspect-ratio: 1;
             background: #f8f8f8;
             overflow: hidden;
             position: relative;
@@ -270,51 +270,38 @@
             transition: transform 0.3s ease;
         }
 
+        .exhibition-title-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .exhibition-title-overlay .exhibition-title {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            text-align: center;
+            padding: 1rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .exhibition-card:hover .exhibition-title-overlay {
+            opacity: 1;
+        }
+
         .exhibition-card:hover .exhibition-thumbnail img {
             transform: scale(1.05);
-        }
-
-        .exhibition-info {
-            padding: 1.5rem;
-        }
-
-        .exhibition-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-primary);
-            margin: 0 0 0.5rem 0;
-            line-height: 1.3;
-        }
-
-        .exhibition-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .exhibition-year {
-            font-weight: 500;
-        }
-
-        .exhibition-count {
-            background: var(--accent-gold);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .exhibition-description {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9375rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin: 0;
         }
 
         /* Loading state */
@@ -636,12 +623,17 @@
 
             .exhibitions-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
 
             .exhibition-card {
                 margin: 0 auto;
                 max-width: 400px;
+            }
+
+            .exhibition-title-overlay .exhibition-title {
+                font-size: 1.1rem;
+                padding: 0.75rem;
             }
         }
     </style>
@@ -849,14 +841,9 @@
                     <div class="exhibition-card" onclick="viewExhibition('${exhibition.id}')">
                         <div class="exhibition-thumbnail">
                             <img src="${thumbnailUrl}" alt="${exhibition.name}" loading="lazy">
-                        </div>
-                        <div class="exhibition-info">
-                            <h3 class="exhibition-title">${exhibition.name}</h3>
-                            <div class="exhibition-meta">
-                                <span class="exhibition-year">${exhibition.year}</span>
-                                <span class="exhibition-count">${artworkCount} works</span>
+                            <div class="exhibition-title-overlay">
+                                <h3 class="exhibition-title">${exhibition.name}</h3>
                             </div>
-                            <p class="exhibition-description">${exhibition.description}</p>
                         </div>
                     </div>
                 `;

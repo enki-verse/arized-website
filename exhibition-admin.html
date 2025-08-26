@@ -305,14 +305,81 @@
             color: var(--accent-gold);
             font-weight: 500;
         }
+
+        /* Setup section styles */
+        .setup-section {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .setup-section h2 {
+            color: #92400e;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .setup-section p {
+            color: #92400e;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Status message styles */
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="admin-header">
-            <h1 class="admin-title">Exhibition Admin</h1>
-            <p class="admin-subtitle">Manage exhibitions, artworks, and documentation</p>
+        <!-- GitHub Setup Section -->
+        <div class="setup-section" id="setupSection">
+            <h2>🔐 GitHub Configuration</h2>
+            <p>Enter your GitHub details to enable exhibition management with commits:</p>
+
+            <div class="form-group">
+                <label class="form-label" for="githubRepo">GitHub Repository (username/repo-name)</label>
+                <input type="text" id="githubRepo" class="form-input" placeholder="e.g., enki-verse/arized-website" value="">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="githubTokenInput">GitHub Personal Access Token</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="password" id="githubTokenInput" class="form-input" placeholder="ghp_xxxxxxxxxxxx">
+                    <button class="btn btn-primary" onclick="saveConfig()">Save & Start</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <button class="btn btn-secondary" onclick="testGitHubConnection()">Test Connection</button>
+                <div id="testResult" style="margin-top: 10px; display: none;"></div>
+            </div>
         </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <div id="adminPanel" style="opacity: 0.5; pointer-events: none;">
+            <div class="admin-header">
+                <h1 class="admin-title">Exhibition Admin</h1>
+                <p class="admin-subtitle">Manage exhibitions, artworks, and documentation</p>
+            </div>
 
         <div class="admin-nav">
             <button class="nav-tab active" data-section="manage">Manage Exhibitions</button>
@@ -377,9 +444,43 @@
         <!-- Set Thumbnails Section -->
         <div id="thumbnails-section" class="admin-section">
             <h2 class="section-title">Set Exhibition Thumbnails</h2>
-            <div id="thumbnail-manager">
-                <!-- Thumbnail management will be loaded here -->
+            <div class="form-group">
+                <label class="form-label" for="thumbnail-exhibition-select">Select Exhibition</label>
+                <select id="thumbnail-exhibition-select" class="form-select" onchange="loadExhibitionImages()">
+                    <!-- Exhibitions will be loaded here -->
+                </select>
             </div>
+
+            <!-- Exhibition Images Grid -->
+            <div id="exhibition-images" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Select from Exhibition Artworks</label>
+                    <div id="exhibition-artwork-thumbnails" class="artwork-selector">
+                        <!-- Artwork thumbnails will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Select from Exhibition Documentation</label>
+                    <div id="exhibition-document-thumbnails" class="artwork-selector">
+                        <!-- Documentation thumbnails will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Upload Option -->
+            <div class="form-group">
+                <label class="form-label">Or Upload Custom Thumbnail</label>
+                <div class="file-upload-area">
+                    <p>Drag and drop an image here or <label for="thumbnail-input" class="file-upload-label">click to browse</label></p>
+                    <input type="file" id="thumbnail-input" class="file-input" accept="image/*">
+                </div>
+                <div id="thumbnail-preview" style="margin-top: 1rem; display: none;">
+                    <img id="thumbnail-preview-img" style="max-width: 200px; max-height: 150px; border: 1px solid var(--border-medium); border-radius: 6px;">
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="setSelectedThumbnail()">Set Selected Thumbnail</button>
         </div>
 
         <!-- Upload Documentation Section -->
@@ -401,17 +502,250 @@
                 <!-- Uploaded files will be listed here -->
             </div>
 
-            <button class="btn btn-primary">Upload Files</button>
+            <button class="btn btn-primary" onclick="uploadDocumentation()">Upload Files</button>
+        </div>
         </div>
     </div>
 
     <script>
+        // Configuration
+        let CONFIG = {
+            githubRepo: 'enki-verse/arized-website',
+            githubToken: 'YOUR_GITHUB_TOKEN_HERE'
+        };
+
+        // State
+        let currentExhibitions = [];
+        let currentArtworks = [];
+
+        // Check for saved config
+        const savedRepo = localStorage.getItem('githubRepo');
+        if (savedRepo) {
+            document.getElementById('githubRepo').value = savedRepo;
+        }
+
+        // Auto-start if token is configured
+        if (CONFIG.githubToken && CONFIG.githubToken !== 'YOUR_GITHUB_TOKEN_HERE') {
+            window.addEventListener('DOMContentLoaded', () => {
+                if (CONFIG.githubRepo) {
+                    saveConfig();
+                }
+            });
+        }
+
+        // Save configuration
+        function saveConfig() {
+            let repo = document.getElementById('githubRepo').value.trim();
+            let token = document.getElementById('githubTokenInput').value.trim();
+
+            if (!token && CONFIG.githubToken && CONFIG.githubToken !== 'YOUR_GITHUB_TOKEN_HERE') {
+                token = CONFIG.githubToken;
+            }
+
+            if (!repo && CONFIG.githubRepo) {
+                repo = CONFIG.githubRepo;
+            }
+
+            if (!repo || !token) {
+                showStatus('Please enter both repository and token', 'error');
+                return;
+            }
+
+            // Clean repo format
+            let cleanRepo = repo;
+            if (repo.includes('github.com/')) {
+                cleanRepo = repo.split('github.com/')[1];
+            }
+            if (cleanRepo.endsWith('.git')) {
+                cleanRepo = cleanRepo.slice(0, -4);
+            }
+
+            CONFIG.githubRepo = cleanRepo;
+            CONFIG.githubToken = token;
+
+            localStorage.setItem('githubRepo', cleanRepo);
+
+            document.getElementById('adminPanel').style.opacity = '1';
+            document.getElementById('adminPanel').style.pointerEvents = 'auto';
+            document.getElementById('setupSection').style.display = 'none';
+
+            showStatus(`Configuration saved! Repository: ${cleanRepo}`, 'success');
+
+            // Load data after configuration
+            initializeAdmin();
+        }
+
+        // Test GitHub connection
+        async function testGitHubConnection() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubTokenInput').value.trim();
+            const resultDiv = document.getElementById('testResult');
+
+            if (!repo || !token) {
+                resultDiv.innerHTML = '<span style="color: red;">Please enter both repository and token</span>';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            resultDiv.innerHTML = '<span style="color: blue;">Testing connection...</span>';
+            resultDiv.style.display = 'block';
+
+            let cleanRepo = repo;
+            if (repo.includes('github.com/')) {
+                cleanRepo = repo.split('github.com/')[1];
+            }
+            if (cleanRepo.endsWith('.git')) {
+                cleanRepo = cleanRepo.slice(0, -4);
+            }
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${cleanRepo}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (response.ok) {
+                    const repoData = await response.json();
+                    resultDiv.innerHTML = `<span style="color: green;">✓ Connected to: ${repoData.full_name}</span>`;
+                } else {
+                    resultDiv.innerHTML = `<span style="color: red;">✗ Connection failed: ${response.status}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span style="color: red;">✗ Connection error: ${error.message}</span>`;
+            }
+        }
+
+        // Show status message
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message status-${type}`;
+            statusEl.style.display = 'block';
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // GitHub API functions
+        async function getFileContent(path) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (response.status === 404) {
+                    return null;
+                }
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error getting file:', error);
+                throw error;
+            }
+        }
+
+        async function createOrUpdateFile(path, content, message) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+
+            const existingFile = await getFileContent(path);
+
+            const body = {
+                message: message,
+                content: content,
+                branch: 'main'
+            };
+
+            if (existingFile) {
+                body.sha = existingFile.sha;
+            }
+
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(`GitHub API error: ${error.message}`);
+            }
+
+            return await response.json();
+        }
+
+        async function updateFile(path, content, sha) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+
+            const body = {
+                message: `Update ${path}`,
+                content: btoa(content),
+                branch: 'main'
+            };
+
+            if (sha) {
+                body.sha = existingFile.sha;
+            }
+
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(`GitHub API error: ${error.message}`);
+            }
+
+            return await response.json();
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
         // Load exhibitions data
         async function loadExhibitions() {
             try {
-                const response = await fetch('data/documentation.json');
-                const data = await response.json();
-                return data.exhibitions || [];
+                // Load from GitHub repository (same as exhibitions.html)
+                const exhibitionsResponse = await fetch(`https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/data/documentation.json`);
+                if (exhibitionsResponse.ok) {
+                    const data = await exhibitionsResponse.json();
+                    return data.exhibitions || [];
+                } else {
+                    throw new Error(`Failed to load exhibitions: ${exhibitionsResponse.status}`);
+                }
             } catch (error) {
                 console.error('Error loading exhibitions:', error);
                 return [];
@@ -421,9 +755,14 @@
         // Load artworks data
         async function loadArtworks() {
             try {
-                const response = await fetch('data/artworks.json');
-                const data = await response.json();
-                return data.artworks || [];
+                // Load from GitHub repository (same as exhibitions.html)
+                const artworksResponse = await fetch(`https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/data/artworks.json`);
+                if (artworksResponse.ok) {
+                    const data = await artworksResponse.json();
+                    return data.artworks || [];
+                } else {
+                    throw new Error(`Failed to load artworks: ${artworksResponse.status}`);
+                }
             } catch (error) {
                 console.error('Error loading artworks:', error);
                 return [];
@@ -439,43 +778,76 @@
                 return;
             }
 
-            listElement.innerHTML = exhibitions.map(exhibition => `
-                <div class="exhibition-item">
-                    <img src="${exhibition.thumbnail || 'images/placeholder.jpg'}"
-                         alt="${exhibition.name}"
-                         class="exhibition-thumbnail-preview">
-                    <div class="exhibition-details">
-                        <div class="exhibition-name">${exhibition.name}</div>
-                        <div class="exhibition-meta">${exhibition.year} • ${exhibition.artworks?.length || 0} artworks</div>
+            listElement.innerHTML = exhibitions.map(exhibition => {
+                const thumbnailUrl = exhibition.thumbnailImage || 'images/placeholder.jpg';
+                const artworkCount = exhibition.artworks ? exhibition.artworks.length : 0;
+                const location = exhibition.location || 'TBD';
+                const year = exhibition.year || 'TBD';
+
+                return `
+                    <div class="exhibition-item">
+                        <img src="${thumbnailUrl}"
+                             alt="${exhibition.name}"
+                             class="exhibition-thumbnail-preview">
+                        <div class="exhibition-details">
+                            <div class="exhibition-name">${exhibition.name}</div>
+                            <div class="exhibition-meta">${year} • ${location} • ${artworkCount} artworks</div>
+                        </div>
+                        <div class="exhibition-actions">
+                            <button class="btn btn-secondary" onclick="editExhibition('${exhibition.id}')">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteExhibition('${exhibition.id}')">Delete</button>
+                        </div>
                     </div>
-                    <div class="exhibition-actions">
-                        <button class="btn btn-secondary" onclick="editExhibition('${exhibition.id}')">Edit</button>
-                        <button class="btn btn-danger" onclick="deleteExhibition('${exhibition.id}')">Delete</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Render artwork selector
         function renderArtworkSelector(artworks) {
             const selectorElement = document.getElementById('artwork-selector');
 
-            selectorElement.innerHTML = artworks.map(artwork => `
-                <div class="artwork-option" data-artwork-id="${artwork.id}" onclick="toggleArtworkSelection('${artwork.id}')">
-                    <img src="${artwork.image_thumbnail}"
-                         alt="${artwork.title}"
-                         class="artwork-thumbnail">
-                    <div class="artwork-info">
-                        <div class="artwork-title">${artwork.title}</div>
+            selectorElement.innerHTML = artworks.map(artwork => {
+                const thumbnailUrl = artwork.images && artwork.images.thumbnail
+                    ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.thumbnail}`
+                    : 'images/placeholder.jpg';
+
+                return `
+                    <div class="artwork-option" data-artwork-id="${artwork.id}" onclick="toggleArtworkSelection('${artwork.id}')">
+                        <img src="${thumbnailUrl}"
+                             alt="${artwork.title}"
+                             class="artwork-thumbnail">
+                        <div class="artwork-info">
+                            <div class="artwork-title">${artwork.title}</div>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Toggle artwork selection
         function toggleArtworkSelection(artworkId) {
             const option = document.querySelector(`[data-artwork-id="${artworkId}"]`);
             option.classList.toggle('selected');
+        }
+
+        // Populate exhibition select dropdown
+        function populateExhibitionSelect(exhibitions) {
+            const selectElement = document.getElementById('exhibition-select');
+            const thumbnailSelectElement = document.getElementById('thumbnail-exhibition-select');
+
+            if (exhibitions.length === 0) {
+                selectElement.innerHTML = '<option value="">No exhibitions available</option>';
+                thumbnailSelectElement.innerHTML = '<option value="">No exhibitions available</option>';
+                return;
+            }
+
+            const options = '<option value="">Select an exhibition...</option>' +
+                exhibitions.map(exhibition =>
+                    `<option value="${exhibition.id}">${exhibition.name} (${exhibition.year})</option>`
+                ).join('');
+
+            selectElement.innerHTML = options;
+            thumbnailSelectElement.innerHTML = options;
         }
 
         // Navigation functionality
@@ -501,30 +873,590 @@
         // Initialize the admin panel
         async function initializeAdmin() {
             try {
+                showStatus('Loading exhibitions and artworks...', 'success');
+
                 const [exhibitions, artworks] = await Promise.all([
                     loadExhibitions(),
                     loadArtworks()
                 ]);
 
+                currentExhibitions = exhibitions;
+                currentArtworks = artworks;
+
                 renderExhibitionList(exhibitions);
                 renderArtworkSelector(artworks);
+                populateExhibitionSelect(exhibitions);
                 initializeNavigation();
+
+                showStatus('Data loaded successfully!', 'success');
             } catch (error) {
                 console.error('Error initializing admin:', error);
+                showStatus('Error loading data: ' + error.message, 'error');
             }
         }
 
         // Start the application
-        document.addEventListener('DOMContentLoaded', initializeAdmin);
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            initializeThumbnailInput();
+        });
 
-        // Placeholder functions for future implementation
+        // Initialize thumbnail input handler
+        function initializeThumbnailInput() {
+            const thumbnailInput = document.getElementById('thumbnail-input');
+            const thumbnailPreview = document.getElementById('thumbnail-preview');
+            const thumbnailPreviewImg = document.getElementById('thumbnail-preview-img');
+
+            thumbnailInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        thumbnailPreviewImg.src = e.target.result;
+                        thumbnailPreview.style.display = 'block';
+                        // Clear any selected exhibition images
+                        clearSelectedImages();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    thumbnailPreview.style.display = 'none';
+                }
+            });
+        }
+
+        // Load exhibition images for thumbnail selection
+        function loadExhibitionImages() {
+            const exhibitionSelect = document.getElementById('thumbnail-exhibition-select');
+            const selectedExhibitionId = exhibitionSelect.value;
+            const exhibitionImages = document.getElementById('exhibition-images');
+
+            if (!selectedExhibitionId) {
+                exhibitionImages.style.display = 'none';
+                return;
+            }
+
+            const exhibition = currentExhibitions.find(ex => ex.id === selectedExhibitionId);
+            if (!exhibition) {
+                exhibitionImages.style.display = 'none';
+                return;
+            }
+
+            exhibitionImages.style.display = 'block';
+            renderExhibitionArtworkThumbnails(exhibition);
+            renderExhibitionDocumentationThumbnails(exhibition);
+        }
+
+        // Render artwork thumbnails for the exhibition
+        function renderExhibitionArtworkThumbnails(exhibition) {
+            const container = document.getElementById('exhibition-artwork-thumbnails');
+
+            if (!exhibition.artworks || exhibition.artworks.length === 0) {
+                container.innerHTML = '<p>No artworks in this exhibition.</p>';
+                return;
+            }
+
+            // Get artwork details from currentArtworks
+            const exhibitionArtworks = currentArtworks.filter(artwork =>
+                exhibition.artworks.includes(artwork.id) ||
+                (artwork.exhibitions && artwork.exhibitions.includes(exhibition.name))
+            );
+
+            if (exhibitionArtworks.length === 0) {
+                container.innerHTML = '<p>No artwork thumbnails available.</p>';
+                return;
+            }
+
+            container.innerHTML = exhibitionArtworks.map(artwork => {
+                const thumbnailUrl = artwork.images && artwork.images.thumbnail
+                    ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.thumbnail}`
+                    : 'images/placeholder.jpg';
+
+                return `
+                    <div class="artwork-option" data-image-path="${artwork.images ? artwork.images.thumbnail : ''}" onclick="selectImage('${artwork.images ? artwork.images.thumbnail : ''}', this)">
+                        <img src="${thumbnailUrl}" alt="${artwork.title}" class="artwork-thumbnail">
+                        <div class="artwork-info">
+                            <div class="artwork-title">${artwork.title}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render documentation thumbnails for the exhibition
+        function renderExhibitionDocumentationThumbnails(exhibition) {
+            const container = document.getElementById('exhibition-document-thumbnails');
+
+            if (!exhibition.documentation || exhibition.documentation.length === 0) {
+                container.innerHTML = '<p>No documentation in this exhibition.</p>';
+                return;
+            }
+
+            container.innerHTML = exhibition.documentation
+                .filter(doc => doc.type === 'image')
+                .map(doc => {
+                    const thumbnailUrl = doc.path
+                        ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${doc.path}`
+                        : 'images/placeholder.jpg';
+
+                    return `
+                        <div class="artwork-option" data-image-path="${doc.path}" onclick="selectImage('${doc.path}', this)">
+                            <img src="${thumbnailUrl}" alt="${doc.caption || doc.filename}" class="artwork-thumbnail">
+                            <div class="artwork-info">
+                                <div class="artwork-title">${doc.caption || doc.filename}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+        }
+
+        // Handle image selection
+        function selectImage(imagePath, element) {
+            // Clear previous selections
+            clearSelectedImages();
+
+            // Clear custom upload preview
+            document.getElementById('thumbnail-preview').style.display = 'none';
+            document.getElementById('thumbnail-input').value = '';
+
+            // Select this image
+            element.classList.add('selected');
+            element.dataset.selectedImage = imagePath;
+        }
+
+        // Clear selected images
+        function clearSelectedImages() {
+            document.querySelectorAll('#exhibition-artwork-thumbnails .artwork-option').forEach(option => {
+                option.classList.remove('selected');
+                delete option.dataset.selectedImage;
+            });
+            document.querySelectorAll('#exhibition-document-thumbnails .artwork-option').forEach(option => {
+                option.classList.remove('selected');
+                delete option.dataset.selectedImage;
+            });
+        }
+
+        // Create exhibition form handler
+        document.getElementById('create-exhibition-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const exhibitionName = formData.get('exhibition-name');
+            const exhibitionDescription = formData.get('exhibition-description');
+            const exhibitionYear = parseInt(formData.get('exhibition-year'));
+            const exhibitionDates = formData.get('exhibition-dates');
+            const exhibitionLocation = formData.get('exhibition-location');
+            const exhibitionCurator = formData.get('exhibition-curator');
+
+            // Get selected artworks
+            const selectedArtworks = Array.from(document.querySelectorAll('#artwork-selector .artwork-option.selected'))
+                .map(option => option.getAttribute('data-artwork-id'));
+
+            if (!exhibitionName || !exhibitionDescription || !exhibitionYear) {
+                showStatus('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (selectedArtworks.length === 0) {
+                showStatus('Please select at least one artwork', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Creating exhibition...', 'success');
+
+                // Generate ID from name
+                const exhibitionId = exhibitionName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
+
+                // Check if exhibition already exists
+                if (currentExhibitions.find(ex => ex.id === exhibitionId)) {
+                    showStatus('An exhibition with this name already exists', 'error');
+                    return;
+                }
+
+                // Create exhibition object
+                const newExhibition = {
+                    id: exhibitionId,
+                    name: exhibitionName,
+                    description: exhibitionDescription,
+                    year: exhibitionYear,
+                    startDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                    endDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                    location: exhibitionLocation || null,
+                    curator: exhibitionCurator || null,
+                    thumbnailImage: null, // Will be set later in thumbnail management
+                    artworks: selectedArtworks,
+                    documentation: []
+                };
+
+                // Add to current exhibitions
+                currentExhibitions.push(newExhibition);
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                // Commit to GitHub
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Add new exhibition: ${exhibitionName}`
+                );
+
+                // Refresh display
+                renderExhibitionList(currentExhibitions);
+
+                // Reset form
+                this.reset();
+                document.querySelectorAll('#artwork-selector .artwork-option.selected').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // Reset button text back to "Create Exhibition"
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.textContent = 'Create Exhibition';
+                }
+
+                showStatus(`Exhibition "${exhibitionName}" created successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Error creating exhibition:', error);
+                showStatus('Error creating exhibition: ' + error.message, 'error');
+            }
+        });
+
+        // Edit exhibition functionality
         function editExhibition(id) {
-            console.log('Edit exhibition:', id);
+            const exhibition = currentExhibitions.find(ex => ex.id === id);
+            if (!exhibition) {
+                showStatus('Exhibition not found', 'error');
+                return;
+            }
+
+            // Switch to create tab and populate form
+            document.querySelector('[data-section="create"]').click();
+
+            // Populate form with exhibition data
+            document.getElementById('exhibition-name').value = exhibition.name;
+            document.getElementById('exhibition-description').value = exhibition.description;
+            document.getElementById('exhibition-year').value = exhibition.year;
+            document.getElementById('exhibition-dates').value = exhibition.startDate || '';
+            document.getElementById('exhibition-location').value = exhibition.location || '';
+            document.getElementById('exhibition-curator').value = exhibition.curator || '';
+
+            // Clear any existing selections first
+            document.querySelectorAll('#artwork-selector .artwork-option.selected').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Select artworks - delay to ensure DOM is ready and artworks are rendered
+            setTimeout(() => {
+                exhibition.artworks.forEach(artworkId => {
+                    const option = document.querySelector(`[data-artwork-id="${artworkId}"]`);
+                    if (option) {
+                        option.classList.add('selected');
+                    }
+                });
+            }, 200);
+
+            // Change form to update mode
+            const form = document.getElementById('create-exhibition-form');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Update Exhibition';
+            submitBtn.onclick = () => updateExhibition(id);
         }
 
-        function deleteExhibition(id) {
-            console.log('Delete exhibition:', id);
+        // Update exhibition
+        async function updateExhibition(id) {
+            const formData = new FormData(document.getElementById('create-exhibition-form'));
+            const exhibitionName = formData.get('exhibition-name');
+            const exhibitionDescription = formData.get('exhibition-description');
+            const exhibitionYear = parseInt(formData.get('exhibition-year'));
+            const exhibitionDates = formData.get('exhibition-dates');
+            const exhibitionLocation = formData.get('exhibition-location');
+            const exhibitionCurator = formData.get('exhibition-curator');
+
+            // Get selected artworks
+            const selectedArtworks = Array.from(document.querySelectorAll('#artwork-selector .artwork-option.selected'))
+                .map(option => option.getAttribute('data-artwork-id'));
+
+            if (!exhibitionName || !exhibitionDescription || !exhibitionYear) {
+                showStatus('Please fill in all required fields', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Updating exhibition...', 'success');
+
+                // Find and update exhibition
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === id);
+                if (exhibitionIndex === -1) {
+                    showStatus('Exhibition not found', 'error');
+                    return;
+                }
+
+                currentExhibitions[exhibitionIndex] = {
+                    ...currentExhibitions[exhibitionIndex],
+                    name: exhibitionName,
+                    description: exhibitionDescription,
+                    year: exhibitionYear,
+                    startDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                    endDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                    location: exhibitionLocation || null,
+                    curator: exhibitionCurator || null,
+                    artworks: selectedArtworks
+                };
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                // Commit to GitHub
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Update exhibition: ${exhibitionName}`
+                );
+
+                // Refresh display
+                renderExhibitionList(currentExhibitions);
+
+                // Reset form
+                document.getElementById('create-exhibition-form').reset();
+                document.querySelectorAll('#artwork-selector .artwork-option.selected').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                // Reset button
+                const submitBtn = document.querySelector('#create-exhibition-form button[type="submit"]');
+                submitBtn.textContent = 'Create Exhibition';
+                submitBtn.onclick = null;
+
+                showStatus(`Exhibition "${exhibitionName}" updated successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Error updating exhibition:', error);
+                showStatus('Error updating exhibition: ' + error.message, 'error');
+            }
         }
+
+        // Delete exhibition
+        function deleteExhibition(id) {
+            const exhibition = currentExhibitions.find(ex => ex.id === id);
+            if (!exhibition) {
+                showStatus('Exhibition not found', 'error');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete "${exhibition.name}"? This action cannot be undone.`)) {
+                return;
+            }
+
+            deleteExhibitionConfirmed(id);
+        }
+
+        async function deleteExhibitionConfirmed(id) {
+            try {
+                showStatus('Deleting exhibition...', 'success');
+
+                // Remove from current exhibitions
+                currentExhibitions = currentExhibitions.filter(ex => ex.id !== id);
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                // Commit to GitHub
+                const exhibition = currentExhibitions.find(ex => ex.id === id) || { name: 'Unknown' };
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Delete exhibition: ${exhibition.name}`
+                );
+
+                // Refresh display
+                renderExhibitionList(currentExhibitions);
+
+                showStatus('Exhibition deleted successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error deleting exhibition:', error);
+                showStatus('Error deleting exhibition: ' + error.message, 'error');
+            }
+        }
+
+        // Upload documentation functionality
+        async function uploadDocumentation() {
+            const exhibitionSelect = document.getElementById('exhibition-select');
+            const selectedExhibitionId = exhibitionSelect.value;
+
+            if (!selectedExhibitionId) {
+                showStatus('Please select an exhibition first', 'error');
+                return;
+            }
+
+            const files = document.getElementById('file-input').files;
+            if (files.length === 0) {
+                showStatus('Please select files to upload', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Uploading documentation...', 'success');
+
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === selectedExhibitionId);
+                if (exhibitionIndex === -1) {
+                    showStatus('Exhibition not found', 'error');
+                    return;
+                }
+
+                // Upload each file
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const fileName = `${selectedExhibitionId}-${Date.now()}-${file.name}`;
+                    const filePath = `images/documentation/${fileName}`;
+
+                    // Convert file to base64
+                    const base64 = await blobToBase64(file);
+                    const content = base64.split(',')[1];
+
+                    // Upload to GitHub
+                    await createOrUpdateFile(filePath, content, `Upload documentation: ${file.name}`);
+
+                    // Add to exhibition documentation
+                    if (!currentExhibitions[exhibitionIndex].documentation) {
+                        currentExhibitions[exhibitionIndex].documentation = [];
+                    }
+
+                    currentExhibitions[exhibitionIndex].documentation.push({
+                        type: file.type.startsWith('image/') ? 'image' : 'document',
+                        filename: fileName,
+                        caption: file.name,
+                        path: filePath
+                    });
+                }
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Update exhibition documentation: ${currentExhibitions[exhibitionIndex].name}`
+                );
+
+                // Clear file input
+                document.getElementById('file-input').value = '';
+
+                showStatus(`Uploaded ${files.length} files successfully!`, 'success');
+
+            } catch (error) {
+                console.error('Error uploading documentation:', error);
+                showStatus('Error uploading documentation: ' + error.message, 'error');
+            }
+        }
+
+        // Set selected thumbnail functionality
+        async function setSelectedThumbnail() {
+            const exhibitionSelect = document.getElementById('thumbnail-exhibition-select');
+            const selectedExhibitionId = exhibitionSelect.value;
+            const thumbnailInput = document.getElementById('thumbnail-input');
+
+            if (!selectedExhibitionId) {
+                showStatus('Please select an exhibition first', 'error');
+                return;
+            }
+
+            const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === selectedExhibitionId);
+            if (exhibitionIndex === -1) {
+                showStatus('Exhibition not found', 'error');
+                return;
+            }
+
+            let selectedImagePath = null;
+
+            // Check if an exhibition image is selected
+            const selectedExhibitionImage = document.querySelector('.artwork-option.selected[data-selected-image]');
+            if (selectedExhibitionImage) {
+                selectedImagePath = selectedExhibitionImage.dataset.selectedImage;
+            }
+
+            // Check if a custom file is uploaded
+            if (!selectedImagePath && thumbnailInput.files[0]) {
+                try {
+                    showStatus('Uploading custom thumbnail...', 'success');
+
+                    const file = thumbnailInput.files[0];
+                    const fileName = `${selectedExhibitionId}-thumbnail-${Date.now()}.jpg`;
+                    const filePath = `images/artworks/thumbnails/${fileName}`;
+
+                    // Convert file to base64
+                    const base64 = await blobToBase64(file);
+                    const content = base64.split(',')[1];
+
+                    // Upload to GitHub
+                    await createOrUpdateFile(filePath, content, `Upload thumbnail for exhibition: ${currentExhibitions[exhibitionIndex].name}`);
+                    selectedImagePath = filePath;
+
+                } catch (error) {
+                    console.error('Error uploading custom thumbnail:', error);
+                    showStatus('Error uploading custom thumbnail: ' + error.message, 'error');
+                    return;
+                }
+            }
+
+            if (!selectedImagePath) {
+                showStatus('Please select a thumbnail image from the exhibition or upload a custom one', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Setting thumbnail...', 'success');
+
+                // Update exhibition thumbnail
+                currentExhibitions[exhibitionIndex].thumbnailImage = selectedImagePath;
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Update thumbnail for exhibition: ${currentExhibitions[exhibitionIndex].name}`
+                );
+
+                // Refresh display
+                renderExhibitionList(currentExhibitions);
+
+                // Clear selections
+                clearSelectedImages();
+                thumbnailInput.value = '';
+                document.getElementById('thumbnail-preview').style.display = 'none';
+
+                showStatus('Thumbnail set successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error setting thumbnail:', error);
+                showStatus('Error setting thumbnail: ' + error.message, 'error');
+            }
+        }
+
+        // Make functions globally available
+        window.saveConfig = saveConfig;
+        window.testGitHubConnection = testGitHubConnection;
+        window.editExhibition = editExhibition;
+        window.deleteExhibition = deleteExhibition;
+        window.updateExhibition = updateExhibition;
+        window.uploadDocumentation = uploadDocumentation;
+        window.setSelectedThumbnail = setSelectedThumbnail;
+        window.loadExhibitionImages = loadExhibitionImages;
     </script>
 </body>
 </html>
