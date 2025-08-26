@@ -2331,6 +2331,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:32:13.587Z"
+    },
+    {
+      "id": "blueshifted",
+      "title": "Blueshifted",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "46 x 61 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/blueshifted.jpg",
+        "medium": "images/artworks/medium/blueshifted.jpg",
+        "large": "images/artworks/large/blueshifted.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:32:23.226Z"
     }
   ]
 }
