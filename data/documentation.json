@@ -74,12 +74,6 @@
       ],
       "documentation": [
         {
-          "type": "image",
-          "filename": "bone-and-boundary-installation.jpg",
-          "caption": "Main gallery installation view",
-          "path": "images/documentation/bone-and-boundary-installation.jpg"
-        },
-        {
           "type": "document",
           "filename": "bone-and-boundary-review.pdf",
           "caption": "Critical review from Art Monthly Australia",
