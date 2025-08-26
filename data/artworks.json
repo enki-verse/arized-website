@@ -2561,6 +2561,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:34:22.098Z"
+    },
+    {
+      "id": "nagual-morphology",
+      "title": "Nagual Morphology",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "46 x 61 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/nagual-morphology.jpg",
+        "medium": "images/artworks/medium/nagual-morphology.jpg",
+        "large": "images/artworks/large/nagual-morphology.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:51:42.916Z"
     }
   ]
 }
