@@ -2492,6 +2492,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:33:35.286Z"
+    },
+    {
+      "id": "post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history",
+      "title": "Post history magic - infinitely more complex as it contains the accumulative sonic boom of history",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "120 x 160 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history.jpg",
+        "medium": "images/artworks/medium/post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history.jpg",
+        "large": "images/artworks/large/post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:33:54.200Z"
     }
   ]
 }
