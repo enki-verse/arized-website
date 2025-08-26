@@ -345,6 +345,42 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        /* Selected files styles */
+        .selected-files-list {
+            margin-top: 1rem;
+        }
+
+        .selected-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            background: #fafafa;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .file-size {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .drag-over {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
     </style>
 </head>
 <body>
@@ -899,6 +935,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeNavigation();
             initializeThumbnailInput();
+            initializeFileUpload();
         });
 
         // Initialize thumbnail input handler
@@ -922,6 +959,102 @@
                     thumbnailPreview.style.display = 'none';
                 }
             });
+        }
+
+        // Initialize file upload functionality
+        function initializeFileUpload() {
+            const fileInput = document.getElementById('file-input');
+            const uploadArea = document.querySelector('.file-upload-area');
+
+            // File input change handler
+            fileInput.addEventListener('change', handleFileSelection);
+
+            // Drag and drop handlers
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('drag-over');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('drag-over');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+                const files = Array.from(e.dataTransfer.files);
+                handleFiles(files);
+            });
+
+            // Click handler for upload area
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelection(e) {
+            const files = Array.from(e.target.files);
+            handleFiles(files);
+        }
+
+        // Process selected files
+        function handleFiles(files) {
+            const validFiles = files.filter(file =>
+                file.type.startsWith('image/') || file.type === 'application/pdf'
+            );
+
+            if (validFiles.length === 0) {
+                showStatus('Please select valid image files (JPG, PNG) or PDF documents', 'error');
+                return;
+            }
+
+            if (files.length !== validFiles.length) {
+                showStatus('Some files were skipped. Only images and PDFs are supported.', 'error');
+            }
+
+            displaySelectedFiles(validFiles);
+        }
+
+        // Display selected files
+        function displaySelectedFiles(files) {
+            const uploadedFilesDiv = document.getElementById('uploaded-files');
+
+            uploadedFilesDiv.innerHTML = `
+                <h4>Selected Files (${files.length})</h4>
+                <div class="selected-files-list">
+                    ${files.map((file, index) => `
+                        <div class="selected-file-item">
+                            <span class="file-name">${file.name}</span>
+                            <span class="file-size">${formatFileSize(file.size)}</span>
+                            <button class="btn btn-small btn-danger" onclick="removeFile(${index})">×</button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Store files for upload
+            window.selectedFiles = files;
+        }
+
+        // Remove a file from selection
+        function removeFile(index) {
+            window.selectedFiles.splice(index, 1);
+            if (window.selectedFiles.length === 0) {
+                document.getElementById('uploaded-files').innerHTML = '';
+                document.getElementById('file-input').value = '';
+            } else {
+                displaySelectedFiles(window.selectedFiles);
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
         // Load exhibition images for thumbnail selection
@@ -1298,9 +1431,9 @@
                 return;
             }
 
-            const files = document.getElementById('file-input').files;
+            const files = window.selectedFiles || [];
             if (files.length === 0) {
-                showStatus('Please select files to upload', 'error');
+                showStatus('Please select files to upload first', 'error');
                 return;
             }
 
