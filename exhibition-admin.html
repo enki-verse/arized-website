@@ -168,6 +168,62 @@
             gap: 0.5rem;
         }
 
+        /* Documentation preview in exhibition list */
+        .exhibition-documentation {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .documentation-preview {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .doc-preview-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .doc-preview-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid var(--border-light);
+        }
+
+        .doc-remove-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--error-red);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .doc-preview-item:hover .doc-remove-btn {
+            opacity: 1;
+        }
+
+        .no-documentation {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
         .btn {
             padding: 0.5rem 1rem;
             border-radius: 6px;
@@ -819,6 +875,7 @@
                 const artworkCount = exhibition.artworks ? exhibition.artworks.length : 0;
                 const location = exhibition.location || 'TBD';
                 const year = exhibition.year || 'TBD';
+                const documentationHtml = renderExhibitionDocumentation(exhibition);
 
                 return `
                     <div class="exhibition-item">
@@ -828,6 +885,7 @@
                         <div class="exhibition-details">
                             <div class="exhibition-name">${exhibition.name}</div>
                             <div class="exhibition-meta">${year} • ${location} • ${artworkCount} artworks</div>
+                            ${documentationHtml}
                         </div>
                         <div class="exhibition-actions">
                             <button class="btn btn-secondary" onclick="editExhibition('${exhibition.id}')">Edit</button>
@@ -836,6 +894,49 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Render documentation for an exhibition
+        function renderExhibitionDocumentation(exhibition) {
+            if (!exhibition.documentation || exhibition.documentation.length === 0) {
+                return `
+                    <div class="exhibition-documentation">
+                        <div class="no-documentation">No documentation</div>
+                    </div>
+                `;
+            }
+
+            const imageDocs = exhibition.documentation.filter(doc => doc.type === 'image');
+            const otherDocs = exhibition.documentation.filter(doc => doc.type !== 'image');
+
+            let html = '<div class="exhibition-documentation">';
+
+            if (imageDocs.length > 0) {
+                html += '<div class="documentation-preview">';
+                imageDocs.forEach((doc) => {
+                    const imageUrl = doc.path
+                        ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${doc.path}`
+                        : 'images/placeholder.jpg';
+
+                    // Use filename as identifier since it's unique
+                    const docIdentifier = doc.filename;
+
+                    html += `
+                        <div class="doc-preview-item">
+                            <img src="${imageUrl}" alt="${doc.caption || doc.filename}" class="doc-preview-image">
+                            <button class="doc-remove-btn" onclick="removeExhibitionDocument('${exhibition.id}', '${docIdentifier}')" title="Remove document">×</button>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+
+            if (otherDocs.length > 0) {
+                html += `<div class="no-documentation">${otherDocs.length} document(s)</div>`;
+            }
+
+            html += '</div>';
+            return html;
         }
 
         // Render artwork selector
@@ -1581,6 +1682,61 @@
             }
         }
 
+        // Remove exhibition document functionality
+        async function removeExhibitionDocument(exhibitionId, docFilename) {
+            const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === exhibitionId);
+            if (exhibitionIndex === -1) {
+                showStatus('Exhibition not found', 'error');
+                return;
+            }
+
+            const exhibition = currentExhibitions[exhibitionIndex];
+            if (!exhibition.documentation) {
+                showStatus('No documentation found', 'error');
+                return;
+            }
+
+            // Find document by filename
+            const docIndex = exhibition.documentation.findIndex(doc => doc.filename === docFilename);
+            if (docIndex === -1) {
+                showStatus('Document not found', 'error');
+                return;
+            }
+
+            const docToRemove = exhibition.documentation[docIndex];
+
+            if (!confirm(`Remove "${docToRemove.caption || docToRemove.filename}" from this exhibition?`)) {
+                return;
+            }
+
+            try {
+                showStatus('Removing document...', 'success');
+
+                // Remove from exhibition documentation
+                exhibition.documentation.splice(docIndex, 1);
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    btoa(JSON.stringify(updatedData, null, 2)),
+                    `Remove document from exhibition: ${exhibition.name}`
+                );
+
+                // Refresh display
+                renderExhibitionList(currentExhibitions);
+
+                showStatus('Document removed successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error removing document:', error);
+                showStatus('Error removing document: ' + error.message, 'error');
+            }
+        }
+
         // Make functions globally available
         window.saveConfig = saveConfig;
         window.testGitHubConnection = testGitHubConnection;
@@ -1590,6 +1746,7 @@
         window.uploadDocumentation = uploadDocumentation;
         window.setSelectedThumbnail = setSelectedThumbnail;
         window.loadExhibitionImages = loadExhibitionImages;
+        window.removeExhibitionDocument = removeExhibitionDocument;
     </script>
 </body>
 </html>
