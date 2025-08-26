@@ -2354,6 +2354,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:32:23.226Z"
+    },
+    {
+      "id": "an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be",
+      "title": "An egg sits in its throne enmeshed in a network of limbs and organs, shivering with all the lost moments yet to be",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "120 x 160 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be.jpg",
+        "medium": "images/artworks/medium/an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be.jpg",
+        "large": "images/artworks/large/an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:32:32.582Z"
     }
   ]
 }
