@@ -2285,6 +2285,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:31:55.203Z"
+    },
+    {
+      "id": "hunting-for-yrya-in-the-iron-egg-mountains",
+      "title": "Hunting for Yrya in The Iron Egg Mountains",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 100 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/hunting-for-yrya-in-the-iron-egg-mountains.jpg",
+        "medium": "images/artworks/medium/hunting-for-yrya-in-the-iron-egg-mountains.jpg",
+        "large": "images/artworks/large/hunting-for-yrya-in-the-iron-egg-mountains.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:32:04.434Z"
     }
   ]
 }
