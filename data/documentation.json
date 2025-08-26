@@ -112,15 +112,7 @@
         "homunculus-crossing-the-alps-on-life-world",
         "flow"
       ],
-      "documentation": [
-        {
-          "type": "image",
-          "filename": "the-universe-is-leaking-1756221613950-269672103_626220598422890_3939678306449464518_n.jpeg",
-          "caption": "269672103_626220598422890_3939678306449464518_n.jpeg",
-          "path": "images/documentation/the-universe-is-leaking-1756221613950-269672103_626220598422890_3939678306449464518_n.jpeg",
-          "thumbnailPath": "images/documentation/thumbnails/the-universe-is-leaking-1756221614008-thumb-269672103_626220598422890_3939678306449464518_n.jpeg"
-        }
-      ]
+      "documentation": []
     },
     {
       "id": "life-world",
