@@ -854,7 +854,8 @@
         function viewExhibition(exhibitionId) {
             const exhibition = exhibitions.find(ex => ex.id === exhibitionId);
             if (exhibition) {
-                showExhibitionModal(exhibition);
+                // Redirect to individual exhibition page
+                window.location.href = `exhibition-${exhibitionId}.html`;
             }
         }
 

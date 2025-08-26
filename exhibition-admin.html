@@ -494,32 +494,32 @@
             <form id="create-exhibition-form">
                 <div class="form-group">
                     <label class="form-label" for="exhibition-name">Exhibition Name</label>
-                    <input type="text" id="exhibition-name" class="form-input" required>
+                    <input type="text" id="exhibition-name" name="exhibition-name" class="form-input" required>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="exhibition-description">Description</label>
-                    <textarea id="exhibition-description" class="form-textarea" required></textarea>
+                    <textarea id="exhibition-description" name="exhibition-description" class="form-textarea" required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="exhibition-year">Year</label>
-                    <input type="number" id="exhibition-year" class="form-input" required>
+                    <input type="number" id="exhibition-year" name="exhibition-year" class="form-input" required>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="exhibition-dates">Dates</label>
-                    <input type="text" id="exhibition-dates" class="form-input" placeholder="e.g., March 15 - April 20, 2024">
+                    <input type="text" id="exhibition-dates" name="exhibition-dates" class="form-input" placeholder="e.g., March 15 - April 20, 2024" value="">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="exhibition-location">Location</label>
-                    <input type="text" id="exhibition-location" class="form-input">
+                    <input type="text" id="exhibition-location" name="exhibition-location" class="form-input" value="">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="exhibition-curator">Curator</label>
-                    <input type="text" id="exhibition-curator" class="form-input">
+                    <input type="text" id="exhibition-curator" name="exhibition-curator" class="form-input" value="">
                 </div>
 
                 <div class="form-group">
@@ -1286,7 +1286,7 @@
                 .map(option => option.getAttribute('data-artwork-id'));
 
             if (!exhibitionName || !exhibitionDescription || !exhibitionYear) {
-                showStatus('Please fill in all required fields', 'error');
+                showStatus('Please fill in the required fields: Name, Description, and Year', 'error');
                 return;
             }
 
@@ -1416,7 +1416,7 @@
                 .map(option => option.getAttribute('data-artwork-id'));
 
             if (!exhibitionName || !exhibitionDescription || !exhibitionYear) {
-                showStatus('Please fill in all required fields', 'error');
+                showStatus('Please fill in the required fields: Name, Description, and Year', 'error');
                 return;
             }
 
