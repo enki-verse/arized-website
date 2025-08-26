@@ -842,6 +842,15 @@
             gap: 6px;
         }
 
+        /* Hide price and status for documentation in lightbox */
+        .documentation-lightbox .lightbox-price {
+            display: none !important;
+        }
+
+        .documentation-lightbox .lightbox-status {
+            display: none !important;
+        }
+
         .lightbox-status.available {
             color: var(--accent-gold);
             cursor: pointer;
@@ -1607,13 +1616,13 @@
                         : 'images/placeholder-document.jpg';
 
                     return `
-                    <div class="artwork-card" data-id="${doc.filename}" data-type="documentation">
+                    <div class="artwork-card documentation-card" data-id="${doc.filename}" data-type="documentation">
                         <img src="${thumbnailUrl}"
-                              alt="${doc.caption || doc.filename}"
+                              alt="${doc.caption || 'Documentation'}"
                               class="artwork-image">
                         <div class="artwork-info">
-                            <div class="artwork-title">${doc.caption || doc.filename}</div>
-                            <div class="artwork-details">Documentation</div>
+                            <div class="artwork-title">${doc.caption || 'Documentation'}</div>
+                            <div class="artwork-details">${exhibitionData.year || ''} • Documentation</div>
                         </div>
                     </div>
                     `;
@@ -1723,7 +1732,7 @@
             // Create a mock artwork object for lightbox display
             const mockArtwork = {
                 id: doc.filename,
-                title: doc.caption || doc.filename,
+                title: doc.caption || 'Documentation',
                 images: {
                     large: doc.path  // Use full-size image for lightbox, not thumbnail
                 },
@@ -1743,6 +1752,10 @@
             document.getElementById('navigation').classList.add('hidden');
 
             const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.querySelector('.lightbox-content');
+
+            // Add documentation class to hide price/status via CSS
+            lightboxContent.classList.add('documentation-lightbox');
             lightbox.style.display = 'flex';
 
             updateLightboxImage();
@@ -1756,11 +1769,11 @@
                 const lightboxPriceText = document.getElementById('lightboxPriceText');
                 const lightboxStatus = document.getElementById('lightboxStatus');
 
-                // Update title and details for documentation
-                lightboxTitle.textContent = doc.caption || doc.filename;
+                // Update title and details for documentation (remove filename)
+                lightboxTitle.textContent = doc.caption || 'Documentation';
                 lightboxDetails.textContent = `${exhibitionData.year || 'Documentation'} • Documentation • Digital`;
 
-                // Hide price and status for documentation
+                // Clear price and status content
                 lightboxPriceText.textContent = '';
                 lightboxStatus.textContent = '';
                 lightboxStatus.className = 'lightbox-status';
@@ -1898,8 +1911,16 @@
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            const lightbox = document.getElementById('lightbox');
+            const lightboxContent = document.querySelector('.lightbox-content');
+
+            lightbox.style.display = 'none';
             document.getElementById('navigation').classList.remove('hidden');
+
+            // Remove documentation class when closing
+            if (lightboxContent) {
+                lightboxContent.classList.remove('documentation-lightbox');
+            }
 
             // Reset button visibility for next time
             document.getElementById('addToSelection').style.display = 'flex';
