@@ -154,14 +154,7 @@
         "elstir-on-a-sojourn-through-the-dark-rocky-caverns",
         "floating-castle"
       ],
-      "documentation": [
-        {
-          "type": "image",
-          "filename": "life-world-installation.jpg",
-          "caption": "Panoramic view of the Life world installation",
-          "path": "images/documentation/life-world-installation.jpg"
-        }
-      ]
+      "documentation": []
     },
     {
       "id": "walpurgis-nebulah",
