@@ -112,14 +112,7 @@
         "flow",
         "uberchu"
       ],
-      "documentation": [
-        {
-          "type": "image",
-          "filename": "universe-leaking-detail.jpg",
-          "caption": "Detail view of the central cosmic painting",
-          "path": "images/documentation/universe-leaking-detail.jpg"
-        }
-      ]
+      "documentation": []
     },
     {
       "id": "life-world",
