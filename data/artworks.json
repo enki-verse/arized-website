@@ -2768,6 +2768,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T05:09:07.893Z"
+    },
+    {
+      "id": "gods-light-and-the-drone",
+      "title": "Gods light and the drone",
+      "year": 2016,
+      "medium": "Oil on canvas",
+      "dimensions": "240 x 160 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Icecream apocalypse"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/gods-light-and-the-drone.jpg",
+        "medium": "images/artworks/medium/gods-light-and-the-drone.jpg",
+        "large": "images/artworks/large/gods-light-and-the-drone.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T05:15:13.484Z"
     }
   ]
 }
