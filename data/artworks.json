@@ -2722,6 +2722,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T05:08:44.855Z"
+    },
+    {
+      "id": "the-wild-west",
+      "title": "The Wild West",
+      "year": 2016,
+      "medium": "Oil on canvas",
+      "dimensions": "80 x 60 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Icecream apocalypse"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-wild-west.jpg",
+        "medium": "images/artworks/medium/the-wild-west.jpg",
+        "large": "images/artworks/large/the-wild-west.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T05:08:56.401Z"
     }
   ]
 }
