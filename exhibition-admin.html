@@ -821,7 +821,16 @@
         function blobToBase64(blob) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
+                reader.onloadend = () => {
+                    // Extract just the base64 part from data URL
+                    const result = reader.result;
+                    if (typeof result === 'string' && result.startsWith('data:')) {
+                        const base64 = result.split(',')[1];
+                        resolve(base64);
+                    } else {
+                        resolve(result);
+                    }
+                };
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
             });
@@ -829,6 +838,11 @@
 
         // Convert string to base64, handling Unicode properly
         function stringToBase64(str) {
+            // If already base64, return as-is
+            if (/^[A-Za-z0-9+/]*={0,2}$/.test(str)) {
+                return str;
+            }
+            // Otherwise encode the string
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
                 return String.fromCharCode('0x' + p1);
             }));
@@ -1721,8 +1735,7 @@
                             thumbnailPath = `images/documentation/thumbnails/${thumbnailFileName}`;
 
                             // Convert thumbnail to base64
-                            const thumbnailBase64 = await blobToBase64(thumbnailBlob);
-                            const thumbnailContent = thumbnailBase64.split(',')[1];
+                            const thumbnailContent = await blobToBase64(thumbnailBlob);
 
                             // Upload thumbnail to GitHub
                             await createOrUpdateFile(thumbnailPath, thumbnailContent, `Upload documentation thumbnail: ${thumbnailFileName}`);
@@ -1733,8 +1746,7 @@
                     }
 
                     // Convert file to base64
-                    const base64 = await blobToBase64(file);
-                    const content = base64.split(',')[1];
+                    const content = await blobToBase64(file);
 
                     // Upload to GitHub
                     await createOrUpdateFile(filePath, content, `Upload documentation: ${file.name}`);
@@ -1816,8 +1828,7 @@
                     const filePath = `images/artworks/thumbnails/${fileName}`;
 
                     // Convert file to base64
-                    const base64 = await blobToBase64(file);
-                    const content = base64.split(',')[1];
+                    const content = await blobToBase64(file);
 
                     // Upload to GitHub
                     await createOrUpdateFile(filePath, content, `Upload thumbnail for exhibition: ${currentExhibitions[exhibitionIndex].name}`);
