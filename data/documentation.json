@@ -1,0 +1,249 @@
+{
+  "exhibitions": [
+    {
+      "id": "odd-i-see",
+      "name": "ODD I SEE",
+      "description": "A contemporary exploration of perception and reality through surreal landscapes and abstract forms. This exhibition challenges viewers to question what they see and understand the hidden dimensions of consciousness.",
+      "year": 2024,
+      "startDate": "2024-03-15",
+      "endDate": "2024-05-30",
+      "location": "Contemporary Art Gallery, Perth",
+      "curator": "Ari Zed",
+      "thumbnailImage": "images/artworks/medium/the-fairy-raid-230cm-140cm.jpg",
+      "artworks": [
+        "the-fairy-raid-230cm-140cm",
+        "caverns-measureless-to-man",
+        "dreamer-2",
+        "monkey-magic",
+        "where-alph-the-sacred-river-ran",
+        "the-fertile-ascent",
+        "arc",
+        "milk-of-paradise",
+        "pleasure-dome-decree",
+        "twice-five-miles-of-fertile-ground",
+        "earths-core",
+        "gateway",
+        "growing-and-dying",
+        "portal",
+        "the-path-to-freedom",
+        "cowboy-engulfed",
+        "sky-castle",
+        "timeless-watch",
+        "orb-it",
+        "armchair-traveler",
+        "rosy-fingers",
+        "through-caverns-measureless-to-man-down-to-a-sunless-sea",
+        "substance",
+        "momento",
+        "dreamer-1",
+        "escape-velocity",
+        "final-participation",
+        "rotas-opera",
+        "wanderer"
+      ],
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "odd-i-see-opening.jpg",
+          "caption": "Opening night at the ODD I SEE exhibition",
+          "path": "images/documentation/odd-i-see-opening.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "odd-i-see-gallery-view.jpg",
+          "caption": "Gallery view showing the main installation",
+          "path": "images/documentation/odd-i-see-gallery-view.jpg"
+        },
+        {
+          "type": "document",
+          "filename": "odd-i-see-catalog.pdf",
+          "caption": "Exhibition catalog with essay by the artist",
+          "path": "images/documentation/odd-i-see-catalog.pdf"
+        }
+      ]
+    },
+    {
+      "id": "bone-and-boundary",
+      "name": "Bone and Boundary",
+      "description": "An introspective journey through the liminal spaces between life and death, exploring the boundaries that define our existence and the profound mysteries that lie beyond.",
+      "year": 2021,
+      "startDate": "2021-09-10",
+      "endDate": "2021-11-15",
+      "location": "Fremantle Arts Centre",
+      "curator": "Sarah Mitchell",
+      "thumbnailImage": "images/artworks/medium/plenum-endgame.jpg",
+      "artworks": [
+        "plenum-endgame",
+        "rolling",
+        "who-is-dreaming-who",
+        "golden-dawn",
+        "luna",
+        "fahrenheit-451",
+        "synonym-antonym",
+        "uberchu",
+        "fete-of-the-dark-veiler",
+        "endymion-moon-lover-"
+      ],
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "bone-and-boundary-installation.jpg",
+          "caption": "Main gallery installation view",
+          "path": "images/documentation/bone-and-boundary-installation.jpg"
+        },
+        {
+          "type": "document",
+          "filename": "bone-and-boundary-review.pdf",
+          "caption": "Critical review from Art Monthly Australia",
+          "path": "images/documentation/bone-and-boundary-review.pdf"
+        }
+      ]
+    },
+    {
+      "id": "the-universe-is-leaking",
+      "name": "The Universe Is Leaking",
+      "description": "A cosmic meditation on the fragility of reality and the permeable boundaries between dimensions. This exhibition explores themes of cosmic consciousness and the infinite nature of being.",
+      "year": 2021,
+      "startDate": "2021-06-01",
+      "endDate": "2021-08-31",
+      "location": "Perth Institute of Contemporary Arts",
+      "curator": "Dr. James Franklin",
+      "thumbnailImage": "images/artworks/medium/the-universe-is-leaking.jpg",
+      "artworks": [
+        "plenum-endgame",
+        "rolling",
+        "nyx-and-the-fates-85x105cm-2021",
+        "fete-of-the-dark-veiler",
+        "dream",
+        "brainforrest",
+        "embeded",
+        "endymion-moon-lover-",
+        "flowering",
+        "i-of-the-storm-120x160cm",
+        "red-wanderer",
+        "the-universe-is-leaking",
+        "thinking-allowed",
+        "ulysses-and-the-promethians-deriding-saturn-and-the-fires-of-self-consuming-equality",
+        "unlocked",
+        "welcome-to-forever",
+        "homunculus-crossing-the-alps-on-life-world",
+        "flow",
+        "uberchu"
+      ],
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "universe-leaking-opening.jpg",
+          "caption": "Artist talk during the opening reception",
+          "path": "images/documentation/universe-leaking-opening.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "universe-leaking-detail.jpg",
+          "caption": "Detail view of the central cosmic painting",
+          "path": "images/documentation/universe-leaking-detail.jpg"
+        }
+      ]
+    },
+    {
+      "id": "life-world",
+      "name": "Life world",
+      "description": "An immersive exploration of interconnected ecosystems and mythical realms, where organic forms merge with cosmic landscapes to create a unified vision of life's complexity.",
+      "year": 2018,
+      "startDate": "2018-04-20",
+      "endDate": "2018-07-15",
+      "location": "Gallery Central, Perth",
+      "curator": "Maria Santos",
+      "thumbnailImage": "images/artworks/medium/life-world.jpg",
+      "artworks": [
+        "a-moment-in-the-shade-before-returning-to-the-ship-",
+        "adapa-lived-here-on-life-world",
+        "cloud-sinus-biosphere-layer-on-life-world",
+        "engulfing-emerging-swelling-embodiments-after-gods-mind-was-fractured-and-the-universe-began-its-dispersive-sensitive-chaos-the-origin-rock-",
+        "frumblings-in-the-belly-o-matic-",
+        "giant-on-utopia",
+        "improv-dance-on-nyseion-76-x-61cm",
+        "iron-egg-mountains-near-the-entrance-to-yrya-s-cave-",
+        "keep-on-floating-on-outermost-layer-consisting-of-cloud-spaceships-on-life-world",
+        "life-world",
+        "life-world-wet-ware-mushroom-computer",
+        "lost-utopians",
+        "nyseion-1",
+        "nyseion-2",
+        "nyseion-3",
+        "ouranous",
+        "snakes-and-ladders-",
+        "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace",
+        "the-dangers-of-finally-finding-yourself-on-a-plane-of-unknowing-a-melting-jelly-the-giants-that-helped-construct-utopia-and-roam-on-life-world-are-born-from-eggs-that-are-scattered-through-the-galaxy",
+        "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-",
+        "thoughts-blinding-on-mountain-plane-robes-of-felt-andfat-",
+        "transportal-geometric-on-the-road-to-olympus",
+        "wanderer-in-the-mist",
+        "wanderer-in-the-ouranous-gardens",
+        "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world",
+        "i-dream-of-genesis",
+        "elstir-on-a-sojourn-through-the-dark-rocky-caverns",
+        "floating-castle"
+      ],
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "life-world-installation.jpg",
+          "caption": "Panoramic view of the Life world installation",
+          "path": "images/documentation/life-world-installation.jpg"
+        }
+      ]
+    },
+    {
+      "id": "walpurgis-nebulah",
+      "name": "Walpurgis Nebulah",
+      "description": "A mystical journey through otherworldly landscapes and cosmic phenomena, exploring themes of transformation, ritual, and the intersection between the earthly and the divine.",
+      "year": 2017,
+      "startDate": "2017-10-31",
+      "endDate": "2018-01-15",
+      "location": "Underground Gallery, Fremantle",
+      "curator": "Ari Zed",
+      "thumbnailImage": "images/artworks/medium/nagual-morphology.jpg",
+      "artworks": [
+        "archean-eon-",
+        "hunting-for-yrya-in-the-iron-egg-mountains",
+        "the-catullus-agent-is-the-dream-that-qualifies-the-quantity-we-swim",
+        "blueshifted",
+        "an-egg-sits-in-its-throne-enmeshed-in-a-network-of-limbs-and-organs-shivering-with-all-the-lost-moments-yet-to-be",
+        "the-coronation-of-the-emperor-eolian",
+        "space-slug-",
+        "retroactive-force-rhinoceros-",
+        "nimbless-numinance-limbless-exuberance",
+        "the-task-of-flowers",
+        "post-history-magic-infinitely-more-complex-as-it-contains-the-accumulative-sonic-boom-of-history",
+        "thought-embodied-stones-",
+        "forever-through-this-mist-of-desire",
+        "nagual-morphology"
+      ],
+      "documentation": []
+    },
+    {
+      "id": "icecream-apocalypse",
+      "name": "Icecream apocalypse",
+      "description": "A surreal exploration of consumer culture and environmental collapse, where sweet indulgence meets existential dread in a world turned upside down.",
+      "year": 2016,
+      "startDate": "2016-07-01",
+      "endDate": "2016-09-30",
+      "location": "Alternative Art Space, Northbridge",
+      "curator": "Alex Thompson",
+      "thumbnailImage": "images/artworks/medium/ice-cream-apocalypse.jpg",
+      "artworks": [
+        "the-mystic-and-the-alchemist-met-in-the-desert",
+        "hannibal-crossing-the-alps",
+        "mordory",
+        "ulysses",
+        "general-relativity",
+        "ice-cream-apocalypse",
+        "the-wild-west",
+        "reckoning-of-the-crystal-mud-fragment",
+        "gods-light-and-the-drone"
+      ],
+      "documentation": []
+    }
+  ]
+}

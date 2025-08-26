@@ -25,6 +25,16 @@
     .nav-menu li{margin:1.5rem 0}
     .nav-menu a{color:#fff;text-decoration:none;font-size:1.2rem;letter-spacing:.1em;text-transform:uppercase}
     .nav-menu a:hover{color:var(--accent-gold)}
+
+    /* Submenu styles */
+    .submenu{max-height:0;overflow:hidden;transition:max-height .2s ease-out;margin-left:16px;margin-top:4px;}
+    .submenu.active{max-height:300px;}
+    .exhibitions-toggle{color:#2a2a2a !important;font-family:'Inter',sans-serif;font-size:1rem;font-weight:500;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:4px;transition:all .15s ease-out;text-decoration:none;cursor:pointer;}
+    .exhibition-submenu{max-height:0;overflow:hidden;transition:max-height .2s ease-out;margin-left:16px;margin-top:4px;}
+    .exhibition-submenu.active{max-height:200px;}
+    .exhibition-item{color:#4a4a4a !important;font-family:'Inter',sans-serif;font-size:.9rem;text-transform:uppercase;display:block;padding:4px 12px;text-decoration:none;transition:all .15s ease-out;}
+    .dropdown-arrow, .exhibitions-arrow{font-size:10px;transition:transform .15s ease-out;color:#9a9a9a;}
+
     .coming-soon{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;color:rgba(255,255,255,.7)}
     .zoom-blur{animation:zB .8s forwards}
     @keyframes zB{0%{transform:scale(1) translateZ(0);filter:blur(0)}100%{transform:scale(1.35) translateZ(100px);filter:blur(5px)}}
@@ -37,7 +47,23 @@
 </head>
 <body>
   <ul class="nav-menu" id="navMenu">
-    <li><a href="/">HOME</a></li><li><a href="/artworks.html">ARTWORKS</a></li><li><a href="/about.html">ABOUT</a></li><li><a href="/contact.html">CONTACT</a></li>
+    <li><a href="/">HOME</a></li>
+    <li>
+      <a href="/artworks.html">ARTWORKS</a>
+      <div class="submenu" id="artworksSubmenu">
+        <a href="#" class="exhibitions-toggle" id="exhibitionsToggle">
+          Exhibitions
+          <span class="exhibitions-arrow">▼</span>
+        </a>
+        <div class="exhibition-submenu" id="exhibitionSubmenu">
+          <a href="artworks.html" class="exhibition-item active" data-exhibition="all">All Works</a>
+          <a href="artworks.html" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
+          <a href="artworks.html" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
+          <a href="artworks.html" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="/about.html">ABOUT</a></li><li><a href="/contact.html">CONTACT</a></li>
   </ul>
 
   <div class="hero">
@@ -102,6 +128,18 @@
     const menuToggle = document.getElementById('menuToggle');
     const navMenu    = document.getElementById('navMenu');
     menuToggle.addEventListener('click', ()=>{ menuToggle.classList.toggle('open'); navMenu.classList.toggle('active'); });
+
+    // Setup exhibitions toggle
+    const exhibitionsToggle = document.getElementById('exhibitionsToggle');
+    if (exhibitionsToggle) {
+      exhibitionsToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const submenu = document.getElementById('exhibitionSubmenu');
+        const toggle = document.getElementById('exhibitionsToggle');
+        submenu.classList.toggle('active');
+        toggle.classList.toggle('active');
+      });
+    }
 
     document.getElementById('textBlock').addEventListener('click', ()=>{ document.querySelector('.hero').classList.add('zoom-blur');
       setTimeout(()=>window.location.href='artworks.html',750); });

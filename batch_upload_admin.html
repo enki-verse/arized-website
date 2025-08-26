@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ari Zed - Batch Upload Admin Panel (LOCAL ONLY)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #8B4513;
+            --secondary-brown: #654321;
+            --accent-gold: #DAA520;
+            --background-cream: #F4F1E8;
+            --text-dark: #2C1810;
+            --text-light: #666;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-brown);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .local-warning {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .setup-section {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .setup-section h2 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary-brown);
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-brown);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Batch Upload Area */
+        .upload-area {
+            border: 2px dashed var(--primary-brown);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: var(--background-cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-gold);
+            background: #fff;
+        }
+
+        .upload-area.drag-over {
+            border-color: var(--accent-gold);
+            background: #fff;
+            transform: scale(1.02);
+        }
+
+        .upload-area h3 {
+            margin-bottom: 10px;
+            color: var(--primary-brown);
+        }
+
+        .upload-area p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .upload-modes {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .upload-mode-btn {
+            background: var(--primary-brown);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .upload-mode-btn:hover {
+            background: var(--secondary-brown);
+        }
+
+        /* Batch Preview Grid */
+        .batch-preview {
+            display: none;
+            margin: 30px 0;
+        }
+
+        .batch-preview.show {
+            display: block;
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .batch-info {
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .batch-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .batch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .artwork-batch-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .artwork-batch-item:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .artwork-batch-item.error {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .artwork-batch-item.processing {
+            border-color: var(--accent-gold);
+            background: #fffdf7;
+        }
+
+        .artwork-batch-item.completed {
+            border-color: #28a745;
+            background: #f8fff8;
+        }
+
+        .batch-item-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .batch-preview-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .batch-item-info {
+            flex: 1;
+        }
+
+        .batch-item-filename {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .batch-item-size {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .batch-item-status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .status-pending {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .status-processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .batch-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .batch-form-group {
+            margin-bottom: 15px;
+        }
+
+        .batch-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--secondary-brown);
+        }
+
+        .batch-form-group input,
+        .batch-form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .batch-form-group textarea {
+            min-height: 60px;
+        }
+
+        .batch-form-full {
+            grid-column: 1 / -1;
+        }
+
+        .batch-checkboxes {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .batch-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+
+        .dimensions-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .dimensions-input input {
+            flex: 1;
+        }
+
+        .dimensions-separator {
+            font-weight: bold;
+            color: var(--text-light);
+        }
+
+        /* Quick Fill Panel */
+        .quick-fill {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quick-fill h4 {
+            margin-bottom: 15px;
+            color: var(--primary-brown);
+        }
+
+        .quick-fill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .quick-fill-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .progress-container.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-brown), var(--accent-gold));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 500;
+            color: var(--primary-brown);
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary-brown);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary-brown);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background: #555;
+        }
+
+        .btn-small {
+            padding: 5px 15px;
+            font-size: 14px;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .batch-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .batch-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-fill-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .upload-modes {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="local-warning">
+            ⚠️ LOCAL ADMIN ONLY - DO NOT UPLOAD TO GITHUB ⚠️
+            <small style="display: block; font-weight: normal; margin-top: 5px;">Version: 3.0 (Batch Upload)</small>
+        </div>
+        
+        <h1>Batch Artwork Upload</h1>
+        
+        <!-- GitHub Setup Section -->
+        <div class="setup-section" id="setupSection">
+            <h2>🔐 GitHub Configuration</h2>
+            <p>Enter your GitHub details to enable uploads:</p>
+            
+            <div class="form-group">
+                <label for="githubRepo">GitHub Repository (username/repo-name)</label>
+                <input type="text" id="githubRepo" placeholder="e.g., enki-verse/arized-website" value="">
+            </div>
+            
+            <div class="form-group">
+                <label for="githubTokenInput">GitHub Personal Access Token</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="password" id="githubTokenInput" style="flex: 1;" placeholder="ghp_xxxxxxxxxxxx">
+                    <button class="btn btn-small" onclick="saveConfig()">Save & Start</button>
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <button class="btn btn-small btn-secondary" onclick="testGitHubConnection()">Test Connection</button>
+                <div id="testResult" style="margin-top: 10px; display: none;"></div>
+            </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <!-- Batch Upload Section -->
+        <div id="uploadSection" style="opacity: 0.5; pointer-events: none;">
+            <!-- Upload Area -->
+            <div class="upload-area" id="uploadArea">
+                <h3>📸 Batch Upload Artworks</h3>
+                <p>Select multiple images from your exhibition folder</p>
+                <div class="upload-modes">
+                    <button class="upload-mode-btn" onclick="selectFiles()">Choose Files</button>
+                    <button class="upload-mode-btn" onclick="selectFolder()">Select Folder</button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                <input type="file" id="folderInput" webkitdirectory style="display: none;">
+            </div>
+
+            <!-- Batch Preview -->
+            <div class="batch-preview" id="batchPreview">
+                <div class="batch-header">
+                    <div class="batch-info" id="batchInfo">0 artworks selected</div>
+                    <div class="batch-actions">
+                        <button class="btn btn-small btn-secondary" onclick="clearBatch()">Clear All</button>
+                        <button class="btn btn-small btn-warning" onclick="removeIncomplete()">Remove Incomplete</button>
+                        <button class="btn btn-small btn-success" id="uploadAllBtn" onclick="uploadAllArtworks()" disabled>Upload All</button>
+                    </div>
+                </div>
+
+                <!-- Quick Fill Panel -->
+                <div class="quick-fill">
+                    <h4>🚀 Quick Fill Common Details</h4>
+                    <div class="quick-fill-grid">
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="number" id="quickYear" value="2025" min="1900" max="2099">
+                        </div>
+                        <div class="form-group">
+                            <label>Medium</label>
+                            <input type="text" id="quickMedium" value="Oil on canvas">
+                        </div>
+                        <div class="form-group">
+                            <label>Exhibition</label>
+                            <input type="text" id="quickExhibition" placeholder="Exhibition name">
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="quickSubject" placeholder="Common subject">
+                        </div>
+                    </div>
+                    <div class="quick-fill-actions">
+                        <button class="btn btn-small" onclick="applyQuickFill('all')">Apply to All</button>
+                        <button class="btn btn-small btn-secondary" onclick="applyQuickFill('empty')">Apply to Empty Only</button>
+                        <button class="btn btn-small btn-secondary" onclick="loadPreviousData()">📋 Load Previous Data</button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Preparing upload...</div>
+                </div>
+
+                <!-- Batch Grid -->
+                <div class="batch-grid" id="batchGrid">
+                    <!-- Batch items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        let CONFIG = {
+            githubRepo: 'enki-verse/arized-website',
+            githubToken: 'YOUR_GITHUB_TOKEN_HERE', // Replace with your actual token
+            thumbnailSize: 400,
+            mediumSize: 800,
+            largeSize: 2400
+        };
+
+        // State
+        let batchFiles = [];
+        let previousSubjects = [];
+        let previousExhibitions = [];
+        let isUploading = false;
+
+        // Check for saved config
+        const savedRepo = localStorage.getItem('githubRepo');
+        if (savedRepo) {
+            document.getElementById('githubRepo').value = savedRepo;
+        }
+        
+        // Auto-start if token is configured
+        if (CONFIG.githubToken && CONFIG.githubToken !== 'YOUR_GITHUB_TOKEN_HERE') {
+            window.addEventListener('DOMContentLoaded', () => {
+                if (CONFIG.githubRepo) {
+                    saveConfig();
+                }
+            });
+        }
+
+        // Save configuration
+        function saveConfig() {
+            let repo = document.getElementById('githubRepo').value.trim();
+            let token = document.getElementById('githubTokenInput').value.trim();
+            
+            if (!token && CONFIG.githubToken && CONFIG.githubToken !== 'YOUR_GITHUB_TOKEN_HERE') {
+                token = CONFIG.githubToken;
+            }
+            
+            if (!repo && CONFIG.githubRepo) {
+                repo = CONFIG.githubRepo;
+            }
+
+            if (!repo || !token) {
+                showStatus('Please enter both repository and token', 'error');
+                return;
+            }
+
+            // Clean repo format
+            let cleanRepo = repo;
+            if (repo.includes('github.com/')) {
+                cleanRepo = repo.split('github.com/')[1];
+            }
+            if (cleanRepo.endsWith('.git')) {
+                cleanRepo = cleanRepo.slice(0, -4);
+            }
+
+            CONFIG.githubRepo = cleanRepo;
+            CONFIG.githubToken = token;
+
+            localStorage.setItem('githubRepo', cleanRepo);
+
+            document.getElementById('uploadSection').style.opacity = '1';
+            document.getElementById('uploadSection').style.pointerEvents = 'auto';
+            document.getElementById('setupSection').style.display = 'none';
+
+            showStatus(`Configuration saved! Repository: ${cleanRepo}`, 'success');
+            loadPreviousData();
+        }
+
+        // Test GitHub connection
+        async function testGitHubConnection() {
+            const repo = document.getElementById('githubRepo').value.trim();
+            const token = document.getElementById('githubTokenInput').value.trim();
+            const resultDiv = document.getElementById('testResult');
+            
+            if (!repo || !token) {
+                resultDiv.innerHTML = '<span style="color: red;">Please enter both repository and token</span>';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<span style="color: blue;">Testing connection...</span>';
+            resultDiv.style.display = 'block';
+            
+            let cleanRepo = repo;
+            if (repo.includes('github.com/')) {
+                cleanRepo = repo.split('github.com/')[1];
+            }
+            if (cleanRepo.endsWith('.git')) {
+                cleanRepo = cleanRepo.slice(0, -4);
+            }
+            
+            try {
+                const response = await fetch(`https://api.github.com/repos/${cleanRepo}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const repoData = await response.json();
+                    resultDiv.innerHTML = `<span style="color: green;">✓ Connected to: ${repoData.full_name}</span>`;
+                } else {
+                    resultDiv.innerHTML = `<span style="color: red;">✗ Connection failed: ${response.status}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span style="color: red;">✗ Connection error: ${error.message}</span>`;
+            }
+        }
+
+        // File selection
+        function selectFiles() {
+            document.getElementById('fileInput').click();
+        }
+
+        function selectFolder() {
+            document.getElementById('folderInput').click();
+        }
+
+        // File handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const folderInput = document.getElementById('folderInput');
+
+        uploadArea.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('upload-mode-btn')) {
+                selectFiles();
+            }
+        });
+
+        fileInput.addEventListener('change', handleFileSelect);
+        folderInput.addEventListener('change', handleFileSelect);
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+            if (files.length > 0) {
+                processBatchFiles(files);
+            }
+        });
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files).filter(file => file.type.startsWith('image/'));
+            if (files.length > 0) {
+                processBatchFiles(files);
+            }
+        }
+
+        // Process batch files
+        function processBatchFiles(files) {
+            files.forEach(file => {
+                if (!batchFiles.find(bf => bf.file.name === file.name && bf.file.size === file.size)) {
+                    const batchItem = {
+                        id: generateId(),
+                        file: file,
+                        preview: null,
+                        status: 'pending',
+                        data: {
+                            title: generateTitleFromFilename(file.name),
+                            year: 2025,
+                            medium: 'Oil on canvas',
+                            width: '',
+                            height: '',
+                            price: '',
+                            subjects: [],
+                            exhibitions: [],
+                            description: '',
+                            available: true,
+                            featured: false,
+                            forSale: true
+                        }
+                    };
+                    
+                    // Generate preview
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        batchItem.preview = e.target.result;
+                        updateBatchItem(batchItem.id);
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    batchFiles.push(batchItem);
+                }
+            });
+            
+            updateBatchDisplay();
+        }
+
+        function generateId() {
+            return Math.random().toString(36).substr(2, 9);
+        }
+
+        function generateTitleFromFilename(filename) {
+            // Remove extension and clean up filename
+            let title = filename.replace(/\.(jpg|jpeg|png|gif|bmp|webp)$/i, '');
+            
+            // Replace common separators with spaces
+            title = title.replace(/[_-]/g, ' ');
+            
+            // Remove dimension patterns
+            title = title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim();
+            title = title.replace(/\s*\d+\s*x\s*\d+\s*$/i, '').trim();
+            
+            // Capitalize first letter of each word
+            title = title.replace(/\b\w/g, l => l.toUpperCase());
+            
+            return title.trim() || 'Untitled';
+        }
+
+        // Update batch display
+        function updateBatchDisplay() {
+            const batchPreview = document.getElementById('batchPreview');
+            const batchInfo = document.getElementById('batchInfo');
+            const batchGrid = document.getElementById('batchGrid');
+            const uploadAllBtn = document.getElementById('uploadAllBtn');
+            
+            if (batchFiles.length === 0) {
+                batchPreview.classList.remove('show');
+                return;
+            }
+            
+            batchPreview.classList.add('show');
+            batchInfo.textContent = `${batchFiles.length} artwork${batchFiles.length !== 1 ? 's' : ''} selected`;
+            
+            // Check if all items have required data
+            const incompleteItems = batchFiles.filter(item => !item.data.title || !item.data.year);
+            uploadAllBtn.disabled = incompleteItems.length > 0 || isUploading;
+            
+            // Render batch grid
+            batchGrid.innerHTML = batchFiles.map(item => `
+                <div class="artwork-batch-item ${item.status}" id="batch-${item.id}">
+                    <div class="batch-item-header">
+                        <img src="${item.preview || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22><rect width=%2280%22 height=%2280%22 fill=%22%23ddd%22/></svg>'}" 
+                             alt="${item.file.name}" 
+                             class="batch-preview-image">
+                        <div class="batch-item-info">
+                            <div class="batch-item-filename">${item.file.name}</div>
+                            <div class="batch-item-size">${formatFileSize(item.file.size)}</div>
+                        </div>
+                        <div class="batch-item-status status-${item.status}">
+                            ${getStatusText(item.status)}
+                        </div>
+                        <button style="margin-left: 10px; padding: 5px 10px; border: none; background: #dc3545; color: white; border-radius: 4px; cursor: pointer;" onclick="removeBatchItem('${item.id}')">×</button>
+                    </div>
+                    
+                    <div class="batch-form">
+                        <div class="batch-form-group">
+                            <label>Title *</label>
+                            <input type="text" value="${item.data.title}" onchange="updateBatchItemData('${item.id}', 'title', this.value)" required>
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Year *</label>
+                            <input type="number" value="${item.data.year}" min="1900" max="2099" onchange="updateBatchItemData('${item.id}', 'year', parseInt(this.value))" required>
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Medium</label>
+                            <input type="text" value="${item.data.medium}" onchange="updateBatchItemData('${item.id}', 'medium', this.value)">
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Price ($)</label>
+                            <input type="number" value="${item.data.price}" min="0" onchange="updateBatchItemData('${item.id}', 'price', parseInt(this.value) || 0)">
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Dimensions (cm)</label>
+                            <div class="dimensions-input">
+                                <input type="number" placeholder="Width" value="${item.data.width}" onchange="updateBatchItemData('${item.id}', 'width', this.value)">
+                                <span class="dimensions-separator">×</span>
+                                <input type="number" placeholder="Height" value="${item.data.height}" onchange="updateBatchItemData('${item.id}', 'height', this.value)">
+                            </div>
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Exhibitions</label>
+                            <input type="text" value="${item.data.exhibitions.join(', ')}" placeholder="Exhibition names (comma separated)" onchange="updateBatchItemData('${item.id}', 'exhibitions', this.value.split(',').map(s => s.trim()).filter(s => s))">
+                        </div>
+                        
+                        <div class="batch-form-group">
+                            <label>Subjects</label>
+                            <input type="text" value="${item.data.subjects.join(', ')}" placeholder="Subjects (comma separated)" onchange="updateBatchItemData('${item.id}', 'subjects', this.value.split(',').map(s => s.trim()).filter(s => s))">
+                        </div>
+                        
+                        <div class="batch-form-group batch-form-full">
+                            <label>Description</label>
+                            <textarea placeholder="Describe the artwork..." onchange="updateBatchItemData('${item.id}', 'description', this.value)">${item.data.description}</textarea>
+                        </div>
+                        
+                        <div class="batch-checkboxes">
+                            <label class="batch-checkbox-label">
+                                <input type="checkbox" ${item.data.available ? 'checked' : ''} onchange="updateBatchItemData('${item.id}', 'available', this.checked)">
+                                Available
+                            </label>
+                            <label class="batch-checkbox-label">
+                                <input type="checkbox" ${item.data.featured ? 'checked' : ''} onchange="updateBatchItemData('${item.id}', 'featured', this.checked)">
+                                Featured
+                            </label>
+                            <label class="batch-checkbox-label">
+                                <input type="checkbox" ${item.data.forSale ? 'checked' : ''} onchange="updateBatchItemData('${item.id}', 'forSale', this.checked)">
+                                For Sale
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateBatchItem(id) {
+            // Just update the display for this specific item
+            updateBatchDisplay();
+        }
+
+        function updateBatchItemData(id, field, value) {
+            const item = batchFiles.find(bf => bf.id === id);
+            if (item) {
+                item.data[field] = value;
+                
+                // Update upload button state
+                setTimeout(() => {
+                    const incompleteItems = batchFiles.filter(item => !item.data.title || !item.data.year);
+                    document.getElementById('uploadAllBtn').disabled = incompleteItems.length > 0 || isUploading;
+                }, 100);
+            }
+        }
+
+        function removeBatchItem(id) {
+            batchFiles = batchFiles.filter(bf => bf.id !== id);
+            updateBatchDisplay();
+        }
+
+        function clearBatch() {
+            if (confirm('Clear all selected artworks?')) {
+                batchFiles = [];
+                updateBatchDisplay();
+            }
+        }
+
+        function removeIncomplete() {
+            const incomplete = batchFiles.filter(item => !item.data.title || !item.data.year);
+            if (incomplete.length === 0) {
+                showStatus('No incomplete items to remove', 'success');
+                return;
+            }
+            
+            if (confirm(`Remove ${incomplete.length} incomplete item${incomplete.length !== 1 ? 's' : ''}?`)) {
+                batchFiles = batchFiles.filter(item => item.data.title && item.data.year);
+                updateBatchDisplay();
+                showStatus(`Removed ${incomplete.length} incomplete items`, 'success');
+            }
+        }
+
+        // Quick fill functions
+        function applyQuickFill(mode) {
+            const quickYear = document.getElementById('quickYear').value;
+            const quickMedium = document.getElementById('quickMedium').value;
+            const quickExhibition = document.getElementById('quickExhibition').value;
+            const quickSubject = document.getElementById('quickSubject').value;
+            
+            batchFiles.forEach(item => {
+                if (mode === 'all' || (mode === 'empty' && !item.data.year)) {
+                    if (quickYear) item.data.year = parseInt(quickYear);
+                }
+                if (mode === 'all' || (mode === 'empty' && !item.data.medium)) {
+                    if (quickMedium) item.data.medium = quickMedium;
+                }
+                if (mode === 'all' || (mode === 'empty' && item.data.exhibitions.length === 0)) {
+                    if (quickExhibition) item.data.exhibitions = [quickExhibition];
+                }
+                if (mode === 'all' || (mode === 'empty' && item.data.subjects.length === 0)) {
+                    if (quickSubject) item.data.subjects = [quickSubject];
+                }
+            });
+            
+            updateBatchDisplay();
+            showStatus(`Quick fill applied to ${mode === 'all' ? 'all' : 'empty'} items`, 'success');
+        }
+
+        // Load previous data from GitHub
+        async function loadPreviousData() {
+            try {
+                const data = await getFileContent('data/artworks.json');
+                if (!data) {
+                    showStatus('No previous artworks found', 'error');
+                    return;
+                }
+                
+                const artworksData = JSON.parse(atob(data.content));
+                
+                // Extract unique subjects and exhibitions
+                const allSubjects = new Set();
+                const allExhibitions = new Set();
+                
+                artworksData.artworks.forEach(artwork => {
+                    if (artwork.subjects && Array.isArray(artwork.subjects)) {
+                        artwork.subjects.forEach(subject => {
+                            if (subject && subject.trim()) {
+                                allSubjects.add(subject.trim());
+                            }
+                        });
+                    }
+                    if (artwork.exhibitions && Array.isArray(artwork.exhibitions)) {
+                        artwork.exhibitions.forEach(exhibition => {
+                            if (exhibition && exhibition.trim()) {
+                                allExhibitions.add(exhibition.trim());
+                            }
+                        });
+                    }
+                });
+                
+                previousSubjects = Array.from(allSubjects).sort();
+                previousExhibitions = Array.from(allExhibitions).sort();
+                
+                showStatus(`Loaded ${previousSubjects.length} subjects and ${previousExhibitions.length} exhibitions`, 'success');
+                
+            } catch (error) {
+                showStatus('Error loading previous data: ' + error.message, 'error');
+            }
+        }
+
+        // Upload all artworks
+        async function uploadAllArtworks() {
+            if (batchFiles.length === 0) {
+                showStatus('No artworks to upload', 'error');
+                return;
+            }
+            
+            const incompleteItems = batchFiles.filter(item => !item.data.title || !item.data.year);
+            if (incompleteItems.length > 0) {
+                showStatus(`Please complete ${incompleteItems.length} incomplete item${incompleteItems.length !== 1 ? 's' : ''}`, 'error');
+                return;
+            }
+            
+            if (!confirm(`Upload ${batchFiles.length} artwork${batchFiles.length !== 1 ? 's' : ''}? This may take several minutes.`)) {
+                return;
+            }
+            
+            isUploading = true;
+            document.getElementById('uploadAllBtn').disabled = true;
+            document.getElementById('progressContainer').classList.add('show');
+            
+            let completed = 0;
+            let errors = 0;
+            
+            try {
+                for (let i = 0; i < batchFiles.length; i++) {
+                    const item = batchFiles[i];
+                    
+                    try {
+                        // Update status
+                        item.status = 'processing';
+                        updateBatchItemStatus(item.id, 'processing');
+                        updateProgress(completed, batchFiles.length, `Processing ${item.data.title}...`);
+                        
+                        // Process and upload
+                        await processAndUploadArtwork(item);
+                        
+                        // Mark as completed
+                        item.status = 'completed';
+                        updateBatchItemStatus(item.id, 'completed');
+                        completed++;
+                        
+                    } catch (error) {
+                        console.error(`Error uploading ${item.data.title}:`, error);
+                        item.status = 'error';
+                        updateBatchItemStatus(item.id, 'error');
+                        errors++;
+                    }
+                    
+                    updateProgress(completed + errors, batchFiles.length, `${completed} completed, ${errors} errors`);
+                }
+                
+                // Final status
+                if (errors === 0) {
+                    showStatus(`Successfully uploaded ${completed} artwork${completed !== 1 ? 's' : ''}!`, 'success');
+                } else {
+                    showStatus(`Uploaded ${completed} artwork${completed !== 1 ? 's' : ''} with ${errors} error${errors !== 1 ? 's' : ''}`, 'error');
+                }
+                
+            } catch (error) {
+                showStatus('Batch upload failed: ' + error.message, 'error');
+            } finally {
+                isUploading = false;
+                document.getElementById('uploadAllBtn').disabled = false;
+                setTimeout(() => {
+                    document.getElementById('progressContainer').classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function updateBatchItemStatus(id, status) {
+            const item = document.getElementById(`batch-${id}`);
+            if (item) {
+                item.className = `artwork-batch-item ${status}`;
+                const statusElement = item.querySelector('.batch-item-status');
+                if (statusElement) {
+                    statusElement.className = `batch-item-status status-${status}`;
+                    statusElement.textContent = getStatusText(status);
+                }
+            }
+        }
+
+        function updateProgress(current, total, message) {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            const percentage = (current / total) * 100;
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = message;
+        }
+
+        // Process and upload individual artwork
+        async function processAndUploadArtwork(batchItem) {
+            const { data, file } = batchItem;
+            
+            // Generate dimensions string
+            let dimensions = '';
+            if (data.width && data.height) {
+                dimensions = `${data.width} x ${data.height} cm`;
+            } else if (data.width) {
+                dimensions = `${data.width} cm`;
+            } else if (data.height) {
+                dimensions = `${data.height} cm`;
+            }
+            
+            // Generate ID from title
+            const id = data.title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+            
+            // Process images
+            const images = await processImages(file, id);
+            
+            // Create artwork object
+            const artwork = {
+                id: id,
+                title: data.title,
+                year: data.year,
+                medium: data.medium,
+                dimensions: dimensions,
+                price: data.price || 0,
+                category: 'paintings',
+                subjects: data.subjects,
+                exhibitions: data.exhibitions,
+                available: data.available,
+                featured: data.featured,
+                forSale: data.forSale,
+                images: {
+                    thumbnail: `images/artworks/thumbnails/${id}.jpg`,
+                    medium: `images/artworks/medium/${id}.jpg`,
+                    large: `images/artworks/large/${id}.jpg`
+                },
+                description: data.description,
+                dateAdded: new Date().toISOString()
+            };
+            
+            // Upload to GitHub
+            await uploadToGitHub(artwork, images);
+        }
+
+        // Image processing (same as before)
+        async function processImages(file, id) {
+            const images = {};
+            
+            images.thumbnail = await resizeImage(file, CONFIG.thumbnailSize);
+            images.medium = await resizeImage(file, CONFIG.mediumSize);
+            images.large = await resizeImage(file, CONFIG.largeSize, true);
+            
+            return images;
+        }
+
+        function resizeImage(file, maxSize, preserveQuality = false) {
+            return new Promise((resolve, reject) => {
+                if (preserveQuality && file.size < 10 * 1024 * 1024) {
+                    resolve(file);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        if (width > height) {
+                            if (width > maxSize) {
+                                height = (height * maxSize) / width;
+                                width = maxSize;
+                            }
+                        } else {
+                            if (height > maxSize) {
+                                width = (width * maxSize) / height;
+                                height = maxSize;
+                            }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        const quality = preserveQuality ? 0.95 : 0.9;
+                        
+                        canvas.toBlob((blob) => {
+                            resolve(blob);
+                        }, 'image/jpeg', quality);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // GitHub API functions (same as before)
+        async function uploadToGitHub(artwork, images) {
+            const { githubRepo, githubToken } = CONFIG;
+            
+            try {
+                await uploadImage(images.thumbnail, `images/artworks/thumbnails/${artwork.id}.jpg`);
+                await uploadImage(images.medium, `images/artworks/medium/${artwork.id}.jpg`);
+                await uploadImage(images.large, `images/artworks/large/${artwork.id}.jpg`);
+                
+                const currentData = await getFileContent('data/artworks.json');
+                let artworksData;
+                
+                if (currentData) {
+                    artworksData = JSON.parse(atob(currentData.content));
+                } else {
+                    artworksData = { artworks: [] };
+                }
+                
+                artworksData.artworks.push(artwork);
+                
+                await updateFile(
+                    'data/artworks.json',
+                    JSON.stringify(artworksData, null, 2),
+                    currentData ? currentData.sha : null
+                );
+                
+                return true;
+            } catch (error) {
+                console.error('GitHub upload error:', error);
+                throw error;
+            }
+        }
+
+        async function uploadImage(blob, path) {
+            const base64 = await blobToBase64(blob);
+            const content = base64.split(',')[1];
+            
+            await createOrUpdateFile(path, content, `Upload image: ${path}`);
+        }
+
+        async function getFileContent(path) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+            
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                if (response.status === 404) {
+                    return null;
+                }
+                
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error getting file:', error);
+                throw error;
+            }
+        }
+
+        async function createOrUpdateFile(path, content, message) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+            
+            const existingFile = await getFileContent(path);
+            
+            const body = {
+                message: message,
+                content: content,
+                branch: 'main'
+            };
+            
+            if (existingFile) {
+                body.sha = existingFile.sha;
+            }
+            
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(`GitHub API error: ${error.message}`);
+            }
+            
+            return await response.json();
+        }
+
+        async function updateFile(path, content, sha) {
+            const { githubRepo, githubToken } = CONFIG;
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+            
+            const body = {
+                message: `Update ${path}`,
+                content: btoa(content),
+                branch: 'main'
+            };
+            
+            if (sha) {
+                body.sha = sha;
+            }
+            
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(`GitHub API error: ${error.message}`);
+            }
+            
+            return await response.json();
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // Utility functions
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function getStatusText(status) {
+            switch (status) {
+                case 'pending': return 'Pending';
+                case 'processing': return 'Processing...';
+                case 'completed': return 'Completed';
+                case 'error': return 'Error';
+                default: return 'Unknown';
+            }
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message status-${type}`;
+            statusEl.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Make functions globally available
+        window.saveConfig = saveConfig;
+        window.testGitHubConnection = testGitHubConnection;
+        window.selectFiles = selectFiles;
+        window.selectFolder = selectFolder;
+        window.updateBatchItemData = updateBatchItemData;
+        window.removeBatchItem = removeBatchItem;
+        window.clearBatch = clearBatch;
+        window.removeIncomplete = removeIncomplete;
+        window.applyQuickFill = applyQuickFill;
+        window.loadPreviousData = loadPreviousData;
+        window.uploadAllArtworks = uploadAllArtworks;
+    </script>
+</body>
+</html>
