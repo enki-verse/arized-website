@@ -1591,15 +1591,18 @@
                 } else {
                     // Documentation item
                     const doc = item.data;
-                    const thumbnailUrl = doc.path
+                    // Use thumbnail if available, otherwise use the full image
+                    const thumbnailUrl = doc.thumbnailPath
+                        ? `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${doc.thumbnailPath}`
+                        : doc.path
                         ? `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${doc.path}`
                         : 'images/placeholder-document.jpg';
 
                     return `
                     <div class="artwork-card" data-id="${doc.filename}" data-type="documentation">
                         <img src="${thumbnailUrl}"
-                             alt="${doc.caption || doc.filename}"
-                             class="artwork-image">
+                              alt="${doc.caption || doc.filename}"
+                              class="artwork-image">
                         <div class="artwork-info">
                             <div class="artwork-title">${doc.caption || doc.filename}</div>
                             <div class="artwork-details">Documentation</div>
@@ -1714,7 +1717,7 @@
                 id: doc.filename,
                 title: doc.caption || doc.filename,
                 images: {
-                    large: doc.path
+                    large: doc.path  // Use full-size image for lightbox, not thumbnail
                 },
                 year: exhibitionData.year || 'Documentation',
                 medium: 'Documentation',
