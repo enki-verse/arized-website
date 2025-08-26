@@ -53,12 +53,12 @@
     {
       "id": "bone-and-boundary",
       "name": "Bone and Boundary",
-      "description": "An introspective journey through the liminal spaces between life and death, exploring the boundaries that define our existence and the profound mysteries that lie beyond.",
-      "year": 2021,
-      "startDate": "2021-09-10",
-      "endDate": "2021-11-15",
-      "location": "Fremantle Arts Centre",
-      "curator": "Sarah Mitchell",
+      "description": "This is a collection of Ari Zed's artworks exhibited the group show Bone and Boundary ",
+      "year": 2023,
+      "startDate": null,
+      "endDate": null,
+      "location": "Earlywork gallery",
+      "curator": "Xavier Turisini",
       "thumbnailImage": "images/artworks/medium/plenum-endgame.jpg",
       "artworks": [
         "plenum-endgame",
