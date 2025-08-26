@@ -2124,31 +2124,6 @@
       "dateAdded": "2025-07-28T06:22:15.956Z"
     },
     {
-      "id": "wanderer",
-      "title": "Wanderer in arcadia",
-      "year": 2018,
-      "medium": "Oil on canvas",
-      "dimensions": "40 x 50 cm",
-      "price": 0,
-      "category": "paintings",
-      "subjects": [
-        "infinite being"
-      ],
-      "exhibitions": [
-        "Life world"
-      ],
-      "available": false,
-      "featured": false,
-      "forSale": false,
-      "images": {
-        "thumbnail": "images/artworks/thumbnails/wanderer.jpg",
-        "medium": "images/artworks/medium/wanderer.jpg",
-        "large": "images/artworks/large/wanderer.jpg"
-      },
-      "description": "",
-      "dateAdded": "2025-07-28T06:43:58.631Z"
-    },
-    {
       "id": "anima-entering-platos-cave",
       "title": "Anima entering platos cave",
       "year": 2021,
