@@ -760,7 +760,7 @@
 
             const body = {
                 message: message,
-                content: content,
+                content: stringToBase64(content),
                 branch: 'main'
             };
 
@@ -792,7 +792,7 @@
 
             const body = {
                 message: `Update ${path}`,
-                content: btoa(content),
+                content: stringToBase64(content),
                 branch: 'main'
             };
 
@@ -825,6 +825,13 @@
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
             });
+        }
+
+        // Convert string to base64, handling Unicode properly
+        function stringToBase64(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
         }
 
         // Load exhibitions data
@@ -1333,7 +1340,7 @@
                 // Commit to GitHub
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Add new exhibition: ${exhibitionName}`
                 );
 
@@ -1398,7 +1405,20 @@
             const form = document.getElementById('create-exhibition-form');
             const submitBtn = form.querySelector('button[type="submit"]');
             submitBtn.textContent = 'Update Exhibition';
-            submitBtn.onclick = () => updateExhibition(id);
+
+            // Set update mode flag and remove original submit handler to prevent conflicts
+            form.dataset.updateMode = 'true';
+            form.dataset.updateId = id;
+
+            // Remove the original submit event listener temporarily
+            const originalHandler = form.onsubmit;
+            form.onsubmit = null;
+
+            // Add update-specific submit handler
+            form.onsubmit = (e) => {
+                e.preventDefault();
+                updateExhibition(id);
+            };
         }
 
         // Update exhibition
@@ -1430,6 +1450,14 @@
                     return;
                 }
 
+                // Check if the new name would conflict with another exhibition (excluding current one)
+                const newExhibitionId = exhibitionName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
+                const existingExhibition = currentExhibitions.find(ex => ex.id === newExhibitionId && ex.id !== id);
+                if (existingExhibition) {
+                    showStatus('An exhibition with this name already exists', 'error');
+                    return;
+                }
+
                 currentExhibitions[exhibitionIndex] = {
                     ...currentExhibitions[exhibitionIndex],
                     name: exhibitionName,
@@ -1450,7 +1478,7 @@
                 // Commit to GitHub
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Update exhibition: ${exhibitionName}`
                 );
 
@@ -1463,10 +1491,99 @@
                     option.classList.remove('selected');
                 });
 
-                // Reset button
-                const submitBtn = document.querySelector('#create-exhibition-form button[type="submit"]');
+                // Reset form back to create mode
+                const form = document.getElementById('create-exhibition-form');
+                const submitBtn = form.querySelector('button[type="submit"]');
+
+                // Reset form to create mode
                 submitBtn.textContent = 'Create Exhibition';
-                submitBtn.onclick = null;
+                delete form.dataset.updateMode;
+                delete form.dataset.updateId;
+
+                // Restore original submit handler
+                form.onsubmit = async function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+                    const exhibitionName = formData.get('exhibition-name');
+                    const exhibitionDescription = formData.get('exhibition-description');
+                    const exhibitionYear = parseInt(formData.get('exhibition-year'));
+                    const exhibitionDates = formData.get('exhibition-dates');
+                    const exhibitionLocation = formData.get('exhibition-location');
+                    const exhibitionCurator = formData.get('exhibition-curator');
+
+                    // Get selected artworks
+                    const selectedArtworks = Array.from(document.querySelectorAll('#artwork-selector .artwork-option.selected'))
+                        .map(option => option.getAttribute('data-artwork-id'));
+
+                    if (!exhibitionName || !exhibitionDescription || !exhibitionYear) {
+                        showStatus('Please fill in the required fields: Name, Description, and Year', 'error');
+                        return;
+                    }
+
+                    if (selectedArtworks.length === 0) {
+                        showStatus('Please select at least one artwork', 'error');
+                        return;
+                    }
+
+                    try {
+                        showStatus('Creating exhibition...', 'success');
+
+                        // Generate ID from name
+                        const exhibitionId = exhibitionName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
+
+                        // Check if exhibition already exists
+                        if (currentExhibitions.find(ex => ex.id === exhibitionId)) {
+                            showStatus('An exhibition with this name already exists', 'error');
+                            return;
+                        }
+
+                        // Create exhibition object
+                        const newExhibition = {
+                            id: exhibitionId,
+                            name: exhibitionName,
+                            description: exhibitionDescription,
+                            year: exhibitionYear,
+                            startDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                            endDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
+                            location: exhibitionLocation || null,
+                            curator: exhibitionCurator || null,
+                            thumbnailImage: null, // Will be set later in thumbnail management
+                            artworks: selectedArtworks,
+                            documentation: []
+                        };
+
+                        // Add to current exhibitions
+                        currentExhibitions.push(newExhibition);
+
+                        // Update documentation.json
+                        const updatedData = {
+                            exhibitions: currentExhibitions
+                        };
+
+                        // Commit to GitHub
+                        await createOrUpdateFile(
+                            'data/documentation.json',
+                            JSON.stringify(updatedData, null, 2),
+                            `Add new exhibition: ${exhibitionName}`
+                        );
+
+                        // Refresh display
+                        renderExhibitionList(currentExhibitions);
+
+                        // Reset form
+                        this.reset();
+                        document.querySelectorAll('#artwork-selector .artwork-option.selected').forEach(option => {
+                            option.classList.remove('selected');
+                        });
+
+                        showStatus(`Exhibition "${exhibitionName}" created successfully!`, 'success');
+
+                    } catch (error) {
+                        console.error('Error creating exhibition:', error);
+                        showStatus('Error creating exhibition: ' + error.message, 'error');
+                    }
+                };
 
                 showStatus(`Exhibition "${exhibitionName}" updated successfully!`, 'success');
 
@@ -1507,7 +1624,7 @@
                 const exhibition = currentExhibitions.find(ex => ex.id === id) || { name: 'Unknown' };
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Delete exhibition: ${exhibition.name}`
                 );
 
@@ -1580,7 +1697,7 @@
 
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Update exhibition documentation: ${currentExhibitions[exhibitionIndex].name}`
                 );
 
@@ -1662,7 +1779,7 @@
 
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Update thumbnail for exhibition: ${currentExhibitions[exhibitionIndex].name}`
                 );
 
@@ -1722,7 +1839,7 @@
 
                 await createOrUpdateFile(
                     'data/documentation.json',
-                    btoa(JSON.stringify(updatedData, null, 2)),
+                    JSON.stringify(updatedData, null, 2),
                     `Remove document from exhibition: ${exhibition.name}`
                 );
 
