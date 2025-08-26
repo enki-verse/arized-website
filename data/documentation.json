@@ -44,12 +44,6 @@
       "documentation": [
         {
           "type": "image",
-          "filename": "odd-i-see-opening.jpg",
-          "caption": "Opening night at the ODD I SEE exhibition",
-          "path": "images/documentation/odd-i-see-opening.jpg"
-        },
-        {
-          "type": "image",
           "filename": "odd-i-see-gallery-view.jpg",
           "caption": "Gallery view showing the main installation",
           "path": "images/documentation/odd-i-see-gallery-view.jpg"
