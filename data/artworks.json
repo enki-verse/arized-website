@@ -2584,6 +2584,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:51:42.916Z"
+    },
+    {
+      "id": "the-mystic-and-the-alchemist-met-in-the-desert",
+      "title": "The Mystic And The Alchemist Met In The Desert",
+      "year": 2016,
+      "medium": "Oil on canvas",
+      "dimensions": "80 x 60 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Icecream apocalypse"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-mystic-and-the-alchemist-met-in-the-desert.jpg",
+        "medium": "images/artworks/medium/the-mystic-and-the-alchemist-met-in-the-desert.jpg",
+        "large": "images/artworks/large/the-mystic-and-the-alchemist-met-in-the-desert.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T05:07:48.018Z"
     }
   ]
 }
