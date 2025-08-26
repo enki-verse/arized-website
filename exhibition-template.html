@@ -1817,6 +1817,10 @@
             const lightboxDetails = document.getElementById('lightboxDetails');
             const lightboxPriceText = document.getElementById('lightboxPriceText');
             const lightboxStatus = document.getElementById('lightboxStatus');
+            const lightboxContent = document.querySelector('.lightbox-content');
+
+            // Check if this is documentation
+            const isDocumentation = lightboxContent && lightboxContent.classList.contains('documentation-lightbox');
 
             lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
             lightboxImage.alt = currentViewingArtwork.title;
@@ -1826,28 +1830,39 @@
                 cleanTitle = cleanTitle.replace(/s*d+cms*x?s*d+cms*$/i, '').trim();
             }
 
+            // For documentation, use cleaner title without filename
+            if (isDocumentation) {
+                cleanTitle = cleanTitle.replace(/\.[a-zA-Z]{3,4}$/, ''); // Remove file extension
+                if (cleanTitle.match(/^\d+_/)) { // Remove numeric prefix
+                    cleanTitle = 'Documentation';
+                }
+            }
+
             lightboxTitle.textContent = cleanTitle;
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
 
-            const price = formatPrice(currentViewingArtwork);
-            const status = getArtworkStatus(currentViewingArtwork);
+            // Skip price and status updates for documentation
+            if (!isDocumentation) {
+                const price = formatPrice(currentViewingArtwork);
+                const status = getArtworkStatus(currentViewingArtwork);
 
-            lightboxPriceText.textContent = price;
+                lightboxPriceText.textContent = price;
 
-            if (status.class === 'sold') {
-                lightboxStatus.innerHTML = `${status.text} <span class="status-dot"></span>`;
-                lightboxStatus.className = 'lightbox-status';
-                lightboxStatus.onclick = null;
-            } else if (status.class === 'available') {
-                lightboxStatus.textContent = status.text;
-                lightboxStatus.className = 'lightbox-status available';
-                lightboxStatus.style.cursor = 'pointer';
-                lightboxStatus.title = 'Click to inquire about this artwork';
-                lightboxStatus.onclick = () => openContactPopup(currentViewingArtwork);
-            } else {
-                lightboxStatus.textContent = status.text;
-                lightboxStatus.className = 'lightbox-status';
-                lightboxStatus.onclick = null;
+                if (status.class === 'sold') {
+                    lightboxStatus.innerHTML = `${status.text} <span class="status-dot"></span>`;
+                    lightboxStatus.className = 'lightbox-status';
+                    lightboxStatus.onclick = null;
+                } else if (status.class === 'available') {
+                    lightboxStatus.textContent = status.text;
+                    lightboxStatus.className = 'lightbox-status available';
+                    lightboxStatus.style.cursor = 'pointer';
+                    lightboxStatus.title = 'Click to inquire about this artwork';
+                    lightboxStatus.onclick = () => openContactPopup(currentViewingArtwork);
+                } else {
+                    lightboxStatus.textContent = status.text;
+                    lightboxStatus.className = 'lightbox-status';
+                    lightboxStatus.onclick = null;
+                }
             }
 
             const prevBtn = document.getElementById('prevBtn');
@@ -1891,7 +1906,7 @@
                     const doc = currentItem.data;
                     currentViewingArtwork = {
                         id: doc.filename,
-                        title: doc.caption || doc.filename,
+                        title: doc.caption || 'Documentation',
                         images: {
                             large: doc.path
                         },
@@ -1902,6 +1917,30 @@
                         forSale: false,
                         available: false
                     };
+
+                    // Apply documentation styling for navigation
+                    const lightboxContent = document.querySelector('.lightbox-content');
+                    if (lightboxContent) {
+                        lightboxContent.classList.add('documentation-lightbox');
+                    }
+
+                    // Hide action buttons for documentation
+                    setTimeout(() => {
+                        document.getElementById('addToSelection').style.display = 'none';
+                        document.getElementById('saveAsPDF').style.display = 'none';
+                    }, 50);
+                } else {
+                    // Remove documentation styling when navigating to regular artwork
+                    const lightboxContent = document.querySelector('.lightbox-content');
+                    if (lightboxContent) {
+                        lightboxContent.classList.remove('documentation-lightbox');
+                    }
+
+                    // Show action buttons for regular artworks
+                    setTimeout(() => {
+                        document.getElementById('addToSelection').style.display = 'flex';
+                        document.getElementById('saveAsPDF').style.display = 'flex';
+                    }, 50);
                 }
             }
 
