@@ -43,12 +43,6 @@
       ],
       "documentation": [
         {
-          "type": "image",
-          "filename": "odd-i-see-gallery-view.jpg",
-          "caption": "Gallery view showing the main installation",
-          "path": "images/documentation/odd-i-see-gallery-view.jpg"
-        },
-        {
           "type": "document",
           "filename": "odd-i-see-catalog.pdf",
           "caption": "Exhibition catalog with essay by the artist",
