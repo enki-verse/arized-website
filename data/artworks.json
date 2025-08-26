@@ -2377,6 +2377,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T04:32:32.582Z"
+    },
+    {
+      "id": "the-coronation-of-the-emperor-eolian",
+      "title": "The Coronation of the Emperor Eolian",
+      "year": 2017,
+      "medium": "Oil on canvas",
+      "dimensions": "120 x 160 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Walpurgis Nebulah"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-coronation-of-the-emperor-eolian.jpg",
+        "medium": "images/artworks/medium/the-coronation-of-the-emperor-eolian.jpg",
+        "large": "images/artworks/large/the-coronation-of-the-emperor-eolian.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-26T04:32:43.663Z"
     }
   ]
 }
