@@ -84,16 +84,17 @@
     {
       "id": "the-universe-is-leaking",
       "name": "The Universe Is Leaking",
-      "description": "A cosmic meditation on the fragility of reality and the permeable boundaries between dimensions. This exhibition explores themes of cosmic consciousness and the infinite nature of being.",
+      "description": "A theatre of paint leads the viewer on a journey. Flowers, rocks and horizons have become alive and greet the viewer as they pass. Symbols from mythology, literature and history, as well as formal elements, intertwine in a vortex of imaginative fantasy. These landscapes have a primordial bodily impact on the viewer as they generate the illusion of space and atmospheric effects. We can't help but feel the resonance of a yellow mist or a black mountain. This experiential veil of being is pierced by the painterly application that unapologetically delights in the daubs, drips and drenches of pure pigments and mediums. Aside from the abstractions even some of the symbolic and figurative elements appear to have lost their way and stepped out of their allocated genre. \n\nIn a talismanic world of flowering meaning everything is mind, every plant, mountain and cloud. All substance - malleable and flowing - in a simultaneous ‘now’ that stretches to forever. Evolving into a free flowing psychic soup. It teeters on the brink between utopia and apocalypse. Each painting is a circus troupe of avatars that hope to meet and dance with the avatars of your experience. \n",
       "year": 2021,
-      "startDate": "2021-06-01",
-      "endDate": "2021-08-31",
-      "location": "Perth Institute of Contemporary Arts",
-      "curator": "Dr. James Franklin",
+      "startDate": null,
+      "endDate": null,
+      "location": "Polaris Gallery, Melbourne",
+      "curator": "Chaohui Xie",
       "thumbnailImage": "images/artworks/medium/the-universe-is-leaking.jpg",
       "artworks": [
         "plenum-endgame",
         "rolling",
+        "uberchu",
         "nyx-and-the-fates-85x105cm-2021",
         "fete-of-the-dark-veiler",
         "dream",
@@ -109,8 +110,7 @@
         "unlocked",
         "welcome-to-forever",
         "homunculus-crossing-the-alps-on-life-world",
-        "flow",
-        "uberchu"
+        "flow"
       ],
       "documentation": []
     },
