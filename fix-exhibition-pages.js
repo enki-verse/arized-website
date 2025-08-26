@@ -22,6 +22,33 @@ function updateExhibitionPage(filePath) {
             'let exhibitionData = null; // Will be loaded dynamically'
         );
 
+        // Update the getExhibitionIdFromURL function to extract from filename
+        const oldGetIdFunction = `        // Get exhibition ID from URL parameter
+        function getExhibitionIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }`;
+
+        const newGetIdFunction = `        // Get exhibition ID from URL parameter or filename
+        function getExhibitionIdFromURL() {
+            // First try URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            let exhibitionId = urlParams.get('id');
+
+            // If no URL parameter, extract from filename
+            if (!exhibitionId) {
+                const path = window.location.pathname;
+                const filename = path.split('/').pop();
+                if (filename.startsWith('exhibition-') && filename.endsWith('.html')) {
+                    exhibitionId = filename.replace('exhibition-', '').replace('.html', '');
+                }
+            }
+
+            return exhibitionId;
+        }`;
+
+        content = content.replace(oldGetIdFunction, newGetIdFunction);
+
         // Update the initializeGallery function to load data dynamically
         const oldInitFunction = `        // Initialize the gallery
         async function initializeGallery() {

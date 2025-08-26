@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Icecream apocalypse - Ari Zed</title>
+    <title>Exhibition - Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@300;400&display=swap" rel="stylesheet">
@@ -12,10 +12,10 @@
         :root {
             --primary-brown: #8B4513;
             --secondary-brown: #654321;
-            --accent-gold: #d4af37; /* Refined gold */
-            --background-cream: #fafafa; /* Sophisticated light background */
+            --accent-gold: #d4af37;
+            --background-cream: #fafafa;
             --surface-white: #ffffff;
-            --text-primary: #2a2a2a; /* Softer than harsh black */
+            --text-primary: #2a2a2a;
             --text-secondary: #6a6a6a;
             --text-tertiary: #9a9a9a;
             --border-light: #f0f0f0;
@@ -30,7 +30,7 @@
         .navigation {
             position: fixed;
             top: 0;
-            left: -280px; /* Hidden by default */
+            left: -280px;
             width: 280px;
             height: 100vh;
             background: var(--surface-white);
@@ -44,7 +44,7 @@
         }
 
         .navigation.active {
-            left: 0; /* Show when active */
+            left: 0;
         }
 
         .nav-container {
@@ -54,7 +54,6 @@
             padding: 32px 0;
         }
 
-        /* Logo Section - Refined */
         .nav-logo {
             display: flex;
             flex-direction: column;
@@ -81,13 +80,7 @@
             border-radius: 8px;
             transition: all 0.15s ease-out;
             box-shadow: var(--shadow-subtle);
-            filter: invert(1); /* Invert the logo colors */
-        }
-
-        .nav-logo img:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-medium);
-            filter: invert(1) brightness(1.1); /* Maintain inversion on hover */
+            filter: invert(1);
         }
 
         .logo {
@@ -106,12 +99,11 @@
             color: var(--accent-gold);
         }
 
-        /* Main Navigation - Sophisticated Hierarchy with Submenu */
         .nav-menu {
             display: flex;
             flex-direction: column;
             list-style: none;
-            gap: 4px; /* Tight, refined spacing */
+            gap: 4px;
             margin-bottom: 40px;
             padding: 0 16px 32px;
             position: relative;
@@ -125,11 +117,6 @@
             right: 24px;
             height: 1px;
             background: var(--border-light);
-        }
-
-        .nav-menu li {
-            width: 100%;
-            margin: 0;
         }
 
         .nav-menu > li > a {
@@ -183,7 +170,7 @@
             height: 16px;
         }
 
-        /* ===== HAMBURGER MENU - ALWAYS VISIBLE ===== */
+        /* ===== HAMBURGER MENU ===== */
         .menu-toggle {
             position: fixed;
             top: 1rem;
@@ -209,15 +196,6 @@
             transform: scale(1.05);
         }
 
-        .menu-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .menu-toggle:focus {
-            outline: 2px solid rgba(218, 165, 32, 0.5);
-            outline-offset: 2px;
-        }
-
         .menu-toggle span {
             width: 28px;
             height: 3px;
@@ -241,22 +219,19 @@
         /* ===== BODY LAYOUT ===== */
         body {
             margin: 0;
-            transition: none; /* Remove transition for smoother mobile experience */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ===== MAIN CONTENT AREA ===== */
         main.section {
             flex: 1;
-            min-height: calc(100vh - 200px); /* Ensure minimum height minus approximate footer height */
+            min-height: calc(100vh - 200px);
             display: flex;
             flex-direction: column;
             transition: margin-left 0.3s ease;
         }
 
-        /* Adjust main content when navigation is active */
         .navigation.active ~ main.section {
             margin-left: 280px;
         }
@@ -280,7 +255,6 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* Adjust hero section when navigation is active */
         .navigation.active ~ .exhibition-hero {
             margin-left: 280px;
         }
@@ -358,10 +332,10 @@
             flex: 1;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; /* Increased from 8px for more space */
+            gap: 20px;
             justify-content: flex-start;
             align-items: flex-start;
-            min-height: 60vh; /* Ensure minimum height for loading state */
+            min-height: 60vh;
         }
 
         .gallery-grid.few-results {
@@ -449,12 +423,6 @@
             box-shadow: var(--shadow-medium);
         }
 
-        .artwork-card.dragging {
-            transform: scale(0.95);
-            opacity: 0.8;
-            cursor: grabbing;
-        }
-
         .artwork-image {
             height: 288px;
             width: auto;
@@ -466,7 +434,7 @@
         .artwork-image.scale-view {
             height: auto;
             width: auto;
-            max-height: 400px;
+            max-height: 600px;
             object-fit: contain;
         }
 
@@ -586,9 +554,9 @@
             box-shadow: var(--shadow-strong);
         }
 
-        /* ===== FOOTER POSITIONING ===== */
+        /* ===== FOOTER ===== */
         footer {
-            margin-top: auto; /* Push footer to bottom */
+            margin-top: auto;
             background: var(--text-primary);
             color: var(--white);
             text-align: center;
@@ -616,18 +584,18 @@
         }
 
         .nav-overlay.active {
-            opacity: 0 !important; /* No darkening effect */
-            visibility: hidden !important; /* Keep overlay hidden */
+            opacity: 0 !important;
+            visibility: hidden !important;
         }
 
         /* ===== DESKTOP STYLES ===== */
         @media (min-width: 769px) {
             .menu-toggle {
-                display: flex; /* Show hamburger menu on desktop too */
+                display: flex;
             }
 
             .nav-overlay {
-                display: block; /* Show overlay on desktop too */
+                display: block;
             }
         }
 
@@ -659,10 +627,6 @@
                 padding: 1.5rem 2rem;
             }
 
-            .exhibition-details p {
-                font-size: 1rem;
-            }
-
             .documentation-section,
             .documentation-section {
                 padding: 2rem 1rem;
@@ -672,12 +636,10 @@
                 grid-template-columns: 1fr;
             }
 
-            /* Hide scale toggle on mobile */
             .scale-toggle {
                 display: none !important;
             }
 
-            /* Disable dragging on mobile artworks */
             .artwork-card {
                 -webkit-user-drag: none;
                 -khtml-user-drag: none;
@@ -712,7 +674,7 @@
                 padding: 1rem 1.5rem;
             }
         }
-    
+
         /* ===== LIGHTBOX MODAL ===== */
         .lightbox {
             display: none;
@@ -789,7 +751,6 @@
             background: rgba(255, 255, 255, 1);
         }
 
-        /* Zoom Controls */
         .zoom-controls {
             position: fixed;
             bottom: 2rem;
@@ -894,7 +855,118 @@
             display: inline-block;
         }
 
-        /* ===== CONTACT POPUP (REPLACES INQUIRY MODAL) ===== */
+        .lightbox-navigation {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-navigation:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .lightbox-navigation:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(0.9);
+        }
+
+        .lightbox-navigation:disabled:hover {
+            transform: translateY(-50%) scale(0.9);
+            box-shadow: none;
+        }
+
+        .nav-btn-prev {
+            left: 2rem;
+        }
+
+        .nav-btn-next {
+            right: 2rem;
+        }
+
+        .nav-btn-prev::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 12px solid #333;
+            margin-left: -2px;
+        }
+
+        .nav-btn-next::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid #333;
+            margin-right: -2px;
+        }
+
+        .lightbox-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 2001;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #333;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-btn.add-to-selection {
+            background: var(--accent-gold);
+            color: white;
+            border-color: var(--accent-gold);
+        }
+
+        .action-btn.add-to-selection:hover {
+            background: var(--primary-brown);
+            border-color: var(--primary-brown);
+        }
+
+        .action-btn.add-to-selection.added {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        /* ===== CONTACT POPUP ===== */
         .contact-popup {
             display: none;
             position: fixed;
@@ -942,16 +1014,6 @@
             color: #6B6B6B;
             margin-bottom: 32px;
             line-height: 1.5;
-        }
-
-        .contact-content .best-ways {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: #2C1810;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .contact-methods {
@@ -1118,7 +1180,6 @@
             }
         }
 
-        /* Mobile responsive */
         @media (max-width: 768px) {
             .contact-content {
                 padding: 32px 24px;
@@ -1141,13 +1202,6 @@
                 position: relative;
             }
 
-            .contact-method a {
-                flex-direction: column !important;
-                text-align: center;
-                gap: 4px !important;
-                flex: 1;
-            }
-
             .copy-btn {
                 position: absolute;
                 right: 12px;
@@ -1165,119 +1219,28 @@
             }
         }
 
-        .lightbox-navigation {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
         }
 
-        .lightbox-navigation:hover {
-            background: rgba(255, 255, 255, 1);
-            border-color: rgba(0, 0, 0, 0.2);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        /* Error state */
+        .error-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
         }
 
-        .lightbox-navigation:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(0.9);
+        .error-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
-
-        .lightbox-navigation:disabled:hover {
-            transform: translateY(-50%) scale(0.9);
-            box-shadow: none;
-        }
-
-        .nav-btn-prev {
-            left: 2rem;
-        }
-
-        .nav-btn-next {
-            right: 2rem;
-        }
-
-        .nav-btn-prev::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-right: 12px solid #333;
-            margin-left: -2px;
-        }
-
-        .nav-btn-next::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 12px solid #333;
-            margin-right: -2px;
-        }
-
-        /* Bottom action buttons */
-        .lightbox-actions {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 0.5rem;
-            z-index: 2001;
-        }
-
-        .action-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: #333;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .action-btn:hover {
-            background: rgba(255, 255, 255, 1);
-            border-color: rgba(0, 0, 0, 0.3);
-        }
-
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .action-btn.add-to-selection {
-            background: var(--accent-gold);
-            color: white;
-            border-color: var(--accent-gold);
-        }
-
-        .action-btn.add-to-selection:hover {
-            background: var(--primary-brown);
-            border-color: var(--primary-brown);
-        }
-
-        .action-btn.add-to-selection.added {
-            background: #4CAF50;
-            border-color: #4CAF50;
-        }
-
-        </style>
+    </style>
 </head>
 <body>
     <!-- Navigation Overlay -->
@@ -1295,7 +1258,7 @@
         Scale View
     </button>
 
-    <!-- Navigation with Sub Navigation -->
+    <!-- Navigation -->
     <nav class="navigation" id="navigation">
         <div class="nav-container">
             <div class="nav-logo">
@@ -1357,7 +1320,6 @@
         <a href="exhibitions.html" class="return-button">← Return to All Exhibitions</a>
     </div>
 
-
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
         <span class="close" id="lightboxClose">&times;</span>
@@ -1377,18 +1339,16 @@
             <button class="zoom-btn" id="zoomOut">-</button>
         </div>
 
-        <!-- Round arrow navigation buttons -->
         <button class="lightbox-navigation nav-btn-prev" id="prevBtn" disabled></button>
         <button class="lightbox-navigation nav-btn-next" id="nextBtn" disabled></button>
 
-        <!-- Action buttons at bottom -->
         <div class="lightbox-actions">
             <button class="action-btn add-to-selection" id="addToSelection">Add to Selection</button>
             <button class="action-btn" id="saveAsPDF">Save as PDF</button>
         </div>
     </div>
 
-    <!-- Contact Popup - Replaces Inquiry Modal -->
+    <!-- Contact Popup -->
     <div class="contact-popup" id="contactPopup">
         <div class="contact-content">
             <button class="contact-close" id="contactClose">&times;</button>
@@ -1441,26 +1401,14 @@
         // Configuration
         const GITHUB_REPO = 'enki-verse/arized-website';
         let artworks = [];
-        let exhibitionArtworks = []; // Global variable for lightbox navigation
-        let exhibitionData = null; // Will be loaded dynamically
-        let isScaleView = false; // Track if we're in scale view mode
+        let exhibitionArtworks = [];
+        let exhibitionData = null;
+        let isScaleView = false;
 
-        // Get exhibition ID from URL parameter or filename
+        // Get exhibition ID from URL parameter
         function getExhibitionIdFromURL() {
-            // First try URL parameter
             const urlParams = new URLSearchParams(window.location.search);
-            let exhibitionId = urlParams.get('id');
-
-            // If no URL parameter, extract from filename
-            if (!exhibitionId) {
-                const path = window.location.pathname;
-                const filename = path.split('/').pop();
-                if (filename.startsWith('exhibition-') && filename.endsWith('.html')) {
-                    exhibitionId = filename.replace('exhibition-', '').replace('.html', '');
-                }
-            }
-
-            return exhibitionId;
+            return urlParams.get('id');
         }
 
         // Load exhibition data from documentation.json
@@ -1548,8 +1496,7 @@
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
                 const data = await response.json();
-                artworks = data.artworks;
-                return artworks;
+                return data.artworks;
             } catch (error) {
                 console.error('Error loading artworks:', error);
                 return [];
@@ -1558,9 +1505,8 @@
 
         // Parse dimensions to get width and height in cm
         function parseDimensions(dimensionString) {
-            if (!dimensionString) return { width: 50, height: 50 }; // Default fallback
+            if (!dimensionString) return { width: 50, height: 50 };
 
-            // Handle various dimension formats: "230 x 140 cm", "85x105cm", "61 x 76 cm", etc.
             const match = dimensionString.match(/(\d+)\s*x\s*(\d+)/i);
             if (match) {
                 return {
@@ -1569,7 +1515,6 @@
                 };
             }
 
-            // Fallback for malformed dimensions
             return { width: 50, height: 50 };
         }
 
@@ -1577,14 +1522,11 @@
         function calculateScaleSize(artwork, maxHeight = 400) {
             const { width, height } = parseDimensions(artwork.dimensions);
 
-            // Calculate aspect ratio
             const aspectRatio = width / height;
 
-            // Scale to fit within maxHeight while maintaining aspect ratio
-            let scaledHeight = Math.min(height * 2, maxHeight); // Scale factor of 2 for visibility
+            let scaledHeight = Math.min(height * 2, maxHeight);
             let scaledWidth = scaledHeight * aspectRatio;
 
-            // Ensure minimum size for very small artworks
             if (scaledHeight < 80) {
                 scaledHeight = 80;
                 scaledWidth = scaledHeight * aspectRatio;
@@ -1603,7 +1545,6 @@
                 return;
             }
 
-            // Filter artworks to only those in this exhibition
             exhibitionArtworks = artworks.filter(artwork =>
                 exhibitionData.artworks.includes(artwork.id) ||
                 (artwork.exhibitions && artwork.exhibitions.includes(exhibitionData.name))
@@ -1615,10 +1556,8 @@
                 return;
             }
 
-            // Update grid classes based on view mode
             grid.classList.toggle('scale-view', isScaleView);
 
-            // Add class for center alignment when few results (only in normal view)
             if (!isScaleView && exhibitionArtworks.length <= 3) {
                 grid.classList.add('few-results');
             } else {
@@ -1638,8 +1577,7 @@
                 }
 
                 return `
-                <div class="${cardClass}"
-                     data-id="${artwork.id}">
+                <div class="${cardClass}" data-id="${artwork.id}">
                     <img src="https://raw.githubusercontent.com/${GITHUB_REPO}/main/${artwork.images.medium}"
                          alt="${artwork.title}"
                          class="${imageClass}"
@@ -1652,68 +1590,28 @@
                 `;
             }).join('');
 
-            // Add click handlers
             setupCardInteractions();
         }
 
         // Setup card interactions
         function setupCardInteractions() {
             document.querySelectorAll('.artwork-card').forEach(card => {
-                // Click to view in lightbox (but don't add to selection)
                 card.addEventListener('click', (e) => {
                     viewArtworkInLightbox(card.dataset.id);
                 });
             });
         }
-        // View artwork in lightbox
-        function viewArtworkInLightbox(artworkId) {
-            const artwork = artworks.find(a => a.id === artworkId);
-            if (!artwork) return;
 
-            // Ensure exhibitionArtworks is available
-            if (typeof exhibitionArtworks === 'undefined' || !exhibitionArtworks) {
-                console.warn('exhibitionArtworks not available yet, initializing...');
-                // Try to initialize if not available
-                if (exhibitionData.artworks && artworks.length > 0) {
-                    exhibitionArtworks = artworks.filter(artwork =>
-                        exhibitionData.artworks.includes(artwork.id) ||
-                        (artwork.exhibitions && artwork.exhibitions.includes(exhibitionData.name))
-                    );
-                }
-            }
-
-            currentViewingArtwork = artwork;
-            currentArtworkIndex = exhibitionArtworks ? exhibitionArtworks.findIndex(a => a.id === artworkId) : 0;
-            isViewingSelection = false; // Individual artwork view
-
-            // Hide navigation
-            document.getElementById('navigation').classList.add('hidden');
-
-            // Show lightbox
-            const lightbox = document.getElementById('lightbox');
-            lightbox.style.display = 'flex';
-
-            updateLightboxImage();
-            updateAddToSelectionButton();
-            resetZoom();
-        }
-
-
-
-        // Setup scale toggle (available on all devices)
+        // Setup scale toggle
         function setupScaleToggle() {
             const scaleToggle = document.getElementById('scaleToggle');
             if (scaleToggle) {
                 scaleToggle.addEventListener('click', () => {
-                    console.log('Scale toggle clicked, current state:', isScaleView);
                     isScaleView = !isScaleView;
                     scaleToggle.classList.toggle('active', isScaleView);
                     scaleToggle.textContent = isScaleView ? 'Normal View' : 'Scale View';
-                    console.log('New scale view state:', isScaleView);
                     renderGallery();
                 });
-            } else {
-                console.log('Scale toggle button not found');
             }
         }
 
@@ -1748,91 +1646,39 @@
             }).join('');
         }
 
-
-        // Setup all lightbox event handlers
-        function setupLightboxEventHandlers() {
-            // Close lightbox
-            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-
-            // Navigation buttons
-            document.getElementById('prevBtn').addEventListener('click', () => navigateLightbox('prev'));
-            document.getElementById('nextBtn').addEventListener('click', () => navigateLightbox('next'));
-
-            // Zoom controls
-            document.getElementById('zoomIn').addEventListener('click', () => {
-                if (currentZoom < maxZoom) {
-                    currentZoom += zoomStep;
-                    updateImageZoom();
-                }
-            });
-
-            document.getElementById('zoomOut').addEventListener('click', () => {
-                if (currentZoom > minZoom) {
-                    currentZoom -= zoomStep;
-                    updateImageZoom();
-                }
-            });
-
-            // Add to selection button
-            document.getElementById('addToSelection').addEventListener('click', () => {
-                if (currentViewingArtwork) {
-                    addToSelection(currentViewingArtwork.id);
-                }
-            });
-
-            // Save as PDF button
-            document.getElementById('saveAsPDF').addEventListener('click', () => {
-                const artworksToSave = isViewingSelection ? selectedArtworks : [currentViewingArtwork];
-                if (artworksToSave.length > 0) {
-                    generatePDF(artworksToSave);
-                }
-            });
-
-            // Contact popup
-            setupContactPopup();
-
-            // Close on overlay click
-            document.getElementById('lightbox').addEventListener('click', (e) => {
-                if (e.target.id === 'lightbox') {
-                    closeLightbox();
-                }
-            });
-
-            // Keyboard navigation
-            setupKeyboardNavigation();
-        }
-
         // Initialize the gallery
         async function initializeGallery() {
             try {
-                // Use embedded exhibition data directly
-                // exhibitionData is already defined at the top of the script
+                const exhibitionId = getExhibitionIdFromURL();
 
-                // Load artworks data
+                if (!exhibitionId) {
+                    document.getElementById('galleryGrid').innerHTML =
+                        '<div class="error-state"><h3>Exhibition Not Found</h3><p>No exhibition ID provided in URL.</p></div>';
+                    return;
+                }
+
+                exhibitionData = await loadExhibitionData(exhibitionId);
                 artworks = await loadArtworks();
 
-                // Update exhibition display
                 updateExhibitionDisplay();
-
-                // Setup scale toggle
                 setupScaleToggle();
-
-                // Render gallery and documentation
                 renderGallery();
                 renderDocumentation();
-
-                // Setup lightbox event handlers
                 setupLightboxEventHandlers();
 
             } catch (error) {
                 console.error('Error initializing gallery:', error);
                 document.getElementById('galleryGrid').innerHTML =
-                    '<p class="loading">Error loading exhibition. Please try again later.</p>';
+                    '<div class="error-state"><h3>Error Loading Exhibition</h3><p>Please try again later.</p></div>';
             }
         }
 
-
-        // Lightbox zoom functionality
+        // Lightbox functionality (same as original)
+        let currentViewingArtwork = null;
+        let currentArtworkIndex = 0;
+        let currentSelectionIndex = 0;
+        let isViewingSelection = false;
+        let selectedArtworks = [];
         let currentZoom = 0.9;
         const minZoom = 0.5;
         const maxZoom = 3;
@@ -1843,39 +1689,16 @@
         let imageX = 0;
         let imageY = 0;
 
-        // Helper functions for artwork info
-        function formatPrice(artwork) {
-            if (!artwork.price) return 'Price on Request';
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-            }).format(artwork.price);
-        }
-
-        function getArtworkStatus(artwork) {
-            if (artwork.forSale === false) {
-                return { text: 'Sold', class: 'sold' };
-            } else if (artwork.available === true && artwork.forSale === true) {
-                return { text: 'Available', class: 'available' };
-            } else {
-                return { text: 'Not Available', class: 'not-available' };
-            }
-        }
-
-        // View artwork in lightbox
         function viewArtworkInLightbox(artworkId) {
             const artwork = artworks.find(a => a.id === artworkId);
             if (!artwork) return;
 
             currentViewingArtwork = artwork;
             currentArtworkIndex = exhibitionArtworks.findIndex(a => a.id === artworkId);
-            isViewingSelection = false; // Individual artwork view
+            isViewingSelection = false;
 
-            // Hide navigation
             document.getElementById('navigation').classList.add('hidden');
 
-            // Show lightbox
             const lightbox = document.getElementById('lightbox');
             lightbox.style.display = 'flex';
 
@@ -1901,7 +1724,6 @@
                 addBtn.disabled = false;
             }
 
-            // Update PDF button text when selection changes
             if (isViewingSelection && selectedArtworks.length > 1) {
                 pdfBtn.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
             } else {
@@ -1917,7 +1739,6 @@
             const lightboxDetails = document.getElementById('lightboxDetails');
             const lightboxPriceText = document.getElementById('lightboxPriceText');
             const lightboxStatus = document.getElementById('lightboxStatus');
-            const saveAsPDF = document.getElementById('saveAsPDF');
 
             lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
             lightboxImage.alt = currentViewingArtwork.title;
@@ -1930,17 +1751,15 @@
             lightboxTitle.textContent = cleanTitle;
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
 
-            // Update price and status
             const price = formatPrice(currentViewingArtwork);
             const status = getArtworkStatus(currentViewingArtwork);
 
             lightboxPriceText.textContent = price;
 
-            // Create status text with red dot for sold items or clickable available
             if (status.class === 'sold') {
                 lightboxStatus.innerHTML = `${status.text} <span class="status-dot"></span>`;
                 lightboxStatus.className = 'lightbox-status';
-                lightboxStatus.onclick = null; // Remove click handler
+                lightboxStatus.onclick = null;
             } else if (status.class === 'available') {
                 lightboxStatus.textContent = status.text;
                 lightboxStatus.className = 'lightbox-status available';
@@ -1950,35 +1769,23 @@
             } else {
                 lightboxStatus.textContent = status.text;
                 lightboxStatus.className = 'lightbox-status';
-                lightboxStatus.onclick = null; // Remove click handler
+                lightboxStatus.onclick = null;
             }
 
-            // Update PDF button text based on mode
-            if (isViewingSelection && selectedArtworks.length > 1) {
-                saveAsPDF.textContent = `Save Selection as PDF (${selectedArtworks.length} items)`;
-            } else {
-                saveAsPDF.textContent = 'Save as PDF';
-            }
-
-            // Update navigation buttons
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
             if (isViewingSelection) {
-                // Selection mode - navigate through selected artworks
                 prevBtn.disabled = selectedArtworks.length <= 1 || currentSelectionIndex <= 0;
                 nextBtn.disabled = selectedArtworks.length <= 1 || currentSelectionIndex >= selectedArtworks.length - 1;
             } else {
-                // Normal mode - navigate through all filtered artworks
                 prevBtn.disabled = exhibitionArtworks.length <= 1 || currentArtworkIndex <= 0;
                 nextBtn.disabled = exhibitionArtworks.length <= 1 || currentArtworkIndex >= exhibitionArtworks.length - 1;
             }
         }
 
-        // Navigate through artworks in lightbox
         function navigateLightbox(direction) {
             if (isViewingSelection) {
-                // Selection mode - navigate through selected artworks
                 if (selectedArtworks.length === 0) return;
 
                 if (direction === 'prev') {
@@ -1989,7 +1796,6 @@
 
                 currentViewingArtwork = selectedArtworks[currentSelectionIndex];
             } else {
-                // Normal mode - navigate through all filtered artworks
                 if (exhibitionArtworks.length === 0) return;
 
                 if (direction === 'prev') {
@@ -2006,13 +1812,11 @@
             resetZoom();
         }
 
-        // Close lightbox
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
             document.getElementById('navigation').classList.remove('hidden');
         }
 
-        // Zoom functionality
         function updateImageZoom() {
             const lightboxImage = document.getElementById('lightboxImage');
             const lightboxContent = document.querySelector('.lightbox-content');
@@ -2031,7 +1835,6 @@
             }
         }
 
-        // Setup drag functionality for lightbox
         function setupLightboxDrag() {
             const lightboxImage = document.getElementById('lightboxImage');
 
@@ -2039,7 +1842,6 @@
             document.addEventListener('mousemove', drag);
             document.addEventListener('mouseup', endDrag);
 
-            // Touch events for mobile
             lightboxImage.addEventListener('touchstart', startDragTouch);
             document.addEventListener('touchmove', dragTouch);
             document.addEventListener('touchend', endDrag);
@@ -2087,10 +1889,6 @@
             isDragging = false;
         }
 
-        // Setup lightbox drag functionality
-        setupLightboxDrag();
-
-        // Setup keyboard navigation for lightbox
         function setupKeyboardNavigation() {
             document.addEventListener('keydown', handleKeyboard);
         }
@@ -2099,9 +1897,7 @@
             const lightbox = document.getElementById('lightbox');
             if (lightbox.style.display === 'none') return;
 
-            // Only enable keyboard navigation on desktop
             if (window.innerWidth <= 768) {
-                // On mobile, only allow escape to close
                 if (e.key === 'Escape') {
                     e.preventDefault();
                     closeLightbox();
@@ -2109,7 +1905,7 @@
                 return;
             }
 
-            const panStep = 20; // pixels to move with keyboard
+            const panStep = 20;
 
             switch(e.key) {
                 case 'ArrowLeft':
@@ -2173,7 +1969,6 @@
             updateImageZoom();
         }
 
-        // Generate PDF
         function generatePDF(artworksArray) {
             const printWindow = window.open('', '_blank');
             const htmlContent = `
@@ -2215,13 +2010,6 @@
             printWindow.document.close();
         }
 
-        // Selection management
-        let selectedArtworks = []; // This is the selection collection
-        let currentViewingArtwork = null; // Currently viewing in lightbox
-        let currentArtworkIndex = 0; // For navigating through all artworks
-        let currentSelectionIndex = 0; // For navigating through selection
-        let isViewingSelection = false; // Track if we're viewing through selection mode
-
         function addToSelection(artworkId) {
             const artwork = artworks.find(a => a.id === artworkId);
             if (!artwork || selectedArtworks.find(a => a.id === artworkId)) return;
@@ -2230,17 +2018,33 @@
             updateAddToSelectionButton();
         }
 
-        // Setup contact popup
+        function formatPrice(artwork) {
+            if (!artwork.price) return 'Price on Request';
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(artwork.price);
+        }
+
+        function getArtworkStatus(artwork) {
+            if (artwork.forSale === false) {
+                return { text: 'Sold', class: 'sold' };
+            } else if (artwork.available === true && artwork.forSale === true) {
+                return { text: 'Available', class: 'available' };
+            } else {
+                return { text: 'Not Available', class: 'not-available' };
+            }
+        }
+
         function setupContactPopup() {
             const contactPopup = document.getElementById('contactPopup');
             const contactClose = document.getElementById('contactClose');
 
-            // Close popup handlers
             if (contactClose) {
                 contactClose.addEventListener('click', closeContactPopup);
             }
 
-            // Close on overlay click
             if (contactPopup) {
                 contactPopup.addEventListener('click', (e) => {
                     if (e.target.id === 'contactPopup') {
@@ -2249,7 +2053,6 @@
                 });
             }
 
-            // Close on escape key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && contactPopup.classList.contains('active')) {
                     closeContactPopup();
@@ -2259,41 +2062,32 @@
 
         function openContactPopup(artwork) {
             const popup = document.getElementById('contactPopup');
-
-            // Show popup
             popup.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeContactPopup() {
             const popup = document.getElementById('contactPopup');
-
             popup.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
+            document.body.style.overflow = '';
         }
 
-        // Copy to clipboard functionality
         function copyToClipboard(text, button) {
-            // Prevent the parent link from being clicked
             event.stopPropagation();
             event.preventDefault();
 
-            // Try modern clipboard API first
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => {
                     showCopyFeedback(button);
                 }).catch(() => {
-                    // Fallback if clipboard API fails
                     fallbackCopyToClipboard(text, button);
                 });
             } else {
-                // Fallback for older browsers or non-secure contexts
                 fallbackCopyToClipboard(text, button);
             }
         }
 
         function fallbackCopyToClipboard(text, button) {
-            // Create a temporary textarea element
             const textArea = document.createElement('textarea');
             textArea.value = text;
             textArea.style.position = 'fixed';
@@ -2308,7 +2102,6 @@
                 showCopyFeedback(button);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
-                // Show error feedback
                 showCopyFeedback(button, 'Failed to copy');
             }
 
@@ -2319,14 +2112,10 @@
             const feedback = button.nextElementSibling;
             const originalText = feedback.textContent;
 
-            // Update feedback text
             feedback.textContent = message;
-
-            // Add visual feedback to button
             button.classList.add('copied');
             feedback.classList.add('show');
 
-            // Reset after 2 seconds
             setTimeout(() => {
                 button.classList.remove('copied');
                 feedback.classList.remove('show');
@@ -2334,6 +2123,50 @@
             }, 2000);
         }
 
+        function setupLightboxEventHandlers() {
+            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+            document.getElementById('prevBtn').addEventListener('click', () => navigateLightbox('prev'));
+            document.getElementById('nextBtn').addEventListener('click', () => navigateLightbox('next'));
+
+            document.getElementById('zoomIn').addEventListener('click', () => {
+                if (currentZoom < maxZoom) {
+                    currentZoom += zoomStep;
+                    updateImageZoom();
+                }
+            });
+
+            document.getElementById('zoomOut').addEventListener('click', () => {
+                if (currentZoom > minZoom) {
+                    currentZoom -= zoomStep;
+                    updateImageZoom();
+                }
+            });
+
+            document.getElementById('addToSelection').addEventListener('click', () => {
+                if (currentViewingArtwork) {
+                    addToSelection(currentViewingArtwork.id);
+                }
+            });
+
+            document.getElementById('saveAsPDF').addEventListener('click', () => {
+                const artworksToSave = isViewingSelection ? selectedArtworks : [currentViewingArtwork];
+                if (artworksToSave.length > 0) {
+                    generatePDF(artworksToSave);
+                }
+            });
+
+            document.getElementById('lightbox').addEventListener('click', (e) => {
+                if (e.target.id === 'lightbox') {
+                    closeLightbox();
+                }
+            });
+
+            setupLightboxDrag();
+            setupKeyboardNavigation();
+        }
+
+        // Setup lightbox drag functionality
+        setupLightboxDrag();
     </script>
 </body>
 </html>

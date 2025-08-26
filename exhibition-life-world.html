@@ -337,7 +337,7 @@
             margin-top: 2rem;
             background: white;
             color: #333;
-            max-width: 600px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             border-radius: 8px;
@@ -1445,10 +1445,22 @@
         let exhibitionData = null; // Will be loaded dynamically
         let isScaleView = false; // Track if we're in scale view mode
 
-        // Get exhibition ID from URL parameter
+        // Get exhibition ID from URL parameter or filename
         function getExhibitionIdFromURL() {
+            // First try URL parameter
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('id');
+            let exhibitionId = urlParams.get('id');
+
+            // If no URL parameter, extract from filename
+            if (!exhibitionId) {
+                const path = window.location.pathname;
+                const filename = path.split('/').pop();
+                if (filename.startsWith('exhibition-') && filename.endsWith('.html')) {
+                    exhibitionId = filename.replace('exhibition-', '').replace('.html', '');
+                }
+            }
+
+            return exhibitionId;
         }
 
         // Load exhibition data from documentation.json
