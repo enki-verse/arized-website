@@ -231,6 +231,24 @@
         "gods-light-and-the-drone"
       ],
       "documentation": []
+    },
+    {
+      "id": "picnic-at-the-end-of-time",
+      "name": "Picnic at the end of time",
+      "description": "works exhibited in the VCA gradshow",
+      "year": 2017,
+      "startDate": null,
+      "endDate": null,
+      "location": "Victorian College of the Arts",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "the-fisher-king-esalan-institute",
+        "the-tempest-after-giorgione-",
+        "as-the-hyperspheric-castle-inflows-and-outflows-tidal-waves-pass-it-one-after-the-other-over-eons",
+        "as-you-fall-deeper-the-horizon-bubble-emerges"
+      ],
+      "documentation": []
     }
   ]
 }
