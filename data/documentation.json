@@ -545,6 +545,38 @@
           "id": "worlding-1756272803421-3aa34-worlding-page-012.jpg"
         }
       ]
+    },
+    {
+      "id": "february-portraits-project",
+      "name": "February Portraits Project",
+      "description": "First Site February studio residency",
+      "year": 2015,
+      "startDate": null,
+      "endDate": null,
+      "location": "First Site RMIT Melbourne",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "1618172-786029921475530-6719327431408975023-o",
+        "11018638-786029891475533-1777629726010054958-o",
+        "11034367-786029668142222-8773015173626684234-o",
+        "dsc-2894",
+        "dsc-2898",
+        "dsc-2900",
+        "dsc-2904",
+        "dsc-2908",
+        "dsc-2913",
+        "dsc-2920",
+        "dsc-2924",
+        "dsc-2936",
+        "dsc-2940",
+        "dsc-2948",
+        "dsc-2950",
+        "dsc-2952",
+        "dsc-2955",
+        "dsc-2967"
+      ],
+      "documentation": []
     }
   ]
 }
