@@ -576,7 +576,15 @@
         "dsc-2955",
         "dsc-2967"
       ],
-      "documentation": []
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "february-portraits-project-1756276467560-468882554_10164376098934115_652311788785828852_n.jpg",
+          "caption": "468882554_10164376098934115_652311788785828852_n.jpg",
+          "path": "images/documentation/february-portraits-project-1756276467560-468882554_10164376098934115_652311788785828852_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/february-portraits-project-1756276467613-thumb-468882554_10164376098934115_652311788785828852_n.jpg"
+        }
+      ]
     },
     {
       "id": "peripheral-luminousity",
