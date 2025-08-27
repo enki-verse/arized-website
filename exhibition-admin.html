@@ -605,6 +605,137 @@
             border-color: var(--accent-gold);
             background: rgba(212, 175, 55, 0.05);
         }
+
+        /* Image Organization Styles */
+        .organization-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .organization-instructions {
+            background: #e8f4f8;
+            border: 1px solid #b8e0d2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .organization-instructions p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sortable-image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .sortable-image-item {
+            position: relative;
+            background: var(--surface-white);
+            border-radius: 12px;
+            padding: 1rem;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            cursor: grab;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .sortable-image-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .sortable-image-item.dragging {
+            opacity: 0.6;
+            cursor: grabbing;
+            transform: rotate(5deg);
+        }
+
+        .sortable-image-item.documentation {
+            border-color: #2196F3;
+            background: linear-gradient(145deg, #ffffff 0%, #f3f8ff 100%);
+        }
+
+        .sortable-image-item.artwork {
+            border-color: var(--accent-gold);
+            background: linear-gradient(145deg, #ffffff 0%, #fffdf7 100%);
+        }
+
+        .sortable-image-item.drag-over {
+            border-color: #4CAF50;
+            background: #f0f8f0;
+            transform: scale(1.02);
+        }
+
+        .sortable-image-preview {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .sortable-image-info {
+            text-align: center;
+        }
+
+        .sortable-image-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .sortable-image-type {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .sortable-image-item.documentation .sortable-image-type {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .sortable-image-item.artwork .sortable-image-type {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+
+        .sortable-order-number {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .sortable-image-item.documentation .sortable-order-number {
+            background: #2196F3;
+        }
     </style>
 </head>
 <body>
@@ -644,6 +775,7 @@
         <div class="admin-nav">
             <button class="nav-tab active" data-section="manage">Manage Exhibitions</button>
             <button class="nav-tab" data-section="create">Create Exhibition</button>
+            <button class="nav-tab" data-section="organize">Organize Images</button>
             <button class="nav-tab" data-section="thumbnails">Set Thumbnails</button>
             <button class="nav-tab" data-section="documentation">Upload Documentation</button>
         </div>
@@ -725,6 +857,34 @@
 
                 <button type="submit" class="btn btn-primary">Create Exhibition</button>
             </form>
+        </div>
+
+        <!-- Organize Images Section -->
+        <div id="organize-section" class="admin-section">
+            <h2 class="section-title">Organize Image Order</h2>
+            <div class="form-group">
+                <label class="form-label" for="organize-exhibition-select">Select Exhibition</label>
+                <select id="organize-exhibition-select" class="form-select" onchange="loadExhibitionForOrganizing()">
+                    <!-- Exhibitions will be loaded here -->
+                </select>
+            </div>
+            
+            <!-- Image Organization Area -->
+            <div id="image-organization" style="display: none;">
+                <div class="organization-controls">
+                    <button class="btn btn-secondary" onclick="moveDocumentationToTop()">Move All Documentation to Top</button>
+                    <button class="btn btn-secondary" onclick="resetToOriginalOrder()">Reset to Original Order</button>
+                    <button class="btn btn-primary" onclick="saveImageOrder()">Save Order</button>
+                </div>
+                
+                <div class="organization-instructions">
+                    <p><strong>Instructions:</strong> Drag and drop images to reorder them. Documentation images are shown with a blue border, artworks with a gold border. The order here will be the display order in the exhibition.</p>
+                </div>
+                
+                <div id="sortable-images" class="sortable-image-grid">
+                    <!-- Images will be loaded here for sorting -->
+                </div>
+            </div>
         </div>
 
         <!-- Set Thumbnails Section -->
@@ -1190,10 +1350,12 @@
         function populateExhibitionSelect(exhibitions) {
             const selectElement = document.getElementById('exhibition-select');
             const thumbnailSelectElement = document.getElementById('thumbnail-exhibition-select');
+            const organizeSelectElement = document.getElementById('organize-exhibition-select');
 
             if (exhibitions.length === 0) {
                 selectElement.innerHTML = '<option value="">No exhibitions available</option>';
                 thumbnailSelectElement.innerHTML = '<option value="">No exhibitions available</option>';
+                organizeSelectElement.innerHTML = '<option value="">No exhibitions available</option>';
                 return;
             }
 
@@ -1204,6 +1366,7 @@
 
             selectElement.innerHTML = options;
             thumbnailSelectElement.innerHTML = options;
+            organizeSelectElement.innerHTML = options;
         }
 
         // Navigation functionality
@@ -2430,6 +2593,297 @@
             await saveCaptionFromModal();
         }
 
+        // === IMAGE ORGANIZATION FUNCTIONALITY ===
+
+        let currentOrganizingExhibition = null;
+        let currentImageOrder = [];
+
+        // Load exhibition for organizing
+        function loadExhibitionForOrganizing() {
+            const exhibitionSelect = document.getElementById('organize-exhibition-select');
+            const selectedExhibitionId = exhibitionSelect.value;
+            const imageOrganization = document.getElementById('image-organization');
+
+            if (!selectedExhibitionId) {
+                imageOrganization.style.display = 'none';
+                return;
+            }
+
+            currentOrganizingExhibition = currentExhibitions.find(ex => ex.id === selectedExhibitionId);
+            if (!currentOrganizingExhibition) {
+                imageOrganization.style.display = 'none';
+                return;
+            }
+
+            imageOrganization.style.display = 'block';
+            loadImagesForOrganizing();
+        }
+
+        // Load all images (artworks + documentation) for organizing
+        function loadImagesForOrganizing() {
+            if (!currentOrganizingExhibition) return;
+
+            // Get artworks for this exhibition
+            const exhibitionArtworks = currentArtworks.filter(artwork =>
+                currentOrganizingExhibition.artworks.includes(artwork.id) ||
+                (artwork.exhibitions && artwork.exhibitions.includes(currentOrganizingExhibition.name))
+            );
+
+            // Get documentation images
+            const exhibitionDocumentation = (currentOrganizingExhibition.documentation || []).filter(doc => doc.type === 'image');
+
+            // Create combined array with type information
+            let allImages = [
+                ...exhibitionArtworks.map(artwork => ({ type: 'artwork', data: artwork })),
+                ...exhibitionDocumentation.map(doc => ({ type: 'documentation', data: doc }))
+            ];
+
+            // Check if custom order exists
+            if (currentOrganizingExhibition.imageOrder && currentOrganizingExhibition.imageOrder.length > 0) {
+                // Sort according to saved order
+                const orderedImages = [];
+                const unorderedImages = [...allImages];
+                
+                currentOrganizingExhibition.imageOrder.forEach(orderItem => {
+                    const imageIndex = unorderedImages.findIndex(img => {
+                        if (orderItem.type === 'artwork') {
+                            return img.type === 'artwork' && img.data.id === orderItem.id;
+                        } else {
+                            return img.type === 'documentation' && img.data.filename === orderItem.id;
+                        }
+                    });
+                    
+                    if (imageIndex !== -1) {
+                        orderedImages.push(unorderedImages[imageIndex]);
+                        unorderedImages.splice(imageIndex, 1);
+                    }
+                });
+                
+                // Add any images that weren't in the saved order
+                orderedImages.push(...unorderedImages);
+                allImages = orderedImages;
+            }
+
+            currentImageOrder = allImages;
+            renderSortableImages(allImages);
+        }
+
+        // Render sortable images
+        function renderSortableImages(images) {
+            const container = document.getElementById('sortable-images');
+            
+            if (images.length === 0) {
+                container.innerHTML = '<p>No images found in this exhibition.</p>';
+                return;
+            }
+
+            container.innerHTML = images.map((item, index) => {
+                if (item.type === 'artwork') {
+                    const artwork = item.data;
+                    const thumbnailUrl = artwork.images && artwork.images.thumbnail
+                        ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.thumbnail}`
+                        : artwork.images && artwork.images.medium
+                        ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.medium}`
+                        : 'images/placeholder.jpg';
+
+                    return `
+                        <div class="sortable-image-item artwork"
+                             draggable="true"
+                             data-type="artwork"
+                             data-id="${artwork.id}"
+                             data-index="${index}">
+                            <div class="sortable-order-number">${index + 1}</div>
+                            <img src="${thumbnailUrl}" alt="${artwork.title}" class="sortable-image-preview">
+                            <div class="sortable-image-info">
+                                <div class="sortable-image-title">${artwork.title}</div>
+                                <div class="sortable-image-type">Artwork</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const doc = item.data;
+                    const thumbnailUrl = doc.path
+                        ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${doc.path}`
+                        : 'images/placeholder.jpg';
+
+                    return `
+                        <div class="sortable-image-item documentation"
+                             draggable="true"
+                             data-type="documentation"
+                             data-id="${doc.filename}"
+                             data-index="${index}">
+                            <div class="sortable-order-number">${index + 1}</div>
+                            <img src="${thumbnailUrl}" alt="${doc.caption || 'Documentation'}" class="sortable-image-preview">
+                            <div class="sortable-image-info">
+                                <div class="sortable-image-title">${doc.caption || 'Documentation'}</div>
+                                <div class="sortable-image-type">Documentation</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            setupDragAndDrop();
+        }
+
+        // Setup drag and drop functionality
+        function setupDragAndDrop() {
+            const items = document.querySelectorAll('.sortable-image-item');
+            
+            items.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+                item.addEventListener('dragenter', handleDragEnter);
+                item.addEventListener('dragleave', handleDragLeave);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+        }
+
+        let draggedItem = null;
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.outerHTML);
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedItem) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (draggedItem !== this) {
+                const draggedIndex = parseInt(draggedItem.dataset.index);
+                const targetIndex = parseInt(this.dataset.index);
+                
+                // Reorder the images array
+                const draggedImage = currentImageOrder[draggedIndex];
+                currentImageOrder.splice(draggedIndex, 1);
+                currentImageOrder.splice(targetIndex, 0, draggedImage);
+                
+                // Re-render with new order
+                renderSortableImages(currentImageOrder);
+            }
+
+            this.classList.remove('drag-over');
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            const items = document.querySelectorAll('.sortable-image-item');
+            items.forEach(item => {
+                item.classList.remove('dragging');
+                item.classList.remove('drag-over');
+            });
+        }
+
+        // Move all documentation to top
+        function moveDocumentationToTop() {
+            if (!currentImageOrder.length) return;
+
+            const documentationImages = currentImageOrder.filter(item => item.type === 'documentation');
+            const artworkImages = currentImageOrder.filter(item => item.type === 'artwork');
+            
+            currentImageOrder = [...documentationImages, ...artworkImages];
+            renderSortableImages(currentImageOrder);
+            
+            showStatus('Moved all documentation images to the top', 'success');
+        }
+
+        // Reset to original order
+        function resetToOriginalOrder() {
+            if (!currentOrganizingExhibition) return;
+
+            // Get artworks for this exhibition
+            const exhibitionArtworks = currentArtworks.filter(artwork =>
+                currentOrganizingExhibition.artworks.includes(artwork.id) ||
+                (artwork.exhibitions && artwork.exhibitions.includes(currentOrganizingExhibition.name))
+            );
+
+            // Get documentation images
+            const exhibitionDocumentation = (currentOrganizingExhibition.documentation || []).filter(doc => doc.type === 'image');
+
+            // Reset to original order (artworks first, then documentation)
+            currentImageOrder = [
+                ...exhibitionArtworks.map(artwork => ({ type: 'artwork', data: artwork })),
+                ...exhibitionDocumentation.map(doc => ({ type: 'documentation', data: doc }))
+            ];
+
+            renderSortableImages(currentImageOrder);
+            showStatus('Reset to original order', 'success');
+        }
+
+        // Save image order
+        async function saveImageOrder() {
+            if (!currentOrganizingExhibition || !currentImageOrder.length) {
+                showStatus('No exhibition selected or no images to save', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Saving image order...', 'success');
+
+                // Create the image order array
+                const imageOrder = currentImageOrder.map(item => ({
+                    type: item.type,
+                    id: item.type === 'artwork' ? item.data.id : item.data.filename
+                }));
+
+                // Find the exhibition index
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === currentOrganizingExhibition.id);
+                if (exhibitionIndex === -1) {
+                    showStatus('Exhibition not found', 'error');
+                    return;
+                }
+
+                // Update the exhibition with the new image order
+                currentExhibitions[exhibitionIndex].imageOrder = imageOrder;
+
+                // Update documentation.json
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    JSON.stringify(updatedData, null, 2),
+                    `Update image order for exhibition: ${currentOrganizingExhibition.name}`
+                );
+
+                // Refresh the organizing exhibition reference
+                currentOrganizingExhibition = currentExhibitions[exhibitionIndex];
+
+                // Refresh the exhibition list display
+                renderExhibitionList(currentExhibitions);
+
+                showStatus(`Image order saved successfully for "${currentOrganizingExhibition.name}"!`, 'success');
+
+            } catch (error) {
+                console.error('Error saving image order:', error);
+                showStatus('Error saving image order: ' + error.message, 'error');
+            }
+        }
+
         async function saveCaption(saveBtn) {
             const previewItem = saveBtn.closest('.doc-preview-item');
             const editInput = previewItem.querySelector('.doc-edit-input');
@@ -2506,6 +2960,10 @@
         window.cancelEditCaption = cancelCaptionEdit;
         window.saveCaptionFromLargeInput = saveCaptionFromLargeInput;
         window.saveCaptionFromModal = saveCaptionFromModal;
+        window.loadExhibitionForOrganizing = loadExhibitionForOrganizing;
+        window.moveDocumentationToTop = moveDocumentationToTop;
+        window.resetToOriginalOrder = resetToOriginalOrder;
+        window.saveImageOrder = saveImageOrder;
     </script>
 </body>
 </html>

@@ -1577,11 +1577,51 @@
             // Get documentation (only images, not documents)
             const exhibitionDocumentation = (exhibitionData.documentation || []).filter(doc => doc.type === 'image');
 
-            // Combine artworks and documentation
-            allItems = [
-                ...exhibitionArtworks.map(artwork => ({ type: 'artwork', data: artwork })),
-                ...exhibitionDocumentation.map(doc => ({ type: 'documentation', data: doc }))
-            ];
+            // Check if custom image order exists
+            if (exhibitionData.imageOrder && exhibitionData.imageOrder.length > 0) {
+                // Use custom order
+                allItems = [];
+                
+                exhibitionData.imageOrder.forEach(orderItem => {
+                    if (orderItem.type === 'artwork') {
+                        const artwork = exhibitionArtworks.find(a => a.id === orderItem.id);
+                        if (artwork) {
+                            allItems.push({ type: 'artwork', data: artwork });
+                        }
+                    } else if (orderItem.type === 'documentation') {
+                        const doc = exhibitionDocumentation.find(d => d.filename === orderItem.id);
+                        if (doc) {
+                            allItems.push({ type: 'documentation', data: doc });
+                        }
+                    }
+                });
+
+                // Add any items not in the custom order at the end
+                const orderedArtworkIds = exhibitionData.imageOrder
+                    .filter(item => item.type === 'artwork')
+                    .map(item => item.id);
+                const orderedDocIds = exhibitionData.imageOrder
+                    .filter(item => item.type === 'documentation')
+                    .map(item => item.id);
+
+                exhibitionArtworks.forEach(artwork => {
+                    if (!orderedArtworkIds.includes(artwork.id)) {
+                        allItems.push({ type: 'artwork', data: artwork });
+                    }
+                });
+
+                exhibitionDocumentation.forEach(doc => {
+                    if (!orderedDocIds.includes(doc.filename)) {
+                        allItems.push({ type: 'documentation', data: doc });
+                    }
+                });
+            } else {
+                // Use default order (artworks first, then documentation)
+                allItems = [
+                    ...exhibitionArtworks.map(artwork => ({ type: 'artwork', data: artwork })),
+                    ...exhibitionDocumentation.map(doc => ({ type: 'documentation', data: doc }))
+                ];
+            }
 
             if (allItems.length === 0) {
                 grid.innerHTML = '<p class="loading">No artworks or documentation found in this exhibition.</p>';
