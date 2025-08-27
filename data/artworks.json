@@ -3320,6 +3320,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T04:47:57.806Z"
+    },
+    {
+      "id": "artschool-12",
+      "title": "artschool 12",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/artschool-12.jpg",
+        "medium": "images/artworks/medium/artschool-12.jpg",
+        "large": "images/artworks/large/artschool-12.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T04:48:07.854Z"
     }
   ]
 }
