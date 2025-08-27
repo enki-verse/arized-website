@@ -3619,6 +3619,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:14:20.089Z"
+    },
+    {
+      "id": "chess-game",
+      "title": "Chess Game",
+      "year": 2016,
+      "medium": "Oil on board",
+      "dimensions": "65 x 95 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Worlding"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/chess-game.jpg",
+        "medium": "images/artworks/medium/chess-game.jpg",
+        "large": "images/artworks/large/chess-game.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:14:32.738Z"
     }
   ]
 }
