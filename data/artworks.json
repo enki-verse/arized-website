@@ -3861,6 +3861,31 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:49:13.570Z"
+    },
+    {
+      "id": "dsc-2904",
+      "title": "DSC 2904",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "portrait"
+      ],
+      "exhibitions": [
+        "Febuary portraits project"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dsc-2904.jpg",
+        "medium": "images/artworks/medium/dsc-2904.jpg",
+        "large": "images/artworks/large/dsc-2904.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:49:28.639Z"
     }
   ]
 }
