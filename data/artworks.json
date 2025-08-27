@@ -3596,6 +3596,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:14:07.934Z"
+    },
+    {
+      "id": "blood-void-",
+      "title": "Blood Void ",
+      "year": 2016,
+      "medium": "Oil on board",
+      "dimensions": "66 x 55 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/blood-void-.jpg",
+        "medium": "images/artworks/medium/blood-void-.jpg",
+        "large": "images/artworks/large/blood-void-.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:14:20.089Z"
     }
   ]
 }
