@@ -3911,6 +3911,31 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:49:40.402Z"
+    },
+    {
+      "id": "dsc-2913",
+      "title": "DSC 2913",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "portrait"
+      ],
+      "exhibitions": [
+        "Febuary portraits project"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dsc-2913.jpg",
+        "medium": "images/artworks/medium/dsc-2913.jpg",
+        "large": "images/artworks/large/dsc-2913.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:49:54.121Z"
     }
   ]
 }
