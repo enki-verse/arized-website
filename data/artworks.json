@@ -4805,6 +4805,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:07:20.290Z"
+    },
+    {
+      "id": "made-in-our-image",
+      "title": "Made in our image",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/made-in-our-image.jpg",
+        "medium": "images/artworks/medium/made-in-our-image.jpg",
+        "large": "images/artworks/large/made-in-our-image.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:07:32.531Z"
     }
   ]
 }
