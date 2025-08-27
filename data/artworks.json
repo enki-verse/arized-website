@@ -4061,6 +4061,31 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:51:06.943Z"
+    },
+    {
+      "id": "dsc-2950",
+      "title": "DSC 2950",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "portrait"
+      ],
+      "exhibitions": [
+        "Febuary portraits project"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dsc-2950.jpg",
+        "medium": "images/artworks/medium/dsc-2950.jpg",
+        "large": "images/artworks/large/dsc-2950.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:51:19.867Z"
     }
   ]
 }
