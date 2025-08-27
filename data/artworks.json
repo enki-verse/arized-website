@@ -3527,6 +3527,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T04:49:30.099Z"
+    },
+    {
+      "id": "ganesha-and-parvati",
+      "title": "Ganesha And Parvati",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/ganesha-and-parvati.jpg",
+        "medium": "images/artworks/medium/ganesha-and-parvati.jpg",
+        "large": "images/artworks/large/ganesha-and-parvati.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T04:49:40.341Z"
     }
   ]
 }
