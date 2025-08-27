@@ -3573,6 +3573,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T04:49:51.459Z"
+    },
+    {
+      "id": "ablution-2016",
+      "title": "Ablution 2016",
+      "year": 2016,
+      "medium": "Oil on board",
+      "dimensions": "66 x 55 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Worlding"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/ablution-2016.jpg",
+        "medium": "images/artworks/medium/ablution-2016.jpg",
+        "large": "images/artworks/large/ablution-2016.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:14:07.934Z"
     }
   ]
 }
