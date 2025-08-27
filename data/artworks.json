@@ -4506,6 +4506,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:04:55.436Z"
+    },
+    {
+      "id": "782982-orig",
+      "title": "782982 Orig",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/782982-orig.jpg",
+        "medium": "images/artworks/medium/782982-orig.jpg",
+        "large": "images/artworks/large/782982-orig.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:05:05.554Z"
     }
   ]
 }
