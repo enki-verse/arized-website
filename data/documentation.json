@@ -768,7 +768,22 @@
         "alsea",
         "caduceus"
       ],
-      "documentation": []
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756279077680-image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
+          "caption": "image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
+          "path": "images/documentation/allegory-of-space-1756279077680-image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756279077747-thumb-image+4-HarryZedHughes-story+hall+comparison-2013.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756279085342-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
+          "caption": "image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
+          "path": "images/documentation/allegory-of-space-1756279085342-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756279085395-thumb-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg"
+        }
+      ]
     }
   ]
 }
