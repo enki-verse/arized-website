@@ -478,6 +478,72 @@
           "path": "images/documentation/worlding-1756272863338-d6055-09worldinginstallshot2016.jpg",
           "thumbnailPath": "images/documentation/thumbnails/worlding-1756272863359-thumb-d6055-09worldinginstallshot2016.jpg"
         }
+      ],
+      "imageOrder": [
+        {
+          "type": "documentation",
+          "id": "worlding-1756272863338-d6055-09worldinginstallshot2016.jpg"
+        },
+        {
+          "type": "artwork",
+          "id": "enigma-66x55cm-2016"
+        },
+        {
+          "type": "artwork",
+          "id": "chess-game"
+        },
+        {
+          "type": "artwork",
+          "id": "yield-66x55cm-2016"
+        },
+        {
+          "type": "artwork",
+          "id": "girl-reading-a-letter-66x55cm-2016"
+        },
+        {
+          "type": "artwork",
+          "id": "ablution-2016"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272856724-55c01-worlding-page-003.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272850471-01736-worlding-page-004.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272844826-7537a-worlding-page-005.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272839117-1546a-worlding-page-006.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272832158-a0a0d-worlding-page-007.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272826328-0cb99-worlding-page-008.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272820710-16a4b-worlding-page-009.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272815299-fb699-worlding-page-010.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272809750-724be-worlding-page-011.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "worlding-1756272803421-3aa34-worlding-page-012.jpg"
+        }
       ]
     }
   ]
