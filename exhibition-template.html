@@ -240,6 +240,11 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+
+        .navigation.active ~ main.section .container {
+            margin-left: 0;
         }
 
         /* ===== EXHIBITION HERO SECTION ===== */
@@ -255,8 +260,8 @@
             transition: margin-left 0.3s ease;
         }
 
-        .navigation.active ~ .exhibition-hero {
-            margin-left: 280px;
+        .navigation.active ~ main.section .exhibition-hero {
+            margin-left: 0;
         }
 
         .exhibition-content {
@@ -293,8 +298,8 @@
             transition: margin-left 0.3s ease;
         }
 
-        .navigation.active ~ .exhibition-title-section {
-            margin-left: 280px;
+        .navigation.active ~ main.section .exhibition-title-section {
+            margin-left: 0;
         }
 
         .exhibition-title-section h1 {
@@ -321,6 +326,12 @@
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
             border: 1px solid #e0e0e0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .navigation.active ~ main.section .exhibition-details {
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .exhibition-details p {
@@ -1295,40 +1306,40 @@
         </div>
     </nav>
 
-    <!-- Exhibition Hero Section -->
-    <section class="exhibition-hero">
-        <div class="exhibition-content">
-            <div class="exhibition-image">
-                <img src="" alt="" id="exhibitionHeroImage">
-            </div>
-        </div>
-    </section>
-
-    <!-- Exhibition Title -->
-    <section class="exhibition-title-section">
-        <h1 id="exhibitionTitle">Loading...</h1>
-    </section>
-
-    <!-- Exhibition Details -->
-    <section class="exhibition-details">
-        <p id="exhibitionDescription">Loading exhibition details...</p>
-        <p id="exhibitionMeta"></p>
-    </section>
-
-    <!-- Gallery Content -->
+    <!-- Main Content Container -->
     <main class="section">
+        <!-- Exhibition Hero Section -->
+        <section class="exhibition-hero">
+            <div class="exhibition-content">
+                <div class="exhibition-image">
+                    <img src="" alt="" id="exhibitionHeroImage">
+                </div>
+            </div>
+        </section>
+
+        <!-- Exhibition Title -->
+        <section class="exhibition-title-section">
+            <h1 id="exhibitionTitle">Loading...</h1>
+        </section>
+
+        <!-- Exhibition Details -->
+        <section class="exhibition-details">
+            <p id="exhibitionDescription">Loading exhibition details...</p>
+            <p id="exhibitionMeta"></p>
+        </section>
+
+        <!-- Gallery Content -->
         <div class="container">
             <div class="gallery-grid" id="galleryGrid">
                 <div class="loading">Loading artworks...</div>
             </div>
         </div>
+
+        <!-- Return to Exhibitions Button -->
+        <div style="text-align: center;">
+            <a href="exhibitions.html" class="return-button">← Return to All Exhibitions</a>
+        </div>
     </main>
-
-
-    <!-- Return to Exhibitions Button -->
-    <div style="text-align: center;">
-        <a href="exhibitions.html" class="return-button">← Return to All Exhibitions</a>
-    </div>
 
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
