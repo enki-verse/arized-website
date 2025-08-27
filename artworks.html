@@ -1773,17 +1773,6 @@
                             <a href="#" class="filter-item" data-filter="sold">Sold</a>
                             <a href="#" class="filter-item" data-filter="not-available">Not Available</a>
                         </div>
-
-                        <a href="#" class="exhibitions-toggle" id="exhibitionsToggle">
-                            Exhibitions
-                            <span class="exhibitions-arrow">▼</span>
-                        </a>
-                        <div class="exhibition-submenu" id="exhibitionSubmenu">
-                            <a href="#" class="exhibition-item active" data-exhibition="all">All Works</a>
-                            <a href="#" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
-                            <a href="#" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
-                            <a href="#" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
-                        </div>
                     </div>
                 </li>
                 <li><a href="exhibitions.html">EXHIBITIONS</a></li>
@@ -2053,11 +2042,11 @@
                         submenu.classList.add('active');
                         toggle.classList.add('active');
 
-                        // Close exhibition submenu
+                        // Close exhibition submenu (if it exists)
                         const exhibitionSubmenu = document.getElementById('exhibitionSubmenu');
                         const exhibitionToggle = document.getElementById('exhibitionsToggle');
-                        exhibitionSubmenu.classList.remove('active');
-                        exhibitionToggle.classList.remove('active');
+                        if (exhibitionSubmenu) exhibitionSubmenu.classList.remove('active');
+                        if (exhibitionToggle) exhibitionToggle.classList.remove('active');
 
                         console.log('Opening filter submenu');
                     }

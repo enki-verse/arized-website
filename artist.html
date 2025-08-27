@@ -181,44 +181,6 @@
             max-height: 300px;
         }
 
-        .exhibitions-toggle {
-            color: #2a2a2a !important;
-            font-family: 'Space Grotesk', sans-serif !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-            text-transform: uppercase !important;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            border-radius: 4px;
-            transition: all 0.15s ease-out;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .exhibition-submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            margin-left: 16px;
-            margin-top: 4px;
-        }
-
-        .exhibition-submenu.active {
-            max-height: 200px;
-        }
-
-        .exhibition-item {
-            color: #4a4a4a !important;
-            font-family: 'Space Grotesk', sans-serif !important;
-            font-size: 11px !important;
-            text-transform: uppercase !important;
-            display: block;
-            padding: 6px 16px;
-            text-decoration: none;
-            transition: all 0.15s ease-out;
-        }
 
         .dropdown-arrow, .exhibitions-arrow {
             font-size: 10px;
@@ -871,18 +833,10 @@
                         <span class="dropdown-arrow">▼</span>
                     </a>
                     <div class="submenu" id="artworksSubmenu">
-                        <a href="#" class="exhibitions-toggle" id="exhibitionsToggle">
-                            Exhibitions
-                            <span class="exhibitions-arrow">▼</span>
-                        </a>
-                        <div class="exhibition-submenu" id="exhibitionSubmenu">
-                            <a href="artworks.html" class="exhibition-item active" data-exhibition="all">All Works</a>
-                            <a href="artworks.html" class="exhibition-item" data-exhibition="ODD I SEE">ODD I SEE</a>
-                            <a href="artworks.html" class="exhibition-item" data-exhibition="Bone and Boundary">Bone and Boundary</a>
-                            <a href="artworks.html" class="exhibition-item" data-exhibition="The Universe Is Leaking">The Universe Is Leaking</a>
-                        </div>
+                        <!-- Exhibition submenu removed - now using direct EXHIBITIONS link -->
                     </div>
                 </li>
+                <li><a href="exhibitions.html">EXHIBITIONS</a></li>
                 <li><a href="philosophy.html">PHILOSOPHY</a></li>
                 <li><a href="process.html">PROCESS</a></li>
                 <li><a href="artist.html" class="active">ARTIST</a></li>
@@ -1036,28 +990,13 @@
             
             if (navMenu) {
                 navMenu.querySelectorAll('li > a').forEach(link => {
-                    if (!link.id || (link.id !== 'artworksToggle' && link.id !== 'exhibitionsToggle')) {
+                    if (!link.id || link.id !== 'artworksToggle') {
                         link.addEventListener('click', closeMenu);
                     }
                 });
 
-                navMenu.querySelectorAll('.exhibition-item').forEach(link => {
-                    link.addEventListener('click', closeMenu);
-                });
             }
             
-            const exhibitionsToggle = document.getElementById('exhibitionsToggle');
-            if (exhibitionsToggle) {
-                exhibitionsToggle.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    const submenu = document.getElementById('exhibitionSubmenu');
-                    const toggle = document.getElementById('exhibitionsToggle');
-                    
-                    submenu.classList.toggle('active');
-                    toggle.classList.toggle('active');
-                });
-            }
             
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
