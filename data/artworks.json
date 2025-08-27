@@ -4736,6 +4736,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:06:44.255Z"
+    },
+    {
+      "id": "aginippe",
+      "title": "Aginippe",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/aginippe.jpg",
+        "medium": "images/artworks/medium/aginippe.jpg",
+        "large": "images/artworks/large/aginippe.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:06:56.543Z"
     }
   ]
 }
