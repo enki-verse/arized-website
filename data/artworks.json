@@ -3642,6 +3642,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:14:32.738Z"
+    },
+    {
+      "id": "enigma-66x55cm-2016",
+      "title": "Enigma 66x55cm 2016",
+      "year": 2016,
+      "medium": "Oil on board",
+      "dimensions": "66 x 55 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Worlding"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/enigma-66x55cm-2016.jpg",
+        "medium": "images/artworks/medium/enigma-66x55cm-2016.jpg",
+        "large": "images/artworks/large/enigma-66x55cm-2016.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:14:45.226Z"
     }
   ]
 }
