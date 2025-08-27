@@ -764,7 +764,7 @@
       "endDate": null,
       "location": "First Site RMIT Melbourne",
       "curator": "Ari Zed",
-      "thumbnailImage": null,
+      "thumbnailImage": "images/artworks/thumbnails/aether.jpg",
       "artworks": [
         "eudeamonia",
         "arethusa",
