@@ -117,12 +117,12 @@
     {
       "id": "life-world",
       "name": "Life world",
-      "description": "An immersive exploration of interconnected ecosystems and mythical realms, where organic forms merge with cosmic landscapes to create a unified vision of life's complexity.",
+      "description": "this body of work is titled \"Life world\" as it was insired by a world with the same name in a book i am writting called the Foundation Stones. The paintings were produced as Part of the residency in the studio in Kyneton\n\n\nThe Macfarlane Fund was established with the primary focus to offer financial support across the career span of artists with three main funding streams at graduate, mid-career and senior levels.\nThis group exhibition is the culmination of a series of residencies provided by The Macarlane Fund for recent graduate students. The Macfarlane Fund and Stockroom are proud to present the three 2018 recipients in this group exhibition, Angela Chauvin, Harry Hughes and Josephine Mead",
       "year": 2018,
-      "startDate": "2018-04-20",
-      "endDate": "2018-07-15",
-      "location": "Gallery Central, Perth",
-      "curator": "Maria Santos",
+      "startDate": null,
+      "endDate": null,
+      "location": "Stockroom Kyneton VIC Austrailia",
+      "curator": "The Macfarlane Fund",
       "thumbnailImage": "images/artworks/thumbnails/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg",
       "artworks": [
         "a-moment-in-the-shade-before-returning-to-the-ship-",
@@ -477,13 +477,6 @@
           "caption": "install",
           "path": "images/documentation/worlding-1756272863338-d6055-09worldinginstallshot2016.jpg",
           "thumbnailPath": "images/documentation/thumbnails/worlding-1756272863359-thumb-d6055-09worldinginstallshot2016.jpg"
-        },
-        {
-          "type": "image",
-          "filename": "worlding-1756279121408-468757490_10164376045634115_950580225491841759_n.jpg",
-          "caption": "468757490_10164376045634115_950580225491841759_n.jpg",
-          "path": "images/documentation/worlding-1756279121408-468757490_10164376045634115_950580225491841759_n.jpg",
-          "thumbnailPath": "images/documentation/thumbnails/worlding-1756279121480-thumb-468757490_10164376045634115_950580225491841759_n.jpg"
         }
       ],
       "imageOrder": [
@@ -755,7 +748,7 @@
       "endDate": null,
       "location": "First Site RMIT Melbourne",
       "curator": "Ari Zed",
-      "thumbnailImage": "images/artworks/thumbnails/aether.jpg",
+      "thumbnailImage": null,
       "artworks": [
         "eudeamonia",
         "arethusa",
@@ -775,22 +768,7 @@
         "alsea",
         "caduceus"
       ],
-      "documentation": [
-        {
-          "type": "image",
-          "filename": "allegory-of-space-1756279077680-image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
-          "caption": "image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
-          "path": "images/documentation/allegory-of-space-1756279077680-image+4-HarryZedHughes-story+hall+comparison-2013.jpg",
-          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756279077747-thumb-image+4-HarryZedHughes-story+hall+comparison-2013.jpg"
-        },
-        {
-          "type": "image",
-          "filename": "allegory-of-space-1756279085342-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
-          "caption": "image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
-          "path": "images/documentation/allegory-of-space-1756279085342-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg",
-          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756279085395-thumb-image+2-HarryZedHughes-floor+plan+gallery+view-2013.jpg"
-        }
-      ]
+      "documentation": []
     }
   ]
 }
