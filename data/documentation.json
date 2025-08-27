@@ -577,6 +577,27 @@
         "dsc-2967"
       ],
       "documentation": []
+    },
+    {
+      "id": "peripheral-luminousity",
+      "name": "Peripheral Luminousity",
+      "description": "Charcoal drawings from the school of George Haynes",
+      "year": 2012,
+      "startDate": null,
+      "endDate": null,
+      "location": null,
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "drawing-1",
+        "drawing-2",
+        "drawing-3",
+        "drawing-4",
+        "drawing-5",
+        "drawing-6",
+        "drawing-7"
+      ],
+      "documentation": []
     }
   ]
 }
