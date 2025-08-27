@@ -4345,6 +4345,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T06:43:19.691Z"
+    },
+    {
+      "id": "orange-crush-2",
+      "title": "Orange crush 2",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Orange crush"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/orange-crush-2.jpg",
+        "medium": "images/artworks/medium/orange-crush-2.jpg",
+        "large": "images/artworks/large/orange-crush-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T06:43:31.101Z"
     }
   ]
 }
