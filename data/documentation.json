@@ -587,7 +587,7 @@
       "endDate": null,
       "location": null,
       "curator": "Ari Zed",
-      "thumbnailImage": null,
+      "thumbnailImage": "images/artworks/thumbnails/drawing-3.jpg",
       "artworks": [
         "drawing-1",
         "drawing-2",
