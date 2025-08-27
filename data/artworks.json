@@ -3786,6 +3786,31 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:48:39.385Z"
+    },
+    {
+      "id": "dsc-2894",
+      "title": "DSC 2894",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "portrait"
+      ],
+      "exhibitions": [
+        "Febuary portraits project"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dsc-2894.jpg",
+        "medium": "images/artworks/medium/dsc-2894.jpg",
+        "large": "images/artworks/large/dsc-2894.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:48:49.505Z"
     }
   ]
 }
