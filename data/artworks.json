@@ -3136,6 +3136,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T04:46:21.503Z"
+    },
+    {
+      "id": "untitled-4",
+      "title": "untitled 4",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/untitled-4.jpg",
+        "medium": "images/artworks/medium/untitled-4.jpg",
+        "large": "images/artworks/large/untitled-4.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T04:46:32.793Z"
     }
   ]
 }
