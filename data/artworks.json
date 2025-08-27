@@ -4598,6 +4598,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:05:32.863Z"
+    },
+    {
+      "id": "ambrosia",
+      "title": "Ambrosia",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/ambrosia.jpg",
+        "medium": "images/artworks/medium/ambrosia.jpg",
+        "large": "images/artworks/large/ambrosia.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:05:44.833Z"
     }
   ]
 }
