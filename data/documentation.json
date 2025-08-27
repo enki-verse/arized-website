@@ -382,6 +382,25 @@
         "blood-void-"
       ],
       "documentation": []
+    },
+    {
+      "id": "worlding",
+      "name": "Worlding",
+      "description": "Painting group show\n\nThe world is essentially unfathomable and ungraspable. Our view of it is always going to be a fragment, a construction that allows our consciousness to be in the world. We can see paintings as a way of constructing understanding, while never complete, and never correct, they give shape to the world (worlding the world) even as they take shape from it.\n\nThough saturated in tradition, Painting is a medium full of ambiguity; it has a complexity of meaning that allows it to draw on multiple areas at once. Viewing a painting is an Aesthetic experience that precipitates criticality. The act of painting is instrumental in finding meaning; in the unconcealment of being in the world. Leaving room for meaning and truth to emerge as an experience for the viewer.",
+      "year": 2016,
+      "startDate": null,
+      "endDate": null,
+      "location": "VCA Melbourne",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "ablution-2016",
+        "chess-game",
+        "enigma-66x55cm-2016",
+        "girl-reading-a-letter-66x55cm-2016",
+        "yield-66x55cm-2016"
+      ],
+      "documentation": []
     }
   ]
 }
