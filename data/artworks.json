@@ -4828,6 +4828,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:07:32.531Z"
+    },
+    {
+      "id": "aegle",
+      "title": "Aegle",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/aegle.jpg",
+        "medium": "images/artworks/medium/aegle.jpg",
+        "large": "images/artworks/large/aegle.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:07:48.714Z"
     }
   ]
 }
