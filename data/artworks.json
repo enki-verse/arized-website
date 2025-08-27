@@ -2791,6 +2791,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-26T05:15:13.484Z"
+    },
+    {
+      "id": "everything-merges-with-the-night",
+      "title": "everything merges with the night",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/everything-merges-with-the-night.jpg",
+        "medium": "images/artworks/medium/everything-merges-with-the-night.jpg",
+        "large": "images/artworks/large/everything-merges-with-the-night.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T04:43:44.627Z"
     }
   ]
 }
