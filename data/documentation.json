@@ -154,7 +154,15 @@
         "elstir-on-a-sojourn-through-the-dark-rocky-caverns",
         "floating-castle"
       ],
-      "documentation": []
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "life-world-1756301543910-45390915_10157857704894115_849516515077128192_n.jpg",
+          "caption": "45390915_10157857704894115_849516515077128192_n.jpg",
+          "path": "images/documentation/life-world-1756301543910-45390915_10157857704894115_849516515077128192_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/life-world-1756301543993-thumb-45390915_10157857704894115_849516515077128192_n.jpg"
+        }
+      ]
     },
     {
       "id": "walpurgis-nebulah",
