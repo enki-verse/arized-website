@@ -3688,6 +3688,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:14:59.397Z"
+    },
+    {
+      "id": "yield-66x55cm-2016",
+      "title": "Yield 66x55cm 2016",
+      "year": 2016,
+      "medium": "Oil on board",
+      "dimensions": "66 x 55 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Worlding"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/yield-66x55cm-2016.jpg",
+        "medium": "images/artworks/medium/yield-66x55cm-2016.jpg",
+        "large": "images/artworks/large/yield-66x55cm-2016.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:15:11.648Z"
     }
   ]
 }
