@@ -4483,6 +4483,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T06:44:26.155Z"
+    },
+    {
+      "id": "eudeamonia",
+      "title": "Eudeamonia",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/eudeamonia.jpg",
+        "medium": "images/artworks/medium/eudeamonia.jpg",
+        "large": "images/artworks/large/eudeamonia.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:04:55.436Z"
     }
   ]
 }
