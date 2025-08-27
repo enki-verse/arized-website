@@ -4575,6 +4575,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:05:24.289Z"
+    },
+    {
+      "id": "euphoria",
+      "title": "Euphoria",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/euphoria.jpg",
+        "medium": "images/artworks/medium/euphoria.jpg",
+        "large": "images/artworks/large/euphoria.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:05:32.863Z"
     }
   ]
 }
