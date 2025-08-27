@@ -4621,6 +4621,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:05:44.833Z"
+    },
+    {
+      "id": "nyx",
+      "title": "Nyx",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/nyx.jpg",
+        "medium": "images/artworks/medium/nyx.jpg",
+        "large": "images/artworks/large/nyx.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:05:56.707Z"
     }
   ]
 }
