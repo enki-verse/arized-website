@@ -717,6 +717,27 @@
         "drawing-7"
       ],
       "documentation": []
+    },
+    {
+      "id": "orange-crush",
+      "name": "Orange Crush",
+      "description": "series of works using a fishtank and lighting to produce Turner-esc atmospheric effects. observational still life.",
+      "year": 2015,
+      "startDate": null,
+      "endDate": null,
+      "location": "VCA Melbourne",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "orange-crush-1",
+        "orange-crush-2",
+        "orange-crush-3",
+        "orange-crush-4",
+        "orange-crush-5",
+        "orange-crush-6",
+        "orange-crush-7"
+      ],
+      "documentation": []
     }
   ]
 }
