@@ -4690,6 +4690,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:06:19.356Z"
+    },
+    {
+      "id": "mnemosyne",
+      "title": "Mnemosyne",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Allegory of space"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/mnemosyne.jpg",
+        "medium": "images/artworks/medium/mnemosyne.jpg",
+        "large": "images/artworks/large/mnemosyne.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T07:06:32.029Z"
     }
   ]
 }
