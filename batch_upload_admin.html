@@ -371,6 +371,16 @@
             margin-bottom: 15px;
         }
 
+        .quick-fill-grid .batch-checkbox-label {
+            margin: 0;
+            font-weight: 500;
+            color: var(--secondary-brown);
+        }
+
+        .quick-fill-grid .batch-checkbox-label input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
         .quick-fill-actions {
             display: flex;
             gap: 10px;
@@ -589,6 +599,18 @@
                         <div class="form-group">
                             <label>Subject</label>
                             <input type="text" id="quickSubject" placeholder="Common subject">
+                        </div>
+                        <div class="form-group">
+                            <label class="batch-checkbox-label">
+                                <input type="checkbox" id="quickAvailable" checked>
+                                Available
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="batch-checkbox-label">
+                                <input type="checkbox" id="quickForSale" checked>
+                                For Sale
+                            </label>
                         </div>
                     </div>
                     <div class="quick-fill-actions">
@@ -986,7 +1008,9 @@
             const quickMedium = document.getElementById('quickMedium').value;
             const quickExhibition = document.getElementById('quickExhibition').value;
             const quickSubject = document.getElementById('quickSubject').value;
-            
+            const quickAvailable = document.getElementById('quickAvailable').checked;
+            const quickForSale = document.getElementById('quickForSale').checked;
+
             batchFiles.forEach(item => {
                 if (mode === 'all' || (mode === 'empty' && !item.data.year)) {
                     if (quickYear) item.data.year = parseInt(quickYear);
@@ -1000,8 +1024,13 @@
                 if (mode === 'all' || (mode === 'empty' && item.data.subjects.length === 0)) {
                     if (quickSubject) item.data.subjects = [quickSubject];
                 }
+                // Always apply checkbox states (no "empty" check needed for booleans)
+                if (mode === 'all') {
+                    item.data.available = quickAvailable;
+                    item.data.forSale = quickForSale;
+                }
             });
-            
+
             updateBatchDisplay();
             showStatus(`Quick fill applied to ${mode === 'all' ? 'all' : 'empty'} items`, 'success');
         }
