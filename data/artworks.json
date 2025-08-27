@@ -3205,6 +3205,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T04:46:57.140Z"
+    },
+    {
+      "id": "artschool-8-in-studio",
+      "title": "artschool 8 in studio",
+      "year": 2015,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "constructing becoming"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/artschool-8-in-studio.jpg",
+        "medium": "images/artworks/medium/artschool-8-in-studio.jpg",
+        "large": "images/artworks/large/artschool-8-in-studio.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T04:47:09.256Z"
     }
   ]
 }
