@@ -334,6 +334,53 @@
         "as-you-fall-deeper-the-horizon-bubble-emerges"
       ],
       "documentation": []
+    },
+    {
+      "id": "constructiong-becoming",
+      "name": "Constructiong Becoming",
+      "description": "Paintings from artschool and daily life circa 2015",
+      "year": 2015,
+      "startDate": null,
+      "endDate": null,
+      "location": "VCA Melbourne",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "everything-merges-with-the-night",
+        "untitled-1",
+        "untitled-2",
+        "artschool-1",
+        "artschool-2",
+        "artschool-3",
+        "artschool-4",
+        "untitled-3",
+        "artschool-5",
+        "artschool-6",
+        "artschool-7",
+        "artschool-8",
+        "artschool-9",
+        "artschool-10",
+        "untitled-4",
+        "untitled-5",
+        "artschool-11",
+        "artschool-8-in-studio",
+        "untitled-6",
+        "untitled-7",
+        "untitled-8",
+        "untitled-9",
+        "artschool-12",
+        "artschool-13",
+        "untitled-10",
+        "untitled-11",
+        "artschool-14",
+        "untitled-12",
+        "untitled-13",
+        "untitled-14",
+        "artschool-15",
+        "ganesha-and-parvati",
+        "artschool-16"
+      ],
+      "documentation": []
     }
   ]
 }
