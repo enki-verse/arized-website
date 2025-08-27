@@ -4230,6 +4230,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T05:55:24.870Z"
+    },
+    {
+      "id": "drawing-4",
+      "title": "drawing 4",
+      "year": 2012,
+      "medium": "Charcoal on paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Peripheral Luminousity"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/drawing-4.jpg",
+        "medium": "images/artworks/medium/drawing-4.jpg",
+        "large": "images/artworks/large/drawing-4.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-27T05:55:37.691Z"
     }
   ]
 }
