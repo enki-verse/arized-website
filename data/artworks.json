@@ -184,7 +184,7 @@
       "year": 2024,
       "medium": "Oil on canvas",
       "dimensions": "60 x 76 cm",
-      "price": 0,
+      "price": 1400,
       "category": "paintings",
       "subjects": [
         "infinite being"
@@ -192,9 +192,9 @@
       "exhibitions": [
         "ODD I SEE"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/where-alph-the-sacred-river-ran.jpg",
         "medium": "images/artworks/medium/where-alph-the-sacred-river-ran.jpg",
