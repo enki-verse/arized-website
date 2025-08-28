@@ -4989,6 +4989,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T03:46:44.393Z"
+    },
+    {
+      "id": "glow-6",
+      "title": "Glow 6",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-6.jpg",
+        "medium": "images/artworks/medium/glow-6.jpg",
+        "large": "images/artworks/large/glow-6.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:46:55.650Z"
     }
   ]
 }
