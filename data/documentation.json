@@ -825,7 +825,7 @@
       "endDate": null,
       "location": "Australia",
       "curator": "Ari Zed",
-      "thumbnailImage": null,
+      "thumbnailImage": "images/artworks/thumbnails/celler-door.jpg",
       "artworks": [
         "drapery",
         "fabricate",
