@@ -6097,6 +6097,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:33:07.446Z"
+    },
+    {
+      "id": "dragon-ball",
+      "title": "Dragon ball",
+      "year": 2016,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Icecream apocalypse"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dragon-ball.jpg",
+        "medium": "images/artworks/medium/dragon-ball.jpg",
+        "large": "images/artworks/large/dragon-ball.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:33:40.454Z"
     }
   ]
 }
