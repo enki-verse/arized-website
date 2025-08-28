@@ -5522,6 +5522,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:06:03.890Z"
+    },
+    {
+      "id": "cellar-door",
+      "title": "Cellar Door",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/cellar-door.jpg",
+        "medium": "images/artworks/medium/cellar-door.jpg",
+        "large": "images/artworks/large/cellar-door.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:15:35.381Z"
     }
   ]
 }
