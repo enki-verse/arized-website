@@ -5683,6 +5683,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:36.279Z"
+    },
+    {
+      "id": "bathroom",
+      "title": "Bathroom",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/bathroom.jpg",
+        "medium": "images/artworks/medium/bathroom.jpg",
+        "large": "images/artworks/large/bathroom.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:16:46.883Z"
     }
   ]
 }
