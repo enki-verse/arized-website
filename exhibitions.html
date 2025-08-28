@@ -742,12 +742,18 @@
                 const artworksData = await artworksResponse.json();
                 artworks = artworksData.artworks;
 
+                // Clear browser cache for data files to ensure fresh load
+                const timestamp = Date.now();
+
                 // Try to load exhibitions data
                 try {
-                    const exhibitionsResponse = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/documentation.json`);
+                    const exhibitionsResponse = await fetch(`${"https://raw.githubusercontent.com/"}${GITHUB_REPO}${"/main/data/documentation.json?cache_bust="}${timestamp}`);
                     if (exhibitionsResponse.ok) {
                         const exhibitionsData = await exhibitionsResponse.json();
                         exhibitions = exhibitionsData.exhibitions || [];
+                        console.log('Loaded exhibitions:', exhibitions.length);
+                        console.log('Sample exhibition priorities:', exhibitions.slice(0, 5).map(e => `${e.name} (${e.year}): priority=${e.priority || 'not set'}`));
+
                         // Sort exhibitions by year (newest first), then by priority for same year ordering
                         exhibitions.sort((a, b) => {
                             if (b.year !== a.year) {
@@ -758,6 +764,7 @@
                             const bPriority = b.priority || 999;
                             return aPriority - bPriority;
                         });
+                        console.log('After sorting - first 5 exhibitions:', exhibitions.slice(0, 5).map(e => `${e.name} (${e.year}): priority=${e.priority || 'not set'}`));
                     }
                 } catch (error) {
                     console.log('No documentation.json found, generating from artworks data');
@@ -766,12 +773,13 @@
                 // If no exhibitions data, generate from artworks
                 if (exhibitions.length === 0) {
                     exhibitions = generateExhibitionsFromArtworks(artworks);
+                    console.log('Generated exhibitions from artworks:', exhibitions.length);
                 }
 
                 renderExhibitions();
             } catch (error) {
                 console.error('Error loading exhibitions:', error);
-                document.getElementById('exhibitionsGrid').innerHTML = 
+                document.getElementById('exhibitionsGrid').innerHTML =
                     '<div class="empty-state"><h3>Unable to load exhibitions</h3><p>Please try again later.</p></div>';
             }
         }
@@ -790,6 +798,7 @@
                                 name: exhibitionName,
                                 description: `A collection of ${exhibitionName} artworks by Ari Zed.`,
                                 year: getExhibitionYear(artworks, exhibitionName),
+                                priority: getExhibitionPriority(exhibitionName), // Try to get priority from existing data
                                 thumbnailImage: getExhibitionThumbnail(artworks, exhibitionName),
                                 artworks: []
                             };
@@ -799,7 +808,15 @@
                 }
             });
 
-            return Object.values(exhibitionMap).sort((a, b) => b.year - a.year);
+            return Object.values(exhibitionMap).sort((a, b) => {
+                if (b.year !== a.year) {
+                    return b.year - a.year; // Sort by year descending
+                }
+                // Same year, sort by priority (lower number = higher priority)
+                const aPriority = a.priority || 999;
+                const bPriority = b.priority || 999;
+                return aPriority - bPriority;
+            });
         }
 
         // Get the most recent year for an exhibition
@@ -812,19 +829,25 @@
 
         // Get thumbnail image for exhibition (use featured artwork or first artwork)
         function getExhibitionThumbnail(artworks, exhibitionName) {
-            const exhibitionArtworks = artworks.filter(artwork => 
+            const exhibitionArtworks = artworks.filter(artwork =>
                 artwork.exhibitions && artwork.exhibitions.includes(exhibitionName)
             );
-            
+
             // Try to find a featured artwork first
             let thumbnail = exhibitionArtworks.find(artwork => artwork.featured);
-            
+
             // If no featured artwork, use the first one
             if (!thumbnail && exhibitionArtworks.length > 0) {
                 thumbnail = exhibitionArtworks[0];
             }
 
             return thumbnail ? thumbnail.images.medium : null;
+        }
+
+        // Try to get priority from exhibition data (if it exists in current exhibitions)
+        function getExhibitionPriority(exhibitionName) {
+            const existingExhibition = exhibitions.find(ex => ex.name === exhibitionName);
+            return existingExhibition ? existingExhibition.priority : null;
         }
 
         // Render exhibitions grid
