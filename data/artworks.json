@@ -5568,6 +5568,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:15:44.079Z"
+    },
+    {
+      "id": "garden-path",
+      "title": "Garden Path",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/garden-path.jpg",
+        "medium": "images/artworks/medium/garden-path.jpg",
+        "large": "images/artworks/large/garden-path.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:15:52.336Z"
     }
   ]
 }
