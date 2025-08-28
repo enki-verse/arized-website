@@ -5913,6 +5913,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:27:15.537Z"
+    },
+    {
+      "id": "sp",
+      "title": "sp",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/sp.jpg",
+        "medium": "images/artworks/medium/sp.jpg",
+        "large": "images/artworks/large/sp.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:27:25.953Z"
     }
   ]
 }
