@@ -5706,6 +5706,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:46.883Z"
+    },
+    {
+      "id": "entrance",
+      "title": "Entrance",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/entrance.jpg",
+        "medium": "images/artworks/medium/entrance.jpg",
+        "large": "images/artworks/large/entrance.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:16:58.901Z"
     }
   ]
 }
