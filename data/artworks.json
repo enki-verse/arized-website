@@ -5844,6 +5844,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:17:53.849Z"
+    },
+    {
+      "id": "drapery",
+      "title": "Drapery",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/drapery.jpg",
+        "medium": "images/artworks/medium/drapery.jpg",
+        "large": "images/artworks/large/drapery.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:26:57.025Z"
     }
   ]
 }
