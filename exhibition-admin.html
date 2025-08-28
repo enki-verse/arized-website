@@ -835,6 +835,128 @@
             color: var(--text-secondary);
             font-style: italic;
         }
+
+        /* Duplicate Assignments Styles */
+        .duplicate-artwork-item {
+            background: var(--surface-white);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .duplicate-artwork-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .duplicate-artwork-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .duplicate-artwork-thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
+        }
+
+        .duplicate-artwork-info {
+            flex: 1;
+        }
+
+        .duplicate-artwork-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .duplicate-artwork-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .duplicate-count-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--warning-orange);
+            color: white;
+        }
+
+        .exhibition-assignments {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .exhibition-assignments h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .assignment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .assignment-item:hover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .assignment-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .assignment-info {
+            flex: 1;
+        }
+
+        .assignment-exhibition-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .assignment-exhibition-meta {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .assignment-actions {
+            margin-left: 1rem;
+        }
+
+        .no-duplicates-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -878,6 +1000,7 @@
             <button class="nav-tab" data-section="thumbnails">Set Thumbnails</button>
             <button class="nav-tab" data-section="documentation">Upload Documentation</button>
             <button class="nav-tab" data-section="unassigned">Unassigned Artworks</button>
+            <button class="nav-tab" data-section="duplicates">Duplicate Assignments</button>
         </div>
 
         <!-- Manage Exhibitions Section -->
@@ -1056,6 +1179,7 @@
             <h2 class="section-title">Unassigned Artworks</h2>
             <div class="form-group">
                 <p>These artworks are not currently assigned to any exhibition. You can add them to existing exhibitions below.</p>
+                <button class="btn btn-secondary" onclick="reloadData().then(() => { loadUnassignedArtworks(); loadDuplicateAssignments(); })">🔄 Refresh Data</button>
             </div>
 
             <div id="unassigned-artworks-list">
@@ -1076,8 +1200,22 @@
                     <button class="btn btn-secondary" onclick="cancelAddToExhibition()">Cancel</button>
                 </div>
             </div>
+    
         </div>
+    </div>
+
+    <!-- Duplicate Assignments Section -->
+    <div id="duplicates-section" class="admin-section">
+        <h2 class="section-title">Duplicate Assignments</h2>
+        <div class="form-group">
+            <p>These artworks are assigned to multiple exhibitions. You can remove them from specific exhibitions below.</p>
+            <button class="btn btn-secondary" onclick="reloadData().then(() => { loadUnassignedArtworks(); loadDuplicateAssignments(); })">🔄 Refresh Data</button>
         </div>
+
+        <div id="duplicate-artworks-list">
+            <!-- Duplicate artworks will be loaded here -->
+        </div>
+    </div>
     </div>
 
     <script>
@@ -1363,6 +1501,32 @@
             }
         }
 
+        // Reload data from GitHub and update caches
+        async function reloadData() {
+            try {
+                showStatus('Reloading data...', 'success');
+
+                const [exhibitions, artworks] = await Promise.all([
+                    loadExhibitions(),
+                    loadArtworks()
+                ]);
+
+                currentExhibitions = exhibitions;
+                currentArtworks = artworks;
+
+                console.log('Data reloaded - artworks:', artworks.length, 'exhibitions:', exhibitions.length);
+                console.log('Sample artwork:', artworks[0]);
+                console.log('Sample exhibition:', exhibitions[0]);
+
+                showStatus('Data reloaded successfully!', 'success');
+                return { exhibitions, artworks };
+            } catch (error) {
+                console.error('Error reloading data:', error);
+                showStatus('Error reloading data: ' + error.message, 'error');
+                throw error;
+            }
+        }
+
         // Render exhibition list
         function renderExhibitionList(exhibitions) {
             const listElement = document.getElementById('exhibition-list');
@@ -1534,6 +1698,7 @@
                 populateExhibitionSelect(exhibitions);
                 initializeNavigation();
                 loadUnassignedArtworks();
+                loadDuplicateAssignments();
 
                 showStatus('Data loaded successfully!', 'success');
             } catch (error) {
@@ -3099,19 +3264,38 @@
         
         // Load and display unassigned artworks
         function loadUnassignedArtworks() {
-            if (!currentArtworks.length) {
+            console.log('loadUnassignedArtworks called');
+            console.log('currentArtworks length:', currentArtworks ? currentArtworks.length : 'undefined');
+            console.log('currentExhibitions length:', currentExhibitions ? currentExhibitions.length : 'undefined');
+
+            if (!currentArtworks || !currentArtworks.length || !currentExhibitions || !currentExhibitions.length) {
                 document.getElementById('unassigned-artworks-list').innerHTML =
                     '<div class="no-unassigned-message">Loading artworks...</div>';
                 return;
             }
-            
-            // Find artworks that are not in any exhibition
+
+            // Create a set of all artwork IDs that are assigned to exhibitions (from documentation.json)
+            const assignedArtworkIds = new Set();
+            currentExhibitions.forEach(exhibition => {
+                if (exhibition.artworks && exhibition.artworks.length > 0) {
+                    exhibition.artworks.forEach(artworkId => {
+                        assignedArtworkIds.add(artworkId);
+                    });
+                }
+            });
+
+            console.log('Assigned artwork IDs:', assignedArtworkIds.size);
+
+            // Find artworks that are not in any exhibition (unassigned)
             const unassignedArtworks = currentArtworks.filter(artwork =>
-                !artwork.exhibitions || artwork.exhibitions.length === 0
+                !assignedArtworkIds.has(artwork.id)
             );
-            
+
+            console.log('Unassigned artworks found:', unassignedArtworks.length);
+            console.log('First few unassigned artworks:', unassignedArtworks.slice(0, 3));
+
             const container = document.getElementById('unassigned-artworks-list');
-            
+
             if (unassignedArtworks.length === 0) {
                 container.innerHTML = `
                     <div class="no-unassigned-message">
@@ -3227,20 +3411,20 @@
         // Add selected artworks to an exhibition
         async function bulkAddToExhibition() {
             const targetExhibitionId = document.getElementById('bulk-target-exhibition').value;
-            
+
             if (!targetExhibitionId) {
                 showStatus('Please select an exhibition', 'error');
                 return;
             }
-            
+
             if (selectedUnassignedArtworks.length === 0) {
                 showStatus('Please select at least one artwork', 'error');
                 return;
             }
-            
+
             try {
                 showStatus('Adding artworks to exhibition...', 'success');
-                
+
                 // Update artworks data
                 selectedUnassignedArtworks.forEach(artworkId => {
                     const artwork = currentArtworks.find(a => a.id === artworkId);
@@ -3254,53 +3438,63 @@
                         }
                     }
                 });
-                
+
                 // Update artworks.json
                 const artworksData = {
                     artworks: currentArtworks
                 };
-                
+
                 await createOrUpdateFile(
                     'data/artworks.json',
                     JSON.stringify(artworksData, null, 2),
                     `Add artworks to exhibition: ${currentExhibitions.find(ex => ex.id === targetExhibitionId).name}`
                 );
-                
+
                 // Update the target exhibition's artworks list
                 const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === targetExhibitionId);
                 if (exhibitionIndex !== -1) {
                     if (!currentExhibitions[exhibitionIndex].artworks) {
                         currentExhibitions[exhibitionIndex].artworks = [];
                     }
-                    
+
                     selectedUnassignedArtworks.forEach(artworkId => {
                         if (!currentExhibitions[exhibitionIndex].artworks.includes(artworkId)) {
                             currentExhibitions[exhibitionIndex].artworks.push(artworkId);
                         }
                     });
-                    
+
                     // Update documentation.json
                     const updatedData = {
                         exhibitions: currentExhibitions
                     };
-                    
+
                     await createOrUpdateFile(
                         'data/documentation.json',
                         JSON.stringify(updatedData, null, 2),
                         `Update exhibition artworks: ${currentExhibitions[exhibitionIndex].name}`
                     );
                 }
-                
+
                 const addedCount = selectedUnassignedArtworks.length;
                 const targetExhibitionName = currentExhibitions.find(ex => ex.id === targetExhibitionId).name;
-                
-                // Clear selection and reload
+
+                // Reload data from GitHub to get the latest state
+                await reloadData();
+
+                // Clear selection and reload displays
                 clearSelection();
                 loadUnassignedArtworks();
+                loadDuplicateAssignments();
                 renderExhibitionList(currentExhibitions);
-                
+
+                // Force reload of both sections to ensure they reflect new data
+                setTimeout(() => {
+                    loadUnassignedArtworks();
+                    loadDuplicateAssignments();
+                }, 500);
+
                 showStatus(`Successfully added ${addedCount} artworks to "${targetExhibitionName}"!`, 'success');
-                
+
             } catch (error) {
                 console.error('Error adding artworks to exhibition:', error);
                 showStatus('Error adding artworks to exhibition: ' + error.message, 'error');
@@ -3312,6 +3506,201 @@
         window.toggleUnassignedArtworkSelection = toggleUnassignedArtworkSelection;
         window.clearSelection = clearSelection;
         window.bulkAddToExhibition = bulkAddToExhibition;
+
+        // === DUPLICATE ASSIGNMENTS FUNCTIONALITY ===
+        
+        // Load and display artworks with duplicate assignments
+        function loadDuplicateAssignments() {
+            console.log('loadDuplicateAssignments called');
+            console.log('currentArtworks length:', currentArtworks ? currentArtworks.length : 'undefined');
+            console.log('currentExhibitions length:', currentExhibitions ? currentExhibitions.length : 'undefined');
+
+            if (!currentArtworks || !currentArtworks.length || !currentExhibitions || !currentExhibitions.length) {
+                document.getElementById('duplicate-artworks-list').innerHTML =
+                    '<div class="no-duplicates-message">Loading artworks...</div>';
+                return;
+            }
+
+            // Create a map of artwork ID to exhibitions it appears in
+            const artworkToExhibitions = new Map();
+
+            currentExhibitions.forEach(exhibition => {
+                console.log(`Processing exhibition: ${exhibition.name}, artworks count:`, exhibition.artworks ? exhibition.artworks.length : 0);
+                if (exhibition.artworks && exhibition.artworks.length > 0) {
+                    exhibition.artworks.forEach(artworkId => {
+                        if (!artworkToExhibitions.has(artworkId)) {
+                            artworkToExhibitions.set(artworkId, []);
+                        }
+                        artworkToExhibitions.get(artworkId).push(exhibition);
+                    });
+                }
+            });
+
+            console.log('Artwork to exhibitions map:', artworkToExhibitions);
+
+            // Find artworks that appear in multiple exhibitions
+            const duplicateArtworks = [];
+            artworkToExhibitions.forEach((exhibitions, artworkId) => {
+                console.log(`Artwork ${artworkId} appears in ${exhibitions.length} exhibitions:`, exhibitions.map(e => e.name));
+                if (exhibitions.length > 1) {
+                    // Find the artwork details from currentArtworks
+                    const artwork = currentArtworks.find(a => a.id === artworkId);
+                    if (artwork) {
+                        console.log(`Found duplicate artwork: ${artwork.title}`);
+                        duplicateArtworks.push({
+                            ...artwork,
+                            assignedExhibitions: exhibitions
+                        });
+                    } else {
+                        console.log(`Artwork ${artworkId} not found in currentArtworks`);
+                    }
+                }
+            });
+
+            console.log('Duplicate artworks found:', duplicateArtworks.length);
+            console.log('First few duplicate artworks:', duplicateArtworks.slice(0, 3));
+
+            const container = document.getElementById('duplicate-artworks-list');
+            console.log('Container element found:', container);
+
+            if (duplicateArtworks.length === 0) {
+                container.innerHTML = `
+                    <div class="no-duplicates-message">
+                        ✨ Great! No artworks are assigned to multiple exhibitions.
+                    </div>
+                `;
+                return;
+            }
+
+            console.log('Generating HTML for duplicate artworks...');
+            
+            console.log('About to generate HTML for', duplicateArtworks.length, 'duplicate artworks');
+
+            const html = duplicateArtworks.map(artwork => {
+                console.log('Generating HTML for artwork:', artwork.title);
+                const thumbnailUrl = artwork.images && artwork.images.thumbnail
+                    ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.thumbnail}`
+                    : 'images/placeholder.jpg';
+
+                // Get exhibition details for each assignment
+                const assignmentItems = artwork.assignedExhibitions.map(exhibition => {
+                    return `
+                        <div class="assignment-item">
+                            <div class="assignment-info">
+                                <div class="assignment-exhibition-name">${exhibition.name}</div>
+                                <div class="assignment-exhibition-meta">${exhibition.year} • ${exhibition.location || 'TBD'}</div>
+                            </div>
+                            <div class="assignment-actions">
+                                <button class="btn btn-danger btn-small"
+                                        onclick="removeArtworkFromExhibition('${artwork.id}', '${exhibition.name}')"
+                                        title="Remove from this exhibition">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <div class="duplicate-artwork-item">
+                        <div class="duplicate-artwork-header">
+                            <img src="${thumbnailUrl}"
+                                  alt="${artwork.title}"
+                                  class="duplicate-artwork-thumbnail">
+                            <div class="duplicate-artwork-info">
+                                <div class="duplicate-artwork-title">${artwork.title}</div>
+                                <div class="duplicate-artwork-meta">${artwork.year} • ${artwork.medium}</div>
+                                <span class="duplicate-count-badge">
+                                    In ${artwork.assignedExhibitions.length} exhibitions
+                                </span>
+                            </div>
+                        </div>
+                        <div class="exhibition-assignments">
+                            <h4>Exhibition Assignments:</h4>
+                            ${assignmentItems}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            console.log('Generated HTML length:', html.length);
+            console.log('Setting container innerHTML...');
+            container.innerHTML = html;
+            console.log('Container innerHTML set successfully');
+
+            // Debug: Check if content is actually visible
+            console.log('Container innerHTML preview:', container.innerHTML.substring(0, 200) + '...');
+            console.log('Container style.display:', container.style.display);
+            console.log('Container parent style.display:', container.parentElement.style.display);
+            console.log('Container visibility:', window.getComputedStyle(container).visibility);
+            console.log('Container opacity:', window.getComputedStyle(container).opacity);
+        }
+        
+        // Remove an artwork from a specific exhibition
+        async function removeArtworkFromExhibition(artworkId, exhibitionName) {
+            const artwork = currentArtworks.find(a => a.id === artworkId);
+            if (!artwork) {
+                showStatus('Artwork not found', 'error');
+                return;
+            }
+
+            const exhibition = currentExhibitions.find(ex => ex.name === exhibitionName);
+            if (!exhibition) {
+                showStatus('Exhibition not found', 'error');
+                return;
+            }
+
+            if (!confirm(`Remove "${artwork.title}" from exhibition "${exhibition.name}"?`)) {
+                return;
+            }
+
+            try {
+                showStatus('Removing artwork from exhibition...', 'success');
+
+                // Update the exhibition's artworks array (documentation.json is the source of truth)
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === exhibition.id);
+                if (exhibitionIndex !== -1 && currentExhibitions[exhibitionIndex].artworks) {
+                    currentExhibitions[exhibitionIndex].artworks =
+                        currentExhibitions[exhibitionIndex].artworks.filter(id => id !== artworkId);
+                }
+
+                // Update documentation.json (source of truth)
+                const exhibitionsData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    JSON.stringify(exhibitionsData, null, 2),
+                    `Remove artwork "${artwork.title}" from exhibition "${exhibition.name}"`
+                );
+
+                // Reload data from GitHub to get the latest state
+                await reloadData();
+
+                // Refresh displays
+                loadDuplicateAssignments();
+                loadUnassignedArtworks();
+                renderExhibitionList(currentExhibitions);
+
+                // Force reload of both sections to ensure they reflect new data
+                setTimeout(() => {
+                    loadUnassignedArtworks();
+                    loadDuplicateAssignments();
+                }, 500);
+
+                showStatus(`Successfully removed "${artwork.title}" from "${exhibition.name}"!`, 'success');
+
+            } catch (error) {
+                console.error('Error removing artwork from exhibition:', error);
+                showStatus('Error removing artwork from exhibition: ' + error.message, 'error');
+            }
+        }
+
+        // Make duplicate assignment functions globally available
+        window.loadDuplicateAssignments = loadDuplicateAssignments;
+        window.removeArtworkFromExhibition = removeArtworkFromExhibition;
+        window.reloadData = reloadData;
     </script>
 </body>
 </html>
