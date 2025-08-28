@@ -6074,6 +6074,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:28:37.464Z"
+    },
+    {
+      "id": "monkeys-egg",
+      "title": "Monkeys egg",
+      "year": 2016,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Icecream apocalypse"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/monkeys-egg.jpg",
+        "medium": "images/artworks/medium/monkeys-egg.jpg",
+        "large": "images/artworks/large/monkeys-egg.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:33:07.446Z"
     }
   ]
 }
