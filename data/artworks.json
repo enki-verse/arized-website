@@ -5936,6 +5936,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:27:25.953Z"
+    },
+    {
+      "id": "celler-door",
+      "title": "Celler Door",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/celler-door.jpg",
+        "medium": "images/artworks/medium/celler-door.jpg",
+        "large": "images/artworks/large/celler-door.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:27:38.071Z"
     }
   ]
 }
