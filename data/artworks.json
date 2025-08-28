@@ -5660,6 +5660,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:24.894Z"
+    },
+    {
+      "id": "nude",
+      "title": "Nude",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/nude.jpg",
+        "medium": "images/artworks/medium/nude.jpg",
+        "large": "images/artworks/large/nude.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:16:36.279Z"
     }
   ]
 }
