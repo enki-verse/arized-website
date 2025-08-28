@@ -5614,6 +5614,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:03.377Z"
+    },
+    {
+      "id": "self-portrait-2010",
+      "title": "self portrait 2010",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/self-portrait-2010.jpg",
+        "medium": "images/artworks/medium/self-portrait-2010.jpg",
+        "large": "images/artworks/large/self-portrait-2010.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:16:14.238Z"
     }
   ]
 }
