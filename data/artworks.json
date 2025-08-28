@@ -5637,6 +5637,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:14.238Z"
+    },
+    {
+      "id": "spare-room",
+      "title": "Spare room",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/spare-room.jpg",
+        "medium": "images/artworks/medium/spare-room.jpg",
+        "large": "images/artworks/large/spare-room.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:16:24.894Z"
     }
   ]
 }
