@@ -816,6 +816,31 @@
       "documentation": []
     },
     {
+      "id": "drawings-and-prints",
+      "name": "Drawings and prints",
+      "description": "various works on paper",
+      "year": 2011,
+      "priority": 1,
+      "startDate": null,
+      "endDate": null,
+      "location": "Australia",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "drapery",
+        "fabricate",
+        "pumpkin",
+        "sp",
+        "celler-door",
+        "bedrrom",
+        "bundle",
+        "lounge",
+        "lounge-2",
+        "park"
+      ],
+      "documentation": []
+    },
+    {
       "id": "older-work",
       "name": "Older work",
       "description": "archive",
