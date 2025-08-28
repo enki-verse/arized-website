@@ -5476,6 +5476,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:55:30.015Z"
+    },
+    {
+      "id": "the-beggining",
+      "title": "The beggining",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-beggining.jpg",
+        "medium": "images/artworks/medium/the-beggining.jpg",
+        "large": "images/artworks/large/the-beggining.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:56:31.575Z"
     }
   ]
 }
