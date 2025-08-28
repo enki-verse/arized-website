@@ -5,6 +5,7 @@
       "name": "ODD I SEE",
       "description": "You are invited on a journey of rethinking, reinterpreting, re-inventing myth and tradition. Paintings entice viewers to contemplate the serene yet foreboding scenes, where the natural elements of light and clouds suggest the work of invisible forces.\n\nThese landscapes evoke a sense of biblical sublimity and monumental presence, blending stillness and motion akin to ancient prophecies. Ruins and pathways within these landscapes hint at unknown histories and futures. Hughes navigates the delicate balance between the sublime and the comic, invoking the inevitable paradoxes of reaching the divine. His work speaks to the complexity of human perception, where the grand narratives of mythology are made strange through a blend of pop culture and kitsch, sci-fi and eroticism, serenity and sublimity, figuration and painterly abstraction; drawing on multiple references and traditions as a foundation for innovation.",
       "year": 2024,
+      "priority": 1,
       "startDate": null,
       "endDate": null,
       "location": "Earlywork gallery",
@@ -79,7 +80,8 @@
           "caption": "Critical review from Art Monthly Australia",
           "path": "images/documentation/bone-and-boundary-review.pdf"
         }
-      ]
+      ],
+      "priority": 1
     },
     {
       "id": "the-universe-is-leaking",
@@ -120,7 +122,8 @@
           "path": "images/documentation/the-universe-is-leaking-1756301622333-5eaca-harryzedhughesinvitation-theuniverseisleakingcopy.jpeg",
           "thumbnailPath": "images/documentation/thumbnails/the-universe-is-leaking-1756301622465-thumb-5eaca-harryzedhughesinvitation-theuniverseisleakingcopy.jpeg"
         }
-      ]
+      ],
+      "priority": 1
     },
     {
       "id": "life-world",
@@ -169,7 +172,8 @@
           "path": "images/documentation/life-world-1756301543910-45390915_10157857704894115_849516515077128192_n.jpg",
           "thumbnailPath": "images/documentation/thumbnails/life-world-1756301543993-thumb-45390915_10157857704894115_849516515077128192_n.jpg"
         }
-      ]
+      ],
+      "priority": 1
     },
     {
       "id": "walpurgis-nebulah",
@@ -307,7 +311,8 @@
           "type": "documentation",
           "id": "walpurgis-nebulah-1756225253164-19984991_1941074759467339_904565128089829376_n.jpeg"
         }
-      ]
+      ],
+      "priority": 1
     },
     {
       "id": "icecream-apocalypse",
@@ -330,7 +335,8 @@
         "reckoning-of-the-crystal-mud-fragment",
         "gods-light-and-the-drone"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 1
     },
     {
       "id": "picnic-at-the-end-of-time",
@@ -348,7 +354,8 @@
         "as-the-hyperspheric-castle-inflows-and-outflows-tidal-waves-pass-it-one-after-the-other-over-eons",
         "as-you-fall-deeper-the-horizon-bubble-emerges"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 2
     },
     {
       "id": "constructiong-becoming",
@@ -395,7 +402,8 @@
         "artschool-16",
         "blood-void-"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 1
     },
     {
       "id": "worlding",
@@ -558,7 +566,8 @@
           "type": "documentation",
           "id": "worlding-1756272803421-3aa34-worlding-page-012.jpg"
         }
-      ]
+      ],
+      "priority": 2
     },
     {
       "id": "february-portraits-project",
@@ -709,7 +718,8 @@
           "type": "documentation",
           "id": "february-portraits-project-1756276499777-11034367_786029668142222_8773015173626684234_o (1).jpg"
         }
-      ]
+      ],
+      "priority": 2
     },
     {
       "id": "peripheral-luminousity",
@@ -730,7 +740,8 @@
         "drawing-6",
         "drawing-7"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 1
     },
     {
       "id": "orange-crush",
@@ -751,7 +762,8 @@
         "orange-crush-6",
         "orange-crush-7"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 3
     },
     {
       "id": "allegory-of-space",
@@ -782,7 +794,8 @@
         "alsea",
         "caduceus"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 1
     },
     {
       "id": "foundation-stones",
@@ -804,7 +817,8 @@
         "blue-wanderer",
         "vatels-chamber"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 1
     }
   ]
 }

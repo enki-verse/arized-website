@@ -748,8 +748,16 @@
                     if (exhibitionsResponse.ok) {
                         const exhibitionsData = await exhibitionsResponse.json();
                         exhibitions = exhibitionsData.exhibitions || [];
-                        // Sort exhibitions by year (newest first) for consistent chronological order
-                        exhibitions.sort((a, b) => b.year - a.year);
+                        // Sort exhibitions by year (newest first), then by priority for same year ordering
+                        exhibitions.sort((a, b) => {
+                            if (b.year !== a.year) {
+                                return b.year - a.year; // Sort by year descending
+                            }
+                            // Same year, sort by priority (lower number = higher priority)
+                            const aPriority = a.priority || 999;
+                            const bPriority = b.priority || 999;
+                            return aPriority - bPriority;
+                        });
                     }
                 } catch (error) {
                     console.log('No documentation.json found, generating from artworks data');

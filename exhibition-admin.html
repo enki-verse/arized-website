@@ -1046,6 +1046,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label" for="exhibition-priority">Display Priority <small>(lower numbers appear first within the same year)</small></label>
+                    <input type="number" id="exhibition-priority" name="exhibition-priority" class="form-input" value="1" min="1" max="999">
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Select Artworks</label>
                     <div id="artwork-selector" class="artwork-selector">
                         <!-- Artworks will be loaded here -->
@@ -1546,11 +1551,11 @@
                 return `
                     <div class="exhibition-item">
                         <img src="${thumbnailUrl}"
-                             alt="${exhibition.name}"
-                             class="exhibition-thumbnail-preview">
+                              alt="${exhibition.name}"
+                              class="exhibition-thumbnail-preview">
                         <div class="exhibition-details">
                             <div class="exhibition-name">${exhibition.name}</div>
-                            <div class="exhibition-meta">${year} • ${location} • ${artworkCount} artworks</div>
+                            <div class="exhibition-meta">${year} • Priority: ${exhibition.priority || 1} • ${location} • ${artworkCount} artworks</div>
                             ${documentationHtml}
                         </div>
                         <div class="exhibition-actions">
@@ -1955,6 +1960,7 @@
             const exhibitionDates = formData.get('exhibition-dates');
             const exhibitionLocation = formData.get('exhibition-location');
             const exhibitionCurator = formData.get('exhibition-curator');
+            const exhibitionPriority = parseInt(formData.get('exhibition-priority')) || 1;
 
             // Get selected artworks
             const selectedArtworks = Array.from(document.querySelectorAll('#artwork-selector .artwork-option.selected'))
@@ -1988,6 +1994,7 @@
                     name: exhibitionName,
                     description: exhibitionDescription,
                     year: exhibitionYear,
+                    priority: exhibitionPriority,
                     startDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
                     endDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
                     location: exhibitionLocation || null,
@@ -2000,8 +2007,16 @@
                 // Add to current exhibitions
                 currentExhibitions.push(newExhibition);
 
-                // Sort exhibitions by year (newest first) to maintain chronological order
-                currentExhibitions.sort((a, b) => b.year - a.year);
+                // Sort exhibitions by year (newest first), then by priority for same year ordering
+                currentExhibitions.sort((a, b) => {
+                    if (b.year !== a.year) {
+                        return b.year - a.year; // Sort by year descending
+                    }
+                    // Same year, sort by priority (lower number = higher priority)
+                    const aPriority = a.priority || 999;
+                    const bPriority = b.priority || 999;
+                    return aPriority - bPriority;
+                });
 
                 // Update documentation.json
                 const updatedData = {
@@ -2059,6 +2074,7 @@
             document.getElementById('exhibition-dates').value = exhibition.startDate || '';
             document.getElementById('exhibition-location').value = exhibition.location || '';
             document.getElementById('exhibition-curator').value = exhibition.curator || '';
+            document.getElementById('exhibition-priority').value = exhibition.priority || 1;
 
             // Clear any existing selections first
             document.querySelectorAll('#artwork-selector .artwork-option.selected').forEach(option => {
@@ -2107,6 +2123,7 @@
             const exhibitionDates = formData.get('exhibition-dates');
             const exhibitionLocation = formData.get('exhibition-location');
             const exhibitionCurator = formData.get('exhibition-curator');
+            const exhibitionPriority = parseInt(formData.get('exhibition-priority')) || 1;
 
             // Get selected artworks
             const selectedArtworks = Array.from(document.querySelectorAll('#artwork-selector .artwork-option.selected'))
@@ -2140,6 +2157,7 @@
                     name: exhibitionName,
                     description: exhibitionDescription,
                     year: exhibitionYear,
+                    priority: exhibitionPriority,
                     startDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
                     endDate: exhibitionDates ? new Date(exhibitionDates).toISOString().split('T')[0] : null,
                     location: exhibitionLocation || null,
