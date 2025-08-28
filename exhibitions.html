@@ -183,6 +183,7 @@
         /* Main content */
         body {
             margin: 0;
+            padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -248,11 +249,24 @@
             box-shadow: var(--shadow-medium);
             transition: all 0.3s ease;
             cursor: pointer;
+            width: 100%;
         }
 
         .exhibition-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-strong);
+        }
+
+        /* Mobile-specific touch styles */
+        @media (hover: none) and (pointer: coarse) {
+            .exhibition-card:hover {
+                transform: none;
+            }
+
+            .exhibition-card:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
         }
 
         .exhibition-thumbnail {
@@ -611,29 +625,78 @@
             margin: 0;
         }
 
-        /* Responsive design */
+        /* Responsive design - Mobile First */
+        @media (max-width: 1024px) {
+            .exhibitions-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
 
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
             .page-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9375rem;
+                max-width: none;
             }
 
             .exhibitions-grid {
-                grid-template-columns: 1fr;
                 gap: 1rem;
             }
 
             .exhibition-card {
                 margin: 0 auto;
-                max-width: 400px;
+                max-width: 350px;
+            }
+
+            .exhibition-thumbnail {
+                aspect-ratio: 4/3; /* More mobile-friendly aspect ratio */
             }
 
             .exhibition-title-overlay .exhibition-title {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .page-header {
+                padding: 1.5rem 0;
+                margin-bottom: 2rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .exhibitions-grid {
+                gap: 0.75rem;
+            }
+
+            .exhibition-card {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .exhibition-thumbnail img {
+                height: 180px;
+                object-fit: cover;
             }
         }
     </style>
@@ -708,24 +771,77 @@
         let exhibitions = [];
         let artworks = [];
 
-        // Menu toggle functionality
+        // Menu toggle functionality - Mobile optimized
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menuToggle');
             const navigation = document.getElementById('navigation');
 
             if (menuToggle && navigation) {
-                menuToggle.addEventListener('click', function() {
+                // Ensure mobile menu is properly positioned on load
+                if (window.innerWidth <= 768) {
+                    navigation.style.left = '-280px';
+                    menuToggle.style.display = 'flex';
+                }
+
+                menuToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    const isActive = navigation.classList.contains('active');
                     navigation.classList.toggle('active');
                     menuToggle.classList.toggle('open');
+
+                    // Adjust main content margin for mobile
+                    const main = document.querySelector('main.section');
+                    if (main) {
+                        if (navigation.classList.contains('active')) {
+                            main.style.marginLeft = '280px';
+                        } else {
+                            main.style.marginLeft = '0';
+                        }
+                    }
                 });
 
-                // Close menu when clicking outside
+                menuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isActive = navigation.classList.contains('active');
+                    navigation.classList.toggle('active');
+                    menuToggle.classList.toggle('open');
+
+                    // Adjust main content margin for mobile
+                    const main = document.querySelector('main.section');
+                    if (main) {
+                        if (navigation.classList.contains('active')) {
+                            main.style.marginLeft = '280px';
+                        } else {
+                            main.style.marginLeft = '0';
+                        }
+                    }
+                });
+
+                // Close menu when clicking outside - enhanced for mobile
                 document.addEventListener('click', (e) => {
-                    if (!menuToggle.contains(e.target) && 
-                        !navigation.contains(e.target) && 
+                    if (!menuToggle.contains(e.target) &&
+                        !navigation.contains(e.target) &&
                         navigation.classList.contains('active')) {
                         navigation.classList.remove('active');
                         menuToggle.classList.remove('open');
+                        const main = document.querySelector('main.section');
+                        if (main) {
+                            main.style.marginLeft = '0';
+                        }
+                    }
+                });
+
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navigation.classList.remove('active');
+                        menuToggle.classList.remove('open');
+                        const main = document.querySelector('main.section');
+                        if (main) {
+                            main.style.marginLeft = '0';
+                        }
+                    } else {
+                        menuToggle.style.display = 'flex';
                     }
                 });
             }
