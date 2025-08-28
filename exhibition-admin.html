@@ -736,6 +736,105 @@
         .sortable-image-item.documentation .sortable-order-number {
             background: #2196F3;
         }
+
+        /* Unassigned Artworks Styles */
+        .unassigned-artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .unassigned-artwork-item {
+            background: var(--surface-white);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .unassigned-artwork-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .unassigned-artwork-item.selected {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .unassigned-artwork-thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .unassigned-artwork-info {
+            text-align: center;
+        }
+
+        .unassigned-artwork-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .unassigned-artwork-meta {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .unassigned-artwork-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--warning-orange);
+            color: white;
+        }
+
+        .bulk-actions {
+            background: var(--surface-white);
+            border: 2px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .bulk-actions.active {
+            display: block;
+        }
+
+        .bulk-actions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .selected-count {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .no-unassigned-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -778,6 +877,7 @@
             <button class="nav-tab" data-section="organize">Organize Images</button>
             <button class="nav-tab" data-section="thumbnails">Set Thumbnails</button>
             <button class="nav-tab" data-section="documentation">Upload Documentation</button>
+            <button class="nav-tab" data-section="unassigned">Unassigned Artworks</button>
         </div>
 
         <!-- Manage Exhibitions Section -->
@@ -949,6 +1049,33 @@
             </div>
 
             <button class="btn btn-primary" onclick="uploadDocumentation()">Upload Files</button>
+        </div>
+
+        <!-- Unassigned Artworks Section -->
+        <div id="unassigned-section" class="admin-section">
+            <h2 class="section-title">Unassigned Artworks</h2>
+            <div class="form-group">
+                <p>These artworks are not currently assigned to any exhibition. You can add them to existing exhibitions below.</p>
+            </div>
+
+            <div id="unassigned-artworks-list">
+                <!-- Unassigned artworks will be loaded here -->
+            </div>
+
+            <!-- Add to Exhibition Interface -->
+            <div id="add-to-exhibition" class="form-group" style="display: none;">
+                <h3>Add Selected Artworks to Exhibition</h3>
+                <div class="form-group">
+                    <label class="form-label" for="target-exhibition-select">Select Exhibition</label>
+                    <select id="target-exhibition-select" class="form-select">
+                        <!-- Exhibitions will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" onclick="addArtworksToExhibition()">Add to Exhibition</button>
+                    <button class="btn btn-secondary" onclick="cancelAddToExhibition()">Cancel</button>
+                </div>
+            </div>
         </div>
         </div>
     </div>
@@ -1406,6 +1533,7 @@
                 renderArtworkSelector(artworks);
                 populateExhibitionSelect(exhibitions);
                 initializeNavigation();
+                loadUnassignedArtworks();
 
                 showStatus('Data loaded successfully!', 'success');
             } catch (error) {
@@ -2964,6 +3092,226 @@
         window.moveDocumentationToTop = moveDocumentationToTop;
         window.resetToOriginalOrder = resetToOriginalOrder;
         window.saveImageOrder = saveImageOrder;
+
+        // === UNASSIGNED ARTWORKS FUNCTIONALITY ===
+        
+        let selectedUnassignedArtworks = [];
+        
+        // Load and display unassigned artworks
+        function loadUnassignedArtworks() {
+            if (!currentArtworks.length) {
+                document.getElementById('unassigned-artworks-list').innerHTML =
+                    '<div class="no-unassigned-message">Loading artworks...</div>';
+                return;
+            }
+            
+            // Find artworks that are not in any exhibition
+            const unassignedArtworks = currentArtworks.filter(artwork =>
+                !artwork.exhibitions || artwork.exhibitions.length === 0
+            );
+            
+            const container = document.getElementById('unassigned-artworks-list');
+            
+            if (unassignedArtworks.length === 0) {
+                container.innerHTML = `
+                    <div class="no-unassigned-message">
+                        🎉 Great! All artworks are assigned to exhibitions.
+                    </div>
+                `;
+                return;
+            }
+            
+            // Add bulk actions interface
+            const bulkActionsHtml = `
+                <div id="bulk-actions" class="bulk-actions">
+                    <div class="bulk-actions-header">
+                        <span class="selected-count" id="selected-count">0 artworks selected</span>
+                        <button class="btn btn-secondary" onclick="clearSelection()">Clear Selection</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bulk-target-exhibition">Add selected artworks to exhibition:</label>
+                        <select id="bulk-target-exhibition" class="form-select">
+                            <option value="">Select an exhibition...</option>
+                            ${currentExhibitions.map(ex =>
+                                `<option value="${ex.id}">${ex.name} (${ex.year})</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" onclick="bulkAddToExhibition()">Add to Exhibition</button>
+                    </div>
+                </div>
+            `;
+            
+            // Render unassigned artworks grid
+            const artworksHtml = `
+                <div class="unassigned-artwork-grid">
+                    ${unassignedArtworks.map(artwork => {
+                        const thumbnailUrl = artwork.images && artwork.images.thumbnail
+                            ? `https://raw.githubusercontent.com/${CONFIG.githubRepo}/main/${artwork.images.thumbnail}`
+                            : 'images/placeholder.jpg';
+                        
+                        return `
+                            <div class="unassigned-artwork-item"
+                                 data-artwork-id="${artwork.id}"
+                                 onclick="toggleUnassignedArtworkSelection('${artwork.id}')">
+                                <img src="${thumbnailUrl}"
+                                     alt="${artwork.title}"
+                                     class="unassigned-artwork-thumbnail">
+                                <div class="unassigned-artwork-info">
+                                    <div class="unassigned-artwork-title">${artwork.title}</div>
+                                    <div class="unassigned-artwork-meta">${artwork.year} • ${artwork.medium}</div>
+                                    <div class="unassigned-artwork-status">Unassigned</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = `
+                <p><strong>${unassignedArtworks.length}</strong> artworks are not currently assigned to any exhibition:</p>
+                ${bulkActionsHtml}
+                ${artworksHtml}
+            `;
+        }
+        
+        // Toggle selection of an unassigned artwork
+        function toggleUnassignedArtworkSelection(artworkId) {
+            const artworkElement = document.querySelector(`[data-artwork-id="${artworkId}"]`);
+            
+            if (selectedUnassignedArtworks.includes(artworkId)) {
+                // Remove from selection
+                selectedUnassignedArtworks = selectedUnassignedArtworks.filter(id => id !== artworkId);
+                artworkElement.classList.remove('selected');
+            } else {
+                // Add to selection
+                selectedUnassignedArtworks.push(artworkId);
+                artworkElement.classList.add('selected');
+            }
+            
+            updateSelectionUI();
+        }
+        
+        // Update the selection UI
+        function updateSelectionUI() {
+            const count = selectedUnassignedArtworks.length;
+            const countElement = document.getElementById('selected-count');
+            const bulkActions = document.getElementById('bulk-actions');
+            
+            if (countElement) {
+                countElement.textContent = `${count} artwork${count !== 1 ? 's' : ''} selected`;
+            }
+            
+            if (bulkActions) {
+                if (count > 0) {
+                    bulkActions.classList.add('active');
+                } else {
+                    bulkActions.classList.remove('active');
+                }
+            }
+        }
+        
+        // Clear artwork selection
+        function clearSelection() {
+            selectedUnassignedArtworks.forEach(artworkId => {
+                const artworkElement = document.querySelector(`[data-artwork-id="${artworkId}"]`);
+                if (artworkElement) {
+                    artworkElement.classList.remove('selected');
+                }
+            });
+            selectedUnassignedArtworks = [];
+            updateSelectionUI();
+        }
+        
+        // Add selected artworks to an exhibition
+        async function bulkAddToExhibition() {
+            const targetExhibitionId = document.getElementById('bulk-target-exhibition').value;
+            
+            if (!targetExhibitionId) {
+                showStatus('Please select an exhibition', 'error');
+                return;
+            }
+            
+            if (selectedUnassignedArtworks.length === 0) {
+                showStatus('Please select at least one artwork', 'error');
+                return;
+            }
+            
+            try {
+                showStatus('Adding artworks to exhibition...', 'success');
+                
+                // Update artworks data
+                selectedUnassignedArtworks.forEach(artworkId => {
+                    const artwork = currentArtworks.find(a => a.id === artworkId);
+                    if (artwork) {
+                        if (!artwork.exhibitions) {
+                            artwork.exhibitions = [];
+                        }
+                        const targetExhibition = currentExhibitions.find(ex => ex.id === targetExhibitionId);
+                        if (targetExhibition && !artwork.exhibitions.includes(targetExhibition.name)) {
+                            artwork.exhibitions.push(targetExhibition.name);
+                        }
+                    }
+                });
+                
+                // Update artworks.json
+                const artworksData = {
+                    artworks: currentArtworks
+                };
+                
+                await createOrUpdateFile(
+                    'data/artworks.json',
+                    JSON.stringify(artworksData, null, 2),
+                    `Add artworks to exhibition: ${currentExhibitions.find(ex => ex.id === targetExhibitionId).name}`
+                );
+                
+                // Update the target exhibition's artworks list
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === targetExhibitionId);
+                if (exhibitionIndex !== -1) {
+                    if (!currentExhibitions[exhibitionIndex].artworks) {
+                        currentExhibitions[exhibitionIndex].artworks = [];
+                    }
+                    
+                    selectedUnassignedArtworks.forEach(artworkId => {
+                        if (!currentExhibitions[exhibitionIndex].artworks.includes(artworkId)) {
+                            currentExhibitions[exhibitionIndex].artworks.push(artworkId);
+                        }
+                    });
+                    
+                    // Update documentation.json
+                    const updatedData = {
+                        exhibitions: currentExhibitions
+                    };
+                    
+                    await createOrUpdateFile(
+                        'data/documentation.json',
+                        JSON.stringify(updatedData, null, 2),
+                        `Update exhibition artworks: ${currentExhibitions[exhibitionIndex].name}`
+                    );
+                }
+                
+                const addedCount = selectedUnassignedArtworks.length;
+                const targetExhibitionName = currentExhibitions.find(ex => ex.id === targetExhibitionId).name;
+                
+                // Clear selection and reload
+                clearSelection();
+                loadUnassignedArtworks();
+                renderExhibitionList(currentExhibitions);
+                
+                showStatus(`Successfully added ${addedCount} artworks to "${targetExhibitionName}"!`, 'success');
+                
+            } catch (error) {
+                console.error('Error adding artworks to exhibition:', error);
+                showStatus('Error adding artworks to exhibition: ' + error.message, 'error');
+            }
+        }
+
+        // Make new functions globally available
+        window.loadUnassignedArtworks = loadUnassignedArtworks;
+        window.toggleUnassignedArtworkSelection = toggleUnassignedArtworkSelection;
+        window.clearSelection = clearSelection;
+        window.bulkAddToExhibition = bulkAddToExhibition;
     </script>
 </body>
 </html>
