@@ -5821,6 +5821,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:17:42.591Z"
+    },
+    {
+      "id": "white-on-white-2",
+      "title": "White on white 2",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/white-on-white-2.jpg",
+        "medium": "images/artworks/medium/white-on-white-2.jpg",
+        "large": "images/artworks/large/white-on-white-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:17:53.849Z"
     }
   ]
 }
