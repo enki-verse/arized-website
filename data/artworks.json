@@ -5384,6 +5384,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:54:08.761Z"
+    },
+    {
+      "id": "obscure-transcendence",
+      "title": "Obscure Transcendence",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/obscure-transcendence.jpg",
+        "medium": "images/artworks/medium/obscure-transcendence.jpg",
+        "large": "images/artworks/large/obscure-transcendence.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:54:23.909Z"
     }
   ]
 }
