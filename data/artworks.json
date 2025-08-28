@@ -5407,6 +5407,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:54:23.909Z"
+    },
+    {
+      "id": "ouranous-view",
+      "title": "ouranous view",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/ouranous-view.jpg",
+        "medium": "images/artworks/medium/ouranous-view.jpg",
+        "large": "images/artworks/large/ouranous-view.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:54:35.669Z"
     }
   ]
 }
