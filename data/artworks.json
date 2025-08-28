@@ -4920,6 +4920,213 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T01:49:35.404Z"
+    },
+    {
+      "id": "glow-5",
+      "title": "Glow 5",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-5.jpg",
+        "medium": "images/artworks/medium/glow-5.jpg",
+        "large": "images/artworks/large/glow-5.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:46:25.916Z"
+    },
+    {
+      "id": "glow-4",
+      "title": "Glow 4",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-4.jpg",
+        "medium": "images/artworks/medium/glow-4.jpg",
+        "large": "images/artworks/large/glow-4.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:46:35.103Z"
+    },
+    {
+      "id": "glow-3",
+      "title": "Glow 3",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-3.jpg",
+        "medium": "images/artworks/medium/glow-3.jpg",
+        "large": "images/artworks/large/glow-3.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:46:44.393Z"
+    },
+    {
+      "id": "glow-6",
+      "title": "Glow 6",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-6.jpg",
+        "medium": "images/artworks/medium/glow-6.jpg",
+        "large": "images/artworks/large/glow-6.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:46:55.650Z"
+    },
+    {
+      "id": "glow-7",
+      "title": "Glow 7",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-7.jpg",
+        "medium": "images/artworks/medium/glow-7.jpg",
+        "large": "images/artworks/large/glow-7.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:47:07.479Z"
+    },
+    {
+      "id": "glow-8",
+      "title": "Glow 8",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-8.jpg",
+        "medium": "images/artworks/medium/glow-8.jpg",
+        "large": "images/artworks/large/glow-8.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:47:18.771Z"
+    },
+    {
+      "id": "glow-9",
+      "title": "Glow 9",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-9.jpg",
+        "medium": "images/artworks/medium/glow-9.jpg",
+        "large": "images/artworks/large/glow-9.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:47:30.085Z"
+    },
+    {
+      "id": "glow-2",
+      "title": "Glow 2",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-2.jpg",
+        "medium": "images/artworks/medium/glow-2.jpg",
+        "large": "images/artworks/large/glow-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:47:41.678Z"
+    },
+    {
+      "id": "glow-1",
+      "title": "Glow 1",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-1.jpg",
+        "medium": "images/artworks/medium/glow-1.jpg",
+        "large": "images/artworks/large/glow-1.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T03:47:52.671Z"
     }
   ]
 }
