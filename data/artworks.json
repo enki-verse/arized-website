@@ -2251,7 +2251,9 @@
       "price": 0,
       "category": "paintings",
       "subjects": [],
-      "exhibitions": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
       "available": false,
       "featured": false,
       "forSale": false,
@@ -5189,7 +5191,8 @@
         "infinite being"
       ],
       "exhibitions": [
-        "Life world"
+        "Life world",
+        "Foundation Stones"
       ],
       "available": false,
       "featured": false,
@@ -5514,7 +5517,8 @@
       "category": "paintings",
       "subjects": [],
       "exhibitions": [
-        "Foundation stones"
+        "Foundation stones",
+        "Foundation Stones"
       ],
       "available": false,
       "featured": false,
