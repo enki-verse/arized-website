@@ -5890,6 +5890,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:27:06.065Z"
+    },
+    {
+      "id": "pumpkin",
+      "title": "Pumpkin",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/pumpkin.jpg",
+        "medium": "images/artworks/medium/pumpkin.jpg",
+        "large": "images/artworks/large/pumpkin.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:27:15.537Z"
     }
   ]
 }
