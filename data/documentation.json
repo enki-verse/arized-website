@@ -123,6 +123,28 @@
       ]
     },
     {
+      "id": "foundation-stones",
+      "name": "Foundation Stones",
+      "description": "A collection of unexhibited works in private collections. completed around a similar time period.",
+      "year": 2020,
+      "startDate": null,
+      "endDate": null,
+      "location": "Studio",
+      "curator": "Ari Zed",
+      "thumbnailImage": "images/artworks/thumbnails/yellow-brick-road.jpg",
+      "artworks": [
+        "floating-castle",
+        "anima-entering-platos-cave",
+        "yellow-brick-road",
+        "floating-castle-2",
+        "xanadu",
+        "untitled-11",
+        "blue-wanderer",
+        "vatels-chamber"
+      ],
+      "documentation": []
+    },
+    {
       "id": "life-world",
       "name": "Life world",
       "description": "this body of work is titled \"Life world\" as it was insired by a world with the same name in a book i am writting called the Foundation Stones. The paintings were produced as Part of the residency in the studio in Kyneton\n\n\nThe Macfarlane Fund was established with the primary focus to offer financial support across the career span of artists with three main funding streams at graduate, mid-career and senior levels.\nThis group exhibition is the culmination of a series of residencies provided by The Macarlane Fund for recent graduate students. The Macfarlane Fund and Stockroom are proud to present the three 2018 recipients in this group exhibition, Angela Chauvin, Harry Hughes and Josephine Mead",
@@ -307,7 +329,26 @@
           "type": "documentation",
           "id": "walpurgis-nebulah-1756225253164-19984991_1941074759467339_904565128089829376_n.jpeg"
         }
-      ]
+      ],
+      "priority": 2
+    },
+    {
+      "id": "picnic-at-the-end-of-time",
+      "name": "Picnic at the end of time",
+      "description": "works exhibited in the VCA gradshow",
+      "year": 2017,
+      "startDate": null,
+      "endDate": null,
+      "location": "Victorian College of the Arts",
+      "curator": "Ari Zed",
+      "thumbnailImage": "images/artworks/thumbnails/the-tempest-after-giorgione-.jpg",
+      "artworks": [
+        "the-fisher-king-esalan-institute",
+        "the-tempest-after-giorgione-",
+        "as-the-hyperspheric-castle-inflows-and-outflows-tidal-waves-pass-it-one-after-the-other-over-eons",
+        "as-you-fall-deeper-the-horizon-bubble-emerges"
+      ],
+      "documentation": []
     },
     {
       "id": "icecream-apocalypse",
@@ -329,71 +370,6 @@
         "the-wild-west",
         "reckoning-of-the-crystal-mud-fragment",
         "gods-light-and-the-drone"
-      ],
-      "documentation": []
-    },
-    {
-      "id": "picnic-at-the-end-of-time",
-      "name": "Picnic at the end of time",
-      "description": "works exhibited in the VCA gradshow",
-      "year": 2017,
-      "startDate": null,
-      "endDate": null,
-      "location": "Victorian College of the Arts",
-      "curator": "Ari Zed",
-      "thumbnailImage": "images/artworks/thumbnails/the-tempest-after-giorgione-.jpg",
-      "artworks": [
-        "the-fisher-king-esalan-institute",
-        "the-tempest-after-giorgione-",
-        "as-the-hyperspheric-castle-inflows-and-outflows-tidal-waves-pass-it-one-after-the-other-over-eons",
-        "as-you-fall-deeper-the-horizon-bubble-emerges"
-      ],
-      "documentation": []
-    },
-    {
-      "id": "constructiong-becoming",
-      "name": "Constructiong Becoming",
-      "description": "Paintings from artschool and daily life circa 2015",
-      "year": 2015,
-      "startDate": null,
-      "endDate": null,
-      "location": "VCA Melbourne",
-      "curator": "Ari Zed",
-      "thumbnailImage": "images/artworks/thumbnails/everything-merges-with-the-night.jpg",
-      "artworks": [
-        "everything-merges-with-the-night",
-        "untitled-1",
-        "untitled-2",
-        "artschool-1",
-        "artschool-2",
-        "artschool-3",
-        "artschool-4",
-        "untitled-3",
-        "artschool-5",
-        "artschool-6",
-        "artschool-7",
-        "artschool-8",
-        "artschool-9",
-        "artschool-10",
-        "untitled-4",
-        "untitled-5",
-        "artschool-11",
-        "artschool-8-in-studio",
-        "untitled-6",
-        "untitled-7",
-        "untitled-8",
-        "untitled-9",
-        "artschool-12",
-        "artschool-13",
-        "untitled-10",
-        "artschool-14",
-        "untitled-12",
-        "untitled-13",
-        "untitled-14",
-        "artschool-15",
-        "ganesha-and-parvati",
-        "artschool-16",
-        "blood-void-"
       ],
       "documentation": []
     },
@@ -561,6 +537,53 @@
       ]
     },
     {
+      "id": "constructiong-becoming",
+      "name": "Constructiong Becoming",
+      "description": "Paintings from artschool and daily life circa 2015",
+      "year": 2015,
+      "startDate": null,
+      "endDate": null,
+      "location": "VCA Melbourne",
+      "curator": "Ari Zed",
+      "thumbnailImage": "images/artworks/thumbnails/everything-merges-with-the-night.jpg",
+      "artworks": [
+        "everything-merges-with-the-night",
+        "untitled-1",
+        "untitled-2",
+        "artschool-1",
+        "artschool-2",
+        "artschool-3",
+        "artschool-4",
+        "untitled-3",
+        "artschool-5",
+        "artschool-6",
+        "artschool-7",
+        "artschool-8",
+        "artschool-9",
+        "artschool-10",
+        "untitled-4",
+        "untitled-5",
+        "artschool-11",
+        "artschool-8-in-studio",
+        "untitled-6",
+        "untitled-7",
+        "untitled-8",
+        "untitled-9",
+        "artschool-12",
+        "artschool-13",
+        "untitled-10",
+        "artschool-14",
+        "untitled-12",
+        "untitled-13",
+        "untitled-14",
+        "artschool-15",
+        "ganesha-and-parvati",
+        "artschool-16",
+        "blood-void-"
+      ],
+      "documentation": []
+    },
+    {
       "id": "february-portraits-project",
       "name": "February Portraits Project",
       "description": "First Site February studio residency",
@@ -712,27 +735,6 @@
       ]
     },
     {
-      "id": "peripheral-luminousity",
-      "name": "Peripheral Luminousity",
-      "description": "Charcoal drawings from the school of George Haynes",
-      "year": 2012,
-      "startDate": null,
-      "endDate": null,
-      "location": null,
-      "curator": "Ari Zed",
-      "thumbnailImage": "images/artworks/thumbnails/drawing-3.jpg",
-      "artworks": [
-        "drawing-1",
-        "drawing-2",
-        "drawing-3",
-        "drawing-4",
-        "drawing-5",
-        "drawing-6",
-        "drawing-7"
-      ],
-      "documentation": []
-    },
-    {
       "id": "orange-crush",
       "name": "Orange Crush",
       "description": "series of works using a fishtank and lighting to produce Turner-esc atmospheric effects. observational still life.",
@@ -785,24 +787,23 @@
       "documentation": []
     },
     {
-      "id": "foundation-stones",
-      "name": "Foundation Stones",
-      "description": "A collection of unexhibited works in private collections. completed around a similar time period.",
-      "year": 2020,
+      "id": "peripheral-luminousity",
+      "name": "Peripheral Luminousity",
+      "description": "Charcoal drawings from the school of George Haynes",
+      "year": 2012,
       "startDate": null,
       "endDate": null,
-      "location": "Studio",
+      "location": null,
       "curator": "Ari Zed",
-      "thumbnailImage": "images/artworks/thumbnails/yellow-brick-road.jpg",
+      "thumbnailImage": "images/artworks/thumbnails/drawing-3.jpg",
       "artworks": [
-        "floating-castle",
-        "anima-entering-platos-cave",
-        "yellow-brick-road",
-        "floating-castle-2",
-        "xanadu",
-        "untitled-11",
-        "blue-wanderer",
-        "vatels-chamber"
+        "drawing-1",
+        "drawing-2",
+        "drawing-3",
+        "drawing-4",
+        "drawing-5",
+        "drawing-6",
+        "drawing-7"
       ],
       "documentation": []
     }
