@@ -5729,6 +5729,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:16:58.901Z"
+    },
+    {
+      "id": "library",
+      "title": "Library",
+      "year": 2009,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "older work"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/library.jpg",
+        "medium": "images/artworks/medium/library.jpg",
+        "large": "images/artworks/large/library.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:17:09.428Z"
     }
   ]
 }
