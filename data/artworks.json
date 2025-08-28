@@ -5982,6 +5982,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:27:49.190Z"
+    },
+    {
+      "id": "bundle",
+      "title": "Bundle",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/bundle.jpg",
+        "medium": "images/artworks/medium/bundle.jpg",
+        "large": "images/artworks/large/bundle.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:28:00.291Z"
     }
   ]
 }
