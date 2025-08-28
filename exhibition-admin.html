@@ -2000,6 +2000,9 @@
                 // Add to current exhibitions
                 currentExhibitions.push(newExhibition);
 
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
+
                 // Update documentation.json
                 const updatedData = {
                     exhibitions: currentExhibitions
@@ -2143,6 +2146,9 @@
                     curator: exhibitionCurator || null,
                     artworks: selectedArtworks
                 };
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
 
                 // Update documentation.json
                 const updatedData = {
@@ -2434,6 +2440,9 @@
                     currentExhibitions[exhibitionIndex].documentation.push(docEntry);
                 }
 
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
+
                 // Update documentation.json
                 const updatedData = {
                     exhibitions: currentExhibitions
@@ -2515,6 +2524,9 @@
                 // Update exhibition thumbnail
                 currentExhibitions[exhibitionIndex].thumbnailImage = selectedImagePath;
 
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
+
                 // Update documentation.json
                 const updatedData = {
                     exhibitions: currentExhibitions
@@ -2574,6 +2586,9 @@
 
                 // Remove from exhibition documentation
                 exhibition.documentation.splice(docIndex, 1);
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
 
                 // Update documentation.json
                 const updatedData = {
@@ -2855,6 +2870,9 @@
 
                 // Update the caption
                 exhibition.documentation[docIndex].caption = newCaption;
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
 
                 // Update documentation.json
                 const updatedData = {
@@ -3151,6 +3169,9 @@
 
                 // Update the exhibition with the new image order
                 currentExhibitions[exhibitionIndex].imageOrder = imageOrder;
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
 
                 // Update documentation.json
                 const updatedData = {
@@ -3468,6 +3489,9 @@
                         exhibitions: currentExhibitions
                     };
 
+                    // Sort exhibitions by year (newest first) to maintain chronological order
+                    currentExhibitions.sort((a, b) => b.year - a.year);
+
                     await createOrUpdateFile(
                         'data/documentation.json',
                         JSON.stringify(updatedData, null, 2),
@@ -3668,6 +3692,9 @@
                 const exhibitionsData = {
                     exhibitions: currentExhibitions
                 };
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
 
                 await createOrUpdateFile(
                     'data/documentation.json',
