@@ -5361,6 +5361,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:53:55.823Z"
+    },
+    {
+      "id": "thinking-allowed",
+      "title": "Thinking allowed",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/thinking-allowed.jpg",
+        "medium": "images/artworks/medium/thinking-allowed.jpg",
+        "large": "images/artworks/large/thinking-allowed.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:54:08.761Z"
     }
   ]
 }
