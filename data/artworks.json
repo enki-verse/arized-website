@@ -5867,6 +5867,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:26:57.025Z"
+    },
+    {
+      "id": "fabricate",
+      "title": "Fabricate",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/fabricate.jpg",
+        "medium": "images/artworks/medium/fabricate.jpg",
+        "large": "images/artworks/large/fabricate.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:27:06.065Z"
     }
   ]
 }
