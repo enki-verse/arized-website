@@ -4920,6 +4920,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T01:46:22.730Z"
+    },
+    {
+      "id": "vatels-chamber",
+      "title": "Vatels Chamber",
+      "year": 2019,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being, life world"
+      ],
+      "exhibitions": [],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/vatels-chamber.jpg",
+        "medium": "images/artworks/medium/vatels-chamber.jpg",
+        "large": "images/artworks/large/vatels-chamber.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T01:49:35.404Z"
     }
   ]
 }
