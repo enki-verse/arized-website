@@ -3524,10 +3524,10 @@
 
                 const addedCount = selectedUnassignedArtworks.length;
 
-                // Reload data from GitHub to get the latest state
-                await reloadData();
+                // Don't reload data from GitHub immediately after local changes
+                // The local currentExhibitions and currentArtworks arrays are already updated
 
-                // Clear selection and reload displays
+                // Clear selection and reload displays using current local data
                 clearSelection();
                 loadUnassignedArtworks();
                 loadDuplicateAssignments();
