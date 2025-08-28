@@ -5453,6 +5453,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:55:04.054Z"
+    },
+    {
+      "id": "mountain-castle",
+      "title": "mountain castle",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/mountain-castle.jpg",
+        "medium": "images/artworks/medium/mountain-castle.jpg",
+        "large": "images/artworks/large/mountain-castle.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:55:30.015Z"
     }
   ]
 }
