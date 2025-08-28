@@ -5499,6 +5499,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:56:31.575Z"
+    },
+    {
+      "id": "life-world-4",
+      "title": "life world 4",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/life-world-4.jpg",
+        "medium": "images/artworks/medium/life-world-4.jpg",
+        "large": "images/artworks/large/life-world-4.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:06:03.890Z"
     }
   ]
 }
