@@ -5175,6 +5175,31 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:35:28.734Z"
+    },
+    {
+      "id": "dreamings-on-generative-layer-1",
+      "title": "Dreamings on generative layer 1",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "51 x 41 cm",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [
+        "Life world"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dreamings-on-generative-layer-1.jpg",
+        "medium": "images/artworks/medium/dreamings-on-generative-layer-1.jpg",
+        "large": "images/artworks/large/dreamings-on-generative-layer-1.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:38:37.452Z"
     }
   ]
 }
