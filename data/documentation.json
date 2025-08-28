@@ -785,6 +785,28 @@
         "caduceus"
       ],
       "documentation": []
+    },
+    {
+      "id": "foundation-stones",
+      "name": "Foundation Stones",
+      "description": "A collection of unexhibited works in private collections. completed around a similar time period.",
+      "year": 2020,
+      "startDate": null,
+      "endDate": null,
+      "location": "Studio",
+      "curator": "Ari Zed",
+      "thumbnailImage": null,
+      "artworks": [
+        "floating-castle",
+        "anima-entering-platos-cave",
+        "yellow-brick-road",
+        "floating-castle-2",
+        "xanadu",
+        "untitled-11",
+        "blue-wanderer",
+        "vatels-chamber"
+      ],
+      "documentation": []
     }
   ]
 }
