@@ -4897,6 +4897,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-27T07:08:16.472Z"
+    },
+    {
+      "id": "blue-wanderer",
+      "title": "Blue wanderer",
+      "year": 2019,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [
+        "infinite being"
+      ],
+      "exhibitions": [],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/blue-wanderer.jpg",
+        "medium": "images/artworks/medium/blue-wanderer.jpg",
+        "large": "images/artworks/large/blue-wanderer.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T01:46:22.730Z"
     }
   ]
 }
