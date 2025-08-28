@@ -6028,6 +6028,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:28:12.114Z"
+    },
+    {
+      "id": "lounge-2",
+      "title": "Lounge 2",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/lounge-2.jpg",
+        "medium": "images/artworks/medium/lounge-2.jpg",
+        "large": "images/artworks/large/lounge-2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:28:24.818Z"
     }
   ]
 }
