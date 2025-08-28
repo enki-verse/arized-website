@@ -5292,6 +5292,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:52:57.329Z"
+    },
+    {
+      "id": "2",
+      "title": "2",
+      "year": 2021,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/2.jpg",
+        "medium": "images/artworks/medium/2.jpg",
+        "large": "images/artworks/large/2.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:53:18.159Z"
     }
   ]
 }
