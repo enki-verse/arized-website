@@ -728,6 +728,11 @@
                 grid-template-columns: 1fr;
                 gap: 1.25rem;
             }
+
+            /* Show titles below images on tablets too */
+            .exhibition-info {
+                display: block !important;
+            }
         }
 
         @media (max-width: 768px) {
@@ -823,6 +828,24 @@
             .exhibition-thumbnail img {
                 height: 180px;
                 object-fit: cover;
+            }
+
+            /* Extra small screens - ensure visibility */
+            .exhibition-info {
+                display: block !important;
+                background: #f9f9f9;
+                border-top: 1px solid #eee;
+            }
+        }
+
+        /* Force visibility on all touch devices */
+        @media (pointer: coarse) {
+            .exhibition-info {
+                display: block !important;
+            }
+
+            .exhibition-title-overlay {
+                display: none !important;
             }
         }
     </style>
@@ -983,7 +1006,26 @@
 
             // Initialize exhibitions
             loadExhibitions();
+
+            // Debug function to check CSS visibility
+            setTimeout(debugMobileTitles, 3000); // Wait for exhibitions to load
         });
+
+        // Debug function to test mobile title visibility
+        function debugMobileTitles() {
+            const infoElements = document.querySelectorAll('.exhibition-info');
+            console.log(`Found ${infoElements.length} exhibition-info elements`);
+
+            infoElements.forEach((elem, index) => {
+                const computedStyle = window.getComputedStyle(elem);
+                const display = computedStyle.getPropertyValue('display');
+                console.log(`Element ${index}: display=${display}, content: "${elem.textContent.substring(0, 30)}..."`);
+            });
+
+            // Test current viewport
+            console.log(`Current viewport: ${window.innerWidth}x${window.innerHeight}`);
+            console.log(`Touch device: ${('ontouchstart' in window)}`);
+        }
 
         // Load exhibitions data
         async function loadExhibitions() {
