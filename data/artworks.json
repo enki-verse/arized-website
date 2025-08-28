@@ -5315,6 +5315,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:53:18.159Z"
+    },
+    {
+      "id": "the-ring",
+      "title": "The Ring",
+      "year": 2019,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-ring.jpg",
+        "medium": "images/artworks/medium/the-ring.jpg",
+        "large": "images/artworks/large/the-ring.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:53:41.702Z"
     }
   ]
 }
