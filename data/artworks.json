@@ -5338,6 +5338,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T05:53:41.702Z"
+    },
+    {
+      "id": "vision",
+      "title": "vision",
+      "year": 2020,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Foundation Stones"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/vision.jpg",
+        "medium": "images/artworks/medium/vision.jpg",
+        "large": "images/artworks/large/vision.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T05:53:55.823Z"
     }
   ]
 }
