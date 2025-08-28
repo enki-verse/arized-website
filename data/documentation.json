@@ -795,7 +795,7 @@
       "endDate": null,
       "location": "Studio",
       "curator": "Ari Zed",
-      "thumbnailImage": null,
+      "thumbnailImage": "images/artworks/thumbnails/yellow-brick-road.jpg",
       "artworks": [
         "floating-castle",
         "anima-entering-platos-cave",
