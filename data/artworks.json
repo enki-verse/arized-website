@@ -5959,6 +5959,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-28T06:27:38.071Z"
+    },
+    {
+      "id": "bedrrom",
+      "title": "Bedrrom",
+      "year": 2011,
+      "medium": "Paper",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Drawings and prints"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/bedrrom.jpg",
+        "medium": "images/artworks/medium/bedrrom.jpg",
+        "large": "images/artworks/large/bedrrom.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-28T06:27:49.190Z"
     }
   ]
 }
