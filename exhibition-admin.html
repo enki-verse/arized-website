@@ -3464,21 +3464,54 @@
             try {
                 showStatus('Adding artworks to exhibition...', 'success');
 
-                // Update artworks data
+                // Find the target exhibition
+                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === targetExhibitionId);
+                if (exhibitionIndex === -1) {
+                    showStatus('Exhibition not found', 'error');
+                    return;
+                }
+
+                const targetExhibition = currentExhibitions[exhibitionIndex];
+
+                // Initialize artworks array if it doesn't exist
+                if (!targetExhibition.artworks) {
+                    targetExhibition.artworks = [];
+                }
+
+                // Add artworks to the exhibition's artworks list (documentation.json is source of truth)
+                selectedUnassignedArtworks.forEach(artworkId => {
+                    if (!targetExhibition.artworks.includes(artworkId)) {
+                        targetExhibition.artworks.push(artworkId);
+                    }
+                });
+
+                // Sort exhibitions by year (newest first) to maintain chronological order
+                currentExhibitions.sort((a, b) => b.year - a.year);
+
+                // Update documentation.json first (primary source of truth for assignments)
+                const updatedData = {
+                    exhibitions: currentExhibitions
+                };
+
+                await createOrUpdateFile(
+                    'data/documentation.json',
+                    JSON.stringify(updatedData, null, 2),
+                    `Add artworks to exhibition: ${targetExhibition.name}`
+                );
+
+                // Update artworks.json to maintain bidirectional consistency
                 selectedUnassignedArtworks.forEach(artworkId => {
                     const artwork = currentArtworks.find(a => a.id === artworkId);
                     if (artwork) {
                         if (!artwork.exhibitions) {
                             artwork.exhibitions = [];
                         }
-                        const targetExhibition = currentExhibitions.find(ex => ex.id === targetExhibitionId);
-                        if (targetExhibition && !artwork.exhibitions.includes(targetExhibition.name)) {
+                        if (!artwork.exhibitions.includes(targetExhibition.name)) {
                             artwork.exhibitions.push(targetExhibition.name);
                         }
                     }
                 });
 
-                // Update artworks.json
                 const artworksData = {
                     artworks: currentArtworks
                 };
@@ -3486,39 +3519,10 @@
                 await createOrUpdateFile(
                     'data/artworks.json',
                     JSON.stringify(artworksData, null, 2),
-                    `Add artworks to exhibition: ${currentExhibitions.find(ex => ex.id === targetExhibitionId).name}`
+                    `Update artwork assignments for exhibition: ${targetExhibition.name}`
                 );
 
-                // Update the target exhibition's artworks list
-                const exhibitionIndex = currentExhibitions.findIndex(ex => ex.id === targetExhibitionId);
-                if (exhibitionIndex !== -1) {
-                    if (!currentExhibitions[exhibitionIndex].artworks) {
-                        currentExhibitions[exhibitionIndex].artworks = [];
-                    }
-
-                    selectedUnassignedArtworks.forEach(artworkId => {
-                        if (!currentExhibitions[exhibitionIndex].artworks.includes(artworkId)) {
-                            currentExhibitions[exhibitionIndex].artworks.push(artworkId);
-                        }
-                    });
-
-                    // Update documentation.json
-                    const updatedData = {
-                        exhibitions: currentExhibitions
-                    };
-
-                    // Sort exhibitions by year (newest first) to maintain chronological order
-                    currentExhibitions.sort((a, b) => b.year - a.year);
-
-                    await createOrUpdateFile(
-                        'data/documentation.json',
-                        JSON.stringify(updatedData, null, 2),
-                        `Update exhibition artworks: ${currentExhibitions[exhibitionIndex].name}`
-                    );
-                }
-
                 const addedCount = selectedUnassignedArtworks.length;
-                const targetExhibitionName = currentExhibitions.find(ex => ex.id === targetExhibitionId).name;
 
                 // Reload data from GitHub to get the latest state
                 await reloadData();
@@ -3529,13 +3533,7 @@
                 loadDuplicateAssignments();
                 renderExhibitionList(currentExhibitions);
 
-                // Force reload of both sections to ensure they reflect new data
-                setTimeout(() => {
-                    loadUnassignedArtworks();
-                    loadDuplicateAssignments();
-                }, 500);
-
-                showStatus(`Successfully added ${addedCount} artworks to "${targetExhibitionName}"!`, 'success');
+                showStatus(`Successfully added ${addedCount} artworks to "${targetExhibition.name}"!`, 'success');
 
             } catch (error) {
                 console.error('Error adding artworks to exhibition:', error);
