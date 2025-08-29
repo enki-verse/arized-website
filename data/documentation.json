@@ -1060,6 +1060,120 @@
           "path": "images/documentation/allegory-of-space-1756454732867-508883431_10033564680055295_3682759053973029757_n.jpg",
           "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454732931-thumb-508883431_10033564680055295_3682759053973029757_n.jpg"
         }
+      ],
+      "imageOrder": [
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454717167-506982125_10033564430055320_1415520042547784137_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454707333-506899470_10033564500055313_6241888693629601058_n.jpg"
+        },
+        {
+          "type": "artwork",
+          "id": "nyx"
+        },
+        {
+          "type": "artwork",
+          "id": "arethusa"
+        },
+        {
+          "type": "artwork",
+          "id": "made-in-our-image"
+        },
+        {
+          "type": "artwork",
+          "id": "eudeamonia"
+        },
+        {
+          "type": "artwork",
+          "id": "aether"
+        },
+        {
+          "type": "artwork",
+          "id": "782982-orig"
+        },
+        {
+          "type": "artwork",
+          "id": "eurynome"
+        },
+        {
+          "type": "artwork",
+          "id": "euphoria"
+        },
+        {
+          "type": "artwork",
+          "id": "ambrosia"
+        },
+        {
+          "type": "artwork",
+          "id": "aurae"
+        },
+        {
+          "type": "artwork",
+          "id": "mnemosyne"
+        },
+        {
+          "type": "artwork",
+          "id": "eros"
+        },
+        {
+          "type": "artwork",
+          "id": "aginippe"
+        },
+        {
+          "type": "artwork",
+          "id": "arcadia"
+        },
+        {
+          "type": "artwork",
+          "id": "arche"
+        },
+        {
+          "type": "artwork",
+          "id": "aegle"
+        },
+        {
+          "type": "artwork",
+          "id": "alsea"
+        },
+        {
+          "type": "artwork",
+          "id": "caduceus"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454692497-506817419_10033564673388629_83109186842151829_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454697904-506847310_10033564396721990_475374126558743637_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454702535-506887744_10033564706721959_8056560344075544336_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454712986-506909955_10033564416721988_7783601008563281287_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454721029-508264971_10033564320055331_4649158949447687540_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454732867-508883431_10033564680055295_3682759053973029757_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454724879-508423221_10033564746721955_607555096770242430_n.jpg"
+        },
+        {
+          "type": "documentation",
+          "id": "allegory-of-space-1756454729147-508856910_10033564780055285_8884665042402223706_n.jpg"
+        }
       ]
     },
     {
