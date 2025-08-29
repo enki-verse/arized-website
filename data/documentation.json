@@ -801,7 +801,7 @@
       "name": "Glow",
       "description": "glow",
       "year": 2014,
-      "priority": 1,
+      "priority": 2,
       "startDate": null,
       "endDate": null,
       "location": "First Site RMIT Melbourne",
@@ -816,7 +816,13 @@
         "glow-8",
         "glow-9",
         "glow-2",
-        "glow-1"
+        "glow-1",
+        "glow-11",
+        "glow-16",
+        "glow-14",
+        "glow-10",
+        "glow-15",
+        "glow-13"
       ],
       "documentation": []
     },
