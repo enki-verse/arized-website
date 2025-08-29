@@ -6221,6 +6221,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-29T07:52:32.068Z"
+    },
+    {
+      "id": "glow-13",
+      "title": "Glow 13",
+      "year": 2014,
+      "medium": "Oil on canvas",
+      "dimensions": "",
+      "price": 0,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Glow"
+      ],
+      "available": false,
+      "featured": false,
+      "forSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/glow-13.jpg",
+        "medium": "images/artworks/medium/glow-13.jpg",
+        "large": "images/artworks/large/glow-13.jpg"
+      },
+      "description": "",
+      "dateAdded": "2025-08-29T07:52:43.235Z"
     }
   ]
 }
