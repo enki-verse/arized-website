@@ -793,7 +793,8 @@
         "orange-crush-7",
         "orange-crush-8"
       ],
-      "documentation": []
+      "documentation": [],
+      "priority": 2
     },
     {
       "id": "glow",
