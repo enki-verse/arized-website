@@ -801,7 +801,7 @@
       "name": "Glow",
       "description": "glow",
       "year": 2014,
-      "priority": 2,
+      "priority": 1,
       "startDate": null,
       "endDate": null,
       "location": "First Site RMIT Melbourne",
@@ -816,13 +816,7 @@
         "glow-8",
         "glow-9",
         "glow-2",
-        "glow-1",
-        "glow-11",
-        "glow-16",
-        "glow-14",
-        "glow-10",
-        "glow-15",
-        "glow-13"
+        "glow-1"
       ],
       "documentation": []
     },
@@ -855,7 +849,78 @@
         "alsea",
         "caduceus"
       ],
-      "documentation": []
+      "documentation": [
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454692497-506817419_10033564673388629_83109186842151829_n.jpg",
+          "caption": "506817419_10033564673388629_83109186842151829_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454692497-506817419_10033564673388629_83109186842151829_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454692554-thumb-506817419_10033564673388629_83109186842151829_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454697904-506847310_10033564396721990_475374126558743637_n.jpg",
+          "caption": "506847310_10033564396721990_475374126558743637_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454697904-506847310_10033564396721990_475374126558743637_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454697952-thumb-506847310_10033564396721990_475374126558743637_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454702535-506887744_10033564706721959_8056560344075544336_n.jpg",
+          "caption": "506887744_10033564706721959_8056560344075544336_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454702535-506887744_10033564706721959_8056560344075544336_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454702623-thumb-506887744_10033564706721959_8056560344075544336_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454707333-506899470_10033564500055313_6241888693629601058_n.jpg",
+          "caption": "506899470_10033564500055313_6241888693629601058_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454707333-506899470_10033564500055313_6241888693629601058_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454707436-thumb-506899470_10033564500055313_6241888693629601058_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454712986-506909955_10033564416721988_7783601008563281287_n.jpg",
+          "caption": "506909955_10033564416721988_7783601008563281287_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454712986-506909955_10033564416721988_7783601008563281287_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454713043-thumb-506909955_10033564416721988_7783601008563281287_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454717167-506982125_10033564430055320_1415520042547784137_n.jpg",
+          "caption": "506982125_10033564430055320_1415520042547784137_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454717167-506982125_10033564430055320_1415520042547784137_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454717242-thumb-506982125_10033564430055320_1415520042547784137_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454721029-508264971_10033564320055331_4649158949447687540_n.jpg",
+          "caption": "508264971_10033564320055331_4649158949447687540_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454721029-508264971_10033564320055331_4649158949447687540_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454721135-thumb-508264971_10033564320055331_4649158949447687540_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454724879-508423221_10033564746721955_607555096770242430_n.jpg",
+          "caption": "508423221_10033564746721955_607555096770242430_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454724879-508423221_10033564746721955_607555096770242430_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454724942-thumb-508423221_10033564746721955_607555096770242430_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454729147-508856910_10033564780055285_8884665042402223706_n.jpg",
+          "caption": "508856910_10033564780055285_8884665042402223706_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454729147-508856910_10033564780055285_8884665042402223706_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454729195-thumb-508856910_10033564780055285_8884665042402223706_n.jpg"
+        },
+        {
+          "type": "image",
+          "filename": "allegory-of-space-1756454732867-508883431_10033564680055295_3682759053973029757_n.jpg",
+          "caption": "508883431_10033564680055295_3682759053973029757_n.jpg",
+          "path": "images/documentation/allegory-of-space-1756454732867-508883431_10033564680055295_3682759053973029757_n.jpg",
+          "thumbnailPath": "images/documentation/thumbnails/allegory-of-space-1756454732931-thumb-508883431_10033564680055295_3682759053973029757_n.jpg"
+        }
+      ]
     },
     {
       "id": "peripheral-luminousity",
