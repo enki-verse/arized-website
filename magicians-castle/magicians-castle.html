@@ -418,4 +418,37 @@ rs.style.setProperty("display", "block", "important");
 rs.style.setProperty("min-width", "300px", "important");
 // Keep removing is-collapsed class if something tries to add it back
 setInterval(function() { rs.classList.remove("is-collapsed"); }, 100);
-console.log("Right sidebar forced visible!");</script></div></div></div></div></body></html>
+console.log("Right sidebar forced visible!");</script></div></div></div></div>
+<script>
+setTimeout(function() {
+    console.log("=== SIDEBAR DEBUG ===");
+    let rs = document.querySelector("#right-sidebar");
+    let rc = document.querySelector("#right-content");
+    let mainH = document.querySelector("#main-horizontal");
+    
+    console.log("Right sidebar element:", rs);
+    console.log("Right sidebar display:", rs ? window.getComputedStyle(rs).display : "NOT FOUND");
+    console.log("Right sidebar visibility:", rs ? window.getComputedStyle(rs).visibility : "NOT FOUND");
+    console.log("Right sidebar width:", rs ? window.getComputedStyle(rs).width : "NOT FOUND");
+    console.log("Right sidebar min-width:", rs ? window.getComputedStyle(rs).minWidth : "NOT FOUND");
+    console.log("Right sidebar max-width:", rs ? window.getComputedStyle(rs).maxWidth : "NOT FOUND");
+    console.log("Right sidebar classes:", rs ? rs.className : "NOT FOUND");
+    
+    console.log("\nRight content element:", rc);
+    console.log("Right content display:", rc ? window.getComputedStyle(rc).display : "NOT FOUND");
+    console.log("Right content width:", rc ? window.getComputedStyle(rc).width : "NOT FOUND");
+    
+    console.log("\nMain horizontal:", mainH);
+    console.log("Main horizontal display:", mainH ? window.getComputedStyle(mainH).display : "NOT FOUND");
+    
+    // Force everything visible
+    if (rs) {
+        rs.style.cssText = "display: block !important; position: fixed !important; right: 0 !important; top: 0 !important; width: 300px !important; height: 100vh !important; background: lightblue !important; border: 5px solid red !important; z-index: 999999 !important; overflow: auto !important;";
+        console.log("FORCED SIDEBAR TO FIXED POSITION!");
+    }
+    if (rc) {
+        rc.style.cssText = "display: flex !important; width: 300px !important;";
+    }
+}, 1000);
+</script>
+</body></html>

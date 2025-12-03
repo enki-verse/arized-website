@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+  --sidebar-width:min(20em, 80vw);
+  --sidebar-width-right:min(20em, 80vw);
+  margin:0;
+  padding:0;
+}
+#main{
+  display:flex;
+  width:100%;
+  height:100vh;
+}
+#center{
+  flex:1;
+  background:#f0f0f0;
+  padding:20px;
+}
+#right-sidebar{
+  width:var(--sidebar-width-right);
+  background:#333;
+  color:white;
+  padding:20px;
+  min-width:300px;
+}
+#right-sidebar.is-collapsed{
+  display:none;
+}
+</style>
+</head>
+<body>
+<div id="main">
+  <div id="center">
+    <h1>Main Content</h1>
+    <p>If you see a dark sidebar on the RIGHT with "Table of Contents", it's working!</p>
+  </div>
+  <div id="right-sidebar">
+    <h2>Table Of Contents</h2>
+    <ul>
+      <li>Introduction</li>
+      <li>Idealism</li>
+      <li>The Castle</li>
+    </ul>
+  </div>
+</div>
+<script>
+let rs = document.querySelector("#right-sidebar");
+rs.classList.remove("is-collapsed");
+console.log("Sidebar element:", rs);
+console.log("Sidebar classes:", rs.className);
+console.log("Sidebar computed width:", window.getComputedStyle(rs).width);
+</script>
+</body>
+</html>
