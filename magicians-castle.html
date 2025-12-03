@@ -411,4 +411,11 @@ Heffernan, Julie. Master Class Lecture, <a rel="noopener nofollow" class="extern
 			
 			
 		</div>
-		</div></div><script defer="">let rs = document.querySelector("#right-sidebar"); rs.classList.remove("is-collapsed"); rs.style.setProperty("--sidebar-width", localStorage.getItem("sidebar-right-width") || "20em");</script></div></div></div></div></body></html>
+		</div></div><script defer="">let rs = document.querySelector("#right-sidebar"); 
+rs.classList.remove("is-collapsed"); 
+rs.style.setProperty("--sidebar-width", "20em", "important");
+rs.style.setProperty("display", "block", "important");
+rs.style.setProperty("min-width", "300px", "important");
+// Keep removing is-collapsed class if something tries to add it back
+setInterval(function() { rs.classList.remove("is-collapsed"); }, 100);
+console.log("Right sidebar forced visible!");</script></div></div></div></div></body></html>
