@@ -842,6 +842,35 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .lightbox-price-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            line-height: 1.3;
+        }
+
+        .lightbox-price-original {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .lightbox-price-sale {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .lightbox-price-sale-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #c0392b;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
 
         .lightbox-status {
@@ -2286,15 +2315,53 @@
         let currentSelectionIndex = 0; // For navigating through selection
         let isViewingSelection = false; // Track if we're viewing through selection mode
         let isScaleView = false; // Track if we're in scale view mode
+        let siteSale = { enabled: false, percentOff: 0 }; // Sitewide sale settings
 
         // Helper functions for artwork info
-        function formatPrice(artwork) {
-            if (!artwork.price) return 'Price on Request';
+        function formatCurrency(amount) {
+            if (!amount && amount !== 0) return 'Price on Request';
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0
-            }).format(artwork.price);
+            }).format(amount);
+        }
+
+        function isArtworkOnSale(artwork) {
+            if (!siteSale || !siteSale.enabled || !siteSale.percentOff) return false;
+            if (!artwork || !artwork.price) return false;
+            if (artwork.forSale === false) return false;
+            if (artwork.excludeFromSale === true) return false;
+            return true;
+        }
+
+        function getSalePrice(artwork) {
+            if (!isArtworkOnSale(artwork)) return null;
+            const discount = Math.round(artwork.price * (siteSale.percentOff / 100));
+            return Math.max(0, artwork.price - discount);
+        }
+
+        function formatPrice(artwork) {
+            if (!artwork.price) return 'Price on Request';
+            return formatCurrency(artwork.price);
+        }
+
+        // Returns HTML for the price area (handles sale strikethrough + new price)
+        function formatPriceHTML(artwork) {
+            if (!artwork.price) {
+                return 'Price on Request';
+            }
+            if (isArtworkOnSale(artwork)) {
+                const salePrice = getSalePrice(artwork);
+                return `
+                    <div class="lightbox-price-stack">
+                        <span class="lightbox-price-original">${formatCurrency(artwork.price)}</span>
+                        <span class="lightbox-price-sale">${formatCurrency(salePrice)}</span>
+                        <span class="lightbox-price-sale-badge">${siteSale.percentOff}% off</span>
+                    </div>
+                `;
+            }
+            return formatCurrency(artwork.price);
         }
 
         function getArtworkStatus(artwork) {
@@ -2327,6 +2394,16 @@
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
                 const data = await response.json();
+                
+                // Load sitewide sale settings (gracefully handle missing key)
+                if (data.sale && typeof data.sale === 'object') {
+                    siteSale = {
+                        enabled: !!data.sale.enabled,
+                        percentOff: Math.max(0, Math.min(99, parseInt(data.sale.percentOff) || 0))
+                    };
+                } else {
+                    siteSale = { enabled: false, percentOff: 0 };
+                }
                 
                 // Sort artworks by year in descending order (newest first)
                 artworks = data.artworks.sort((a, b) => b.year - a.year);
@@ -2717,11 +2794,10 @@
             lightboxTitle.textContent = cleanTitle;
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
             
-            // Update price and status
-            const price = formatPrice(currentViewingArtwork);
+            // Update price and status (supports sitewide sale with crossed-out original)
             const status = getArtworkStatus(currentViewingArtwork);
             
-            lightboxPriceText.textContent = price;
+            lightboxPriceText.innerHTML = formatPriceHTML(currentViewingArtwork);
             
             // Create status text with red dot for sold items or clickable available
             if (status.class === 'sold') {
