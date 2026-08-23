@@ -81,7 +81,8 @@
         "large": "images/artworks/large/rolling.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-18T14:23:31.339Z"
+      "dateAdded": "2025-07-18T14:23:31.339Z",
+      "excludeFromSale": true
     },
     {
       "id": "who-is-dreaming-who",
