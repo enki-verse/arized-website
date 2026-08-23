@@ -1419,6 +1419,27 @@
         .tray-controls {
             display: flex;
             gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tray-price-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-dark, #2C1810);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            margin-right: 0.25rem;
+        }
+
+        .tray-price-toggle input {
+            width: 14px;
+            height: 14px;
+            accent-color: var(--accent-gold, #DAA520);
+            cursor: pointer;
         }
 
         .tray-btn {
@@ -1925,6 +1946,10 @@
                 <button class="minimize-btn" id="minimizeTray" title="Minimize"></button>
             </div>
             <div class="tray-controls">
+                <label class="tray-price-toggle" title="Include prices when viewing selection or exporting PDF">
+                    <input type="checkbox" id="showPricesToggle" checked>
+                    <span>Show prices</span>
+                </label>
                 <button class="tray-btn" id="viewSelection" disabled>View Selection</button>
                 <button class="tray-btn" id="saveSelection" disabled>Save as PDF</button>
                 <button class="tray-btn" id="clearSelection">Clear All</button>
@@ -2282,12 +2307,25 @@
                     });
                 }
 
+                // Show prices toggle (affects selection view + PDF export)
+                const showPricesToggle = document.getElementById('showPricesToggle');
+                if (showPricesToggle) {
+                    showSelectionPrices = showPricesToggle.checked;
+                    showPricesToggle.addEventListener('change', () => {
+                        showSelectionPrices = showPricesToggle.checked;
+                        // Refresh lightbox price if currently viewing a selection
+                        if (isViewingSelection && currentViewingArtwork) {
+                            updateLightboxImage();
+                        }
+                    });
+                }
+
                 // Save selection as PDF
                 const saveSelection = document.getElementById('saveSelection');
                 if (saveSelection) {
                     saveSelection.addEventListener('click', () => {
                         if (selectedArtworks.length === 0) return;
-                        generatePDF(selectedArtworks);
+                        generatePDF(selectedArtworks, showSelectionPrices);
                     });
                 }
 
@@ -2349,10 +2387,11 @@
                     saveAsPDF.addEventListener('click', () => {
                         if (isViewingSelection && selectedArtworks.length > 0) {
                             // Export entire selection when viewing through selection mode
-                            generatePDF(selectedArtworks);
+                            generatePDF(selectedArtworks, showSelectionPrices);
                         } else if (currentViewingArtwork) {
                             // Export single artwork when viewing individual piece
-                            generatePDF([currentViewingArtwork]);
+                            // Uses same price preference as the selection tray toggle
+                            generatePDF([currentViewingArtwork], showSelectionPrices);
                         }
                     });
                 }
@@ -2395,6 +2434,7 @@
         let isViewingSelection = false; // Track if we're viewing through selection mode
         let isScaleView = false; // Track if we're in scale view mode
         let siteSale = { enabled: false, percentOff: 0 }; // Sitewide sale settings
+        let showSelectionPrices = true; // Include prices in selection view and PDF export
 
         // Helper functions for artwork info
         function formatCurrency(amount) {
@@ -2439,6 +2479,16 @@
                         <span class="lightbox-price-sale-badge">${siteSale.percentOff}% off</span>
                     </div>
                 `;
+            }
+            return formatCurrency(artwork.price);
+        }
+
+        // Plain text price for PDF export (includes sale if active)
+        function formatPricePlain(artwork) {
+            if (!artwork.price) return 'Price on Request';
+            if (isArtworkOnSale(artwork)) {
+                const salePrice = getSalePrice(artwork);
+                return `${formatCurrency(salePrice)} (${siteSale.percentOff}% off, was ${formatCurrency(artwork.price)})`;
             }
             return formatCurrency(artwork.price);
         }
@@ -2911,9 +2961,14 @@
             lightboxDetails.textContent = `${currentViewingArtwork.year} • ${currentViewingArtwork.medium} • ${currentViewingArtwork.dimensions}`;
             
             // Update price and status (supports sitewide sale with crossed-out original)
+            // When viewing a selection, respect the "Show prices" toggle
             const status = getArtworkStatus(currentViewingArtwork);
             
-            lightboxPriceText.innerHTML = formatPriceHTML(currentViewingArtwork);
+            if (isViewingSelection && !showSelectionPrices) {
+                lightboxPriceText.innerHTML = '';
+            } else {
+                lightboxPriceText.innerHTML = formatPriceHTML(currentViewingArtwork);
+            }
             
             // Create status text with red dot for sold items or clickable available
             if (status.class === 'sold') {
@@ -3146,8 +3201,8 @@
             updateImageZoom();
         }
 
-        // Generate PDF
-        function generatePDF(artworksArray) {
+        // Generate PDF (includePrices controls whether prices appear under each work)
+        function generatePDF(artworksArray, includePrices = showSelectionPrices) {
             const printWindow = window.open('', '_blank');
             const htmlContent = `
                 <!DOCTYPE html>
@@ -3161,7 +3216,8 @@
                         .artwork img { max-width: 100%; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
                         .artwork-info { margin-top: 15px; }
                         .artwork-info h3 { margin-bottom: 5px; color: #333; }
-                        .artwork-info p { color: #666; margin: 0; }
+                        .artwork-info p { color: #666; margin: 4px 0; }
+                        .artwork-info .price { color: #8B4513; font-weight: 600; }
                         @media print { .no-print { display: none; } }
                     </style>
                 </head>
@@ -3173,6 +3229,7 @@
                             <div class="artwork-info">
                                 <h3>${artwork.title.replace(/\s*\d+cm\s*x?\s*\d+cm\s*$/i, '').trim()}</h3>
                                 <p>${artwork.year} • ${artwork.medium} • ${artwork.dimensions}</p>
+                                ${includePrices ? `<p class="price">${formatPricePlain(artwork)}</p>` : ''}
                             </div>
                         </div>
                     `).join('')}
