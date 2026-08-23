@@ -2729,17 +2729,17 @@
       "id": "the-wild-west",
       "title": "The Wild West",
       "year": 2016,
-      "medium": "Oil on canvas",
+      "medium": "Oil on Board",
       "dimensions": "80 x 60 cm",
-      "price": 0,
+      "price": 200,
       "category": "paintings",
       "subjects": [],
       "exhibitions": [
         "Icecream apocalypse"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/the-wild-west.jpg",
         "medium": "images/artworks/medium/the-wild-west.jpg",
