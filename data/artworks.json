@@ -1879,7 +1879,7 @@
       "year": 2018,
       "medium": "Oil on canvas",
       "dimensions": "61 x 76 cm",
-      "price": 0,
+      "price": 1400,
       "category": "paintings",
       "subjects": [
         "infinite being, life world"
@@ -1887,9 +1887,9 @@
       "exhibitions": [
         "Life world"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/the-dangers-of-finally-finding-yourself-on-a-plane-of-unknowing-a-melting-jelly-the-giants-that-helped-construct-utopia-and-roam-on-life-world-are-born-from-eggs-that-are-scattered-through-the-galaxy.jpg",
         "medium": "images/artworks/medium/the-dangers-of-finally-finding-yourself-on-a-plane-of-unknowing-a-melting-jelly-the-giants-that-helped-construct-utopia-and-roam-on-life-world-are-born-from-eggs-that-are-scattered-through-the-galaxy.jpg",
