@@ -1,4 +1,8 @@
 {
+  "sale": {
+    "enabled": false,
+    "percentOff": 0
+  },
   "artworks": [
     {
       "id": "the-fairy-raid-230cm-140cm",
