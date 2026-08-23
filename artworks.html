@@ -2392,7 +2392,8 @@
         // Load artworks - Modified to sort by year descending
         async function loadArtworks() {
             try {
-                const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json`);
+                // Cache-bust so returning visitors always get the latest sale settings
+                const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/data/artworks.json?t=${Date.now()}`);
                 const data = await response.json();
                 
                 // Load sitewide sale settings (gracefully handle missing key)
