@@ -1176,7 +1176,7 @@
       "year": 2021,
       "medium": "Oil on canvas",
       "dimensions": "85 x 105 cm",
-      "price": 0,
+      "price": 1900,
       "category": "paintings",
       "subjects": [
         "infinite being"
@@ -1184,9 +1184,9 @@
       "exhibitions": [
         "The Universe Is Leaking"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/thinking-allowed.jpg",
         "medium": "images/artworks/medium/thinking-allowed.jpg",
