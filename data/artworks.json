@@ -1,7 +1,7 @@
 {
   "sale": {
-    "enabled": false,
-    "percentOff": 0
+    "enabled": true,
+    "percentOff": 50
   },
   "artworks": [
     {
