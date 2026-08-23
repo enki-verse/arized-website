@@ -717,6 +717,56 @@
             transform-origin: center center;
         }
 
+        .lightbox-image-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40vh;
+            width: 100%;
+        }
+
+        .lightbox-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .lightbox-loader.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(139, 69, 19, 0.15);
+            border-top-color: var(--primary-brown, #8B4513);
+            border-radius: 50%;
+            animation: lightboxSpin 0.75s linear infinite;
+        }
+
+        .lightbox-loader-text {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 0.03em;
+        }
+
+        @keyframes lightboxSpin {
+            to { transform: rotate(360deg); }
+        }
+
         .lightbox img {
             max-width: 100%;
             max-height: 60vh;
@@ -728,9 +778,13 @@
                 0 60px 80px -30px rgba(0, 0, 0, 0.3),
                 0 0 0 1px rgba(255, 255, 255, 0.1);
             border-radius: 2px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.25s ease;
             cursor: grab;
             transform-origin: center center;
+        }
+
+        .lightbox img.is-loading {
+            opacity: 0;
         }
 
         .lightbox img:active {
@@ -1634,6 +1688,25 @@
                 display: none !important;
             }
 
+            /* Keep loading feedback clear on mobile while large images fetch */
+            .lightbox {
+                padding: 1rem;
+            }
+
+            .lightbox-image-wrap {
+                min-height: 50vh;
+            }
+
+            .lightbox-spinner {
+                width: 42px;
+                height: 42px;
+                border-width: 3px;
+            }
+
+            .lightbox-loader-text {
+                font-size: 0.85rem;
+            }
+
             /* Hide selection tray completely on mobile */
             .selection-tray {
                 display: none !important;
@@ -1873,7 +1946,13 @@
     <div class="lightbox" id="lightbox">
         <span class="close" id="lightboxClose">&times;</span>
         <div class="lightbox-content">
-            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-image-wrap">
+                <div class="lightbox-loader" id="lightboxLoader">
+                    <div class="lightbox-spinner"></div>
+                    <div class="lightbox-loader-text">Loading artwork...</div>
+                </div>
+                <img id="lightboxImage" src="" alt="">
+            </div>
             <div class="lightbox-info">
                 <h2 id="lightboxTitle"></h2>
                 <p id="lightboxDetails"></p>
@@ -2774,6 +2853,20 @@
             }
         }
 
+        function showLightboxLoader() {
+            const loader = document.getElementById('lightboxLoader');
+            const lightboxImage = document.getElementById('lightboxImage');
+            if (loader) loader.classList.add('visible');
+            if (lightboxImage) lightboxImage.classList.add('is-loading');
+        }
+
+        function hideLightboxLoader() {
+            const loader = document.getElementById('lightboxLoader');
+            const lightboxImage = document.getElementById('lightboxImage');
+            if (loader) loader.classList.remove('visible');
+            if (lightboxImage) lightboxImage.classList.remove('is-loading');
+        }
+
         function updateLightboxImage() {
             if (!currentViewingArtwork) return;
 
@@ -2784,8 +2877,30 @@
             const lightboxStatus = document.getElementById('lightboxStatus');
             const saveAsPDF = document.getElementById('saveAsPDF');
             
-            lightboxImage.src = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
+            // Show loading state while the large image fetches (esp. important on mobile)
+            showLightboxLoader();
+            
+            const imageUrl = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${currentViewingArtwork.images.large}`;
+            
+            // Clear previous handlers so they don't stack when navigating
+            lightboxImage.onload = null;
+            lightboxImage.onerror = null;
+            
+            lightboxImage.onload = function() {
+                hideLightboxLoader();
+            };
+            lightboxImage.onerror = function() {
+                hideLightboxLoader();
+                lightboxImage.alt = 'Image could not be loaded';
+            };
+            
+            // Setting src after handlers; if already cached, onload may fire sync or complete may be true
+            lightboxImage.src = imageUrl;
             lightboxImage.alt = currentViewingArtwork.title;
+            
+            if (lightboxImage.complete && lightboxImage.naturalWidth > 0) {
+                hideLightboxLoader();
+            }
             
             let cleanTitle = currentViewingArtwork.title;
             if (cleanTitle.includes('cm')) {
