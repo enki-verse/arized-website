@@ -1579,7 +1579,7 @@
       "year": 2018,
       "medium": "Oil on canvas",
       "dimensions": "61 x 76 cm",
-      "price": 0,
+      "price": 1400,
       "category": "paintings",
       "subjects": [
         "infinite being, life world"
@@ -1587,9 +1587,9 @@
       "exhibitions": [
         "Life world"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/improv-dance-on-nyseion-76-x-61cm.jpg",
         "medium": "images/artworks/medium/improv-dance-on-nyseion-76-x-61cm.jpg",
