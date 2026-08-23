@@ -1251,7 +1251,7 @@
       "year": 2021,
       "medium": "Oil on canvas",
       "dimensions": "25 x 25 cm",
-      "price": 0,
+      "price": 200,
       "category": "paintings",
       "subjects": [
         "infinite being"
@@ -1259,9 +1259,9 @@
       "exhibitions": [
         "The Universe Is Leaking"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/welcome-to-forever.jpg",
         "medium": "images/artworks/medium/welcome-to-forever.jpg",
