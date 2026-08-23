@@ -4860,15 +4860,15 @@
       "year": 2019,
       "medium": "Oil on canvas",
       "dimensions": "",
-      "price": 0,
+      "price": 200,
       "category": "paintings",
       "subjects": [
         "infinite being"
       ],
       "exhibitions": [],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/blue-wanderer.jpg",
         "medium": "images/artworks/medium/blue-wanderer.jpg",
