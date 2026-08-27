@@ -119,8 +119,17 @@
             max-width: 980px; margin: 40px auto; background: #fff; display: grid;
             grid-template-columns: 1.1fr .9fr;
         }
-        .modal-img { background: #111; min-height: 320px; display: flex; align-items: center; justify-content: center; }
-        .modal-img img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+        .modal-img {
+            background: #111; min-height: 320px; display: flex; align-items: center;
+            justify-content: center; position: relative;
+        }
+        .modal-img img { max-width: 100%; max-height: 80vh; object-fit: contain; opacity: 0; transition: opacity .2s ease; }
+        .modal-img img.ready { opacity: 1; }
+        .modal-img .loader {
+            position: absolute; margin: 0; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .modal-img.loaded .loader { display: none; }
         .modal-copy { padding: 32px 28px 40px; }
         .close-x {
             position: absolute; top: 16px; right: 20px; background: #fff; border: none;
@@ -172,11 +181,10 @@
         <header class="hero">
             <div class="eyebrow">Fremantle Buffalo Club · upstairs</div>
             <h1>Silent auction</h1>
-            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm. Payment before the painting leaves.</p>
+            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm.</p>
             <div class="meta-row">
                 <span class="chip" id="statusChip">Loading</span>
                 <span class="chip" id="countdownChip">—</span>
-                <span class="chip">Minimum raise $20</span>
                 <div class="auth-bar" id="authBar"></div>
             </div>
         </header>
@@ -189,8 +197,8 @@
         <div class="modal-inner" id="modalInner"></div>
     </div>
 
-    <script src="js/auction-config.js"></script>
-    <script src="js/auction-api.js"></script>
+    <script src="js/auction-config.js?v=20260827d"></script>
+    <script src="js/auction-api.js?v=20260827d"></script>
     <script>
         const nav = document.getElementById("navigation");
         const overlay = document.getElementById("navOverlay");
@@ -218,9 +226,17 @@
                 return "&#39;";
             });
         }
+        function raiseAmount() {
+            return Number((auction && auction.minRaise) || 10);
+        }
         function nextMin(p) {
-            const raise = (auction && auction.minRaise) || 20;
-            return p.currentBid > 0 ? p.currentBid + raise : p.startingBid;
+            return p.currentBid > 0 ? p.currentBid + raiseAmount() : p.startingBid;
+        }
+        function thumbUrl(url) {
+            return String(url || "").replace("/artworks/large/", "/artworks/thumbnails/");
+        }
+        function largeUrl(url) {
+            return String(url || "").replace("/artworks/thumbnails/", "/artworks/large/");
         }
         function phaseLabel() {
             if (phase === "live") return "Live";
@@ -266,7 +282,7 @@
             }
             wrap.innerHTML = `<div class="grid">${paintings.map((p) => `
                 <article class="card" data-id="${esc(p.id)}">
-                    <img src="${esc(p.imageUrl)}" alt="${esc(p.title)}" loading="lazy">
+                    <img src="${esc(thumbUrl(p.imageUrl))}" alt="${esc(p.title)}" loading="lazy">
                     <div class="card-body">
                         <h2>${esc(p.title)}</h2>
                         <div class="dims">${esc(p.year)} · ${esc(p.widthCm)} × ${esc(p.heightCm)} cm</div>
@@ -291,7 +307,10 @@
                 `<li><span>${esc(b.displayName)}${b.source === "physical" ? " (in-room)" : ""}</span><span>${money(b.amount)}</span></li>`
             ).join("") || "<li><span>No bids yet</span></li>";
             document.getElementById("modalInner").innerHTML = `
-                <div class="modal-img"><img src="${esc(p.imageUrl)}" alt="${esc(p.title)}"></div>
+                <div class="modal-img" id="modalImgWrap">
+                    <div class="loader" aria-hidden="true"></div>
+                    <img id="modalImg" src="${esc(largeUrl(p.imageUrl))}" alt="${esc(p.title)}">
+                </div>
                 <div class="modal-copy">
                     <div class="eyebrow">${esc(p.medium)}</div>
                     <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;margin:6px 0 8px;">${esc(p.title)}</h2>
@@ -301,7 +320,7 @@
                     <p class="dims" style="margin-top:6px;">${p.currentBidderName ? "High bidder: " + esc(p.currentBidderName) : "No bids yet"}</p>
                     <div class="bid-box">
                         ${canWebBid ? `
-                            <label>Next minimum ${money(min)}</label>
+                            <label>Next minimum ${money(min)} · bids rise by at least ${money(raiseAmount())}</label>
                             ${session && session.token ? `
                                 <div class="bid-row">
                                     <input id="bidAmount" type="number" min="${min}" step="1" value="${min}">
@@ -315,6 +334,19 @@
                     <div class="history"><h3>Recent bids</h3><ul>${historyHtml}</ul></div>
                 </div>`;
             document.getElementById("modal").classList.add("open");
+            const modalImg = document.getElementById("modalImg");
+            const modalWrap = document.getElementById("modalImgWrap");
+            const markLoaded = () => {
+                if (modalImg) modalImg.classList.add("ready");
+                if (modalWrap) modalWrap.classList.add("loaded");
+            };
+            if (modalImg) {
+                if (modalImg.complete && modalImg.naturalWidth) markLoaded();
+                else {
+                    modalImg.onload = markLoaded;
+                    modalImg.onerror = markLoaded;
+                }
+            }
             const btn = document.getElementById("placeBidBtn");
             if (btn) {
                 btn.onclick = async () => {
@@ -346,10 +378,9 @@
 
         async function load(showSpinner) {
             const err = document.getElementById("pageError");
-            err.innerHTML = "";
             try {
                 const res = await AuctionAPI.getPaintings();
-                if (!res.ok) throw new Error(res.error || "Could not load auction.");
+                if (!res.ok) throw Object.assign(new Error(res.error || "Could not load auction."), { transient: res.transient });
                 paintings = res.paintings || [];
                 auction = res.auction;
                 phase = res.phase || auction.status;
@@ -358,9 +389,13 @@
                 chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
                 tickCountdown();
                 renderGrid();
+                err.innerHTML = "";
                 const hash = decodeURIComponent((location.hash || "").replace("#", ""));
                 if (hash && paintings.some((p) => p.id === hash)) openPainting(hash);
             } catch (e) {
+                if (showSpinner === false && paintings.length) {
+                    return;
+                }
                 if (showSpinner !== false) {
                     document.getElementById("gridWrap").innerHTML = "";
                 }
