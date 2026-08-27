@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction account · Ari Zed</title>
+    <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #8B4513;
+            --accent-gold: #d4af37;
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #2a2a2a;
+            --muted: #6a6a6a;
+            --line: #e8e8e8;
+            --shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+        a { color: inherit; }
+        .page { max-width: 560px; margin: 0 auto; padding: 48px 24px 80px; }
+        .eyebrow {
+            font-family: "Space Grotesk", sans-serif; font-size: 12px; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--accent-gold); margin-bottom: 10px;
+        }
+        h1 {
+            font-family: "Playfair Display", serif; font-weight: 400;
+            font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 10px;
+        }
+        .lede { color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+        .card {
+            background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+            padding: 24px; box-shadow: var(--shadow);
+        }
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+        .tab {
+            flex: 1; border: 1px solid var(--line); background: #fff; padding: 10px;
+            border-radius: 8px; font-family: "Space Grotesk", sans-serif; font-size: 13px;
+            letter-spacing: .04em; text-transform: uppercase; color: var(--muted);
+        }
+        .tab.active { border-color: var(--primary-brown); color: var(--text); background: #faf6f1; }
+        label { display: block; font-size: 13px; color: var(--muted); margin: 12px 0 6px; }
+        input {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px;
+            font: inherit; background: #fff;
+        }
+        input:focus { outline: 2px solid rgba(139,69,19,.25); border-color: var(--primary-brown); }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 18px; padding: 12px 18px; border: 0; border-radius: 8px;
+            background: var(--primary-brown); color: #fff; font: inherit; font-weight: 500;
+            text-decoration: none; width: 100%;
+        }
+        .btn.ghost { background: #fff; color: var(--text); border: 1px solid var(--line); margin-top: 10px; }
+        .btn:disabled { opacity: .55; cursor: not-allowed; }
+        .msg { margin-top: 12px; font-size: 14px; color: var(--muted); min-height: 1.2em; }
+        .msg.error { color: #a33; }
+        .msg.ok { color: #2d6a3a; }
+        .hidden { display: none !important; }
+        .bidder-pill {
+            display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+            padding: 8px 12px; font-size: 13px; margin-bottom: 16px; background: #fff;
+        }
+        .bids { list-style: none; margin-top: 16px; }
+        .bids li {
+            display: flex; justify-content: space-between; gap: 12px;
+            padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+        }
+        .bids .title { font-weight: 500; }
+        .bids .meta { color: var(--muted); font-size: 12px; margin-top: 3px; }
+        .empty { color: var(--muted); padding: 8px 0; }
+        .back { display: inline-block; margin-bottom: 22px; font-size: 13px; color: var(--muted); text-decoration: none; }
+        .back:hover { color: var(--text); }
+        @media (max-width: 480px) {
+            .page { padding: 28px 16px 64px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <a class="back" href="auction.html">← Silent auction</a>
+        <div class="eyebrow">Buffalo Club</div>
+        <h1>Your auction account</h1>
+        <p class="lede" id="lede">Create an account to bid. We only need a name, email and phone. No card details.</p>
+
+        <div id="guestCard" class="card">
+            <div class="tabs">
+                <button type="button" class="tab active" id="tabRegister">Register</button>
+                <button type="button" class="tab" id="tabLogin">Log in</button>
+            </div>
+
+            <form id="registerForm">
+                <label for="regName">Display name</label>
+                <input id="regName" name="displayName" autocomplete="name" required>
+                <label for="regEmail">Email</label>
+                <input id="regEmail" name="email" type="email" autocomplete="email" required>
+                <label for="regPhone">Phone</label>
+                <input id="regPhone" name="phone" type="tel" autocomplete="tel" required>
+                <label for="regPassword">Password (6+ characters)</label>
+                <input id="regPassword" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                <button class="btn" type="submit">Create account</button>
+            </form>
+
+            <form id="loginForm" class="hidden">
+                <label for="logEmail">Email</label>
+                <input id="logEmail" name="email" type="email" autocomplete="email" required>
+                <label for="logPassword">Password</label>
+                <input id="logPassword" name="password" type="password" autocomplete="current-password" required>
+                <button class="btn" type="submit">Log in</button>
+            </form>
+            <p class="msg" id="guestMsg"></p>
+        </div>
+
+        <div id="userCard" class="card hidden">
+            <div class="bidder-pill" id="bidderPill"></div>
+            <p id="userMeta" class="lede" style="margin-bottom: 8px;"></p>
+            <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:1.35rem;margin-top:8px;">Your bids</h2>
+            <p class="empty" id="bidsEmpty">No bids yet. Works appear here once you place one.</p>
+            <ul class="bids" id="bidsList"></ul>
+            <a class="btn" href="auction.html">Browse auction</a>
+            <button type="button" class="btn ghost" id="logoutBtn">Log out</button>
+            <p class="msg" id="userMsg"></p>
+        </div>
+    </div>
+
+    <script src="js/auction-config.js"></script>
+    <script src="js/auction-api.js"></script>
+    <script>
+        function esc(s) {
+            return String(s || "").replace(/[&<>"']/g, function (c) {
+                if (c === "&") return "&amp;";
+                if (c === "<") return "&lt;";
+                if (c === ">") return "&gt;";
+                if (c === '"') return "&quot;";
+                return "&#39;";
+            });
+        }
+        function money(n) {
+            return new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD", maximumFractionDigits: 0 }).format(Number(n) || 0);
+        }
+        function showGuest(which) {
+            document.getElementById("tabRegister").classList.toggle("active", which === "register");
+            document.getElementById("tabLogin").classList.toggle("active", which === "login");
+            document.getElementById("registerForm").classList.toggle("hidden", which !== "register");
+            document.getElementById("loginForm").classList.toggle("hidden", which !== "login");
+        }
+        function setMsg(id, text, kind) {
+            const el = document.getElementById(id);
+            el.textContent = text || "";
+            el.className = "msg" + (kind ? " " + kind : "");
+        }
+
+        document.getElementById("tabRegister").onclick = function () { showGuest("register"); };
+        document.getElementById("tabLogin").onclick = function () { showGuest("login"); };
+
+        document.getElementById("registerForm").onsubmit = async function (e) {
+            e.preventDefault();
+            const btn = e.target.querySelector("button");
+            btn.disabled = true;
+            setMsg("guestMsg", "Creating account…");
+            const res = await AuctionAPI.register({
+                displayName: document.getElementById("regName").value,
+                email: document.getElementById("regEmail").value,
+                phone: document.getElementById("regPhone").value,
+                password: document.getElementById("regPassword").value
+            });
+            btn.disabled = false;
+            if (!res.ok) { setMsg("guestMsg", res.error, "error"); return; }
+            if (res.session) AuctionAPI.setSession(res.session);
+            await render();
+        };
+
+        document.getElementById("loginForm").onsubmit = async function (e) {
+            e.preventDefault();
+            const btn = e.target.querySelector("button");
+            btn.disabled = true;
+            setMsg("guestMsg", "Logging in…");
+            const res = await AuctionAPI.login(
+                document.getElementById("logEmail").value,
+                document.getElementById("logPassword").value
+            );
+            btn.disabled = false;
+            if (!res.ok) { setMsg("guestMsg", res.error, "error"); return; }
+            if (res.session) AuctionAPI.setSession(res.session);
+            await render();
+        };
+
+        document.getElementById("logoutBtn").onclick = async function () {
+            await AuctionAPI.logout();
+            AuctionAPI.setSession(null);
+            await render();
+        };
+
+        async function render() {
+            const session = AuctionAPI.getSession();
+            const guest = document.getElementById("guestCard");
+            const user = document.getElementById("userCard");
+            if (!session || !session.token) {
+                guest.classList.remove("hidden");
+                user.classList.add("hidden");
+                document.getElementById("lede").textContent = "Create an account to bid. We only need a name, email and phone. No card details.";
+                return;
+            }
+            guest.classList.add("hidden");
+            user.classList.remove("hidden");
+            document.getElementById("lede").textContent = "Payment is honour-system after you win. Nothing is charged on this site.";
+            document.getElementById("bidderPill").textContent =
+                (session.displayName || "Bidder") + " · bidder " + (session.bidderNumber || "—");
+            document.getElementById("userMeta").textContent = session.email || "";
+
+            const [bidsRes, paintingsRes] = await Promise.all([
+                AuctionAPI.myBids(),
+                AuctionAPI.getPaintings()
+            ]);
+            const list = document.getElementById("bidsList");
+            const empty = document.getElementById("bidsEmpty");
+            list.innerHTML = "";
+            if (!bidsRes.ok) {
+                empty.textContent = bidsRes.error || "Could not load bids.";
+                empty.classList.remove("hidden");
+                return;
+            }
+            const titles = {};
+            (paintingsRes.paintings || []).forEach(function (p) { titles[p.id] = p.title; });
+            const bids = bidsRes.bids || [];
+            if (!bids.length) {
+                empty.textContent = "No bids yet. Browse the auction once paintings have been added.";
+                empty.classList.remove("hidden");
+                return;
+            }
+            empty.classList.add("hidden");
+            list.innerHTML = bids.map(function (b) {
+                const title = titles[b.paintingId] || b.paintingId || "Painting";
+                const when = b.createdAt ? new Date(b.createdAt).toLocaleString("en-AU") : "";
+                return "<li><div><div class=\"title\">" + esc(title) + "</div><div class=\"meta\">" +
+                    esc(when) + (b.source === "physical" ? " · in-room" : "") +
+                    "</div></div><div>" + money(b.amount) + "</div></li>";
+            }).join("");
+        }
+
+        render();
+    </script>
+</body>
+</html>

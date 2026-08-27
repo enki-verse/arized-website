@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction wall cards · Ari Zed</title>
+    <style>
+        body { font-family: Georgia, serif; background: #fff; color: #222; margin: 0; }
+        h1 { font-weight: 400; padding: 24px; }
+        .toolbar { padding: 0 24px 16px; font-family: sans-serif; font-size: 13px; color: #555; }
+        .sheet { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+        .card {
+            border: 1px solid #222; padding: 16px 18px 14px; min-height: 240px;
+            display: flex; flex-direction: column; break-inside: avoid;
+        }
+        .title { font-size: 20px; margin-bottom: 4px; }
+        .meta { font-size: 13px; color: #444; margin-bottom: 10px; }
+        .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+        .qr { width: 88px; height: 88px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 12px; }
+        th, td { border-bottom: 1px dotted #999; text-align: left; padding: 4px 0; }
+        .note { font-size: 11px; color: #555; margin-top: auto; padding-top: 10px; }
+        @media print {
+            .toolbar, h1 { display: none; }
+            .sheet { padding: 0; gap: 8px; }
+            .card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Wall cards</h1>
+    <p class="toolbar">Print these and tape one beside each painting. Official record is the website. Lines below are for in-room bids.</p>
+    <div class="sheet" id="sheet">Loading…</div>
+    <script src="js/auction-config.js"></script>
+    <script src="js/auction-api.js"></script>
+    <script>
+        const money = (n) => "$" + Number(n).toLocaleString("en-AU");
+        (async () => {
+            const res = await AuctionAPI.getPaintings();
+            const el = document.getElementById("sheet");
+            if (!res.ok) { el.textContent = res.error; return; }
+            el.innerHTML = res.paintings.map((p) => {
+                const url = (window.AUCTION_CONFIG.siteOrigin || "https://arized.art") + "/auction#" + p.id;
+                const qr = "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(url);
+                return `<article class="card">
+                    <div class="row">
+                        <div>
+                            <div class="title">${p.title}</div>
+                            <div class="meta">${p.year} · ${p.widthCm} × ${p.heightCm} cm · oil on canvas</div>
+                            <div>Starting bid ${money(p.startingBid)}</div>
+                            <div>Current high ${p.currentBid ? money(p.currentBid) : "—"}</div>
+                        </div>
+                        <img class="qr" src="${qr}" alt="QR">
+                    </div>
+                    <table>
+                        <thead><tr><th>Bidder no.</th><th>Amount</th></tr></thead>
+                        <tbody>
+                            <tr><td>&nbsp;</td><td></td></tr>
+                            <tr><td>&nbsp;</td><td></td></tr>
+                            <tr><td>&nbsp;</td><td></td></tr>
+                            <tr><td>&nbsp;</td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="note">arized.art/auction · digital bids close 6pm 25 Sept · in-room 7:30pm</div>
+                </article>`;
+            }).join("");
+        })();
+    </script>
+</body>
+</html>

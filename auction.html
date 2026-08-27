@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent auction · Ari Zed</title>
+    <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #8B4513;
+            --accent-gold: #d4af37;
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #2a2a2a;
+            --muted: #6a6a6a;
+            --line: #e8e8e8;
+            --shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+        a { color: inherit; }
+
+        .menu-toggle {
+            position: fixed; top: 18px; left: 18px; z-index: 1100;
+            width: 44px; height: 44px; background: #fff; border: 1px solid var(--line);
+            border-radius: 8px; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 12px;
+        }
+        .menu-toggle span { display: block; height: 2px; background: var(--text); }
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 999; }
+        .nav-overlay.show { display: block; }
+        .navigation {
+            position: fixed; top: 0; left: -280px; width: 280px; height: 100vh;
+            background: #fff; border-right: 1px solid var(--line); z-index: 1000;
+            transition: left .3s ease; padding: 32px 0; display: flex; flex-direction: column;
+        }
+        .navigation.active { left: 0; }
+        .nav-logo { text-align: center; padding: 0 24px 28px; border-bottom: 1px solid #f0f0f0; margin-bottom: 16px; }
+        .nav-logo img { width: 48px; height: 48px; filter: invert(1); margin-bottom: 12px; border-radius: 8px; }
+        .nav-logo .logo {
+            font-family: "Space Grotesk", sans-serif; font-size: 14px; letter-spacing: .08em;
+            text-decoration: none; text-transform: uppercase;
+        }
+        .nav-menu { list-style: none; padding: 0 16px; }
+        .nav-menu a {
+            display: block; padding: 12px 16px; text-decoration: none; color: var(--muted);
+            font-family: "Space Grotesk", sans-serif; font-size: 13px; letter-spacing: .02em; text-transform: uppercase;
+            border-radius: 6px;
+        }
+        .nav-menu a.active, .nav-menu a:hover { color: var(--text); background: #f8f8f8; }
+
+        .page { max-width: 1180px; margin: 0 auto; padding: 88px 24px 80px; }
+        .hero { margin-bottom: 40px; max-width: 720px; }
+        .eyebrow {
+            font-family: "Space Grotesk", sans-serif; font-size: 12px; letter-spacing: .14em;
+            text-transform: uppercase; color: var(--accent-gold); margin-bottom: 10px;
+        }
+        h1 {
+            font-family: "Playfair Display", serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: -0.02em; margin-bottom: 14px;
+        }
+        .lede { color: var(--muted); line-height: 1.6; font-size: 1.05rem; }
+        .meta-row {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; align-items: center;
+        }
+        .chip {
+            font-family: "Space Grotesk", sans-serif; font-size: 12px; letter-spacing: .04em;
+            border: 1px solid var(--line); background: #fff; padding: 8px 12px; border-radius: 999px;
+        }
+        .chip.live { border-color: #c9a227; color: var(--primary-brown); }
+        .chip.closed { color: #888; }
+
+        .auth-bar {
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-left: auto;
+        }
+        .btn {
+            background: var(--primary-brown); color: #fff; border: none; padding: 11px 18px;
+            border-radius: 6px; font-size: 14px; font-weight: 500;
+        }
+        .btn:hover { background: #6e360f; }
+        .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+        .btn:disabled { opacity: .5; cursor: not-allowed; }
+        .bidder-pill { font-size: 13px; color: var(--muted); }
+
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+        .card {
+            background: var(--surface); border: 1px solid var(--line); cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+        .card img {
+            width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #ececec; display: block;
+        }
+        .card-body { padding: 16px; }
+        .card h2 { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 6px; }
+        .dims { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+        .bid-line { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+        .price { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 15px; }
+        .bidder { font-size: 12px; color: var(--muted); text-align: right; }
+
+        .empty, .status-msg { color: var(--muted); padding: 40px 0; }
+        .error { color: #9b2c2c; background: #fff5f5; border: 1px solid #f5c2c2; padding: 12px 14px; border-radius: 6px; margin: 16px 0; }
+
+        .modal {
+            display: none; position: fixed; inset: 0; background: rgba(20,16,12,.72); z-index: 2000;
+            overflow: auto; padding: 24px;
+        }
+        .modal.open { display: block; }
+        .modal-inner {
+            max-width: 980px; margin: 40px auto; background: #fff; display: grid;
+            grid-template-columns: 1.1fr .9fr;
+        }
+        .modal-img { background: #111; min-height: 320px; display: flex; align-items: center; justify-content: center; }
+        .modal-img img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+        .modal-copy { padding: 32px 28px 40px; }
+        .close-x {
+            position: absolute; top: 16px; right: 20px; background: #fff; border: none;
+            width: 44px; height: 44px; font-size: 28px; line-height: 1; border-radius: 50%;
+        }
+        .modal { position: fixed; }
+        .bid-box { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+        .bid-box label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+        .bid-row { display: flex; gap: 8px; }
+        .bid-row input {
+            flex: 1; padding: 12px; border: 1px solid var(--line); font-size: 16px; border-radius: 6px;
+        }
+        .history { margin-top: 24px; }
+        .history h3 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
+        .history li { list-style: none; display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f3f3f3; }
+
+        .loader { width: 28px; height: 28px; border: 3px solid #eee; border-top-color: var(--primary-brown); border-radius: 50%; animation: spin .7s linear infinite; margin: 40px auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 800px) {
+            .modal-inner { grid-template-columns: 1fr; }
+            .page { padding: 80px 16px 64px; }
+            .auth-bar { width: 100%; margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav class="navigation" id="navigation">
+        <div class="nav-logo">
+            <a href="index.html"><img src="images/small white on black ENKIVERSE logo.png" alt="ENKIVERSE"></a>
+            <a href="contact.html" class="logo">ARI ZED</a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="artworks.html">Artworks</a></li>
+            <li><a href="auction.html" class="active">Auction</a></li>
+            <li><a href="exhibitions.html">Exhibitions</a></li>
+            <li><a href="philosophy.html">Philosophy</a></li>
+            <li><a href="process.html">Process</a></li>
+            <li><a href="artist.html">Artist</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="auction-account.html">Account</a></li>
+        </ul>
+    </nav>
+
+    <main class="page">
+        <header class="hero">
+            <div class="eyebrow">Fremantle Buffalo Club · upstairs</div>
+            <h1>Silent auction</h1>
+            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm. Payment before the painting leaves.</p>
+            <div class="meta-row">
+                <span class="chip" id="statusChip">Loading</span>
+                <span class="chip" id="countdownChip">—</span>
+                <span class="chip">Minimum raise $20</span>
+                <div class="auth-bar" id="authBar"></div>
+            </div>
+        </header>
+        <div id="pageError"></div>
+        <div id="gridWrap"><div class="loader"></div></div>
+    </main>
+
+    <div class="modal" id="modal">
+        <button class="close-x" id="closeModal" aria-label="Close">&times;</button>
+        <div class="modal-inner" id="modalInner"></div>
+    </div>
+
+    <script src="js/auction-config.js"></script>
+    <script src="js/auction-api.js"></script>
+    <script>
+        const nav = document.getElementById("navigation");
+        const overlay = document.getElementById("navOverlay");
+        document.getElementById("menuToggle").onclick = () => {
+            nav.classList.toggle("active");
+            overlay.classList.toggle("show");
+        };
+        overlay.onclick = () => { nav.classList.remove("active"); overlay.classList.remove("show"); };
+
+        let auction = null;
+        let paintings = [];
+        let phase = "preview";
+        let pollTimer = null;
+
+        function money(n) {
+            if (!n && n !== 0) return "—";
+            return new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD", maximumFractionDigits: 0 }).format(n);
+        }
+        function esc(s) {
+            return String(s || "").replace(/[&<>"']/g, (c) => {
+                if (c === "&") return "&" + "amp;";
+                if (c === "<") return "&" + "lt;";
+                if (c === ">") return "&" + "gt;";
+                if (c === '"') return "&" + "quot;";
+                return "&#39;";
+            });
+        }
+        function nextMin(p) {
+            const raise = (auction && auction.minRaise) || 20;
+            return p.currentBid > 0 ? p.currentBid + raise : p.startingBid;
+        }
+        function phaseLabel() {
+            if (phase === "live") return "Live";
+            if (phase === "physical-only") return "Online closed · in-room until 7:30pm";
+            if (phase === "closed") return "Closed";
+            return "Preview";
+        }
+        function renderAuth() {
+            const s = AuctionAPI.getSession();
+            const el = document.getElementById("authBar");
+            if (s && s.token) {
+                el.innerHTML = `<span class="bidder-pill">${esc(s.displayName)} · bidder ${esc(s.bidderNumber)}</span>
+                    <a class="btn ghost" href="auction-account.html">Account</a>`;
+            } else {
+                el.innerHTML = `<a class="btn ghost" href="auction-account.html">Log in</a>
+                    <a class="btn" href="auction-account.html">Register</a>`;
+            }
+        }
+        function tickCountdown() {
+            const chip = document.getElementById("countdownChip");
+            if (!auction) return;
+            const end = new Date(phase === "physical-only" ? auction.closingPhysical : auction.closingDigital);
+            const ms = end - Date.now();
+            if (phase === "closed" || ms <= 0 && phase !== "physical-only") {
+                chip.textContent = "Bidding closed";
+                return;
+            }
+            if (phase === "physical-only") {
+                const phys = new Date(auction.closingPhysical) - Date.now();
+                if (phys <= 0) { chip.textContent = "Bidding closed"; return; }
+            }
+            const t = Math.max(0, ms);
+            const d = Math.floor(t / 86400000);
+            const h = Math.floor((t % 86400000) / 3600000);
+            const m = Math.floor((t % 3600000) / 60000);
+            chip.textContent = d > 0 ? `${d}d ${h}h remaining` : `${h}h ${m}m remaining`;
+        }
+        function renderGrid() {
+            const wrap = document.getElementById("gridWrap");
+            if (!paintings.length) {
+                wrap.innerHTML = `<p class="empty">No works in the auction yet.</p>`;
+                return;
+            }
+            wrap.innerHTML = `<div class="grid">${paintings.map((p) => `
+                <article class="card" data-id="${esc(p.id)}">
+                    <img src="${esc(p.imageUrl)}" alt="${esc(p.title)}" loading="lazy">
+                    <div class="card-body">
+                        <h2>${esc(p.title)}</h2>
+                        <div class="dims">${esc(p.year)} · ${esc(p.widthCm)} × ${esc(p.heightCm)} cm</div>
+                        <div class="bid-line">
+                            <div class="price">${p.currentBid ? money(p.currentBid) : "Starts " + money(p.startingBid)}</div>
+                            <div class="bidder">${p.currentBidderName ? "High: " + esc(p.currentBidderName) : "No bids yet"}</div>
+                        </div>
+                    </div>
+                </article>`).join("")}</div>`;
+            wrap.querySelectorAll(".card").forEach((card) => {
+                card.onclick = () => openPainting(card.dataset.id);
+            });
+        }
+        function openPainting(id) {
+            const p = paintings.find((x) => x.id === id);
+            if (!p) return;
+            history.replaceState(null, "", "#" + encodeURIComponent(id));
+            const session = AuctionAPI.getSession();
+            const canWebBid = phase === "live";
+            const min = nextMin(p);
+            const historyHtml = (p.history || []).map((b) =>
+                `<li><span>${esc(b.displayName)}${b.source === "physical" ? " (in-room)" : ""}</span><span>${money(b.amount)}</span></li>`
+            ).join("") || "<li><span>No bids yet</span></li>";
+            document.getElementById("modalInner").innerHTML = `
+                <div class="modal-img"><img src="${esc(p.imageUrl)}" alt="${esc(p.title)}"></div>
+                <div class="modal-copy">
+                    <div class="eyebrow">${esc(p.medium)}</div>
+                    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;margin:6px 0 8px;">${esc(p.title)}</h2>
+                    <p class="dims">${esc(p.year)} · ${esc(p.widthCm)} × ${esc(p.heightCm)} cm</p>
+                    <p style="margin-top:16px;font-size:1.1rem;"><strong>${p.currentBid ? money(p.currentBid) : money(p.startingBid)}</strong>
+                    ${p.currentBid ? " current bid" : " starting bid"}</p>
+                    <p class="dims" style="margin-top:6px;">${p.currentBidderName ? "High bidder: " + esc(p.currentBidderName) : "No bids yet"}</p>
+                    <div class="bid-box">
+                        ${canWebBid ? `
+                            <label>Next minimum ${money(min)}</label>
+                            ${session && session.token ? `
+                                <div class="bid-row">
+                                    <input id="bidAmount" type="number" min="${min}" step="1" value="${min}">
+                                    <button class="btn" id="placeBidBtn">Place bid</button>
+                                </div>
+                                <p id="bidMsg" class="dims" style="margin-top:8px;"></p>
+                            ` : `<p>Create an account to bid. We only need a name, email and phone.</p>
+                                <a class="btn" href="auction-account.html">Register / log in</a>`}
+                        ` : `<p class="dims">${phase === "preview" ? "Bidding has not opened yet." : phase === "physical-only" ? "Online bidding is closed. In-room bids until 7:30pm." : "This auction is closed."}</p>`}
+                    </div>
+                    <div class="history"><h3>Recent bids</h3><ul>${historyHtml}</ul></div>
+                </div>`;
+            document.getElementById("modal").classList.add("open");
+            const btn = document.getElementById("placeBidBtn");
+            if (btn) {
+                btn.onclick = async () => {
+                    const amount = Number(document.getElementById("bidAmount").value);
+                    const msg = document.getElementById("bidMsg");
+                    btn.disabled = true;
+                    msg.textContent = "Placing bid…";
+                    const res = await AuctionAPI.placeBid(p.id, amount);
+                    if (!res.ok) {
+                        msg.textContent = res.error || "Could not place bid.";
+                        btn.disabled = false;
+                        return;
+                    }
+                    msg.textContent = "Bid placed.";
+                    await load(false);
+                    openPainting(p.id);
+                };
+            }
+        }
+        function closeModal() {
+            document.getElementById("modal").classList.remove("open");
+            history.replaceState(null, "", location.pathname);
+        }
+        document.getElementById("closeModal").onclick = closeModal;
+        document.getElementById("modal").addEventListener("click", (e) => {
+            if (e.target.id === "modal") closeModal();
+        });
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+        async function load(showSpinner) {
+            const err = document.getElementById("pageError");
+            err.innerHTML = "";
+            try {
+                const res = await AuctionAPI.getPaintings();
+                if (!res.ok) throw new Error(res.error || "Could not load auction.");
+                paintings = res.paintings || [];
+                auction = res.auction;
+                phase = res.phase || auction.status;
+                const chip = document.getElementById("statusChip");
+                chip.textContent = phaseLabel();
+                chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
+                tickCountdown();
+                renderGrid();
+                const hash = decodeURIComponent((location.hash || "").replace("#", ""));
+                if (hash && paintings.some((p) => p.id === hash)) openPainting(hash);
+            } catch (e) {
+                if (showSpinner !== false) {
+                    document.getElementById("gridWrap").innerHTML = "";
+                }
+                err.innerHTML = `<div class="error">${esc(e.message)}</div>`;
+            }
+        }
+
+        renderAuth();
+        load(true);
+        setInterval(tickCountdown, 30000);
+        pollTimer = setInterval(() => load(false), 45000);
+        window.addEventListener("hashchange", () => {
+            const hash = decodeURIComponent((location.hash || "").replace("#", ""));
+            if (hash) openPainting(hash);
+            else closeModal();
+        });
+    </script>
+</body>
+</html>
