@@ -1020,7 +1020,11 @@
         "large": "images/artworks/large/brainforrest.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-26T05:20:13.423Z"
+      "dateAdded": "2025-07-26T05:20:13.423Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 50,
+      "auctionId": "brainforrest"
     },
     {
       "id": "embeded",
