@@ -70,21 +70,24 @@
     };
     // Writes must POST. Long artwork ids + image URLs blow the GET length limit,
     // which is why flagged works never reached the Sheet.
-    if (isGas && readActions[payload.action]) {
-      try {
-        const getRes = await fetch(toQuery(url, payload), {
-          method: "GET",
-          redirect: "follow",
-        });
-        const getText = await getRes.text();
-        const getJson = parseResponse(getText);
-        if (getJson) return getJson;
-      } catch (err) {
-        /* fall through to POST */
-      }
+    function sleep(ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); });
     }
 
-    try {
+    async function once() {
+      if (isGas && readActions[payload.action]) {
+        try {
+          const getRes = await fetch(toQuery(url, payload), {
+            method: "GET",
+            redirect: "follow",
+          });
+          const getText = await getRes.text();
+          const getJson = parseResponse(getText);
+          if (getJson) return getJson;
+        } catch (err) {
+          /* fall through to POST */
+        }
+      }
       const res = await fetch(url, {
         method: "POST",
         redirect: "follow",
@@ -100,12 +103,23 @@
       if (json) return json;
       return {
         ok: false,
-        error:
-          "Auction server returned a web page instead of data. In Apps Script: Deploy > Manage deployments > Web app must be Execute as Me and Who has access = Anyone. Then deploy a new version.",
+        transient: true,
+        error: "Auction is waking up. Retrying…",
       };
-    } catch (err) {
-      return { ok: false, error: err.message || "Network error talking to auction server." };
     }
+
+    let last = { ok: false, transient: true, error: "Could not reach auction server." };
+    for (let i = 0; i < 3; i++) {
+      try {
+        last = await once();
+        if (last && last.ok) return last;
+        if (last && !last.transient) return last;
+      } catch (err) {
+        last = { ok: false, transient: true, error: err.message || "Network error talking to auction server." };
+      }
+      if (i < 2) await sleep(400 * (i + 1));
+    }
+    return last;
   }
 
   function withToken(payload) {
