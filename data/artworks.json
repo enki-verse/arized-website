@@ -1273,7 +1273,11 @@
         "large": "images/artworks/large/welcome-to-forever.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-26T05:36:04.214Z"
+      "dateAdded": "2025-07-26T05:36:04.214Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 0,
+      "auctionId": "welcome-to-forever"
     },
     {
       "id": "homunculus-crossing-the-alps-on-life-world",
