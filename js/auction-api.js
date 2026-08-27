@@ -2,11 +2,11 @@
   const SESSION_KEY = "arizedAuctionSession";
 
   function getApiUrl() {
-    const fromAdmin = localStorage.getItem("auctionApiUrl");
-    if (fromAdmin && fromAdmin.trim()) return fromAdmin.trim();
-    if (global.AUCTION_CONFIG && global.AUCTION_CONFIG.apiUrl) {
-      return String(global.AUCTION_CONFIG.apiUrl).trim();
-    }
+    const fromConfig =
+      global.AUCTION_CONFIG && String(global.AUCTION_CONFIG.apiUrl || "").trim();
+    if (fromConfig) return fromConfig;
+    const fromAdmin = (localStorage.getItem("auctionApiUrl") || "").trim();
+    if (fromAdmin) return fromAdmin;
     const host = location.hostname;
     if (
       host === "localhost" ||
@@ -32,31 +32,79 @@
     else localStorage.setItem(SESSION_KEY, JSON.stringify(session));
   }
 
+  function parseResponse(text) {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return null;
+    }
+  }
+
+  function toQuery(url, payload) {
+    const u = new URL(url, location.href);
+    Object.keys(payload || {}).forEach(function (k) {
+      const v = payload[k];
+      if (v == null || v === "") return;
+      if (typeof v === "object") u.searchParams.set(k, JSON.stringify(v));
+      else u.searchParams.set(k, String(v));
+    });
+    return u.toString();
+  }
+
   async function call(payload) {
     const url = getApiUrl();
     if (!url) {
       return {
         ok: false,
         error:
-          "Auction API is not connected yet. Paste the Apps Script URL in the admin panel.",
+          "Auction API is not connected yet. Push js/auction-config.js with the Apps Script URL, then hard-refresh.",
       };
     }
     const isGas = /script\.google\.com/i.test(url);
-    const res = await fetch(url, {
-      method: "POST",
-      redirect: "follow",
-      headers: {
-        "Content-Type": isGas
-          ? "text/plain;charset=utf-8"
-          : "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    const text = await res.text();
+    const readActions = {
+      getAuction: true,
+      getPaintings: true,
+      getPainting: true,
+      me: true,
+      myBids: true,
+    };
+    // Writes must POST. Long artwork ids + image URLs blow the GET length limit,
+    // which is why flagged works never reached the Sheet.
+    if (isGas && readActions[payload.action]) {
+      try {
+        const getRes = await fetch(toQuery(url, payload), {
+          method: "GET",
+          redirect: "follow",
+        });
+        const getText = await getRes.text();
+        const getJson = parseResponse(getText);
+        if (getJson) return getJson;
+      } catch (err) {
+        /* fall through to POST */
+      }
+    }
+
     try {
-      return JSON.parse(text);
-    } catch {
-      return { ok: false, error: "Unexpected response from auction server." };
+      const res = await fetch(url, {
+        method: "POST",
+        redirect: "follow",
+        headers: {
+          "Content-Type": isGas
+            ? "text/plain;charset=utf-8"
+            : "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      const json = parseResponse(text);
+      if (json) return json;
+      return {
+        ok: false,
+        error:
+          "Auction server returned a web page instead of data. In Apps Script: Deploy > Manage deployments > Web app must be Execute as Me and Who has access = Anyone. Then deploy a new version.",
+      };
+    } catch (err) {
+      return { ok: false, error: err.message || "Network error talking to auction server." };
     }
   }
 
