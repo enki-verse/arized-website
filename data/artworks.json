@@ -2034,7 +2034,7 @@
     },
     {
       "id": "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world",
-      "title": "We All Eat Each Other Continually - Cloud Spaceship Production Beneath Outermost Layer On Life World",
+      "title": "Cloud Spaceship",
       "year": 2018,
       "medium": "Oil on canvas",
       "dimensions": "23 x 31 cm",
@@ -2055,7 +2055,11 @@
         "large": "images/artworks/large/we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-28T05:24:21.288Z"
+      "dateAdded": "2025-07-28T05:24:21.288Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 0,
+      "auctionId": "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world"
     },
     {
       "id": "i-dream-of-genesis",
