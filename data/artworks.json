@@ -6288,6 +6288,29 @@
       },
       "description": "",
       "dateAdded": "2026-08-28T01:30:05.399Z"
+    },
+    {
+      "id": "wellspring",
+      "title": "Wellspring",
+      "year": 2021,
+      "medium": "Oil on board",
+      "dimensions": "40 x 50 cm",
+      "price": 300,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/wellspring.jpg",
+        "medium": "images/artworks/medium/wellspring.jpg",
+        "large": "images/artworks/large/wellspring.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:30:24.018Z"
     }
   ]
 }
