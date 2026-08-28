@@ -6265,6 +6265,29 @@
       },
       "description": "",
       "dateAdded": "2025-08-29T07:52:43.235Z"
+    },
+    {
+      "id": "red-wanderer",
+      "title": "Red Wanderer",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "41 x 51 cm",
+      "price": 700,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/red-wanderer.jpg",
+        "medium": "images/artworks/medium/red-wanderer.jpg",
+        "large": "images/artworks/large/red-wanderer.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:30:05.399Z"
     }
   ]
 }
