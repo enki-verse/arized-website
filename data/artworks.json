@@ -6449,6 +6449,29 @@
       },
       "description": "",
       "dateAdded": "2026-08-28T01:32:23.611Z"
+    },
+    {
+      "id": "the-sorcerers-apprentice",
+      "title": "The Sorcerers Apprentice",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "90 x 140 cm",
+      "price": 2600,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-sorcerers-apprentice.jpg",
+        "medium": "images/artworks/medium/the-sorcerers-apprentice.jpg",
+        "large": "images/artworks/large/the-sorcerers-apprentice.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:32:51.219Z"
     }
   ]
 }
