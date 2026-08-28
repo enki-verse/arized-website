@@ -6364,7 +6364,11 @@
         "large": "images/artworks/large/dreamer-5.jpg"
       },
       "description": "",
-      "dateAdded": "2026-08-28T01:31:09.785Z"
+      "dateAdded": "2026-08-28T01:31:09.785Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 0,
+      "auctionId": "dreamer-5"
     },
     {
       "id": "dreamer-7",
