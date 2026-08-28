@@ -659,7 +659,11 @@
         "large": "images/artworks/large/uberchu.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-25T15:12:44.788Z"
+      "dateAdded": "2025-07-25T15:12:44.788Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 100,
+      "auctionId": "uberchu"
     },
     {
       "id": "timeless-watch",
