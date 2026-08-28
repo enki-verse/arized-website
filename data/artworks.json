@@ -6403,6 +6403,29 @@
       },
       "description": "",
       "dateAdded": "2026-08-28T01:31:42.904Z"
+    },
+    {
+      "id": "dreamer-3",
+      "title": "Dreamer #3",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 200,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dreamer-3.jpg",
+        "medium": "images/artworks/medium/dreamer-3.jpg",
+        "large": "images/artworks/large/dreamer-3.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:32:02.166Z"
     }
   ]
 }
