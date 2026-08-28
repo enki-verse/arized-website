@@ -522,7 +522,11 @@
         "large": "images/artworks/large/golden-dawn.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-25T14:50:26.833Z"
+      "dateAdded": "2025-07-25T14:50:26.833Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 200,
+      "auctionId": "golden-dawn"
     },
     {
       "id": "luna",
