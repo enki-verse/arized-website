@@ -620,16 +620,20 @@
       "exhibitions": [
         "Bone and Boundary"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/synonym-antonym.jpg",
         "medium": "images/artworks/medium/synonym-antonym.jpg",
         "large": "images/artworks/large/synonym-antonym.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-25T15:11:24.729Z"
+      "dateAdded": "2025-07-25T15:11:24.729Z",
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "synonym-antonym"
     },
     {
       "id": "uberchu",
