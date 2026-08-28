@@ -6426,6 +6426,29 @@
       },
       "description": "",
       "dateAdded": "2026-08-28T01:32:02.166Z"
+    },
+    {
+      "id": "watcher",
+      "title": "Watcher",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "60 x 50 cm",
+      "price": 900,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/watcher.jpg",
+        "medium": "images/artworks/medium/watcher.jpg",
+        "large": "images/artworks/large/watcher.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:32:23.611Z"
     }
   ]
 }
