@@ -2269,7 +2269,11 @@
         "large": "images/artworks/large/wanderer.jpg"
       },
       "description": "",
-      "dateAdded": "2025-08-22T13:21:27.568Z"
+      "dateAdded": "2025-08-22T13:21:27.568Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 200,
+      "auctionId": "wanderer"
     },
     {
       "id": "wanderer-in-arcadia",
