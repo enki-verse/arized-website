@@ -6380,6 +6380,29 @@
       },
       "description": "",
       "dateAdded": "2026-08-28T01:31:26.166Z"
+    },
+    {
+      "id": "dreamer-4",
+      "title": "Dreamer #4",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 200,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dreamer-4.jpg",
+        "medium": "images/artworks/medium/dreamer-4.jpg",
+        "large": "images/artworks/large/dreamer-4.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-08-28T01:31:42.904Z"
     }
   ]
 }
