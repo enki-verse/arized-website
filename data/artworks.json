@@ -979,16 +979,20 @@
         "The Universe Is Leaking",
         "Bone and Boundary"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/fete-of-the-dark-veiler.jpg",
         "medium": "images/artworks/medium/fete-of-the-dark-veiler.jpg",
         "large": "images/artworks/large/fete-of-the-dark-veiler.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-26T05:16:19.407Z"
+      "dateAdded": "2025-07-26T05:16:19.407Z",
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "fete-of-the-dark-veiler"
     },
     {
       "id": "dream",
