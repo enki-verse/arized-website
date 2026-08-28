@@ -233,7 +233,11 @@
         "large": "images/artworks/large/the-fertile-ascent.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-23T11:37:47.022Z"
+      "dateAdded": "2025-07-23T11:37:47.022Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 0,
+      "auctionId": "the-fertile-ascent"
     },
     {
       "id": "arc",
