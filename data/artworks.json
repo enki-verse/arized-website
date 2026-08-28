@@ -281,16 +281,20 @@
       "exhibitions": [
         "ODD I SEE"
       ],
-      "available": true,
+      "available": false,
       "featured": false,
-      "forSale": true,
+      "forSale": false,
       "images": {
         "thumbnail": "images/artworks/thumbnails/milk-of-paradise.jpg",
         "medium": "images/artworks/medium/milk-of-paradise.jpg",
         "large": "images/artworks/large/milk-of-paradise.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-23T11:43:31.869Z"
+      "dateAdded": "2025-07-23T11:43:31.869Z",
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "milk-of-paradise"
     },
     {
       "id": "pleasure-dome-decree",
