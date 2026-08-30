@@ -1895,7 +1895,7 @@
       "year": 2018,
       "medium": "Oil on canvas",
       "dimensions": "40 x 51 cm",
-      "price": 0,
+      "price": 700,
       "category": "paintings",
       "subjects": [
         "infinite being, life world"
@@ -1903,16 +1903,20 @@
       "exhibitions": [
         "Life world"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg",
         "medium": "images/artworks/medium/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg",
         "large": "images/artworks/large/that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-28T05:22:54.625Z"
+      "dateAdded": "2025-07-28T05:22:54.625Z",
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace"
     },
     {
       "id": "the-dangers-of-finally-finding-yourself-on-a-plane-of-unknowing-a-melting-jelly-the-giants-that-helped-construct-utopia-and-roam-on-life-world-are-born-from-eggs-that-are-scattered-through-the-galaxy",
