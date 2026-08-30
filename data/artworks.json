@@ -1945,7 +1945,7 @@
     },
     {
       "id": "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-",
-      "title": "The Solar Wind Is The Voice Of Eros Calling Us Towards The Future ",
+      "title": "The Solar Wind Is The Voice Of Eros Calling Us Towards The Future",
       "year": 2018,
       "medium": "Oil on canvas",
       "dimensions": "40 x 51 cm",
@@ -1957,16 +1957,20 @@
       "exhibitions": [
         "Life world"
       ],
-      "available": false,
+      "available": true,
       "featured": false,
-      "forSale": false,
+      "forSale": true,
       "images": {
         "thumbnail": "images/artworks/thumbnails/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-.jpg",
         "medium": "images/artworks/medium/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-.jpg",
         "large": "images/artworks/large/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-.jpg"
       },
       "description": "",
-      "dateAdded": "2025-07-28T05:23:20.431Z"
+      "dateAdded": "2025-07-28T05:23:20.431Z",
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future-"
     },
     {
       "id": "thoughts-blinding-on-mountain-plane-robes-of-felt-andfat-",
