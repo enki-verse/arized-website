@@ -6527,7 +6527,11 @@
         "large": "images/artworks/large/the-sorcerers-apprentice.jpg"
       },
       "description": "",
-      "dateAdded": "2026-08-28T01:32:51.219Z"
+      "dateAdded": "2026-08-28T01:32:51.219Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 200,
+      "auctionId": "the-sorcerers-apprentice"
     }
   ]
 }
