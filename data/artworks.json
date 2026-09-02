@@ -6559,6 +6559,32 @@
       },
       "description": "",
       "dateAdded": "2026-09-02T09:41:42.798Z"
+    },
+    {
+      "id": "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future",
+      "title": "The Solar Wind Is The Voice Of Eros Calling Us Towards The Future",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "40 x 51 cm",
+      "price": 700,
+      "category": "paintings",
+      "subjects": [
+        "."
+      ],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "excludeFromSale": false,
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future.jpg",
+        "medium": "images/artworks/medium/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future.jpg",
+        "large": "images/artworks/large/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future.jpg"
+      },
+      "description": ".",
+      "dateAdded": "2026-09-02T09:43:05.127Z"
     }
   ]
 }
