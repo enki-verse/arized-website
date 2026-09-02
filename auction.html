@@ -66,6 +66,14 @@
             letter-spacing: -0.02em; margin-bottom: 14px;
         }
         .lede { color: var(--muted); line-height: 1.6; font-size: 1.05rem; }
+        .auction-note {
+            max-width: 42rem;
+            margin: 56px 0 8px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 1.02rem;
+        }
+        .auction-note p + p { margin-top: 1.1em; }
         .meta-row {
             display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; align-items: center;
         }
@@ -182,7 +190,7 @@
         <header class="hero">
             <div class="eyebrow">Fremantle Buffalo Club · upstairs</div>
             <h1>Silent auction</h1>
-            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm. Fundraising for Talismanic Art Book. </p>
+            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm.</p>
             <div class="meta-row">
                 <span class="chip" id="statusChip">Loading</span>
                 <span class="chip" id="countdownChip">—</span>
@@ -191,6 +199,11 @@
         </header>
         <div id="pageError"></div>
         <div id="gridWrap"><div class="loader"></div></div>
+        <div class="auction-note">
+            <p>Like tarot cards, the paintings are dense with symbolism and open to many readings. They function as meaning generating machines, bridges that invite the viewer to project, explore, and generate their own significance. I may not have fully read a picture before it was made. That is fine. The work is offered as a living tool rather than a finished statement, and as an invitation to join the making.</p>
+            <p>These paintings attempt to engage the life force that stands behind all things. The erotic generative current that animates, overflows, and brings form into being. The works seek to emulate this force and bring it forth.</p>
+            <p>Funds from this auction will go towards something I have been dreaming of for a long time. Making an art book of my paintings, with selected fiction, philosophy, and spells. The book will be a kind of talisman. Something that people can hold and enter into.</p>
+        </div>
     </main>
 
     <div class="modal" id="modal">
