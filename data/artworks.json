@@ -6584,7 +6584,10 @@
         "large": "images/artworks/large/the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future.jpg"
       },
       "description": ".",
-      "dateAdded": "2026-09-02T09:43:05.127Z"
+      "dateAdded": "2026-09-02T09:43:05.127Z",
+      "inAuction": true,
+      "startingBid": 100,
+      "auctionId": "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future"
     }
   ]
 }
