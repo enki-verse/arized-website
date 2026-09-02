@@ -6532,6 +6532,33 @@
       "inAuction": true,
       "startingBid": 200,
       "auctionId": "the-sorcerers-apprentice"
+    },
+    {
+      "id": "cloud-spaceships-on-life-world",
+      "title": "Cloud Spaceships On Life World",
+      "year": 2026,
+      "medium": "Oil on canvas",
+      "dimensions": "40 x 51 cm",
+      "price": 700,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [
+        "Imagined Worlds"
+      ],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 100,
+      "auctionId": "cloud-spaceships-on-life-world",
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/cloud-spaceships-on-life-world.jpg",
+        "medium": "images/artworks/medium/cloud-spaceships-on-life-world.jpg",
+        "large": "images/artworks/large/cloud-spaceships-on-life-world.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-09-02T09:41:42.798Z"
     }
   ]
 }
