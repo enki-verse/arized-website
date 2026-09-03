@@ -6352,7 +6352,7 @@
       "description": "",
       "dateAdded": "2026-08-28T01:30:24.018Z",
       "excludeFromSale": false,
-      "inAuction": true,
+      "inAuction": false,
       "startingBid": 0,
       "auctionId": "wellspring"
     },
