@@ -6504,7 +6504,11 @@
         "large": "images/artworks/large/watcher.jpg"
       },
       "description": "",
-      "dateAdded": "2026-08-28T01:32:23.611Z"
+      "dateAdded": "2026-08-28T01:32:23.611Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 100,
+      "auctionId": "watcher"
     },
     {
       "id": "the-sorcerers-apprentice",
