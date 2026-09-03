@@ -6481,7 +6481,11 @@
         "large": "images/artworks/large/dreamer-3.jpg"
       },
       "description": "",
-      "dateAdded": "2026-08-28T01:32:02.166Z"
+      "dateAdded": "2026-08-28T01:32:02.166Z",
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 50,
+      "auctionId": "dreamer-3"
     },
     {
       "id": "watcher",
