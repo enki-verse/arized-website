@@ -6600,6 +6600,31 @@
       "inAuction": true,
       "startingBid": 100,
       "auctionId": "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future"
+    },
+    {
+      "id": "dreamer-8",
+      "title": "Dreamer #8",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "25 x 30 cm",
+      "price": 200,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "excludeFromSale": false,
+      "inAuction": true,
+      "startingBid": 50,
+      "auctionId": "dreamer-8",
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/dreamer-8.jpg",
+        "medium": "images/artworks/medium/dreamer-8.jpg",
+        "large": "images/artworks/large/dreamer-8.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-09-03T14:41:48.398Z"
     }
   ]
 }
