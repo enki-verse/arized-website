@@ -6625,6 +6625,31 @@
       },
       "description": "",
       "dateAdded": "2026-09-03T14:41:48.398Z"
+    },
+    {
+      "id": "temple",
+      "title": "Temple",
+      "year": 2025,
+      "medium": "Oil on canvas",
+      "dimensions": "230 x 140 cm",
+      "price": 6700,
+      "category": "paintings",
+      "subjects": [],
+      "exhibitions": [],
+      "available": true,
+      "featured": false,
+      "forSale": true,
+      "excludeFromSale": false,
+      "inAuction": false,
+      "startingBid": 0,
+      "auctionId": "temple",
+      "images": {
+        "thumbnail": "images/artworks/thumbnails/temple.jpg",
+        "medium": "images/artworks/medium/temple.jpg",
+        "large": "images/artworks/large/temple.jpg"
+      },
+      "description": "",
+      "dateAdded": "2026-09-04T12:19:05.388Z"
     }
   ]
 }
