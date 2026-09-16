@@ -115,6 +115,20 @@
                 <label for="logPassword">Password</label>
                 <input id="logPassword" name="password" type="password" autocomplete="current-password" required>
                 <button class="btn" type="submit">Log in</button>
+                <button type="button" class="btn ghost" id="forgotBtn">Forgot password</button>
+            </form>
+            <form id="forgotForm" class="hidden">
+                <label for="forgotEmail">Email</label>
+                <input id="forgotEmail" name="email" type="email" autocomplete="email" required>
+                <button class="btn" type="submit">Send reset link</button>
+                <button type="button" class="btn ghost" id="backToLogin">Back to log in</button>
+            </form>
+            <form id="resetForm" class="hidden">
+                <label for="resetPassword">New password (6+ characters)</label>
+                <input id="resetPassword" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                <label for="resetPassword2">Confirm new password</label>
+                <input id="resetPassword2" name="password2" type="password" autocomplete="new-password" minlength="6" required>
+                <button class="btn" type="submit">Set new password</button>
             </form>
             <p class="msg" id="guestMsg"></p>
         </div>
@@ -131,8 +145,8 @@
         </div>
     </div>
 
-    <script src="js/auction-config.js?v=20260827c"></script>
-    <script src="js/auction-api.js?v=20260827c"></script>
+    <script src="js/auction-config.js"></script>
+    <script src="js/auction-api.js"></script>
     <script>
         function esc(s) {
             return String(s || "").replace(/[&<>"']/g, function (c) {
@@ -148,9 +162,11 @@
         }
         function showGuest(which) {
             document.getElementById("tabRegister").classList.toggle("active", which === "register");
-            document.getElementById("tabLogin").classList.toggle("active", which === "login");
+            document.getElementById("tabLogin").classList.toggle("active", which === "login" || which === "forgot" || which === "reset");
             document.getElementById("registerForm").classList.toggle("hidden", which !== "register");
             document.getElementById("loginForm").classList.toggle("hidden", which !== "login");
+            document.getElementById("forgotForm").classList.toggle("hidden", which !== "forgot");
+            document.getElementById("resetForm").classList.toggle("hidden", which !== "reset");
         }
         function setMsg(id, text, kind) {
             const el = document.getElementById(id);
@@ -160,6 +176,16 @@
 
         document.getElementById("tabRegister").onclick = function () { showGuest("register"); };
         document.getElementById("tabLogin").onclick = function () { showGuest("login"); };
+        document.getElementById("forgotBtn").onclick = function () {
+            const fromLogin = document.getElementById("logEmail").value;
+            if (fromLogin) document.getElementById("forgotEmail").value = fromLogin;
+            showGuest("forgot");
+            setMsg("guestMsg", "Enter the email on the account. If it exists, a reset link will be sent.");
+        };
+        document.getElementById("backToLogin").onclick = function () {
+            showGuest("login");
+            setMsg("guestMsg", "");
+        };
 
         document.getElementById("registerForm").onsubmit = async function (e) {
             e.preventDefault();
@@ -190,6 +216,37 @@
             btn.disabled = false;
             if (!res.ok) { setMsg("guestMsg", res.error, "error"); return; }
             if (res.session) AuctionAPI.setSession(res.session);
+            await render();
+        };
+
+        document.getElementById("forgotForm").onsubmit = async function (e) {
+            e.preventDefault();
+            const btn = e.target.querySelector("button[type='submit']");
+            btn.disabled = true;
+            setMsg("guestMsg", "Sending reset link…");
+            const res = await AuctionAPI.requestPasswordReset(document.getElementById("forgotEmail").value);
+            btn.disabled = false;
+            if (!res.ok) { setMsg("guestMsg", res.error || "Could not send reset link.", "error"); return; }
+            setMsg("guestMsg", "If that email has an account, a reset link is on its way. Check junk mail too.", "ok");
+        };
+
+        document.getElementById("resetForm").onsubmit = async function (e) {
+            e.preventDefault();
+            const a = document.getElementById("resetPassword").value;
+            const b = document.getElementById("resetPassword2").value;
+            if (a !== b) { setMsg("guestMsg", "Those passwords do not match.", "error"); return; }
+            const params = new URLSearchParams(location.search);
+            const token = params.get("reset") || params.get("token") || "";
+            if (!token) { setMsg("guestMsg", "This reset link is missing its token. Request a new one.", "error"); return; }
+            const btn = e.target.querySelector("button[type='submit']");
+            btn.disabled = true;
+            setMsg("guestMsg", "Saving new password…");
+            const res = await AuctionAPI.resetPassword(token, a);
+            btn.disabled = false;
+            if (!res.ok) { setMsg("guestMsg", res.error || "Could not reset password.", "error"); return; }
+            if (res.session) AuctionAPI.setSession(res.session);
+            history.replaceState(null, "", location.pathname);
+            setMsg("guestMsg", "Password updated.", "ok");
             await render();
         };
 
@@ -246,6 +303,12 @@
             }).join("");
         }
 
+        const resetToken = new URLSearchParams(location.search).get("reset") || new URLSearchParams(location.search).get("token");
+        if (resetToken) {
+            showGuest("reset");
+            document.getElementById("lede").textContent = "Choose a new password for this account.";
+            setMsg("guestMsg", "This link works once, and only for a couple of hours.");
+        }
         render();
     </script>
 </body>
