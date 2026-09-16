@@ -148,6 +148,12 @@
     login(email, password) {
       return call({ action: "login", email, password });
     },
+    requestPasswordReset(email) {
+      return call({ action: "requestPasswordReset", email });
+    },
+    resetPassword(token, password) {
+      return call({ action: "resetPassword", token, password });
+    },
     logout() {
       const session = getSession();
       return call({ action: "logout", token: session && session.token });
