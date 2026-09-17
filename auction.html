@@ -466,29 +466,34 @@
                 if (showSpinner === false && paintings.length) {
                     return;
                 }
-                if (showSpinner !== false) {
+                if (showSpinner !== false && !paintings.length) {
                     document.getElementById("gridWrap").innerHTML = "";
                 }
                 err.innerHTML = `<div class="error">${esc(e.message)}</div>`;
             }
         }
 
+        function applySnapshot(snap) {
+            if (!snap || !snap.paintings || !snap.paintings.length) return false;
+            paintings = snap.paintings;
+            auction = snap.auction || auction;
+            phase = snap.phase || phase;
+            renderGrid();
+            tickCountdown();
+            const chip = document.getElementById("statusChip");
+            if (chip && auction) {
+                chip.textContent = phaseLabel();
+                chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
+            }
+            return true;
+        }
         renderAuth();
         try {
-            const cached = JSON.parse(sessionStorage.getItem("auctionCache") || "null");
-            if (cached && cached.paintings && cached.paintings.length) {
-                paintings = cached.paintings;
-                auction = cached.auction || auction;
-                phase = cached.phase || phase;
-                renderGrid();
-                tickCountdown();
-                const chip = document.getElementById("statusChip");
-                if (chip && auction) {
-                    chip.textContent = phaseLabel();
-                    chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
-                }
-            }
+            applySnapshot(JSON.parse(sessionStorage.getItem("auctionCache") || "null"));
         } catch (cacheErr) {}
+        fetch("data/auction-preview.json", { cache: "reload" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (snap) {
+            if (!document.querySelector(".grid")) applySnapshot(snap);
+        }).catch(function () {});
         load(true);
         setInterval(tickCountdown, 30000);
         pollTimer = setInterval(() => load(false), 45000);
