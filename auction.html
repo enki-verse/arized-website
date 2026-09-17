@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silent auction · Ari Zed</title>
     <link rel="icon" type="image/png" href="images/small white on black ENKIVERSE logo.png">
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -107,7 +110,19 @@
         .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
         .card img {
             width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #ececec; display: block;
+            opacity: 0; transition: opacity .25s ease;
         }
+        .card img.ready { opacity: 1; }
+        .card .thumb-slot {
+            width: 100%; aspect-ratio: 4/5; background: #ececec;
+            position: relative; overflow: hidden;
+        }
+        .card .thumb-slot .mini-loader {
+            width: 22px; height: 22px; border: 2px solid #ddd; border-top-color: var(--primary-brown);
+            border-radius: 50%; animation: spin .7s linear infinite;
+            position: absolute; top: 50%; left: 50%; margin: -11px 0 0 -11px;
+        }
+        .card .thumb-slot.ready .mini-loader { display: none; }
         .card-body { padding: 16px; }
         .card h2 { font-family: "Playfair Display", serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 6px; }
         .dims { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
@@ -288,27 +303,61 @@
             const m = Math.floor((t % 3600000) / 60000);
             chip.textContent = d > 0 ? `${d}d ${h}h remaining` : `${h}h ${m}m remaining`;
         }
+        function cardPriceHtml(p) {
+            return `<div class="price">${p.currentBid ? money(p.currentBid) : "Starts " + money(p.startingBid)}</div>
+                    <div class="bidder">${p.currentBidderName ? "High: " + esc(p.currentBidderName) : "No bids yet"}</div>`;
+        }
+        function queueThumbs(root) {
+            const imgs = Array.from(root.querySelectorAll("img[data-src]"));
+            let i = 0;
+            const next = () => {
+                if (i >= imgs.length) return;
+                const img = imgs[i++];
+                const slot = img.closest(".thumb-slot");
+                const mark = () => {
+                    img.classList.add("ready");
+                    if (slot) slot.classList.add("ready");
+                    next();
+                };
+                img.onload = mark;
+                img.onerror = mark;
+                if (i === 1) img.setAttribute("fetchpriority", "high");
+                img.src = img.getAttribute("data-src");
+            };
+            next();
+        }
         function renderGrid() {
             const wrap = document.getElementById("gridWrap");
             if (!paintings.length) {
                 wrap.innerHTML = `<p class="empty">No works in the auction yet.</p>`;
                 return;
             }
+            const ids = paintings.map((p) => p.id).join("|");
+            const existing = wrap.querySelector(".grid");
+            if (existing && wrap.dataset.ids === ids) {
+                paintings.forEach((p) => {
+                    const line = wrap.querySelector('.card[data-id="' + CSS.escape(p.id) + '"] .bid-line');
+                    if (line) line.innerHTML = cardPriceHtml(p);
+                });
+                return;
+            }
+            wrap.dataset.ids = ids;
             wrap.innerHTML = `<div class="grid">${paintings.map((p) => `
                 <article class="card" data-id="${esc(p.id)}">
-                    <img src="${esc(thumbUrl(p.imageUrl))}" alt="${esc(p.title)}" loading="lazy">
+                    <div class="thumb-slot">
+                        <div class="mini-loader" aria-hidden="true"></div>
+                        <img alt="${esc(p.title)}" data-src="${esc(thumbUrl(p.imageUrl))}" width="400" height="500">
+                    </div>
                     <div class="card-body">
                         <h2>${esc(p.title)}</h2>
                         <div class="dims">${esc(p.year)} · ${esc(p.widthCm)} × ${esc(p.heightCm)} cm</div>
-                        <div class="bid-line">
-                            <div class="price">${p.currentBid ? money(p.currentBid) : "Starts " + money(p.startingBid)}</div>
-                            <div class="bidder">${p.currentBidderName ? "High: " + esc(p.currentBidderName) : "No bids yet"}</div>
-                        </div>
+                        <div class="bid-line">${cardPriceHtml(p)}</div>
                     </div>
                 </article>`).join("")}</div>`;
             wrap.querySelectorAll(".card").forEach((card) => {
                 card.onclick = () => openPainting(card.dataset.id);
             });
+            queueThumbs(wrap);
         }
         function openPainting(id) {
             const p = paintings.find((x) => x.id === id);
@@ -398,6 +447,13 @@
                 paintings = res.paintings || [];
                 auction = res.auction;
                 phase = res.phase || auction.status;
+                try {
+                    sessionStorage.setItem("auctionCache", JSON.stringify({
+                        paintings: paintings,
+                        auction: auction,
+                        phase: phase
+                    }));
+                } catch (cacheErr) {}
                 const chip = document.getElementById("statusChip");
                 chip.textContent = phaseLabel();
                 chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
@@ -418,6 +474,21 @@
         }
 
         renderAuth();
+        try {
+            const cached = JSON.parse(sessionStorage.getItem("auctionCache") || "null");
+            if (cached && cached.paintings && cached.paintings.length) {
+                paintings = cached.paintings;
+                auction = cached.auction || auction;
+                phase = cached.phase || phase;
+                renderGrid();
+                tickCountdown();
+                const chip = document.getElementById("statusChip");
+                if (chip && auction) {
+                    chip.textContent = phaseLabel();
+                    chip.className = "chip " + (phase === "live" ? "live" : phase === "closed" ? "closed" : "");
+                }
+            }
+        } catch (cacheErr) {}
         load(true);
         setInterval(tickCountdown, 30000);
         pollTimer = setInterval(() => load(false), 45000);
