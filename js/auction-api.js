@@ -88,7 +88,13 @@
           /* fall through to POST */
         }
       }
-      const res = await fetch(url, {
+      const postUrl = isGas ? toQuery(url, {
+        action: payload.action,
+        token: payload.token || "",
+        paintingId: payload.paintingId || "",
+        amount: payload.amount != null ? payload.amount : ""
+      }) : url;
+      const res = await fetch(postUrl, {
         method: "POST",
         redirect: "follow",
         headers: {
