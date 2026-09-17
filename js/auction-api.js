@@ -75,7 +75,7 @@
     }
 
     async function once() {
-      if (isGas && readActions[payload.action]) {
+      if (isGas) {
         try {
           const getRes = await fetch(toQuery(url, payload), {
             method: "GET",
@@ -85,15 +85,12 @@
           const getJson = parseResponse(getText);
           if (getJson) return getJson;
         } catch (err) {
-          /* fall through to POST */
+          if (readActions[payload.action]) {
+            /* fall through to POST */
+          }
         }
       }
-      const postUrl = isGas ? toQuery(url, {
-        action: payload.action,
-        token: payload.token || "",
-        paintingId: payload.paintingId || "",
-        amount: payload.amount != null ? payload.amount : ""
-      }) : url;
+      const postUrl = isGas ? toQuery(url, payload) : url;
       const res = await fetch(postUrl, {
         method: "POST",
         redirect: "follow",
