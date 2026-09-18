@@ -109,7 +109,10 @@
         }
         .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
         .card img {
-            width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #ececec; display: block;
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: contain; object-position: center;
+            background: transparent; display: block;
             opacity: 0; transition: opacity .25s ease;
         }
         .card img.ready { opacity: 1; }
@@ -164,6 +167,11 @@
         .bid-row { display: flex; gap: 8px; }
         .bid-row input {
             flex: 1; padding: 12px; border: 1px solid var(--line); font-size: 16px; border-radius: 6px;
+        }
+        .jump-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
+        .jump {
+            border: 1px solid var(--line); background: #fff; border-radius: 999px;
+            padding: 6px 10px; font-size: 12px; font-family: "Space Grotesk", sans-serif;
         }
         .history { margin-top: 24px; }
         .history h3 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 500; }
@@ -383,10 +391,16 @@
                     <p class="dims" style="margin-top:6px;">${p.currentBidderName ? "High bidder: " + esc(p.currentBidderName) : "No bids yet"}</p>
                     <div class="bid-box">
                         ${canWebBid ? `
-                            <label>Next minimum ${money(min)} · bids rise by at least ${money(raiseAmount())}</label>
+                            <label>Type any amount from ${money(min)} up. Minimum raise ${money(raiseAmount())}.</label>
                             ${session && session.token ? `
+                                <div class="jump-row">
+                                    <button type="button" class="jump" data-amt="${min}">${money(min)}</button>
+                                    <button type="button" class="jump" data-amt="${min + raiseAmount()}">${money(min + raiseAmount())}</button>
+                                    <button type="button" class="jump" data-amt="${min + 50}">${money(min + 50)}</button>
+                                    <button type="button" class="jump" data-amt="${min + 100}">${money(min + 100)}</button>
+                                </div>
                                 <div class="bid-row">
-                                    <input id="bidAmount" type="number" min="${min}" step="1" value="${min}">
+                                    <input id="bidAmount" type="number" min="${min}" step="1" value="${min}" inputmode="numeric">
                                     <button class="btn" id="placeBidBtn">Place bid</button>
                                 </div>
                                 <p id="bidMsg" class="dims" style="margin-top:8px;"></p>
@@ -410,6 +424,16 @@
                     modalImg.onerror = markLoaded;
                 }
             }
+            const amountInput = document.getElementById("bidAmount");
+            if (amountInput) {
+                amountInput.addEventListener("focus", () => amountInput.select());
+            }
+            document.querySelectorAll(".jump").forEach((b) => {
+                b.onclick = (e) => {
+                    e.stopPropagation();
+                    if (amountInput) amountInput.value = b.getAttribute("data-amt");
+                };
+            });
             const btn = document.getElementById("placeBidBtn");
             if (btn) {
                 btn.onclick = async () => {
@@ -461,7 +485,10 @@
                 renderGrid();
                 err.innerHTML = "";
                 const hash = decodeURIComponent((location.hash || "").replace("#", ""));
-                if (hash && paintings.some((p) => p.id === hash)) openPainting(hash);
+                const modal = document.getElementById("modal");
+                if (hash && paintings.some((p) => p.id === hash) && modal && !modal.classList.contains("open")) {
+                    openPainting(hash);
+                }
             } catch (e) {
                 if (showSpinner === false && paintings.length) {
                     return;
