@@ -334,23 +334,30 @@
             };
             next();
         }
+        function listedPaintings() {
+            return (paintings || []).filter((p) => {
+                const st = String(p.status || "available").toLowerCase();
+                return st !== "withdrawn" && st !== "removed" && st !== "hidden";
+            });
+        }
         function renderGrid() {
             const wrap = document.getElementById("gridWrap");
-            if (!paintings.length) {
+            const shown = listedPaintings();
+            if (!shown.length) {
                 wrap.innerHTML = `<p class="empty">No works in the auction yet.</p>`;
                 return;
             }
-            const ids = paintings.map((p) => p.id).join("|");
+            const ids = shown.map((p) => p.id).join("|");
             const existing = wrap.querySelector(".grid");
             if (existing && wrap.dataset.ids === ids) {
-                paintings.forEach((p) => {
+                shown.forEach((p) => {
                     const line = wrap.querySelector('.card[data-id="' + CSS.escape(p.id) + '"] .bid-line');
                     if (line) line.innerHTML = cardPriceHtml(p);
                 });
                 return;
             }
             wrap.dataset.ids = ids;
-            wrap.innerHTML = `<div class="grid">${paintings.map((p) => `
+            wrap.innerHTML = `<div class="grid">${shown.map((p) => `
                 <article class="card" data-id="${esc(p.id)}">
                     <div class="thumb-slot">
                         <div class="mini-loader" aria-hidden="true"></div>
@@ -368,7 +375,7 @@
             queueThumbs(wrap);
         }
         function openPainting(id) {
-            const p = paintings.find((x) => x.id === id);
+            const p = listedPaintings().find((x) => x.id === id);
             if (!p) return;
             history.replaceState(null, "", "#" + encodeURIComponent(id));
             const session = AuctionAPI.getSession();
