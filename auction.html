@@ -210,12 +210,12 @@
 
     <main class="page">
         <header class="hero">
-            <div class="eyebrow">Fremantle Buffalo Club · upstairs</div>
-            <h1>Silent auction</h1>
-            <p class="lede">Works from the Buffalo Club exhibition. Bidding closes 6pm Friday 25 September 2026. Final in-room bids close 7:30pm.</p>
+            <div class="eyebrow">Imagined Worlds · Buffalo Club upstairs</div>
+            <h1>Closed.</h1>
+            <p class="lede">Imagined Worlds. Buffalo Club upstairs. 4 to 25 September 2026.<br>These works have found homes. Collection is being arranged with each person.</p>
             <div class="meta-row">
-                <span class="chip" id="statusChip">Loading</span>
-                <span class="chip" id="countdownChip">—</span>
+                <span class="chip closed" id="statusChip">Closed</span>
+                <span class="chip" id="countdownChip" style="display:none">Closed</span>
                 <div class="auth-bar" id="authBar"></div>
             </div>
         </header>
@@ -247,8 +247,40 @@
 
         let auction = null;
         let paintings = [];
-        let phase = "preview";
+        let phase = "closed";
         let pollTimer = null;
+
+        const WINNERS = {
+            "welcome-to-forever": "Denver",
+            "we-all-eat-each-other-continually-cloud-spaceship-production-beneath-outermost-layer-on-life-world": "Annelies",
+            "brainforrest": "Joe Healy",
+            "rotas-opera": "Ernie",
+            "dreamer-6": "Veronika",
+            "dreamer-7": "Veronika",
+            "dreamer-5": "Kate",
+            "dreamer-4": "Scurvy",
+            "the-fertile-ascent": "Tim Robinson",
+            "golden-dawn": "Quinnie",
+            "wanderer": "Emma Haynes",
+            "uberchu": "Turbo T",
+            "the-sorcerers-apprentice": "Ken and Kate",
+            "cloud-spaceships-on-life-world": "Jamie Argent-Jones",
+            "watcher": "Charity Haynes",
+            "dreamer-3": "Joe Healy",
+            "red-wanderer": "Marion",
+            "dreamer-8": "Cath Dunn"
+        };
+        const UNSOLD = {
+            "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sai": true,
+            "that-other-time-we-were-all-hanging-out-on-that-cloud-and-you-said-we-should-sail-west-and-watch-the-sun-set-on-the-whipped-cream-palace": true,
+            "the-solar-wind-is-the-voice-of-eros-calling-us-towards-the-future": true,
+            "wellspring": true
+        };
+        function winnerLine(p) {
+            const id = String(p.id || "");
+            if (UNSOLD[id] || !WINNERS[id]) return "Not sold";
+            return "Goes to " + WINNERS[id];
+        }
 
         function money(n) {
             if (!n && n !== 0) return "—";
@@ -312,8 +344,7 @@
             chip.textContent = d > 0 ? `${d}d ${h}h remaining` : `${h}h ${m}m remaining`;
         }
         function cardPriceHtml(p) {
-            return `<div class="price">${p.currentBid ? money(p.currentBid) : "Starts " + money(p.startingBid)}</div>
-                    <div class="bidder">${p.currentBidderName ? "High: " + esc(p.currentBidderName) : "No bids yet"}</div>`;
+            return `<div class="bidder">${esc(winnerLine(p))}</div>`;
         }
         function queueThumbs(root) {
             const imgs = Array.from(root.querySelectorAll("img[data-src]"));
@@ -378,12 +409,6 @@
             const p = listedPaintings().find((x) => x.id === id);
             if (!p) return;
             history.replaceState(null, "", "#" + encodeURIComponent(id));
-            const session = AuctionAPI.getSession();
-            const canWebBid = phase === "live";
-            const min = nextMin(p);
-            const historyHtml = (p.history || []).map((b) =>
-                `<li><span>${esc(b.displayName)}${b.source === "physical" ? " (in-room)" : ""}</span><span>${money(b.amount)}</span></li>`
-            ).join("") || "<li><span>No bids yet</span></li>";
             document.getElementById("modalInner").innerHTML = `
                 <div class="modal-img" id="modalImgWrap">
                     <div class="loader" aria-hidden="true"></div>
@@ -393,29 +418,7 @@
                     <div class="eyebrow">${esc(p.medium)}</div>
                     <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;margin:6px 0 8px;">${esc(p.title)}</h2>
                     <p class="dims">${esc(p.year)} · ${esc(p.widthCm)} × ${esc(p.heightCm)} cm</p>
-                    <p style="margin-top:16px;font-size:1.1rem;"><strong>${p.currentBid ? money(p.currentBid) : money(p.startingBid)}</strong>
-                    ${p.currentBid ? " current bid" : " starting bid"}</p>
-                    <p class="dims" style="margin-top:6px;">${p.currentBidderName ? "High bidder: " + esc(p.currentBidderName) : "No bids yet"}</p>
-                    <div class="bid-box">
-                        ${canWebBid ? `
-                            <label>Type any amount from ${money(min)} up. Minimum raise ${money(raiseAmount())}.</label>
-                            ${session && session.token ? `
-                                <div class="jump-row">
-                                    <button type="button" class="jump" data-amt="${min}">${money(min)}</button>
-                                    <button type="button" class="jump" data-amt="${min + raiseAmount()}">${money(min + raiseAmount())}</button>
-                                    <button type="button" class="jump" data-amt="${min + 50}">${money(min + 50)}</button>
-                                    <button type="button" class="jump" data-amt="${min + 100}">${money(min + 100)}</button>
-                                </div>
-                                <div class="bid-row">
-                                    <input id="bidAmount" type="number" min="${min}" step="1" value="${min}" inputmode="numeric">
-                                    <button class="btn" id="placeBidBtn">Place bid</button>
-                                </div>
-                                <p id="bidMsg" class="dims" style="margin-top:8px;"></p>
-                            ` : `<p>Create an account to bid. We only need a name, email and phone.</p>
-                                <a class="btn" href="auction-account.html">Register / log in</a>`}
-                        ` : `<p class="dims">${phase === "preview" ? "Bidding has not opened yet." : phase === "physical-only" ? "Online bidding is closed. In-room bids until 7:30pm." : "This auction is closed."}</p>`}
-                    </div>
-                    <div class="history"><h3>Recent bids</h3><ul>${historyHtml}</ul></div>
+                    <p style="margin-top:16px;font-size:1.1rem;">${esc(winnerLine(p))}</p>
                 </div>`;
             document.getElementById("modal").classList.add("open");
             const modalImg = document.getElementById("modalImg");
