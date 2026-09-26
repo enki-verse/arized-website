@@ -368,7 +368,9 @@
         function listedPaintings() {
             return (paintings || []).filter((p) => {
                 const st = String(p.status || "available").toLowerCase();
-                return st !== "withdrawn" && st !== "removed" && st !== "hidden";
+                if (st === "withdrawn" || st === "removed" || st === "hidden") return false;
+                if (UNSOLD[p.id]) return false;
+                return true;
             });
         }
         function renderGrid() {
